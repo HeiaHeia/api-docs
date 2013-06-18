@@ -1,0 +1,11 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567",
+  "apis":[
+    {
+      "path":"/api-docs/training_logs",
+      "description":"Training logs"
+    }
+  ]
+}
