@@ -4,7 +4,7 @@
   "basePath":"http://localhost:4567/v2",
   "apis":[
     {
-      "path":"/api-docs/training_logs",
+      "path":"/api-docs/training_logs.{format}",
       "description":"Training logs"
     }
   ]

@@ -1,0 +1,370 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/training_logs",
+  "apis":[
+    {
+      "path":"/training_logs",
+      "description":"Operations about training logs",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds training logs",
+          "notes":"Finds training logs",
+          "responseClass":"List[TrainingLog]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"status",
+              "description":"Status values that need to be considered for filter",
+              "paramType":"query",
+              "defaultValue":"all",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "all",
+                  "regular",
+                  "planned"
+                ]
+              },
+              "required":false,
+              "allowMultiple":false,
+              "dataType":"string"
+            },
+            {
+              "name":"year",
+              "description":"Gets list of entries for given year. Be default it's current year.",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"2013"
+            },
+            {
+              "name":"page",
+              "description":"Page",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"1"
+            },
+            {
+              "name":"per_page",
+              "description":"Per page 1 - 100",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"20",
+              "allowableValues": {
+                "valueType": "RANGE",
+                "min": 1,
+                "max": 100
+              }
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            }
+          ]
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new training log",
+          "responseClass":"void",
+          "nickname":"create",
+          "parameters":[
+            {
+              "description":"Training log date",
+              "paramType":"body",
+              "required":true,
+              "allowMultiple":false,
+              "dataType":"Date"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path":"/training_logs/{id}",
+      "description":"Operations about training logs",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find training log entry by ID",
+          "notes":"Returns a training log entry based on ID",
+          "responseClass":"TrainingLog",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of training log that needs to be fetched",
+              "paramType":"path",
+              "required":true,
+              "allowMultiple":false,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"Invalid ID supplied"
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        },
+        {
+          "httpMethod":"PUT",
+          "summary":"Update an existing training log",
+          "responseClass":"void",
+          "nickname":"update",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of training log that needs to be updated",
+              "paramType":"path",
+              "required":true,
+              "allowMultiple":false,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"Invalid ID supplied"
+            },
+            {
+              "code":404,
+              "reason":"Training log not found"
+            },
+            {
+              "code":405,
+              "reason":"Validation exception"
+            }
+          ]
+        }
+      ]
+    }
+
+  ],
+  "models":{
+    "User":{
+      "id":"User",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "first_name":{
+          "type":"string"
+        },
+        "last_name":{
+          "type":"string"
+        },
+        "avatar_url":{
+          "type":"string",
+          "required": true
+        },
+        "url":{
+          "type":"string",
+          "required": true
+        }
+      }
+    },
+    "Place":{
+      "id":"Place",
+      "properties":{
+        "id":{
+          "type":"int",
+          "required": true
+        },
+        "name":{
+          "type":"string",
+          "required": true
+        },
+        "latitude":{
+          "type": "double",
+          "required": true
+        },
+        "longitude":{
+          "type": "double",
+          "required": true
+        },
+        "url":{
+          "type":"string",
+          "required": true
+        }
+      }
+    },
+    "Sport":{
+      "id":"Sport",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "name":{
+          "type":"string",
+          "required": true
+        },
+        "icon_url":{
+          "type": "string",
+          "required": true
+        },
+        "planned_icon_url":{
+          "type": "string",
+          "required": true
+        },
+        "url":{
+          "type":"string",
+          "required": true
+        }
+      }
+    },
+    "SportParam":{
+      "id":"SportParam",
+      "properties":{
+        "id":{
+          "type":"string",
+          "required": true
+        },
+        "name":{
+          "type":"string",
+          "required": true
+        },
+        "unit":{
+          "type":"string",
+          "required": true
+        },
+        "type":{
+          "allowableValues":{
+            "valueType":"LIST",
+            "values":[
+              "int",
+              "float",
+              "string"
+            ]
+          },
+          "type":"string",
+          "required": true
+        },
+        "value":{
+          "type":"int,float,string",
+          "required": true
+        }
+      }
+    },
+    "TrainingLog":{
+      "id":"TrainingLog",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "date":{
+          "type":"Date",
+          "required": true
+        },
+        "status":{
+          "allowableValues":{
+            "valueType":"LIST",
+            "values":[
+              "regular",
+              "planned"
+            ]
+          },
+          "description":"training log status",
+          "type":"string",
+          "required": true
+        },
+        "sport":{
+          "type":"Sport",
+          "required": true
+        },
+        "user":{
+          "type":"User",
+          "required": true
+        },
+        "notes":{
+          "type":"text"
+        },
+        "mood":{
+          "type": "byte",
+          "allowableValues": {
+            "valueType": "LIST",
+            "values":[ 0, 1, 2, 3, 4, 5 ]
+          }
+        },
+        "calories":{
+          "type": "int"
+        },
+        "duration_h": {
+          "type": "int"
+        },
+        "duration_m": {
+          "type": "int"
+        },
+        "duration_s": {
+          "type": "int"
+        },
+        "avg_hr": {
+          "type": "int"
+        },
+        "max_hr": {
+          "type": "int"
+        },
+        "sport_params":{
+          "items":{
+            "$ref":"SportParam"
+          },
+          "type":"Array"
+        },
+        "favourite":{
+          "type":"boolean"
+        },
+        "private":{
+          "type":"boolean"
+        },
+        "cheers_count": {
+          "type": "int"
+        },
+        "comments_count": {
+          "type": "int"
+        },
+        "distance": {
+          "type": "int"
+        },
+        "steps": {
+          "type": "int"
+        },
+        "exclude_stats": {
+          "type":"boolean"
+        },
+        "cheerable":{
+          "type":"boolean"
+        },
+        "commentable":{
+          "type":"boolean"
+        },
+        "place":{
+          "type":"Place"
+        },
+        "updated_at":{
+          "type":"DateTime",
+          "required": true
+        },
+        "created_at":{
+          "type":"DateTime",
+          "required": true
+        }
+      }
+    }
+  }
+}
