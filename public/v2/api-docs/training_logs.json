@@ -69,7 +69,7 @@
           "httpMethod":"POST",
           "summary":"Add a new training log",
           "notes":"sport_id=2&training_log[avg_hr]=110&training_log[calories]=148&training_log[comment]=Great%20ride%21&training_log[date]=2010-04-27&training_log[duration_h]=1&training_log[duration_m]=15&training_log[duration_s]=34&training_log[favourite]=1&training_log[max_hr]=150&training_log[mood]=4&training_log[sport_params][0][name]=distance&training_log[sport_params][0][value]=34.5&training_log[sport_params][1][name]=elevation&training_log[sport_params][1][value]=112&training_log[sport_params][2][name]=avg.%20speed&training_log[sport_params][2][value]=27.2&training_log[sport_params][3][name]=max.%20speed&training_log[sport_params][3][value]=51.3",
-          "responseClass":"void",
+          "responseClass":"TrainingLog",
           "nickname":"create",
           "parameters":[
             {
@@ -237,7 +237,7 @@
           "httpMethod":"PUT",
           "summary":"Update an existing training log",
           "notes":"If you want approve entry, just update entry with status=regular.",
-          "responseClass":"void",
+          "responseClass":"TrainingLog",
           "nickname":"update",
           "parameters":[
             {
