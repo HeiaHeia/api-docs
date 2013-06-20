@@ -29,6 +29,12 @@ class App < Sinatra::Base
     status 200
   end
 
+  delete '/v2/training_logs/:id' do
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
   run! if app_file == $0
 end
 
