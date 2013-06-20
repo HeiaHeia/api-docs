@@ -29,7 +29,6 @@
                 ]
               },
               "required":false,
-              "allowMultiple":false,
               "dataType":"string"
             },
             {
@@ -48,7 +47,7 @@
             },
             {
               "name":"per_page",
-              "description":"Per page 1 - 100",
+              "description":"Per page between 1 and 100",
               "paramType":"query",
               "dataType":"int",
               "defaultValue":"20",
@@ -69,15 +68,103 @@
         {
           "httpMethod":"POST",
           "summary":"Add a new training log",
+          "notes":"sport_id=2&training_log[avg_hr]=110&training_log[calories]=148&training_log[comment]=Great%20ride%21&training_log[date]=2010-04-27&training_log[duration_h]=1&training_log[duration_m]=15&training_log[duration_s]=34&training_log[favourite]=1&training_log[max_hr]=150&training_log[mood]=4&training_log[sport_params][0][name]=distance&training_log[sport_params][0][value]=34.5&training_log[sport_params][1][name]=elevation&training_log[sport_params][1][value]=112&training_log[sport_params][2][name]=avg.%20speed&training_log[sport_params][2][value]=27.2&training_log[sport_params][3][name]=max.%20speed&training_log[sport_params][3][value]=51.3",
           "responseClass":"void",
           "nickname":"create",
           "parameters":[
             {
+              "name":"date",
               "description":"Training log date",
-              "paramType":"body",
+              "paramType":"form",
               "required":true,
-              "allowMultiple":false,
               "dataType":"Date"
+            },
+            {
+              "name":"sport_id",
+              "paramType":"form",
+              "required":true,
+              "dataType":"int"
+            },
+            {
+              "name":"duration_h",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"duration_m",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"duration_s",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"notes",
+              "paramType":"form",
+              "dataType":"text"
+            },
+            {
+              "name":"mood",
+              "paramType":"form",
+              "dataType":"byte",
+              "description":"A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
+            },
+            {
+              "name":"calories",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"avg_hr",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"max_hr",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"favourite",
+              "paramType":"form",
+              "dataType":"boolean"
+            },
+            {
+              "name":"gpx",
+              "paramType":"form",
+              "dataType":"text"
+            },
+            {
+              "name":"sport_params[0][name]",
+              "paramType":"form",
+              "dataType":"string"
+            },
+            {
+              "name":"sport_params[0][value]",
+              "paramType":"form",
+              "dataType":"int,float,string"
+            },
+            {
+              "name":"sport_params[1][name]",
+              "paramType":"form",
+              "dataType":"string"
+            },
+            {
+              "name":"sport_params[1][value]",
+              "paramType":"form",
+              "dataType":"int,float,string"
+            },
+            {
+              "name":"place_id",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"exclude_stats",
+              "paramType":"form",
+              "dataType":"boolean"
             }
           ],
           "errorResponses":[
@@ -105,7 +192,6 @@
               "description":"ID of training log that needs to be fetched",
               "paramType":"path",
               "required":true,
-              "allowMultiple":false,
               "dataType":"long"
             }
           ],
@@ -131,7 +217,6 @@
               "description":"ID of training log that needs to be updated",
               "paramType":"path",
               "required":true,
-              "allowMultiple":false,
               "dataType":"long"
             }
           ],
@@ -297,10 +382,12 @@
         },
         "mood":{
           "type": "byte",
-          "allowableValues": {
-            "valueType": "LIST",
-            "values":[ 0, 1, 2, 3, 4, 5 ]
-          }
+          "required": true,
+          "description":"A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
+        },
+        "mood_icon_url":{
+          "type":"string",
+          "required": true
         },
         "calories":{
           "type": "int"
@@ -363,6 +450,9 @@
         "created_at":{
           "type":"DateTime",
           "required": true
+        },
+        "gpx_url":{
+          "type":"string"
         }
       }
     }
