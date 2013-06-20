@@ -74,7 +74,7 @@
           "parameters":[
             {
               "name":"date",
-              "description":"Training log date",
+              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
               "paramType":"form",
               "required":true,
               "dataType":"Date"
@@ -86,24 +86,42 @@
               "dataType":"int"
             },
             {
+              "name":"status",
+              "required":true,
+              "dataType":"string",
+              "paramType":"form",
+              "allowableValues":{
+                "defaultValue":"regular",
+                "valueType":"LIST",
+                "values":[
+                  "regular",
+                  "planned"
+                ]
+              }
+            },
+            {
               "name":"duration_h",
               "paramType":"form",
-              "dataType":"int"
+              "dataType":"int",
+              "description":"Duration of the exercise - hours."
             },
             {
               "name":"duration_m",
               "paramType":"form",
-              "dataType":"int"
+              "dataType":"int",
+              "description":"Duration of the exercise - minutes."
             },
             {
               "name":"duration_s",
               "paramType":"form",
-              "dataType":"int"
+              "dataType":"int",
+              "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
             },
             {
               "name":"notes",
               "paramType":"form",
-              "dataType":"text"
+              "dataType":"text",
+              "description":"Informal notes for the training log."
             },
             {
               "name":"mood",
@@ -114,17 +132,20 @@
             {
               "name":"calories",
               "paramType":"form",
-              "dataType":"int"
+              "dataType":"int",
+              "description":"Calories spent during the exercise."
             },
             {
               "name":"avg_hr",
               "paramType":"form",
-              "dataType":"int"
+              "dataType":"int",
+              "description":"Average heart rate."
             },
             {
               "name":"max_hr",
               "paramType":"form",
-              "dataType":"int"
+              "dataType":"int",
+              "description":"Maximum heart rate."
             },
             {
               "name":"favourite",
@@ -132,9 +153,15 @@
               "dataType":"boolean"
             },
             {
+              "name":"private",
+              "paramType":"form",
+              "dataType":"boolean"
+            },
+            {
               "name":"gpx",
               "paramType":"form",
-              "dataType":"text"
+              "dataType":"text",
+              "description":"The file data."
             },
             {
               "name":"sport_params[0][name]",
@@ -171,6 +198,10 @@
             {
               "code":400,
               "reason":"The request was invalid."
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
             }
           ]
         }
@@ -197,10 +228,6 @@
           ],
           "errorResponses":[
             {
-              "code":400,
-              "reason":"Invalid ID supplied"
-            },
-            {
               "code":404,
               "reason":"Record not found"
             }
@@ -209,6 +236,7 @@
         {
           "httpMethod":"PUT",
           "summary":"Update an existing training log",
+          "notes":"If you want approve entry, just update entry with status=regular.",
           "responseClass":"void",
           "nickname":"update",
           "parameters":[
@@ -218,20 +246,129 @@
               "paramType":"path",
               "required":true,
               "dataType":"long"
+            },
+            {
+              "name":"status",
+              "dataType":"string",
+              "paramType":"form",
+              "allowableValues":{
+                "defaultValue":"regular",
+                "valueType":"LIST",
+                "values":[
+                  "regular",
+                  "planned"
+                ]
+              }
+            },
+            {
+              "name":"date",
+              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
+              "paramType":"form",
+              "dataType":"Date"
+            },
+            {
+              "name":"duration_h",
+              "paramType":"form",
+              "dataType":"int",
+              "description":"Duration of the exercise - hours."
+            },
+            {
+              "name":"duration_m",
+              "paramType":"form",
+              "dataType":"int",
+              "description":"Duration of the exercise - minutes."
+            },
+            {
+              "name":"duration_s",
+              "paramType":"form",
+              "dataType":"int",
+              "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
+            },
+            {
+              "name":"notes",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"Informal notes for the training log."
+            },
+            {
+              "name":"mood",
+              "paramType":"form",
+              "dataType":"byte",
+              "description":"A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
+            },
+            {
+              "name":"calories",
+              "paramType":"form",
+              "dataType":"int",
+              "description":"Calories spent during the exercise."
+            },
+            {
+              "name":"avg_hr",
+              "paramType":"form",
+              "dataType":"int",
+              "description":"Average heart rate."
+            },
+            {
+              "name":"max_hr",
+              "paramType":"form",
+              "dataType":"int",
+              "description":"Maximum heart rate."
+            },
+            {
+              "name":"favourite",
+              "paramType":"form",
+              "dataType":"boolean"
+            },
+            {
+              "name":"private",
+              "paramType":"form",
+              "dataType":"boolean"
+            },
+            {
+              "name":"gpx",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"The file data."
+            },
+            {
+              "name":"sport_params[0][name]",
+              "paramType":"form",
+              "dataType":"string"
+            },
+            {
+              "name":"sport_params[0][value]",
+              "paramType":"form",
+              "dataType":"int,float,string"
+            },
+            {
+              "name":"sport_params[1][name]",
+              "paramType":"form",
+              "dataType":"string"
+            },
+            {
+              "name":"sport_params[1][value]",
+              "paramType":"form",
+              "dataType":"int,float,string"
+            },
+            {
+              "name":"place_id",
+              "paramType":"form",
+              "dataType":"int"
+            },
+            {
+              "name":"exclude_stats",
+              "paramType":"form",
+              "dataType":"boolean"
             }
           ],
           "errorResponses":[
             {
               "code":400,
-              "reason":"Invalid ID supplied"
+              "reason":"The request was invalid."
             },
             {
               "code":404,
-              "reason":"Training log not found"
-            },
-            {
-              "code":405,
-              "reason":"Validation exception"
+              "reason":"Record not found"
             }
           ]
         }

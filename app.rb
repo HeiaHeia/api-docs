@@ -18,8 +18,14 @@ class App < Sinatra::Base
   end
 
   post '/v2/training_logs' do
-    #body 'OK'
-    body params.inspect
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
+  put '/v2/training_logs/:id' do
+    puts params.inspect
+    body 'OK'
     status 200
   end
 
