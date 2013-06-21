@@ -1,0 +1,152 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/sports",
+  "apis":[
+    {
+      "path":"/sports",
+      "description":"Operations about sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds sports",
+          "responseClass":"List[Sport]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"page",
+              "description":"Page",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"1"
+            },
+            {
+              "name":"per_page",
+              "description":"Per page between 1 and 100",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"20",
+              "allowableValues": {
+                "valueType": "RANGE",
+                "min": 1,
+                "max": 100
+              }
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path":"/sports/{id}",
+      "description":"Operations about sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find sport by ID",
+          "responseClass":"Sport",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the sport.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models":{
+    "Sport":{
+      "id":"Sport",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "name":{
+          "type":"string",
+          "required": true
+        },
+        "icon_url":{
+          "type": "string",
+          "required": true
+        },
+        "planned_icon_url":{
+          "type": "string",
+          "required": true
+        },
+        "url":{
+          "type":"string",
+          "required": true
+        },
+        "sport_params":{
+          "items":{
+            "$ref":"SportParam"
+          },
+          "type":"Array"
+        },
+        "exclude_stats": {
+          "required": true,
+          "type":"boolean"
+        },
+        "updated_at":{
+          "type":"DateTime",
+          "required": true
+        },
+        "created_at":{
+          "type":"DateTime",
+          "required": true
+        }
+      }
+    },
+    "SportParam":{
+      "id":"SportParam",
+      "properties":{
+        "id":{
+          "type":"string",
+          "required": true
+        },
+        "name":{
+          "type":"string",
+          "required": true
+        },
+        "unit":{
+          "type":"string",
+          "required": true
+        },
+        "type":{
+          "allowableValues":{
+            "valueType":"LIST",
+            "values":[
+              "int",
+              "float",
+              "string"
+            ]
+          },
+          "type":"string",
+          "required": true
+        },
+        "value":{
+          "type":"int,float,string",
+          "required": true
+        }
+      }
+    }
+  }
+}

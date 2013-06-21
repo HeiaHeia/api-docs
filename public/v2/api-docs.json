@@ -6,6 +6,10 @@
     {
       "path":"/api-docs/training_logs.{format}",
       "description":"Training logs"
+    },
+    {
+      "path":"/api-docs/sports.{format}",
+      "description":"Sports"
     }
   ]
 }

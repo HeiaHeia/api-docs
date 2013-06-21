@@ -35,6 +35,18 @@ class App < Sinatra::Base
     status 200
   end
 
+  get '/v2/sports' do
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
+  get '/v2/sports/:id' do
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
   run! if app_file == $0
 end
 
