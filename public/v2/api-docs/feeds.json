@@ -13,7 +13,33 @@
           "summary":"Finds feeds",
           "responseClass":"List[Feed]",
           "nickname":"index",
-          "parameters":[],
+          "parameters":[
+            {
+              "name":"since",
+              "description":"The integer ID of the last feed entry that you’ve seen.",
+              "paramType":"query",
+              "dataType":"int"
+            },
+            {
+              "name":"page",
+              "description":"Page",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"1"
+            },
+            {
+              "name":"per_page",
+              "description":"Per page between 1 and 100",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"20",
+              "allowableValues": {
+                "valueType": "RANGE",
+                "min": 1,
+                "max": 100
+              }
+            }
+          ],
           "errorResponses":[
             {
               "code":400,
@@ -88,6 +114,9 @@
         "url":{
           "type":"string",
           "required": true
+        },
+        "private":{
+          "type":"boolean"
         },
         "kind":{
           "type":"string"
