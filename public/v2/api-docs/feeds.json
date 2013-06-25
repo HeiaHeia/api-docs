@@ -16,7 +16,7 @@
           "parameters":[
             {
               "name":"since",
-              "description":"The integer ID of the last feed entry that you’ve seen.",
+              "description":"The integer ID of the last feed entry that you’ve seen. Returns results with an ID greater than the specified ID.",
               "paramType":"query",
               "dataType":"int"
             },
