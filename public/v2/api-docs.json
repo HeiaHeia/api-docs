@@ -10,6 +10,10 @@
     {
       "path":"/api-docs/sports.{format}",
       "description":"Sports"
+    },
+    {
+      "path":"/api-docs/feeds.{format}",
+      "description":"Feeds"
     }
   ]
 }
