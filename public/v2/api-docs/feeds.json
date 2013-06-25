@@ -89,6 +89,27 @@
           "type":"string",
           "required": true
         },
+        "kind":{
+          "type":"string"
+        },
+        "cheers_count":{
+          "type":"int"
+        },
+        "cheers_url":{
+          "type":"string"
+        },
+        "cheerable":{
+          "type":"boolean"
+        },
+        "comments_count":{
+          "type":"int"
+        },
+        "comments_url":{
+          "type":"string"
+        },
+        "commentable":{
+          "type":"boolean"
+        },
         "properties":{
           "items":{
             "$ref":"FeedProperty"

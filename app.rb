@@ -23,6 +23,12 @@ class App < Sinatra::Base
     status 200
   end
 
+  get '/v2/training_logs/:id' do
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
   put '/v2/training_logs/:id' do
     puts params.inspect
     body 'OK'
