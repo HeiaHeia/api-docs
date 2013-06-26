@@ -44,7 +44,7 @@ class FeedStub
         :cheers_url => '',
         :cheerable => false,
         :comments_count => 0,
-        :comments_url => 'https://api.heiaheia.com/v2/training_logs/314/comments',
+        :comments_url => '',
         :commentable => true,
         :updated_at => '2013-06-25T17:04:05+33:00',
         :created_at => '2013-06-25T17:04:05+33:00',
