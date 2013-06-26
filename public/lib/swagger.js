@@ -356,7 +356,8 @@
       var prop, result, _i, _len, _ref;
       result = {};
       modelsToIgnore = modelsToIgnore || [];
-      modelsToIgnore.push(this.name);
+      // FIXME: Don't ignore $ref models
+      // modelsToIgnore.push(this.name);
       _ref = this.properties;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         prop = _ref[_i];

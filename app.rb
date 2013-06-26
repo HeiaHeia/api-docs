@@ -84,3 +84,4 @@ class App < Sinatra::Base
 end
 
 # FIXME: Fix usage of models with $ref
+# FIXME: swagger.js:369
