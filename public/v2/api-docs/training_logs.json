@@ -159,9 +159,9 @@
             },
             {
               "name":"gpx",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"The file data."
+              "paramType":"body",
+              "dataType":"file",
+              "description":"The file, support only GPX format."
             },
             {
               "name":"sport_params[0][name]",
@@ -326,9 +326,9 @@
             },
             {
               "name":"gpx",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"The file data."
+              "paramType":"body",
+              "dataType":"file",
+              "description":"The file, support only GPX format."
             },
             {
               "name":"sport_params[0][name]",
