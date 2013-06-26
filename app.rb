@@ -59,8 +59,20 @@ class App < Sinatra::Base
   end
 
   get '/v2/feeds' do
-    headers['Link'] = '&lt;https://api.heiaheia.com/v2/feeds?since=1&per_page=30&direction=desc&gt;; rel="next", &lt;https://api.heiaheia.com/v2/feeds?since=2&per_page=30&direction=ASC&gt; rel="new"'
-    puts params.inspect
+    api_url   = 'https://api.heiaheia.com/v2/feeds'
+    prev_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"prev\""
+    next_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"next\""
+    new_link  = "&lt;#{api_url}?since=2&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"new\""
+
+    links = [prev_link]
+    if params[:since]
+      links << next_link
+    else
+      links << new_link
+    end
+
+    headers['Link'] = links.join(', ')
+
     body 'OK'
     status 200
   end
