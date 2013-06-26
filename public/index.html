@@ -20,7 +20,8 @@
 	$(function () {
 	    window.swaggerUi = new SwaggerUi({
                 discoveryUrl:"http://localhost:4567/v2/api-docs.json",
-                apiKey:"special-key",
+//                apiKey:"special-key",
+                apiKey: new Date().getTime(),
                 dom_id:"swagger-ui-container",
                 supportHeaderParams: false,
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
