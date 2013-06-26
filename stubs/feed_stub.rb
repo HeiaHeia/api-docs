@@ -1,90 +1,111 @@
+require 'base_stub'
+require 'user_stub'
+
 class FeedStub
-  FEEDS =     [
-    {
-      :id  => 12345,
-      :kind => 'FeedEntry',
-      :url => 'https://api.heiaheia.com/v2/feeds/12345',
-      :icon_url => 'http://heiaheia.com/images/icons/training_log.png',
-      :title => 'Great ride!',
-      :description => 'It was awesome day.',
-      :private => true,
-      :cheers_count => 3,
-      :cheers_url => 'https://api.heiaheia.com/v2/training_logs/314/cheers',
-      :cheerable => false,
-      :comments_count => 0,
-      :comments_url => 'https://api.heiaheia.com/v2/training_logs/314/comments',
-      :commentable => true,
-      :updated_at => '2013-06-26T17:01:18+03:00',
-      :created_at => '2013-06-26T17:01:18+03:00',
-      :dict => {},
-      :properties => [
-        {
-          :kind => 'User',
-          :name => 'Alexander Stubb',
-          :url  => 'https://api.heiaheia.com/v2/users/1'
-        },
-        {
-          :kind => 'TrainingLog',
-          :name => 'Walking 2 km, 24.06.2013',
-          :url  => 'https://api.heiaheia.com/v2/training_logs/314'
-        }
-      ]
-    },
-    {
-      :id  => 1234,
-      :kind => 'AggregatedFeedEntry',
-      :url => 'https://api.heiaheia.com/v2/feeds/1234',
-      :icon_url => nil,
-      :title => nil,
-      :description => "{{User:1}} commented on {{User:2}}'s entry ({{TrainingLog:310}}) and {{User:3}}'s training goal ({{TrainingGoal:1}})",
-      :private => false,
-      :cheers_count => 0,
-      :cheers_url => nil,
-      :cheerable => false,
-      :comments_count => 0,
-      :comments_url => nil,
-      :commentable => false,
-      :updated_at => '2013-06-25T17:04:05+33:00',
-      :created_at => '2013-06-25T17:04:05+33:00',
-      :dict => {
-        "User:1" => {
-          :kind => 'User',
-          :name => 'Alexander Stubb',
-          :url  => 'https://api.heiaheia.com/v2/users/1'
-        },
-        "User:2" => {
-          :kind => 'User',
-          :name => 'Homer Simpson',
-          :url  => 'https://api.heiaheia.com/v2/users/2'
-        },
-        "TrainingLog:310" => {
-          :kind => 'TrainingLog',
-          :name => 'Running 4.5 km in 30 min, 24.06.2013',
-          :url  => 'https://api.heiaheia.com/v2/training_logs/310'
-        },
-        "User:3" => {
-          :kind => 'User',
-          :name => 'Bender Bending Rodríguez',
-          :url  => 'https://api.heiaheia.com/v2/users/3'
-        },
-        "TrainingGoal:1" => {
-          :kind => 'TrainingGoal',
-          :name => 'I’m gonna go build my own theme park, with blackjack and hookers!',
-          :url  => 'https://api.heiaheia.com/v2/training_goals/1'
-        }
+  include BaseStub
+
+  AGGREGATED_FEED_ENTRY = 'AggregatedFeedEntry'
+  FEED_ENTRY = 'FeedEntry'
+
+  def self.entries
+    [
+      {
+        :id  => 12345,
+        :kind => FEED_ENTRY,
+        :icon_url => 'http://heiaheia.com/images/icons/training_log.png',
+        :title => 'Great ride!',
+        :description => 'It was awesome day.',
+        :private => true,
+        :cheers_count => 3,
+        :cheerable => false,
+        :comments_count => 0,
+        :commentable => true,
+        :updated_at => Time.new(2013, 06, 26, 17, 1, 18),
+        :created_at => Time.new(2013, 06, 26, 17, 1, 18),
+        :dict => {},
+        :properties => [
+          UserStub.find(1).to_entity,
+          {
+            :kind => 'TrainingLog',
+            :name => 'Walking 2 km, 24.06.2013',
+            :url  => 'https://api.heiaheia.com/v2/training_logs/314'
+          },
+          {
+            :kind => 'PlainText',
+            :name => 'Private',
+            :url => ''
+          }
+        ]
       },
-      :properties => []
+      {
+        :id  => 1234,
+        :kind => AGGREGATED_FEED_ENTRY,
+        :icon_url => nil,
+        :title => nil,
+        :description => "{{User:1}} commented on {{User:2}}'s entry ({{TrainingLog:310}}) and {{User:3}}'s training goal ({{TrainingGoal:1}})",
+        :private => false,
+        :cheers_count => 0,
+        :cheerable => false,
+        :comments_count => 0,
+        :commentable => false,
+        :updated_at => Time.new(2013, 06, 25, 17, 4, 5),
+        :created_at => Time.new(2013, 06, 25, 17, 4, 5),
+        :dict => {
+          "User:1" => UserStub.find(1).to_entity,
+          "User:2" => UserStub.find(2).to_entity,
+          "TrainingLog:310" => {
+            :kind => 'TrainingLog',
+            :name => 'Running 4.5 km in 30 min, 24.06.2013',
+            :url  => 'https://api.heiaheia.com/v2/training_logs/310'
+          },
+          "User:3" => UserStub.find(3).to_entity,
+          "TrainingGoal:1" => {
+            :kind => 'TrainingGoal',
+            :name => 'I’m gonna go build my own theme park, with blackjack and hookers!',
+            :url  => 'https://api.heiaheia.com/v2/training_goals/1'
+          }
+        },
+        :properties => []
+      }
+    ]
+  end
+
+  def to_hash
+    {
+      :id  => id,
+      :kind => @attributes[:kind],
+      :url => url,
+      :icon_url => @attributes[:icon_url],
+      :title => @attributes[:title],
+      :description => @attributes[:description],
+      :private => @attributes[:private],
+      :cheers_count => @attributes[:cheers_count],
+      :cheers_url => cheers_url,
+      :cheerable => @attributes[:cheerable],
+      :comments_count => @attributes[:comments_count],
+      :comments_url => comments_url,
+      :commentable => @attributes[:commentable],
+      :updated_at => updated_at,
+      :created_at => created_at,
+      :dict => @attributes[:dict],
+      :properties => @attributes[:properties]
     }
-  ]
+  end
 
-  class << self
-    def feeds
-      FEEDS
-    end
+  def url
+    "https://api.heiaheia.com/v2/feeds/#{id}"
+  end
 
-    def feed(entry_id)
-      FEEDS.detect { |f| f[:id] == entry_id.to_i }
-    end
+  def aggregated?
+    @attributes[:kind] == AGGREGATED_FEED_ENTRY
+  end
+
+  def comments_url
+    aggregated? ? nil : "#{url}/comments"
+  end
+
+  def cheers_url
+    aggregated? ? nil : "#{url}/cheers"
   end
 
 end

@@ -1,10 +1,12 @@
 ENV['RACK_ENV'] ||= 'development'
 
+$LOAD_PATH << File.expand_path('../stubs', __FILE__)
+
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
-require_relative 'stubs/feed_stub'
+require 'feed_stub'
 
 class App < Sinatra::Base
 
@@ -12,6 +14,10 @@ class App < Sinatra::Base
 
   configure :production do
     disable :dump_errors
+  end
+
+  not_found do
+    'Record not found'
   end
 
   get '/' do
@@ -56,9 +62,9 @@ class App < Sinatra::Base
 
   get '/v2/feeds/:id' do
     puts params.inspect
-
-    body FeedStub.feed(params[:id]).to_json
-
+    feed = FeedStub.find(params[:id])
+    not_found if feed.nil?
+    body feed.to_json
     status 200
   end
 
@@ -66,7 +72,7 @@ class App < Sinatra::Base
     api_url   = 'https://api.heiaheia.com/v2/feeds'
     prev_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"prev\""
     next_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"next\""
-    new_link  = "&lt;#{api_url}?since=2&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"new\""
+    new_link  = "&lt;#{api_url}?since=2&per_page=#{params[:per_page]}&direction=asc&gt;; rel=\"new\""
 
     links = [next_link]
     if params[:since]
@@ -77,8 +83,7 @@ class App < Sinatra::Base
 
     headers['Link'] = links.join(', ')
 
-    body FeedStub.feeds.to_json
-
+    body FeedStub.all.map { |entry| entry.to_hash }.to_json
     status 200
   end
 
