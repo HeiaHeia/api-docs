@@ -52,6 +52,19 @@ class App < Sinatra::Base
     status 200
   end
 
+  get '/v2/feeds/:id' do
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
+  get '/v2/feeds' do
+    headers['Link'] = '&lt;https://api.heiaheia.com/v2/feeds?since=1&per_page=30&direction=desc&gt;; rel="next", &lt;https://api.heiaheia.com/v2/feeds?since=2&per_page=30&direction=ASC&gt; rel="new"'
+    puts params.inspect
+    body 'OK'
+    status 200
+  end
+
   run! if app_file == $0
 end
 
