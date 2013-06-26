@@ -16,22 +16,29 @@
           "parameters":[
             {
               "name":"since",
-              "description":"The integer ID of the last feed entry that you’ve seen. Returns results with an ID greater than the specified ID.",
+              "description":"The ID of the feed entry that you’ve seen.",
               "paramType":"query",
-              "dataType":"int"
+              "dataType":"long"
             },
             {
-              "name":"page",
-              "description":"Page",
+              "name":"direction",
+              "description":"Direction",
               "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"1"
+              "dataType":"string",
+              "defaultValue":"desc",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "desc",
+                  "asc"
+                ]
+              }
             },
             {
               "name":"per_page",
               "description":"Per page between 1 and 100",
               "paramType":"query",
-              "dataType":"int",
+              "dataType":"byte",
               "defaultValue":"20",
               "allowableValues": {
                 "valueType": "RANGE",
@@ -78,25 +85,28 @@
     }
   ],
   "models":{
-    "RelatedEntities":{
-      "id":"RelatedEntities",
+    "Entity":{
+      "id":"Entity",
       "properties":{
-        "type:id": {
-          "type":"RelatedEntity",
-          "required": true
-        }
-      }
-    },
-    "RelatedEntity":{
-      "id":"RelatedEntity",
-      "properties":{
-        "url": {
-          "type": "string",
+        "kind":{
+          "type":"string",
           "required": true
         },
         "name": {
           "type": "string",
           "required": true
+        },
+        "url": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "EntityHash":{
+      "id":"EntityHash",
+      "properties":{
+        "kind:id": {
+          "type":"Entity"
         }
       }
     },
@@ -107,19 +117,26 @@
           "type":"long",
           "required": true
         },
-        "icon_url":{
-          "type": "string"
+        "kind":{
+          "type":"string",
+          "required": true
         },
         "url":{
           "type":"string",
           "required": true
         },
+        "icon_url":{
+          "type": "string"
+        },
+        "title":{
+          "type": "string"
+        },
+        "description":{
+          "type": "text",
+          "required": true
+        },
         "private":{
           "type":"boolean"
-        },
-        "kind":{
-          "type":"string",
-          "required": true
         },
         "cheers_count":{
           "type":"int"
@@ -141,12 +158,6 @@
           "type":"boolean",
           "required": true
         },
-        "properties":{
-          "items":{
-            "$ref":"FeedProperty"
-          },
-          "type":"List"
-        },
         "updated_at":{
           "type":"DateTime",
           "required": true
@@ -155,25 +166,14 @@
           "type":"DateTime",
           "required": true
         },
-        "related_objects": {
-          "type": "RelatedEntities"
-        }
-      }
-    },
-    "FeedProperty":{
-      "id":"FeedProperty",
-      "properties":{
-        "name":{
-          "type":"string",
-          "required": true
+        "dict": {
+          "type": "EntityHash"
         },
-        "url":{
-          "type":"string",
-          "required": true
-        },
-        "type":{
-          "type":"string",
-          "required": true
+        "properties":{
+          "items":{
+            "$ref":"Entity"
+          },
+          "type":"List"
         }
       }
     }

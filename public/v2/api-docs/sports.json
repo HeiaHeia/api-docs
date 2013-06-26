@@ -25,7 +25,7 @@
               "name":"per_page",
               "description":"Per page between 1 and 100",
               "paramType":"query",
-              "dataType":"int",
+              "dataType":"byte",
               "defaultValue":"20",
               "allowableValues": {
                 "valueType": "RANGE",
