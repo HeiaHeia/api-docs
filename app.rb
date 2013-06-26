@@ -4,6 +4,8 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
+require_relative 'stubs/feed_stub'
+
 class App < Sinatra::Base
 
   set :server, :puma
@@ -64,16 +66,17 @@ class App < Sinatra::Base
     next_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"next\""
     new_link  = "&lt;#{api_url}?since=2&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"new\""
 
-    links = [prev_link]
+    links = [next_link]
     if params[:since]
-      links << next_link
+      links << prev_link
     else
       links << new_link
     end
 
     headers['Link'] = links.join(', ')
 
-    body 'OK'
+    body FeedStub.feeds(params).to_json
+
     status 200
   end
 
