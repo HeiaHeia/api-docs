@@ -80,3 +80,4 @@ class App < Sinatra::Base
   run! if app_file == $0
 end
 
+# FIXME: Fix usage of models with $ref
