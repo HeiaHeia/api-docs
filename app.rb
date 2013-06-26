@@ -75,7 +75,7 @@ class App < Sinatra::Base
 
     headers['Link'] = links.join(', ')
 
-    body FeedStub.feeds(params).to_json
+    body FeedStub.feeds.to_json
 
     status 200
   end

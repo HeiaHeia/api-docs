@@ -1,6 +1,6 @@
 class FeedStub
 
-  def self.feeds(options = {})
+  def self.feeds
     [
       {
         :id  => 12345,
@@ -31,6 +31,25 @@ class FeedStub
              :url  => ''
            }
         ]
+      },
+      {
+        :id  => 1234,
+        :kind => 'aggregate',
+        :url => 'https://api.heiaheia.com/v2/feeds/1234',
+        :icon_url => '',
+        :title => '',
+        :description => '',
+        :private => false,
+        :cheers_count => 0,
+        :cheers_url => '',
+        :cheerable => false,
+        :comments_count => 0,
+        :comments_url => 'https://api.heiaheia.com/v2/training_logs/314/comments',
+        :commentable => true,
+        :updated_at => '2013-06-25T17:04:05+33:00',
+        :created_at => '2013-06-25T17:04:05+33:00',
+        :dict => {},
+        :properties => []
       }
     ]
   end
