@@ -57,7 +57,7 @@ class FeedStub
     end
 
     def feed(entry_id)
-      feeds.detect  {|f| f[:id] == entry_id.to_i }
+      FEEDS.detect  {|f| f[:id] == entry_id.to_i }
     end
 
   end
