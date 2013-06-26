@@ -56,7 +56,9 @@ class App < Sinatra::Base
 
   get '/v2/feeds/:id' do
     puts params.inspect
-    body 'OK'
+
+    body FeedStub.feed(params[:id]).to_json
+
     status 200
   end
 
