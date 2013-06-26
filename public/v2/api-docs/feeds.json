@@ -119,7 +119,14 @@
         },
         "kind":{
           "type":"string",
-          "required": true
+          "required": true,
+          "allowableValues":{
+            "valueType":"LIST",
+            "values":[
+              "AggregatedFeedEntry",
+              "FeedEntry"
+            ]
+          }
         },
         "url":{
           "type":"string",
