@@ -108,8 +108,7 @@
           "required": true
         },
         "icon_url":{
-          "type": "string",
-          "required": true
+          "type": "string"
         },
         "url":{
           "type":"string",
@@ -119,7 +118,8 @@
           "type":"boolean"
         },
         "kind":{
-          "type":"string"
+          "type":"string",
+          "required": true
         },
         "cheers_count":{
           "type":"int"
@@ -128,7 +128,8 @@
           "type":"string"
         },
         "cheerable":{
-          "type":"boolean"
+          "type":"boolean",
+          "required": true
         },
         "comments_count":{
           "type":"int"
@@ -137,7 +138,8 @@
           "type":"string"
         },
         "commentable":{
-          "type":"boolean"
+          "type":"boolean",
+          "required": true
         },
         "properties":{
           "items":{

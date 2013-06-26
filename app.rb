@@ -1,9 +1,8 @@
-require 'bundler/setup'
-
 ENV['RACK_ENV'] ||= 'development'
 
-Bundler.require(:default)
-Bundler.require(ENV['RACK_ENV'].to_sym)
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 class App < Sinatra::Base
 
