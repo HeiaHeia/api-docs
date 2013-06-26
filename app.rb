@@ -1,5 +1,6 @@
 ENV['RACK_ENV'] ||= 'development'
 
+$LOAD_PATH << File.expand_path('../lib', __FILE__)
 $LOAD_PATH << File.expand_path('../stubs', __FILE__)
 
 require 'rubygems'
@@ -7,6 +8,7 @@ require 'bundler/setup'
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 require 'feed_stub'
+require 'ext/hash'
 
 class App < Sinatra::Base
 

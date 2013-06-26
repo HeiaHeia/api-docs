@@ -73,23 +73,14 @@ class FeedStub
   def to_hash
     {
       :id  => id,
-      :kind => @attributes[:kind],
       :url => url,
-      :icon_url => @attributes[:icon_url],
-      :title => @attributes[:title],
-      :description => @attributes[:description],
-      :private => @attributes[:private],
-      :cheers_count => @attributes[:cheers_count],
       :cheers_url => cheers_url,
-      :cheerable => @attributes[:cheerable],
-      :comments_count => @attributes[:comments_count],
       :comments_url => comments_url,
-      :commentable => @attributes[:commentable],
       :updated_at => updated_at,
-      :created_at => created_at,
-      :dict => @attributes[:dict],
-      :properties => @attributes[:properties]
-    }
+      :created_at => created_at
+    }.merge(@attributes.slice(:kind, :icon_url, :title, :description, :private,
+                              :cheers_count, :cheerable, :comments_count,
+                              :commentable, :dict, :properties))
   end
 
   def url
