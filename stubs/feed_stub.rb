@@ -4,7 +4,7 @@ class FeedStub
     [
       {
         :id  => 12345,
-        :kind => 'single',
+        :kind => 'FeedEntry',
         :url => 'https://api.heiaheia.com/v2/feeds/12345',
         :icon_url => 'http://heiaheia.com/images/icons/training_log.png',
         :title => 'Great ride!',
@@ -34,7 +34,7 @@ class FeedStub
       },
       {
         :id  => 1234,
-        :kind => 'aggregate',
+        :kind => 'AggregatedFeedEntry',
         :url => 'https://api.heiaheia.com/v2/feeds/1234',
         :icon_url => '',
         :title => '',
