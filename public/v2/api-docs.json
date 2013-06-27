@@ -18,6 +18,10 @@
     {
       "path":"/api-docs/sick_days.{format}",
       "description":"Sick day"
+    },
+    {
+      "path":"/api-docs/free_entries.{format}",
+      "description":"Free entry"
     }
   ]
 }
