@@ -1,0 +1,272 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/sick_days",
+  "apis":[
+    {
+      "path":"/sick_days",
+      "description":"Operations about sick days",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds sick days",
+          "responseClass":"List[SickDay]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"year",
+              "description":"Gets list of entries for given year. Be default it's current year.",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"2013"
+            },
+            {
+              "name":"page",
+              "description":"Page",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"1"
+            },
+            {
+              "name":"per_page",
+              "description":"Per page between 1 and 100",
+              "paramType":"query",
+              "dataType":"byte",
+              "defaultValue":"20",
+              "allowableValues": {
+                "valueType": "RANGE",
+                "min": 1,
+                "max": 100
+              }
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            }
+          ]
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new sick day",
+          "responseClass":"SickDay",
+          "nickname":"create",
+          "parameters":[
+            {
+              "name":"date",
+              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
+              "paramType":"form",
+              "required":true,
+              "dataType":"Date"
+            },
+            {
+              "name":"notes",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"Informal notes for the sick day."
+            },
+            {
+              "name":"private",
+              "description":"By default 'true'",
+              "paramType":"form",
+              "dataType":"boolean"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path":"/sick_days/{id}",
+      "description":"Operations about sick days",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find sick day by ID",
+          "responseClass":"SickDay",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the sick day.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        },
+        {
+          "httpMethod":"PUT",
+          "summary":"Update an existing sick day",
+          "responseClass":"SickDay",
+          "nickname":"update",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of sick day that needs to be updated",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"date",
+              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
+              "paramType":"form",
+              "dataType":"Date"
+            },
+            {
+              "name":"notes",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"Informal notes for the sick day."
+            },
+            {
+              "name":"private",
+              "paramType":"form",
+              "dataType":"boolean"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        },
+        {
+          "httpMethod":"DELETE",
+          "summary":"Delete sick day entry",
+          "responseClass":"void",
+          "nickname":"destroy",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of sick day that needs to be deleted",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models":{
+    "User":{
+      "id":"User",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "first_name":{
+          "type":"string"
+        },
+        "last_name":{
+          "type":"string"
+        },
+        "avatar_url":{
+          "type":"string",
+          "required": true
+        },
+        "url":{
+          "type":"string",
+          "required": true
+        }
+      }
+    },
+    "SickDay":{
+      "id":"SickDay",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "date":{
+          "type":"Date",
+          "required": true
+        },
+        "user":{
+          "type":"User",
+          "required": true
+        },
+        "url":{
+          "type":"string",
+          "required": true
+        },
+        "icon_url":{
+          "type":"string",
+          "required": true
+        },
+        "title":{
+          "type": "string"
+        },
+        "description":{
+          "type": "text"
+        },
+        "private":{
+          "type":"boolean"
+        },
+        "cheers_count":{
+          "type":"int"
+        },
+        "cheers_url":{
+          "type":"string"
+        },
+        "cheerable":{
+          "type":"boolean",
+          "required": true
+        },
+        "comments_count":{
+          "type":"int"
+        },
+        "comments_url":{
+          "type":"string"
+        },
+        "commentable":{
+          "type":"boolean",
+          "required": true
+        },
+        "updated_at":{
+          "type":"DateTime",
+          "required": true
+        },
+        "created_at":{
+          "type":"DateTime",
+          "required": true
+        }
+      }
+    }
+  }
+}
