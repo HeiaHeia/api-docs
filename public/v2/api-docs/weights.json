@@ -193,6 +193,120 @@
           ]
         }
       ]
+    },
+    {
+      "path":"/weights/{weight_id}/comments",
+      "description":"Operations about weight comments",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Get list of comments",
+          "responseClass":"List[Comment]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"weight_id",
+              "description":"Weight ID",
+              "paramType":"path",
+              "dataType":"int",
+              "required":true
+            },
+            {
+              "name":"page",
+              "description":"Page",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"1"
+            },
+            {
+              "name":"per_page",
+              "paramType":"query",
+              "dataType":"byte",
+              "defaultValue":"20",
+              "allowableValues": {
+                "valueType": "RANGE",
+                "min": 1,
+                "max": 100
+              }
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid"
+            }
+          ]
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new comment",
+          "responseClass":"Comment",
+          "nickname":"create",
+          "parameters":[
+            {
+              "name":"weight_id",
+              "description":"Weight ID",
+              "paramType":"path",
+              "dataType":"int",
+              "required":true
+            },
+            {
+              "name":"notes",
+              "paramType":"query",
+              "dataType":"text",
+              "required":true
+            }
+          ],
+          "errorResponses":[
+          {
+            "code":400,
+            "reason":"The request was invalid."
+          },
+          {
+            "code":404,
+            "reason":"Record not found"
+          }
+        ]
+        }
+      ]
+    },
+    {
+      "path":"/weights/{weight_id}/comments/{id}",
+      "description":"Operations about weight comment",
+      "operations":[
+        {
+          "httpMethod":"DELETE",
+          "summary":"Delete comment entry",
+          "responseClass":"void",
+          "nickname":"destroy",
+          "parameters":[
+            {
+              "name":"weight_id",
+              "description":"Weight ID",
+              "paramType":"path",
+              "dataType":"int",
+              "required":true
+            },
+            {
+              "name":"id",
+              "description":"ID of comment that needs to be deleted",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        }
+      ]
     }
   ],
   "models":{
@@ -215,6 +329,23 @@
         },
         "url":{
           "type":"string",
+          "required": true
+        }
+      }
+    },
+    "Comment":{
+      "id":"Comment",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "user":{
+          "type":"User",
+          "required": true
+        },
+        "note":{
+          "type":"text",
           "required": true
         }
       }
