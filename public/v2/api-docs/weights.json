@@ -2,16 +2,16 @@
   "apiVersion":"2",
   "swaggerVersion":"1.2",
   "basePath":"http://localhost:4567/v2",
-  "resourcePath":"/free_entries",
+  "resourcePath":"/weights",
   "apis":[
     {
-      "path":"/free_entries",
-      "description":"Operations about free entries",
+      "path":"/weights",
+      "description":"Operations about weights",
       "operations":[
         {
           "httpMethod":"GET",
-          "summary":"Finds free entries",
-          "responseClass":"List[FreeEntry]",
+          "summary":"Finds weights",
+          "responseClass":"List[Weight]",
           "nickname":"index",
           "parameters":[
             {
@@ -50,8 +50,8 @@
         },
         {
           "httpMethod":"POST",
-          "summary":"Add a new free entry",
-          "responseClass":"FreeEntry",
+          "summary":"Add a new weight",
+          "responseClass":"Weight",
           "nickname":"create",
           "parameters":[
             {
@@ -65,12 +65,19 @@
               "name":"notes",
               "paramType":"form",
               "dataType":"text",
-              "description":"Informal notes for the free entry."
+              "description":"Informal notes for the weight."
+            },
+            {
+              "name":"value",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"Value should be in unit that set in the user settings (kg or lb)."
             },
             {
               "name":"private",
               "paramType":"form",
-              "dataType":"boolean"
+              "dataType":"boolean",
+              "description":"By default 'true'"
             }
           ],
           "errorResponses":[
@@ -87,18 +94,18 @@
       ]
     },
     {
-      "path":"/free_entries/{id}",
-      "description":"Operations about free entries",
+      "path":"/weights/{id}",
+      "description":"Operations about weights",
       "operations":[
         {
           "httpMethod":"GET",
-          "summary":"Find free entry by ID",
-          "responseClass":"FreeEntry",
+          "summary":"Find weight by ID",
+          "responseClass":"Weight",
           "nickname":"show",
           "parameters":[
             {
               "name":"id",
-              "description":"The id of the free entry.",
+              "description":"The id of the weight.",
               "paramType":"path",
               "required":true,
               "dataType":"long"
@@ -113,13 +120,13 @@
         },
         {
           "httpMethod":"PUT",
-          "summary":"Update an existing free entry",
-          "responseClass":"FreeEntry",
+          "summary":"Update an existing weight",
+          "responseClass":"Weight",
           "nickname":"update",
           "parameters":[
             {
               "name":"id",
-              "description":"ID of free entry that needs to be updated",
+              "description":"ID of weight that needs to be updated",
               "paramType":"path",
               "required":true,
               "dataType":"long"
@@ -134,12 +141,19 @@
               "name":"notes",
               "paramType":"form",
               "dataType":"text",
-              "description":"Informal notes for the free entry."
+              "description":"Informal notes for the weight."
+            },
+            {
+              "name":"value",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"Value should be in unit that set in the user settings (kg or lb)."
             },
             {
               "name":"private",
               "paramType":"form",
-              "dataType":"boolean"
+              "dataType":"boolean",
+              "description":"By default 'true'"
             }
           ],
           "errorResponses":[
@@ -155,13 +169,13 @@
         },
         {
           "httpMethod":"DELETE",
-          "summary":"Delete free entry",
+          "summary":"Delete weight entry",
           "responseClass":"void",
           "nickname":"destroy",
           "parameters":[
             {
               "name":"id",
-              "description":"ID of free entry that needs to be deleted",
+              "description":"ID of weight that needs to be deleted",
               "paramType":"path",
               "required":true,
               "dataType":"long"
@@ -205,8 +219,8 @@
         }
       }
     },
-    "FreeEntry":{
-      "id":"FreeEntry",
+    "Weight":{
+      "id":"Weight",
       "properties":{
         "id":{
           "type":"long",
@@ -233,6 +247,11 @@
         },
         "description":{
           "type": "text"
+        },
+        "value":{
+          "type": "text",
+          "required": true,
+          "description": "In unit that set in the user settings (kg or lb)"
         },
         "private":{
           "type":"boolean"
