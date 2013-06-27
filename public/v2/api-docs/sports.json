@@ -18,7 +18,7 @@
               "name":"page",
               "description":"Page",
               "paramType":"query",
-              "dataType":"int",
+              "dataType":"byte",
               "defaultValue":"1"
             },
             {
