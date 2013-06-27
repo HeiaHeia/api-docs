@@ -43,7 +43,6 @@ class UserStub
 
   def to_entity
     {
-      :id => id,
       :kind => KIND,
       :name => full_name,
       :url => url

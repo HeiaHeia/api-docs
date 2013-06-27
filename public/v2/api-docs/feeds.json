@@ -12,6 +12,7 @@
           "httpMethod":"GET",
           "summary":"Finds feeds",
           "responseClass":"List[Feed]",
+          "notes": "Feed have two kind of entries: 'AggregatedFeedEntry' and 'FeedEntry'.<br><br>The 'FeedEntry' describe one object and contain 'title', 'icon_url', 'properties' and 'description' as plain text. The 'properties' attribute is a List[Entity] of additional information. These properties used in HH like this: <pre>Alexander Stubb | Mountain biking 13.3 km in 1 h 6 min, 24.06.2013 via Heia Tracker</pre><br><br>The 'AggregatedFeedEntry' special entry that can not be cheered and commented. This kind of entry contain only 'description' and 'dict' attributes other attributes does not matter. The 'description' attribute has special format contain embedded entries: <pre>{{User:3}}'s training goal ({{TrainingGoal:1}})</pre> <br>The information about embedded entries stored in 'dict' atrribute in format 'dict['kind:id']': <pre>{ \n \"dict\": {\n    \"User:3\": { \n      \"kind\": \"User\",\n      \"name\": \"Bender Bending Rodríguez\",\n      \"url\": \"https://api.heiaheia.com/v2/users/3\" \n    },\n    \"TrainingGoal:1\": {\n      \"kind\": \"TrainingGoal\",\n      \"name\": \"I’m gonna go build my own theme park, with blackjack and hookers!\",\n      \"url\": \"https://api.heiaheia.com/v2/training_goals/1\" \n    }\n  }\n}</pre>",
           "nickname":"index",
           "parameters":[
             {
@@ -65,6 +66,7 @@
           "summary":"Find feed by ID",
           "responseClass":"Feed",
           "nickname":"show",
+          "notes": "Feed have two kind of entries: 'AggregatedFeedEntry' and 'FeedEntry'.<br><br>The 'FeedEntry' describe one object and contain 'title', 'icon_url', 'properties' and 'description' as plain text. The 'properties' attribute is a List[Entity] of additional information. These properties used in HH like this: <pre>Alexander Stubb | Mountain biking 13.3 km in 1 h 6 min, 24.06.2013 via Heia Tracker</pre><br><br>The 'AggregatedFeedEntry' special entry that can not be cheered and commented. This kind of entry contain only 'description' and 'dict' attributes other attributes does not matter. The 'description' attribute has special format contain embedded entries: <pre>{{User:3}}'s training goal ({{TrainingGoal:1}})</pre> <br>The information about embedded entries stored in 'dict' atrribute in format 'dict['kind:id']': <pre>{ \n \"dict\": {\n    \"User:3\": { \n      \"kind\": \"User\",\n      \"name\": \"Bender Bending Rodríguez\",\n      \"url\": \"https://api.heiaheia.com/v2/users/3\" \n    },\n    \"TrainingGoal:1\": {\n      \"kind\": \"TrainingGoal\",\n      \"name\": \"I’m gonna go build my own theme park, with blackjack and hookers!\",\n      \"url\": \"https://api.heiaheia.com/v2/training_goals/1\" \n    }\n  }\n}</pre>",
           "parameters":[
             {
               "name":"id",
@@ -90,15 +92,15 @@
       "properties":{
         "kind":{
           "type":"string",
-          "required": true
+          "required": true,
+          "description": "'PlainText' - just text without url. 'ExternalLink' - text with url on web resource. Other kinds contain url on HH API resources."
         },
         "name": {
           "type": "string",
           "required": true
         },
         "url": {
-          "type": "string",
-          "required": true
+          "type": "string"
         }
       }
     },
@@ -139,8 +141,7 @@
           "type": "string"
         },
         "description":{
-          "type": "text",
-          "required": true
+          "type": "text"
         },
         "private":{
           "type":"boolean"
