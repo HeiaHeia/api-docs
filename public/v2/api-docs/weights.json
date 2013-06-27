@@ -208,7 +208,7 @@
               "name":"weight_id",
               "description":"Weight ID",
               "paramType":"path",
-              "dataType":"int",
+              "dataType":"long",
               "required":true
             },
             {
@@ -247,7 +247,7 @@
               "name":"weight_id",
               "description":"Weight ID",
               "paramType":"path",
-              "dataType":"int",
+              "dataType":"long",
               "required":true
             },
             {
@@ -284,7 +284,7 @@
               "name":"weight_id",
               "description":"Weight ID",
               "paramType":"path",
-              "dataType":"int",
+              "dataType":"long",
               "required":true
             },
             {
