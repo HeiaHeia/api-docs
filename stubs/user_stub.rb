@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require 'base_stub'
 
 class UserStub
