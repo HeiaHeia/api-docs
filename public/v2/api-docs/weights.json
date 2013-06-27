@@ -202,7 +202,7 @@
           "httpMethod":"GET",
           "summary":"Get list of comments",
           "responseClass":"List[Comment]",
-          "nickname":"index",
+          "nickname":"comments_index",
           "parameters":[
             {
               "name":"weight_id",
@@ -241,7 +241,7 @@
           "httpMethod":"POST",
           "summary":"Add a new comment",
           "responseClass":"Comment",
-          "nickname":"create",
+          "nickname":"comments_create",
           "parameters":[
             {
               "name":"weight_id",
@@ -278,7 +278,7 @@
           "httpMethod":"DELETE",
           "summary":"Delete comment entry",
           "responseClass":"void",
-          "nickname":"destroy",
+          "nickname":"comments_destroy",
           "parameters":[
             {
               "name":"weight_id",
@@ -344,7 +344,7 @@
           "type":"User",
           "required": true
         },
-        "note":{
+        "notes":{
           "type":"text",
           "required": true
         }
