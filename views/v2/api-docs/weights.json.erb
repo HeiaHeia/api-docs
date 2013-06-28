@@ -140,7 +140,7 @@
         }
       ]
     },
-    <%= erb :'shared/_comment.json' %>
+    <%= erb :'shared/_comment.json', :resource => "weights", :param_id => 'weight_id' %>
   ],
   "models":{
     "User":<%= embedded_user_model %>,
