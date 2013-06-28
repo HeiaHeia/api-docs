@@ -81,8 +81,7 @@ module ModelsHelper
           :required =>  true
         }
       }
-    }
-
+    }.to_json
   end
 
 end
