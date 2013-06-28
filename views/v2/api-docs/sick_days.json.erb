@@ -131,7 +131,9 @@
           "errorResponses":<%= responses(400, 404) %>
         }
       ]
-    }
+    },
+    <%= erb :'shared/_comment.json', { :locals => { :resource => "sick_days", :param_id => 'sick_day_id' } } %>,
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => "sick_days", :param_id => 'sick_day_id' } } %>
   ],
   "models":{
     "User":<%= embedded_user_model %>,
