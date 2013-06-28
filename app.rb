@@ -1,7 +1,10 @@
 ENV['RACK_ENV'] ||= 'development'
 
-$LOAD_PATH << File.expand_path('../lib', __FILE__)
-$LOAD_PATH << File.expand_path('../stubs', __FILE__)
+def path_to(folder)
+  File.expand_path("../#{folder}", __FILE__)
+end
+
+$LOAD_PATH << path_to('lib') << path_to('stubs')
 
 require 'rubygems'
 require 'bundler/setup'
@@ -9,6 +12,8 @@ Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 require 'ext/hash'
 require 'feed_stub'
+
+Dir.glob("#{path_to('helpers')}/**/*_helper.rb")  { |f| require(f) }
 
 class App < Sinatra::Base
 
@@ -22,8 +27,14 @@ class App < Sinatra::Base
     'Record not found'
   end
 
+  helpers ErrorHelper, PaginatorHelper, ModelsHelper
+
   get '/' do
     redirect '/index.html'
+  end
+
+  get '/v2/api-docs/*.json' do
+    erb request.path.to_sym
   end
 
   post '/v2/training_logs' do
