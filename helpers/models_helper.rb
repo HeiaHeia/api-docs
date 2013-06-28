@@ -2,7 +2,7 @@
 
 module ModelsHelper
 
-  def embedded_user_class
+  def embedded_user_model
     {
       :id => "User",
       :properties => {
