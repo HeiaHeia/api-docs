@@ -1,5 +1,5 @@
 {
-  "path":"/weights/{weight_id}/cheers",
+  "path":"/<%= resource %>/{<%= param_id %>}/cheers",
   "description":"Operations about cheers",
   "operations":[
     {
@@ -9,7 +9,7 @@
       "nickname":"cheers_index",
       "parameters":[
         {
-          "name":"weight_id",
+          "name":"<%= param_id %>",
           "paramType":"path",
           "dataType":"long",
           "required":true
@@ -26,7 +26,7 @@
       "nickname":"cheer_create",
       "parameters":[
         {
-          "name":"weight_id",
+          "name":"<%= param_id %>",
           "paramType":"path",
           "dataType":"long",
           "required":true
