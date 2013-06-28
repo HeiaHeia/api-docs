@@ -145,31 +145,7 @@
   ],
   "models":{
     "User":<%= embedded_user_model %>,
-    "Comment":{
-      "id":"Comment",
-      "properties":{
-        "id":{
-          "type":"long",
-          "required": true
-        },
-        "user":{
-          "type":"User",
-          "required": true
-        },
-        "notes":{
-          "type":"text",
-          "required": true
-        },
-        "url":{
-          "type":"string",
-          "required": true
-        },
-        "removable":{
-          "type":"boolean",
-          "required": true
-        }
-      }
-    },
+    "Comment":<%= comment_model %>,
     "Weight":{
       "id":"Weight",
       "properties":{
