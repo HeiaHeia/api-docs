@@ -1,0 +1,44 @@
+{
+  "path":"/weights/{weight_id}/cheers",
+  "description":"Operations about cheers",
+  "operations":[
+    {
+      "httpMethod":"GET",
+      "summary":"Get list of cheers",
+      "responseClass":"List[Cheer]",
+      "nickname":"cheers_index",
+      "parameters":[
+        {
+          "name":"weight_id",
+          "paramType":"path",
+          "dataType":"long",
+          "required":true
+        },
+        <%= param_page %>,
+        <%= param_per_page %>
+      ],
+      "errorResponses":<%= responses(400) %>
+    },
+    {
+      "httpMethod":"POST",
+      "summary":"Add a new cheer",
+      "responseClass":"Cheer",
+      "nickname":"cheer_create",
+      "parameters":[
+        {
+          "name":"weight_id",
+          "paramType":"path",
+          "dataType":"long",
+          "required":true
+        },
+        {
+          "name":"cheer_type_id",
+          "paramType":"query",
+          "dataType":"int",
+          "required":true
+        }
+      ],
+      "errorResponses":<%= responses(400, 404) %>
+    }
+  ]
+}
