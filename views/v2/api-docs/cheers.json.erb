@@ -14,12 +14,7 @@
           "responseClass":"List[CheerType]",
           "nickname":"index",
           "parameters":[],
-          "errorResponses":[
-            {
-              "code":400,
-              "reason":"The request was invalid."
-            }
-          ]
+          "errorResponses":<%= responses(400) %>
         }
       ]
     }
@@ -37,7 +32,7 @@
           "required": true
         },
         "level":{
-          "type":"int",
+          "type":"byte",
           "required": true
         }
       }

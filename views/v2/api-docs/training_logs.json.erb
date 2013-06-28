@@ -58,12 +58,7 @@
               }
             }
           ],
-          "errorResponses":[
-            {
-              "code":400,
-              "reason":"The request was invalid."
-            }
-          ]
+          "errorResponses":<%= responses(400) %>
         },
         {
           "httpMethod":"POST",
@@ -194,16 +189,7 @@
               "dataType":"boolean"
             }
           ],
-          "errorResponses":[
-            {
-              "code":400,
-              "reason":"The request was invalid."
-            },
-            {
-              "code":404,
-              "reason":"Record not found"
-            }
-          ]
+          "errorResponses":<%= responses(400, 404) %>
         }
       ]
     },
@@ -361,16 +347,7 @@
               "dataType":"boolean"
             }
           ],
-          "errorResponses":[
-            {
-              "code":400,
-              "reason":"The request was invalid."
-            },
-            {
-              "code":404,
-              "reason":"Record not found"
-            }
-          ]
+          "errorResponses":<%= responses(400, 404) %>
         },
         {
           "httpMethod":"DELETE",
@@ -386,16 +363,7 @@
               "dataType":"long"
             }
           ],
-          "errorResponses":[
-            {
-              "code":400,
-              "reason":"The request was invalid."
-            },
-            {
-              "code":404,
-              "reason":"Record not found"
-            }
-          ]
+          "errorResponses":<%= responses(400, 404) %>
         }
       ]
     }

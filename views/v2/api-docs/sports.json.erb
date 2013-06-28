@@ -34,12 +34,7 @@
               }
             }
           ],
-          "errorResponses":[
-            {
-              "code":400,
-              "reason":"The request was invalid."
-            }
-          ]
+          "errorResponses":<%= responses(400) %>
         }
       ]
     },
@@ -61,12 +56,7 @@
               "dataType":"long"
             }
           ],
-          "errorResponses":[
-            {
-              "code":404,
-              "reason":"Record not found"
-            }
-          ]
+          "errorResponses":<%= responses(404) %>
         }
       ]
     }
