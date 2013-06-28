@@ -64,4 +64,25 @@ module ModelsHelper
     }.to_json
   end
 
+  def cheer_model
+    {
+      :id => "Cheer",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required =>  true
+        },
+        :user => {
+          :type => "User",
+          :required =>  true
+        },
+        :icon_url => {
+          :type => "string",
+          :required =>  true
+        }
+      }
+    }
+
+  end
+
 end
