@@ -351,6 +351,10 @@
         "url":{
           "type":"string",
           "required": true
+        },
+        "removable":{
+          "type":"boolean",
+          "required": true
         }
       }
     },
