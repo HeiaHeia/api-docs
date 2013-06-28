@@ -1,0 +1,46 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/cheers",
+  "apis":[
+    {
+      "path":"/cheers",
+      "description":"Available cheers",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Available cheers",
+          "responseClass":"List[CheerType]",
+          "nickname":"index",
+          "parameters":[],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models":{
+    "CheerType":{
+      "id":"CheerType",
+      "properties":{
+        "id":{
+          "type":"int",
+          "required": true
+        },
+        "icon_url":{
+          "type": "string",
+          "required": true
+        },
+        "level":{
+          "type":"int",
+          "required": true
+        }
+      }
+    }
+  }
+}

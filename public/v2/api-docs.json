@@ -17,15 +17,19 @@
     },
     {
       "path":"/api-docs/sick_days.{format}",
-      "description":"Sick day"
+      "description":"Sick days"
     },
     {
       "path":"/api-docs/free_entries.{format}",
-      "description":"Free entry"
+      "description":"Free entries"
     },
     {
       "path":"/api-docs/weights.{format}",
-      "description":"Weight"
+      "description":"Weights"
+    },
+    {
+      "path":"/api-docs/cheers.{format}",
+      "description":"Cheers"
     }
   ]
 }

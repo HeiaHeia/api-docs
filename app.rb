@@ -7,8 +7,8 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
-require 'feed_stub'
 require 'ext/hash'
+require 'feed_stub'
 
 class App < Sinatra::Base
 

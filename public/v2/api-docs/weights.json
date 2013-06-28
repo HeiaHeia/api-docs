@@ -206,14 +206,12 @@
           "parameters":[
             {
               "name":"weight_id",
-              "description":"Weight ID",
               "paramType":"path",
               "dataType":"long",
               "required":true
             },
             {
               "name":"page",
-              "description":"Page",
               "paramType":"query",
               "dataType":"byte",
               "defaultValue":"1"
@@ -245,7 +243,6 @@
           "parameters":[
             {
               "name":"weight_id",
-              "description":"Weight ID",
               "paramType":"path",
               "dataType":"long",
               "required":true
@@ -282,7 +279,6 @@
           "parameters":[
             {
               "name":"weight_id",
-              "description":"Weight ID",
               "paramType":"path",
               "dataType":"long",
               "required":true
@@ -293,6 +289,79 @@
               "paramType":"path",
               "required":true,
               "dataType":"long"
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            },
+            {
+              "code":404,
+              "reason":"Record not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path":"/weights/{weight_id}/cheers",
+      "description":"Operations about cheers",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Get list of cheers",
+          "responseClass":"List[Cheer]",
+          "nickname":"cheers_index",
+          "parameters":[
+            {
+              "name":"weight_id",
+              "paramType":"path",
+              "dataType":"long",
+              "required":true
+            },
+            {
+              "name":"page",
+              "paramType":"query",
+              "dataType":"byte",
+              "defaultValue":"1"
+            },
+            {
+              "name":"per_page",
+              "paramType":"query",
+              "dataType":"byte",
+              "defaultValue":"20",
+              "allowableValues": {
+                "valueType": "RANGE",
+                "min": 1,
+                "max": 100
+              }
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid"
+            }
+          ]
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new cheer",
+          "responseClass":"Cheer",
+          "nickname":"cheer_create",
+          "parameters":[
+            {
+              "name":"weight_id",
+              "paramType":"path",
+              "dataType":"long",
+              "required":true
+            },
+            {
+              "name":"cheer_type_id",
+              "paramType":"query",
+              "dataType":"int",
+              "required":true
             }
           ],
           "errorResponses":[
@@ -421,6 +490,23 @@
         },
         "created_at":{
           "type":"DateTime",
+          "required": true
+        }
+      }
+    },
+    "Cheer":{
+      "id":"Cheer",
+      "properties":{
+        "id":{
+          "type":"long",
+          "required": true
+        },
+        "user":{
+          "type":"User",
+          "required": true
+        },
+        "icon_url":{
+          "type":"string",
           "required": true
         }
       }
