@@ -14,25 +14,8 @@
           "responseClass":"List[Sport]",
           "nickname":"index",
           "parameters":[
-            {
-              "name":"page",
-              "description":"Page",
-              "paramType":"query",
-              "dataType":"byte",
-              "defaultValue":"1"
-            },
-            {
-              "name":"per_page",
-              "description":"Per page between 1 and 100",
-              "paramType":"query",
-              "dataType":"byte",
-              "defaultValue":"20",
-              "allowableValues": {
-                "valueType": "RANGE",
-                "min": 1,
-                "max": 100
-              }
-            }
+            <%= param_page %>,
+            <%= param_per_page %>
           ],
           "errorResponses":<%= responses(400) %>
         }
