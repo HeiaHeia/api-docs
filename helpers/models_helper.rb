@@ -2,6 +2,38 @@
 
 module ModelsHelper
 
+  def comment_model
+    {
+      :id => "Comment",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required => true
+        },
+        :user => {
+          :type => "User",
+          :required =>  true
+        },
+        :notes => {
+          :type => "text",
+          :required =>  true
+        },
+        :url => {
+          :type => "string",
+          :required =>  true
+        },
+        :avatar_url => {
+          :type => "string",
+          :required => true
+        },
+        :removable => {
+          :type => "boolean",
+          :required => true
+        }
+      }
+    }.to_json
+  end
+
   def embedded_user_model
     {
       :id => "User",

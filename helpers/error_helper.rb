@@ -8,6 +8,10 @@ module ErrorHelper
       :reason => "The request was invalid."
     },
     {
+      :code => 403,
+      :reason => "Forbidden"
+    },
+    {
       :code => 404,
       :reason => "Record not found"
     }
