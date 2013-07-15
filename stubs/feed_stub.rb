@@ -2,6 +2,7 @@
 
 require 'base_stub'
 require 'user_stub'
+require 'training_goal_stub'
 
 class FeedStub
   include BaseStub
@@ -61,11 +62,7 @@ class FeedStub
             :url  => 'https://api.heiaheia.com/v2/training_logs/310'
           },
           "User:3" => UserStub.find(3).to_entity,
-          "TrainingGoal:1" => {
-            :kind => 'TrainingGoal',
-            :name => 'I’m gonna go build my own theme park, with blackjack and hookers!',
-            :url  => 'https://api.heiaheia.com/v2/training_goals/1'
-          }
+          "TrainingGoal:1" => TrainingGoalStub.find(1).to_entity
         },
         :properties => []
       }

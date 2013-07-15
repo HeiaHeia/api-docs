@@ -30,6 +30,10 @@
     {
       "path":"/api-docs/cheers.{format}",
       "description":"Cheers"
+    },
+    {
+      "path":"/api-docs/users.{format}",
+      "description":"Users"
     }
   ]
 }

@@ -12,6 +12,7 @@ Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 require 'ext/hash'
 require 'feed_stub'
+require 'user_stub'
 
 Dir.glob("#{path_to('helpers')}/**/*_helper.rb")  { |f| require(f) }
 
@@ -97,6 +98,14 @@ class App < Sinatra::Base
     headers['Link'] = links.join(', ')
 
     body FeedStub.all.map { |entry| entry.to_hash }.to_json
+    status 200
+  end
+
+  get '/v2/users/:id' do
+    puts params.inspect
+    entry = UserStub.find(params[:id])
+    not_found if entry.nil?
+    body entry.to_json
     status 200
   end
 
