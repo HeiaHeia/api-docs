@@ -37,7 +37,7 @@ class UserStub
   end
 
   def to_hash
-    {
+    @attributes.slice(:id, :first_name, :last_name).merge({
       :url => url,
       :created_at => created_at,
       :avatar_url => avatar_url,
@@ -63,7 +63,7 @@ class UserStub
         :created_at => Time.new(2013, 6, 16, 17, 1, 18).utc
       },
       :training_goal => TrainingGoalStub.find(1).to_hash,
-    }.merge(@attributes.slice(:id, :first_name, :last_name))
+    })
   end
 
 
@@ -93,23 +93,23 @@ class UserStub
   end
 
   def avatar_url
-    "https://www.heiaheia.com/users/#{id}/avatar"
+    "#{url}/avatar"
   end
 
   def top_sports_url
-    "https://www.heiaheia.com/users/#{id}/top_sports"
+    "#{url}/top_sports"
   end
 
   def medals_url
-    "https://www.heiaheia.com/users/#{id}/medals"
+    "#{url}/medals"
   end
 
   def training_logs_url
-    "https://www.heiaheia.com/users/#{id}/training_logs"
+    "#{url}/training_logs"
   end
 
   def friends_url
-    "https://www.heiaheia.com/users/#{id}/friends"
+    "#{url}/friends"
   end
 
 end

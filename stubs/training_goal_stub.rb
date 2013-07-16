@@ -25,17 +25,16 @@ class TrainingGoalStub
   end
 
   def to_hash
-    {
+    @attributes.slice(:id, :title, :private, :cheers_count, :cheerable,
+                      :comments_count, :commentable).merge({
       :kind => KIND,
-      :icon_url => 'http://heiaheia.com/images/icons/training_goal.png',
+      :icon_url => 'https://www.heiaheia.com/images/icons/training_goal.png',
       :url => url,
       :cheers_url => cheers_url,
       :comments_url => comments_url,
       :created_at => created_at,
       :user => UserStub.find(1).to_embedded,
-    }.merge(@attributes.slice(:id, :title, :private,
-                              :cheers_count, :cheerable, :comments_count,
-                              :commentable))
+    })
   end
 
   def to_entity
