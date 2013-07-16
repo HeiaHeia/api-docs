@@ -31,7 +31,6 @@ class TrainingGoalStub
       :url => url,
       :cheers_url => cheers_url,
       :comments_url => comments_url,
-      :updated_at => updated_at,
       :created_at => created_at,
       :user => UserStub.find(1).to_embedded,
     }.merge(@attributes.slice(:id, :title, :private,

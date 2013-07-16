@@ -74,13 +74,35 @@ module ModelsHelper
         :last_name => {
           :type => "string"
         },
+        :url => {
+          :type => "string",
+          :required => true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required => true
+        },
         :avatar_url => {
           :type => "string",
           :required => true
         },
-        :url => {
+        :locale => {
           :type => "string",
           :required => true
+        },
+        :measurement_units => {
+          :type => "string",
+          :required => true,
+          :allowableValues => {
+            :valueType => "LIST",
+            :values => [
+              "metric",
+              "imperial"
+            ]
+          }
+        },
+        :birthday => {
+          :type => "Date"
         },
         :gender => {
           :type => "string",
@@ -91,9 +113,6 @@ module ModelsHelper
               "female"
             ]
           }
-        },
-        :birthday => {
-          :type => "Date"
         },
         :country => {
           :type => 'string'
@@ -116,16 +135,38 @@ module ModelsHelper
             ]
           }
         },
+        :my_sports => {
+          :type => 'text'
+        },
+        :records_and_highlights => {
+          :type => 'text'
+        },
         :training_logs_count => {
           :type => 'int',
+          :required => true
+        },
+        :training_logs_url => {
+          :type => "string",
+          :required => true
+        },
+        :medals_count => {
+          :type => 'int',
+          :required => true
+        },
+        :medals_url => {
+          :type => "string",
           :required => true
         },
         :friends_count => {
           :type => 'int',
           :required => true
         },
-        :medals_count => {
-          :type => 'int',
+        :friends_url => {
+          :type => "string",
+          :required => true
+        },
+        :top_sports_url => {
+          :type => "string",
           :required => true
         },
         :latest_activity => {
@@ -134,20 +175,6 @@ module ModelsHelper
         :training_goal => {
           :type => 'TrainingGoal'
         },
-        :records_and_highlights => {
-          :type => 'text'
-        },
-        :my_sports => {
-          :type => 'text'
-        },
-        :friends_url => {
-          :type => "string",
-          :required => true
-        },
-        :sports_url => {
-          :type => "string",
-          :required => true
-        }
       }
     }.to_json
   end
