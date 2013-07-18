@@ -44,7 +44,7 @@ class UserStub
       :locale => 'fi',
       :measurement_units => 'metric',
       :birthdate => Date.new(1980, 1, 1),
-      :gender => 0,
+      :gender => 'female',
       :country => 'Finland',
       :city => 'Helsinki',
       :level => 'Bronze',
