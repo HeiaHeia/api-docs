@@ -179,7 +179,6 @@ module ModelsHelper
     }.to_json
   end
 
-
   def sport_param_model
     {
       :id => "SportParam",

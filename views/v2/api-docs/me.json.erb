@@ -1,0 +1,74 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/me",
+  "apis":[
+    {
+      "path":"/me",
+      "description":"Operations about logged in user",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Logged in user",
+          "responseClass":"User",
+          "nickname":"show",
+          "parameters":[],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
+          "httpMethod":"PUT",
+          "summary":"Update logged in user",
+          "responseClass":"User",
+          "nickname":"update",
+          "parameters":[
+            {
+              "name":"first_name",
+              "paramType":"form",
+              "dataType":"string"
+            },
+            {
+              "name":"last_name",
+              "paramType":"form",
+              "dataType":"string"
+            },
+            {
+              "name":"locale",
+              "paramType":"form",
+              "dataType":"string",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":["de", "en", "es", "fi", "fr", "it", "ru", "se", "sl"]
+              }
+            },
+            {
+              "name":"measurement_units",
+              "paramType":"form",
+              "dataType":"string",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":["metric", "imperial"]
+              }
+
+            },
+            {
+              "name":"my_sports",
+              "paramType":"form",
+              "dataType":"text"
+            },
+            {
+              "name":"records_and_highlights",
+              "paramType":"form",
+              "dataType":"text"
+            }
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {}
+  ],
+  "models":{
+    "User":<%= user_model %>
+  }
+}

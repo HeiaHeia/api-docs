@@ -93,7 +93,7 @@ class UserStub
   end
 
   def avatar_url
-    "#{url}/avatar"
+    "#{url}/avatar.png"
   end
 
   def top_sports_url

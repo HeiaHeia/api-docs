@@ -24,7 +24,54 @@
           "errorResponses":<%= responses(404) %>
         }
       ]
+    },
+    {
+      "path":"/users/{id}/friends",
+      "description":"Operations about friends",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"User's friends",
+          "responseClass":"List[User]",
+          "nickname":"user_friends",
+          "parameters":[
+            {
+              "name":"id",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/search",
+      "description":"Operations about friends",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Search users",
+          "responseClass":"List[User]",
+          "nickname":"search",
+          "parameters":[
+            {
+              "name":"q",
+              "paramType":"string",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
     }
+
   ],
   "models":{
     "User":<%= user_model %>
