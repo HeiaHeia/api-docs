@@ -1,0 +1,98 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/friends",
+  "apis":[
+    {
+      "path":"/friends",
+      "description":"Operations about friends",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"My friends",
+          "responseClass":"List[User]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/friends/{id}",
+      "description":"Operations about friends and friend requests",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Create or accept friendship requests",
+          "responseClass":"User",
+          "nickname":"create",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of user",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        },
+        {
+          "httpMethod":"DELETE",
+          "summary":"Decline friendship requests or delete users from friends",
+          "responseClass":"void",
+          "nickname":"destroy",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of user",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/friends/requests",
+      "description":"List of friend requests",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"My friend requests",
+          "responseClass":"List[User]",
+          "nickname":"requests_index",
+          "parameters":[
+            {
+              "name":"status",
+              "description": "<pre>pending</pre> when you sent the friend request <pre>requested</pre> when friend request was sent to you",
+              "required":true,
+              "dataType":"string",
+              "paramType":"query",
+              "defaultValue":"requested",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "requested",
+                  "pending"
+                ]
+              }
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    }
+  ],
+  "models":{
+    "User":<%= user_model %>
+  }
+}

@@ -38,6 +38,10 @@
     {
       "path":"/api-docs/me.{format}",
       "description":"Me"
+    },
+    {
+      "path":"/api-docs/friends.{format}",
+      "description":"Friends"
     }
   ]
 }

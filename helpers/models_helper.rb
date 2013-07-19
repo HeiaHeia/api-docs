@@ -43,7 +43,8 @@ module ModelsHelper
           :required => true
         },
         :first_name => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :last_name => {
           :type => "string"
@@ -69,7 +70,8 @@ module ModelsHelper
           :required => true
         },
         :first_name => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :last_name => {
           :type => "string"
@@ -175,6 +177,25 @@ module ModelsHelper
         :training_goal => {
           :type => 'TrainingGoal'
         },
+        :friendship_status => {
+          :type => "string",
+          :description => "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
+          :required => true,
+          :allowableValues => {
+            :valueType => "LIST",
+            :values => [
+              "not_friend",
+              "friend",
+              "requested",
+              "pending"
+            ]
+          }
+
+        },
+        :friendship_url => {
+          :type => "string",
+          :required => true
+        }
       }
     }.to_json
   end

@@ -63,6 +63,8 @@ class UserStub
         :created_at => Time.new(2013, 6, 16, 17, 1, 18).utc
       },
       :training_goal => TrainingGoalStub.find(1).to_hash,
+      :friendship_status => friendship_status,
+      :friendship_url => friendship_url
     })
   end
 
@@ -86,7 +88,8 @@ class UserStub
   def to_embedded
     {
       :id => id,
-      :name => full_name,
+      :first_name => @attributes[:first_name],
+      :last_name => @attributes[:last_name],
       :url => url,
       :avatar_url => avatar_url
     }
@@ -110,6 +113,14 @@ class UserStub
 
   def friends_url
     "#{url}/friends"
+  end
+
+  def friendship_status
+    'not_friend'
+  end
+
+  def friendship_url
+    "https://api.heiaheia.com/v2/friends/#{id}"
   end
 
 end
