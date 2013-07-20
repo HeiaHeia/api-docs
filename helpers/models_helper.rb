@@ -645,4 +645,73 @@ module ModelsHelper
     }.to_json
   end
 
+  def free_entry_model
+    {
+      :id => "FreeEntry",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required => true
+        },
+        :date => {
+          :type => "Date",
+          :required => true
+        },
+        :user => {
+          :type => "CompactUser",
+          :required => true
+        },
+        :url => {
+          :type => "string",
+          :required => true
+        },
+        :icon_url => {
+          :type => "string",
+          :required => true
+        },
+        :notes => {
+          :type => "text",
+          :required => true
+        },
+        :title => {
+          :type => "string"
+        },
+        :description => {
+          :type => "text"
+        },
+        :private => {
+          :type => "boolean"
+        },
+        :cheers_count => {
+          :type => "int"
+        },
+        :cheers_url => {
+          :type => "string"
+        },
+        :cheerable => {
+          :type => "boolean",
+          :required => true
+        },
+        :comments_count => {
+          :type => "int"
+        },
+        :comments_url => {
+          :type => "string"
+        },
+        :commentable => {
+          :type => "boolean",
+          :required => true
+        },
+        :updated_at => {
+          :type => "DateTime",
+          :required => true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required => true
+        }
+      }
+    }.to_json
+  end
+
 end
