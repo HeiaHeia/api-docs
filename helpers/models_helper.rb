@@ -248,9 +248,13 @@ module ModelsHelper
           :type => "CompactUser",
           :required =>  true
         },
-        :icon_url => {
-          :type => "string",
+        :cheer_type => {
+          :type => "CheerType",
           :required =>  true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required => true
         }
       }
     }.to_json
@@ -278,6 +282,26 @@ module ModelsHelper
         },
           :url => {
           :type => "string",
+          :required => true
+        }
+      }
+    }.to_json
+  end
+
+  def cheer_type_model
+    {
+      :id => "CheerType",
+      :properties => {
+        :id => {
+          :type => "int",
+          :required => true
+        },
+        :icon_url => {
+          :type =>  "string",
+          :required => true
+        },
+        :level => {
+          :type => "byte",
           :required => true
         }
       }
