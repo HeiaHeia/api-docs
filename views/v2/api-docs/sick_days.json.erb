@@ -136,7 +136,7 @@
     <%= erb :'shared/_cheer.json', { :locals => { :resource => "sick_days", :param_id => 'sick_day_id' } } %>
   ],
   "models":{
-    "User":<%= embedded_user_model %>,
+    "CompactUser":<%= compact_user_model %>,
     "Comment":<%= comment_model %>,
     "Cheer":<%= cheer_model %>,
     "SickDay":{
@@ -151,7 +151,7 @@
           "required": true
         },
         "user":{
-          "type":"User",
+          "type":"CompactUser",
           "required": true
         },
         "url":{

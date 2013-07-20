@@ -130,7 +130,7 @@
     <%= erb :'shared/_cheer.json', { :locals => { :resource => "free_entries", :param_id => 'free_entry_id' } } %>
   ],
   "models":{
-    "User":<%= embedded_user_model %>,
+    "CompactUser":<%= compact_user_model %>,
     "Comment":<%= comment_model %>,
     "Cheer":<%= cheer_model %>,
     "FreeEntry":{
@@ -145,7 +145,7 @@
           "required": true
         },
         "user":{
-          "type":"User",
+          "type":"CompactUser",
           "required": true
         },
         "url":{

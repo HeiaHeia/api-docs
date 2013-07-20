@@ -11,7 +11,7 @@ module ModelsHelper
           :required => true
         },
         :user => {
-          :type => "User",
+          :type => "CompactUser",
           :required =>  true
         },
         :notes => {
@@ -34,9 +34,9 @@ module ModelsHelper
     }.to_json
   end
 
-  def embedded_user_model
+  def compact_user_model
     {
-      :id => "User",
+      :id => "CompactUser",
       :properties => {
         :id => {
           :type => "long",
@@ -245,7 +245,7 @@ module ModelsHelper
           :required =>  true
         },
         :user => {
-          :type => "User",
+          :type => "CompactUser",
           :required =>  true
         },
         :icon_url => {

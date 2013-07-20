@@ -354,7 +354,7 @@
     <%= erb :'shared/_cheer.json', { :locals => { :resource => "training_logs", :param_id => 'training_log_id' } } %>
   ],
   "models":{
-    "User":<%= embedded_user_model %>,
+    "CompactUser":<%= compact_user_model %>,
     "Place":{
       "id":"Place",
       "properties":{
@@ -436,7 +436,7 @@
           "required": true
         },
         "user":{
-          "type":"User",
+          "type":"CompactUser",
           "required": true
         },
         "notes":{

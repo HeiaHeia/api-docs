@@ -33,7 +33,7 @@ class TrainingGoalStub
       :cheers_url => cheers_url,
       :comments_url => comments_url,
       :created_at => created_at,
-      :user => UserStub.find(1).to_embedded,
+      :user => UserStub.find(1).to_compact_hash,
     })
   end
 

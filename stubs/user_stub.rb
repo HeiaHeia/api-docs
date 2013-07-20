@@ -85,7 +85,7 @@ class UserStub
     }
   end
 
-  def to_embedded
+  def to_compact_hash
     {
       :id => id,
       :first_name => @attributes[:first_name],

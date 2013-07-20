@@ -144,7 +144,7 @@
     <%= erb :'shared/_cheer.json', { :locals => { :resource => "weights", :param_id => 'weight_id' } } %>
   ],
   "models":{
-    "User":<%= embedded_user_model %>,
+    "CompactUser":<%= compact_user_model %>,
     "Comment":<%= comment_model %>,
     "Weight":{
       "id":"Weight",
@@ -158,7 +158,7 @@
           "required": true
         },
         "user":{
-          "type":"User",
+          "type":"CompactUser",
           "required": true
         },
         "url":{
