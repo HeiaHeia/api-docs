@@ -288,6 +288,52 @@ module ModelsHelper
     }.to_json
   end
 
+  def sport_model
+    {
+      :id => "Sport",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required =>  true
+        },
+        :name => {
+          :type => "string",
+          :required =>  true
+        },
+        :icon_url => {
+          :type =>  "string",
+          :required =>  true
+        },
+        :planned_icon_url => {
+          :type =>  "string",
+          :required =>  true
+        },
+        :url => {
+          :type => "string",
+          :required =>  true
+        },
+        :sport_params => {
+          :items => {
+            :$ref => "SportParam"
+          },
+          :type => "Array"
+        },
+        :exclude_stats =>  {
+          :required =>  true,
+          :type => "boolean"
+        },
+        :updated_at => {
+          :type => "DateTime",
+          :required =>  true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required =>  true
+        }
+      }
+    }.to_json
+  end
+
   def cheer_type_model
     {
       :id => "CheerType",
@@ -529,5 +575,7 @@ module ModelsHelper
       }
     }.to_json
   end
+
+
 
 end
