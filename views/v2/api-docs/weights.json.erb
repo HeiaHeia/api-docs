@@ -146,77 +146,7 @@
   "models":{
     "CompactUser":<%= compact_user_model %>,
     "Comment":<%= comment_model %>,
-    "Weight":{
-      "id":"Weight",
-      "properties":{
-        "id":{
-          "type":"long",
-          "required": true
-        },
-        "date":{
-          "type":"Date",
-          "required": true
-        },
-        "user":{
-          "type":"CompactUser",
-          "required": true
-        },
-        "url":{
-          "type":"string",
-          "required": true
-        },
-        "icon_url":{
-          "type":"string",
-          "required": true
-        },
-        "notes":{
-          "type": "text",
-          "required": true
-        },
-        "title":{
-          "type": "string"
-        },
-        "description":{
-          "type": "text"
-        },
-        "value":{
-          "type": "text",
-          "required": true,
-          "description": "In unit that set in the user settings (kg or lb)"
-        },
-        "private":{
-          "type":"boolean"
-        },
-        "cheers_count":{
-          "type":"int"
-        },
-        "cheers_url":{
-          "type":"string"
-        },
-        "cheerable":{
-          "type":"boolean",
-          "required": true
-        },
-        "comments_count":{
-          "type":"int"
-        },
-        "comments_url":{
-          "type":"string"
-        },
-        "commentable":{
-          "type":"boolean",
-          "required": true
-        },
-        "updated_at":{
-          "type":"DateTime",
-          "required": true
-        },
-        "created_at":{
-          "type":"DateTime",
-          "required": true
-        }
-      }
-    },
+    "Weight":<%= weight_model %>,
     "Cheer":<%= cheer_model %>,
     "CheerType":<%= cheer_type_model %>
   }
