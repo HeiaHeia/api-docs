@@ -12,15 +12,15 @@ module ModelsHelper
         },
         :user => {
           :type => "CompactUser",
-          :required =>  true
+          :required => true
         },
         :notes => {
           :type => "text",
-          :required =>  true
+          :required => true
         },
         :url => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :avatar_url => {
           :type => "string",
@@ -242,15 +242,15 @@ module ModelsHelper
       :properties => {
         :id => {
           :type => "long",
-          :required =>  true
+          :required => true
         },
         :user => {
           :type => "CompactUser",
-          :required =>  true
+          :required => true
         },
         :cheer_type => {
           :type => "CheerType",
-          :required =>  true
+          :required => true
         },
         :created_at => {
           :type => "DateTime",
@@ -268,19 +268,19 @@ module ModelsHelper
           :type => "long",
           :required => true
         },
-          :name => {
+        :name => {
           :type => "string",
           :required => true
         },
-          :icon_url => {
+        :icon_url => {
           :type => "string",
           :required => true
         },
-          :planned_icon_url => {
+        :planned_icon_url => {
           :type => "string",
           :required => true
         },
-          :url => {
+        :url => {
           :type => "string",
           :required => true
         }
@@ -294,23 +294,23 @@ module ModelsHelper
       :properties => {
         :id => {
           :type => "long",
-          :required =>  true
+          :required => true
         },
         :name => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :icon_url => {
-          :type =>  "string",
-          :required =>  true
+          :type => "string",
+          :required => true
         },
         :planned_icon_url => {
-          :type =>  "string",
-          :required =>  true
+          :type => "string",
+          :required => true
         },
         :url => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :sport_params => {
           :items => {
@@ -318,17 +318,17 @@ module ModelsHelper
           },
           :type => "Array"
         },
-        :exclude_stats =>  {
-          :required =>  true,
+        :exclude_stats => {
+          :required => true,
           :type => "boolean"
         },
         :updated_at => {
           :type => "DateTime",
-          :required =>  true
+          :required => true
         },
         :created_at => {
           :type => "DateTime",
-          :required =>  true
+          :required => true
         }
       }
     }.to_json
@@ -343,7 +343,7 @@ module ModelsHelper
           :required => true
         },
         :icon_url => {
-          :type =>  "string",
+          :type => "string",
           :required => true
         },
         :level => {
@@ -360,23 +360,23 @@ module ModelsHelper
       :properties => {
         :id => {
           :type => "int",
-          :required =>  true
+          :required => true
         },
         :name => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :latitude => {
-          :type =>  "double",
-          :required =>  true
+          :type => "double",
+          :required => true
         },
         :longitude => {
-          :type =>  "double",
-          :required =>  true
+          :type => "double",
+          :required => true
         },
         :url => {
           :type => "string",
-          :required =>  true
+          :required => true
         }
       }
     }.to_json
@@ -388,11 +388,11 @@ module ModelsHelper
       :properties => {
         :id => {
           :type => "long",
-          :required =>  true
+          :required => true
         },
         :date => {
           :type => "Date",
-          :required =>  true
+          :required => true
         },
         :status => {
           :allowableValues => {
@@ -401,60 +401,60 @@ module ModelsHelper
               "regular",
               "planned"
             ]
-        },
+          },
           :description => "training log status",
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :sport => {
           :type => "CompactSport",
-          :required =>  true
+          :required => true
         },
         :user => {
           :type => "CompactUser",
-          :required =>  true
+          :required => true
         },
         :notes => {
-          :type =>  "text",
-          :required =>  true
+          :type => "text",
+          :required => true
         },
         :title => {
-          :type =>  "string"
+          :type => "string"
         },
         :description => {
           :type => "text"
         },
         :mood => {
-          :type =>  "byte",
-          :required =>  true,
+          :type => "byte",
+          :required => true,
           :description => "A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
         },
         :mood_icon_url => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :calories => {
-          :type =>  "int"
+          :type => "int"
         },
-        :duration_h =>  {
-          :type =>  "int"
+        :duration_h => {
+          :type => "int"
         },
-        :duration_m =>  {
-          :type =>  "int"
+        :duration_m => {
+          :type => "int"
         },
-        :duration_s =>  {
-          :type =>  "int"
+        :duration_s => {
+          :type => "int"
         },
-        :avg_hr =>  {
-          :type =>  "int"
+        :avg_hr => {
+          :type => "int"
         },
-        :max_hr =>  {
-          :type =>  "int"
+        :max_hr => {
+          :type => "int"
         },
         :sport_params => {
           :items => {
             :$ref => "SportParam"
-        },
+          },
           :type => "Array"
         },
         :favourite => {
@@ -463,19 +463,19 @@ module ModelsHelper
         :private => {
           :type => "boolean"
         },
-        :cheers_count =>  {
-          :type =>  "int"
+        :cheers_count => {
+          :type => "int"
         },
-        :comments_count =>  {
-          :type =>  "int"
+        :comments_count => {
+          :type => "int"
         },
-        :distance =>  {
-          :type =>  "int"
+        :distance => {
+          :type => "int"
         },
-        :steps =>  {
-          :type =>  "int"
+        :steps => {
+          :type => "int"
         },
-        :exclude_stats =>  {
+        :exclude_stats => {
           :type => "boolean"
         },
         :cheerable => {
@@ -489,11 +489,11 @@ module ModelsHelper
         },
         :updated_at => {
           :type => "DateTime",
-          :required =>  true
+          :required => true
         },
         :created_at => {
           :type => "DateTime",
-          :required =>  true
+          :required => true
         },
         :gpx_url => {
           :type => "string"
@@ -508,38 +508,38 @@ module ModelsHelper
       :properties => {
         :id => {
           :type => "long",
-          :required =>  true
+          :required => true
         },
         :date => {
           :type => "Date",
-          :required =>  true
+          :required => true
         },
         :user => {
           :type => "CompactUser",
-          :required =>  true
+          :required => true
         },
         :url => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :icon_url => {
           :type => "string",
-          :required =>  true
+          :required => true
         },
         :notes => {
-          :type =>  "text",
-          :required =>  true
+          :type => "text",
+          :required => true
         },
         :title => {
-          :type =>  "string"
+          :type => "string"
         },
         :description => {
-          :type =>  "text"
+          :type => "text"
         },
         :value => {
-          :type =>  "text",
-          :required =>  true,
-          :description =>  "In unit that set in the user settings (kg or lb)"
+          :type => "text",
+          :required => true,
+          :description => "In unit that set in the user settings (kg or lb)"
         },
         :private => {
           :type => "boolean"
@@ -552,7 +552,7 @@ module ModelsHelper
         },
         :cheerable => {
           :type => "boolean",
-          :required =>  true
+          :required => true
         },
         :comments_count => {
           :type => "int"
@@ -562,20 +562,87 @@ module ModelsHelper
         },
         :commentable => {
           :type => "boolean",
-          :required =>  true
+          :required => true
         },
         :updated_at => {
           :type => "DateTime",
-          :required =>  true
+          :required => true
         },
         :created_at => {
           :type => "DateTime",
-          :required =>  true
+          :required => true
         }
       }
     }.to_json
   end
 
-
+  def sick_day_model
+    {
+      :id => "SickDay",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required => true
+        },
+        :date => {
+          :type => "Date",
+          :required => true
+        },
+        :user => {
+          :type => "CompactUser",
+          :required => true
+        },
+        :url => {
+          :type => "string",
+          :required => true
+        },
+        :icon_url => {
+          :type => "string",
+          :required => true
+        },
+        :notes => {
+          :type => "text",
+          :required => true
+        },
+        :title => {
+          :type => "string"
+        },
+        :description => {
+          :type => "text"
+        },
+        :private => {
+          :type => "boolean"
+        },
+        :cheers_count => {
+          :type => "int"
+        },
+        :cheers_url => {
+          :type => "string"
+        },
+        :cheerable => {
+          :type => "boolean",
+          :required => true
+        },
+        :comments_count => {
+          :type => "int"
+        },
+        :comments_url => {
+          :type => "string"
+        },
+        :commentable => {
+          :type => "boolean",
+          :required => true
+        },
+        :updated_at => {
+          :type => "DateTime",
+          :required => true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required => true
+        }
+      }
+    }.to_json
+  end
 
 end
