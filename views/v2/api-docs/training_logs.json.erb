@@ -355,31 +355,7 @@
   ],
   "models":{
     "CompactUser":<%= compact_user_model %>,
-    "Place":{
-      "id":"Place",
-      "properties":{
-        "id":{
-          "type":"int",
-          "required": true
-        },
-        "name":{
-          "type":"string",
-          "required": true
-        },
-        "latitude":{
-          "type": "double",
-          "required": true
-        },
-        "longitude":{
-          "type": "double",
-          "required": true
-        },
-        "url":{
-          "type":"string",
-          "required": true
-        }
-      }
-    },
+    "Place":<%= place_model %>,
     "CompactSport":<%= compact_sport_model %>,
     "SportParam":<%= sport_param_model %>,
     "Comment":<%= comment_model %>,

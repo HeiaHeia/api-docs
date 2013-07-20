@@ -308,4 +308,32 @@ module ModelsHelper
     }.to_json
   end
 
+  def place_model
+    {
+      :id => "Place",
+      :properties => {
+        :id => {
+          :type => "int",
+          :required =>  true
+        },
+        :name => {
+          :type => "string",
+          :required =>  true
+        },
+        :latitude => {
+          :type =>  "double",
+          :required =>  true
+        },
+        :longitude => {
+          :type =>  "double",
+          :required =>  true
+        },
+        :url => {
+          :type => "string",
+          :required =>  true
+        }
+      }
+    }.to_json
+  end
+
 end
