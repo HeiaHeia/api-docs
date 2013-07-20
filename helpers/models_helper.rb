@@ -1,5 +1,8 @@
 # -*- encoding: utf-8 -*-
 
+require 'set'
+require 'ext/string'
+
 module ModelsHelper
 
   def comment_model
@@ -58,7 +61,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def user_model
@@ -197,7 +200,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def sport_param_model
@@ -233,7 +236,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def cheer_model
@@ -257,7 +260,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def compact_sport_model
@@ -285,7 +288,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def sport_model
@@ -331,7 +334,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def cheer_type_model
@@ -351,7 +354,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def place_model
@@ -379,7 +382,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def training_log_model
@@ -499,7 +502,7 @@ module ModelsHelper
           :type => "string"
         }
       }
-    }.to_json
+    }
   end
 
   def weight_model
@@ -573,7 +576,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def sick_day_model
@@ -642,7 +645,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def free_entry_model
@@ -711,7 +714,7 @@ module ModelsHelper
           :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def entity_model
@@ -730,7 +733,7 @@ module ModelsHelper
           :type => "string"
         }
       }
-    }.to_json
+    }
   end
 
   def entity_hash_model
@@ -741,7 +744,7 @@ module ModelsHelper
           :type => "Entity"
         }
       }
-    }.to_json
+    }
   end
 
   def feed_model
@@ -817,7 +820,50 @@ module ModelsHelper
           :type => "List"
         }
       }
-    }.to_json
+    }
+  end
+
+
+  def models(*args)
+    hash = {}
+    model_names(args).each do |model|
+      hash[model] = send("#{model.underscore}_model")
+    end
+    hash.to_json
+  end
+
+  private
+
+  def model_dependencies
+    {
+      'Cheer' => ['CheerType', 'CompactUser'],
+      'CheerType' => [],
+      'Comment' => ['CompactUser'],
+      'CompactSport' => [],
+      'CompactUser' => [],
+      'Entity' => [],
+      'EntityHash' => ['Entity'],
+      'Feed' => ['EntityHash'],
+      'FreeEntry' => ['CompactUser'],
+      'Place' => [],
+      'SickDay' => ['CompactUser'],
+      'Sport' => ['SportParam'],
+      'SportParam' => [],
+      'TrainingLog' => ['CompactSport', 'CompactUser', 'SportParam', 'Place'],
+      'User' => ['TrainingLog'],
+      'Weight' => ['CompactUser'],
+    }
+  end
+
+  def model_names(*args)
+    set = Set.new
+    args.flatten.each do |model|
+      set << model
+      model_names(model_dependencies.fetch(model, [])).each do |dep|
+        set << dep
+      end
+    end
+    set
   end
 
 end

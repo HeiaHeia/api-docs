@@ -353,14 +353,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => "training_logs", :param_id => 'training_log_id' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => "training_logs", :param_id => 'training_log_id' } } %>
   ],
-  "models":{
-    "CompactUser":<%= compact_user_model %>,
-    "Place":<%= place_model %>,
-    "CompactSport":<%= compact_sport_model %>,
-    "SportParam":<%= sport_param_model %>,
-    "Comment":<%= comment_model %>,
-    "Cheer":<%= cheer_model %>,
-    "CheerType":<%= cheer_type_model %>,
-    "TrainingLog":<%= training_log_model %>
-  }
+  "models":<%= models('TrainingLog', 'Cheer', 'Comment') %>
 }

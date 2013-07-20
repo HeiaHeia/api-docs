@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+require 'ext/hash'
 require 'base_stub'
 require 'user_stub'
 

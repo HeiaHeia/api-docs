@@ -143,11 +143,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => "weights", :param_id => 'weight_id' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => "weights", :param_id => 'weight_id' } } %>
   ],
-  "models":{
-    "CompactUser":<%= compact_user_model %>,
-    "Comment":<%= comment_model %>,
-    "Weight":<%= weight_model %>,
-    "Cheer":<%= cheer_model %>,
-    "CheerType":<%= cheer_type_model %>
-  }
+  "models":<%= models('Weight', 'Cheer', 'Comment') %>
 }
