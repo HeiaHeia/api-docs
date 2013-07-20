@@ -114,3 +114,4 @@ end
 
 # FIXME: Fix usage of models with $ref
 # FIXME: swagger.js:369
+# TODO: Add client_app to all entries

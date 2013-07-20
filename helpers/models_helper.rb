@@ -336,4 +336,124 @@ module ModelsHelper
     }.to_json
   end
 
+  def training_log_model
+    {
+      :id => "TrainingLog",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required =>  true
+        },
+        :date => {
+          :type => "Date",
+          :required =>  true
+        },
+        :status => {
+          :allowableValues => {
+            :valueType => "LIST",
+            :values => [
+              "regular",
+              "planned"
+            ]
+        },
+          :description => "training log status",
+          :type => "string",
+          :required =>  true
+        },
+        :sport => {
+          :type => "CompactSport",
+          :required =>  true
+        },
+        :user => {
+          :type => "CompactUser",
+          :required =>  true
+        },
+        :notes => {
+          :type =>  "text",
+          :required =>  true
+        },
+        :title => {
+          :type =>  "string"
+        },
+        :description => {
+          :type => "text"
+        },
+        :mood => {
+          :type =>  "byte",
+          :required =>  true,
+          :description => "A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
+        },
+        :mood_icon_url => {
+          :type => "string",
+          :required =>  true
+        },
+        :calories => {
+          :type =>  "int"
+        },
+        :duration_h =>  {
+          :type =>  "int"
+        },
+        :duration_m =>  {
+          :type =>  "int"
+        },
+        :duration_s =>  {
+          :type =>  "int"
+        },
+        :avg_hr =>  {
+          :type =>  "int"
+        },
+        :max_hr =>  {
+          :type =>  "int"
+        },
+        :sport_params => {
+          :items => {
+            :$ref => "SportParam"
+        },
+          :type => "Array"
+        },
+        :favourite => {
+          :type => "boolean"
+        },
+        :private => {
+          :type => "boolean"
+        },
+        :cheers_count =>  {
+          :type =>  "int"
+        },
+        :comments_count =>  {
+          :type =>  "int"
+        },
+        :distance =>  {
+          :type =>  "int"
+        },
+        :steps =>  {
+          :type =>  "int"
+        },
+        :exclude_stats =>  {
+          :type => "boolean"
+        },
+        :cheerable => {
+          :type => "boolean"
+        },
+        :commentable => {
+          :type => "boolean"
+        },
+        :place => {
+          :type => "Place"
+        },
+        :updated_at => {
+          :type => "DateTime",
+          :required =>  true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required =>  true
+        },
+        :gpx_url => {
+          :type => "string"
+        }
+      }
+    }.to_json
+  end
+
 end
