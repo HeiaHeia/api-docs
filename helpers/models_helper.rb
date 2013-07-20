@@ -256,4 +256,32 @@ module ModelsHelper
     }.to_json
   end
 
+  def compact_sport_model
+    {
+      :id => "CompactSport",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required => true
+        },
+          :name => {
+          :type => "string",
+          :required => true
+        },
+          :icon_url => {
+          :type => "string",
+          :required => true
+        },
+          :planned_icon_url => {
+          :type => "string",
+          :required => true
+        },
+          :url => {
+          :type => "string",
+          :required => true
+        }
+      }
+    }.to_json
+  end
+
 end

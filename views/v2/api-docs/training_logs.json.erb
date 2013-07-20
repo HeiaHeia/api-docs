@@ -380,31 +380,7 @@
         }
       }
     },
-    "Sport":{
-      "id":"Sport",
-      "properties":{
-        "id":{
-          "type":"long",
-          "required": true
-        },
-        "name":{
-          "type":"string",
-          "required": true
-        },
-        "icon_url":{
-          "type": "string",
-          "required": true
-        },
-        "planned_icon_url":{
-          "type": "string",
-          "required": true
-        },
-        "url":{
-          "type":"string",
-          "required": true
-        }
-      }
-    },
+    "CompactSport":<%= compact_sport_model %>,
     "SportParam":<%= sport_param_model %>,
     "Comment":<%= comment_model %>,
     "Cheer":<%= cheer_model %>,
@@ -432,7 +408,7 @@
           "required": true
         },
         "sport":{
-          "type":"Sport",
+          "type":"CompactSport",
           "required": true
         },
         "user":{
