@@ -714,4 +714,110 @@ module ModelsHelper
     }.to_json
   end
 
+  def entity_model
+    {
+      :id => "Entity",
+      :properties => {
+        :kind => {
+          :type => "string",
+          :required => true
+        },
+        :name => {
+          :type => "string",
+          :required => true
+        },
+        :url => {
+          :type => "string"
+        }
+      }
+    }.to_json
+  end
+
+  def entity_hash_model
+    {
+      :id => "EntityHash",
+      :properties => {
+        :'kind:id' => {
+          :type => "Entity"
+        }
+      }
+    }.to_json
+  end
+
+  def feed_model
+    {
+      :id => "Feed",
+      :properties => {
+        :id => {
+          :type => "long",
+          :required => true
+        },
+        :kind => {
+          :type => "string",
+          :required => true,
+          :allowableValues => {
+            :valueType => "LIST",
+            :values => [
+              "AggregatedFeedEntry",
+              "FeedEntry"
+            ]
+          }
+        },
+        :url => {
+          :type => "string",
+          :required => true
+        },
+        :icon_url => {
+          :type => "string"
+        },
+        :title => {
+          :type => "string"
+        },
+        :description => {
+          :type => "text"
+        },
+        :private => {
+          :type => "boolean"
+        },
+        :cheers_count => {
+          :type => "int"
+        },
+        :cheers_url => {
+          :type => "string"
+        },
+        :cheerable => {
+          :type => "boolean",
+          :required => true
+        },
+        :comments_count => {
+          :type => "int"
+        },
+        :comments_url => {
+          :type => "string"
+        },
+        :commentable => {
+          :type => "boolean",
+          :required => true
+        },
+        :updated_at => {
+          :type => "DateTime",
+          :required => true
+        },
+        :created_at => {
+          :type => "DateTime",
+          :required => true
+        },
+        :dict => {
+          :type => "EntityHash"
+        },
+        :properties => {
+          :items => {
+            :$ref => "Entity"
+          },
+          :type => "List"
+        }
+      }
+    }.to_json
+  end
+
 end
