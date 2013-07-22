@@ -40,10 +40,6 @@ module BaseStub
       @attributes[:created_at].utc.iso8601
     end
 
-    def updated_at
-      @attributes[:updated_at].utc.iso8601
-    end
-
   end
 
 end

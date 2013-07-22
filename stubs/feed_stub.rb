@@ -24,7 +24,6 @@ class FeedStub
         :cheerable => false,
         :comments_count => 0,
         :commentable => true,
-        :updated_at => Time.new(2013, 06, 26, 17, 1, 18),
         :created_at => Time.new(2013, 06, 26, 17, 1, 18),
         :dict => {},
         :properties => [
@@ -52,7 +51,6 @@ class FeedStub
         :cheerable => false,
         :comments_count => 0,
         :commentable => false,
-        :updated_at => Time.new(2013, 06, 25, 17, 4, 5),
         :created_at => Time.new(2013, 06, 25, 17, 4, 5),
         :dict => {
           "User:1" => UserStub.find(1).to_entity,
@@ -76,7 +74,6 @@ class FeedStub
       :url => url,
       :cheers_url => cheers_url,
       :comments_url => comments_url,
-      :updated_at => updated_at,
       :created_at => created_at
     }.merge(@attributes.slice(:kind, :icon_url, :title, :description, :private,
                               :cheers_count, :cheerable, :comments_count,

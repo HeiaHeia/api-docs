@@ -17,21 +17,18 @@ class UserStub
         :id => 1,
         :first_name => 'Alexander',
         :last_name => 'Stubb',
-        :updated_at => Time.new(2012, 6, 26, 17, 1, 18).utc,
         :created_at => Time.new(2012, 6, 26, 17, 1, 18).utc
       },
       {
         :id => 2,
         :first_name => 'Homer',
         :last_name => 'Simpson',
-        :updated_at => Time.new(2012, 7, 27, 17, 1, 18).utc,
         :created_at => Time.new(2012, 7, 26, 17, 1, 18).utc
       },
       {
         :id => 3,
         :first_name => 'Bender',
         :last_name => 'Bending Rodríguez',
-        :updated_at => Time.new(2013, 6, 26, 17, 1, 18).utc,
         :created_at => Time.new(2013, 6, 16, 17, 1, 18).utc
       }
     ]
@@ -60,7 +57,6 @@ class UserStub
       :top_sports_url => top_sports_url,
       :latest_activity => {
         :id => 1,
-        :updated_at => Time.new(2013, 6, 26, 17, 1, 18).utc,
         :created_at => Time.new(2013, 6, 16, 17, 1, 18).utc
       },
       :training_goal => TrainingGoalStub.find(1).to_hash,

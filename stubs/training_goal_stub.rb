@@ -19,7 +19,6 @@ class TrainingGoalStub
         :cheerable => false,
         :comments_count => 0,
         :commentable => true,
-        :updated_at => Time.new(2013, 06, 26, 17, 1, 18),
         :created_at => Time.new(2013, 06, 26, 17, 1, 18)
       }
     ]

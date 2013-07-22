@@ -325,10 +325,6 @@ module ModelsHelper
           :required => true,
           :type => "boolean"
         },
-        :updated_at => {
-          :type => "DateTime",
-          :required => true
-        },
         :created_at => {
           :type => "DateTime",
           :required => true
@@ -500,10 +496,6 @@ module ModelsHelper
         :place => {
           :type => "Place"
         },
-        :updated_at => {
-          :type => "DateTime",
-          :required => true
-        },
         :created_at => {
           :type => "DateTime",
           :required => true
@@ -583,10 +575,6 @@ module ModelsHelper
           :type => "boolean",
           :required => true
         },
-        :updated_at => {
-          :type => "DateTime",
-          :required => true
-        },
         :created_at => {
           :type => "DateTime",
           :required => true
@@ -658,10 +646,6 @@ module ModelsHelper
           :type => "boolean",
           :required => true
         },
-        :updated_at => {
-          :type => "DateTime",
-          :required => true
-        },
         :created_at => {
           :type => "DateTime",
           :required => true
@@ -731,10 +715,6 @@ module ModelsHelper
         },
         :commentable => {
           :type => "boolean",
-          :required => true
-        },
-        :updated_at => {
-          :type => "DateTime",
           :required => true
         },
         :created_at => {
