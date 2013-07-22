@@ -422,7 +422,8 @@ module ModelsHelper
           :required => true
         },
         :title => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :description => {
           :type => "text"
@@ -461,31 +462,48 @@ module ModelsHelper
           :type => "Array"
         },
         :favourite => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
         },
         :private => {
-          :type => "boolean"
-        },
-        :cheers_count => {
-          :type => "int"
-        },
-        :comments_count => {
-          :type => "int"
+          :type => "boolean",
+          :required => true
         },
         :distance => {
-          :type => "int"
+          :type => "int",
+          :description => "Sum of distances from sport params"
         },
         :steps => {
-          :type => "int"
+          :type => "int",
+          :description => "Amount of steps from sport params"
         },
         :exclude_stats => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
+        },
+        :cheers_count => {
+          :type => "int",
+          :required => true
+        },
+        :cheers_url => {
+          :type => "string",
+          :required => true
         },
         :cheerable => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
+        },
+        :comments_count => {
+          :type => "int",
+          :required => true
+        },
+        :comments_url => {
+          :type => "string",
+          :required => true
         },
         :commentable => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
         },
         :place => {
           :type => "Place"
@@ -534,7 +552,8 @@ module ModelsHelper
           :required => true
         },
         :title => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :description => {
           :type => "text"
@@ -545,23 +564,28 @@ module ModelsHelper
           :description => "In unit that set in the user settings (kg or lb)"
         },
         :private => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
         },
         :cheers_count => {
-          :type => "int"
+          :type => "int",
+          :required => true
         },
         :cheers_url => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :cheerable => {
           :type => "boolean",
           :required => true
         },
         :comments_count => {
-          :type => "int"
+          :type => "int",
+          :required => true
         },
         :comments_url => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :commentable => {
           :type => "boolean",
@@ -608,29 +632,35 @@ module ModelsHelper
           :required => true
         },
         :title => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :description => {
           :type => "text"
         },
         :private => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
         },
         :cheers_count => {
-          :type => "int"
+          :type => "int",
+          :required => true
         },
         :cheers_url => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :cheerable => {
           :type => "boolean",
           :required => true
         },
         :comments_count => {
-          :type => "int"
+          :type => "int",
+          :required => true
         },
         :comments_url => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :commentable => {
           :type => "boolean",
@@ -677,29 +707,35 @@ module ModelsHelper
           :required => true
         },
         :title => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :description => {
           :type => "text"
         },
         :private => {
-          :type => "boolean"
+          :type => "boolean",
+          :required => true
         },
         :cheers_count => {
-          :type => "int"
+          :type => "int",
+          :required => true
         },
         :cheers_url => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :cheerable => {
           :type => "boolean",
           :required => true
         },
         :comments_count => {
-          :type => "int"
+          :type => "int",
+          :required => true
         },
         :comments_url => {
-          :type => "string"
+          :type => "string",
+          :required => true
         },
         :commentable => {
           :type => "boolean",
