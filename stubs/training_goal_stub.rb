@@ -19,7 +19,8 @@ class TrainingGoalStub
         :cheerable => false,
         :comments_count => 0,
         :commentable => true,
-        :created_at => Time.new(2013, 06, 26, 17, 1, 18)
+        :created_at => Time.new(2013, 06, 26, 17, 1, 18),
+        :user_id => 3
       }
     ]
   end
@@ -33,7 +34,7 @@ class TrainingGoalStub
       :cheers_url => cheers_url,
       :comments_url => comments_url,
       :created_at => created_at,
-      :user => UserStub.find(1).to_compact_hash,
+      :user => UserStub.find(@attributes[:user_id]).to_compact_hash,
     })
   end
 
