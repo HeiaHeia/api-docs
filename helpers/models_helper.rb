@@ -717,34 +717,16 @@ module ModelsHelper
     }
   end
 
-  def entity_model
-    {
-      :id => "Entity",
-      :properties => {
-        :kind => {
-          :type => "string",
-          :required => true
-        },
-        :name => {
-          :type => "string",
-          :required => true
-        },
-        :url => {
-          :type => "string"
-        }
-      }
-    }
-  end
-
-  def entity_hash_model
-    {
-      :id => "EntityHash",
-      :properties => {
-        :'kind:id' => {
-          :type => "Entity"
-        }
-      }
-    }
+  def feed_types
+    [
+      "TextEntry",
+      "TrainingLog",
+      "FreeEntry",
+      "Weight",
+      "SickDay",
+      "Medal",
+      "TrainingGoal"
+    ]
   end
 
   def feed_model
@@ -760,69 +742,48 @@ module ModelsHelper
           :required => true,
           :allowableValues => {
             :valueType => "LIST",
-            :values => [
-              "AggregatedFeedEntry",
-              "FeedEntry"
-            ]
+            :values => feed_types
           }
+        },
+        :entry => {
+          :type => feed_types.join(' | '),
+          :required => true
         },
         :url => {
           :type => "string",
           :required => true
         },
-        :icon_url => {
-          :type => "string"
-        },
-        :title => {
-          :type => "string"
-        },
-        :description => {
-          :type => "text"
-        },
-        :private => {
-          :type => "boolean"
-        },
-        :cheers_count => {
-          :type => "int"
-        },
-        :cheers_url => {
-          :type => "string"
-        },
-        :cheerable => {
-          :type => "boolean",
-          :required => true
-        },
-        :comments_count => {
-          :type => "int"
-        },
-        :comments_url => {
-          :type => "string"
-        },
-        :commentable => {
-          :type => "boolean",
-          :required => true
-        },
-        :updated_at => {
-          :type => "DateTime",
-          :required => true
-        },
         :created_at => {
           :type => "DateTime",
           :required => true
-        },
-        :dict => {
-          :type => "EntityHash"
-        },
-        :properties => {
-          :items => {
-            :$ref => "Entity"
-          },
-          :type => "List"
         }
       }
     }
   end
 
+  def text_entry_model
+    {
+      :id => "TextEntry",
+      :properties => {
+        :description => {
+          :type => "text",
+          :required => true
+        },
+        :cheerable => {
+          :type => "boolean",
+          :required => true
+        },
+        :commentable => {
+          :type => "boolean",
+          :required => true
+        },
+        :dict => {
+          :type => "EntityHash",
+          :required => true
+        }
+      }
+    }
+  end
 
   def models(*args)
     hash = {}
@@ -841,9 +802,7 @@ module ModelsHelper
       'Comment' => ['CompactUser'],
       'CompactSport' => [],
       'CompactUser' => [],
-      'Entity' => [],
-      'EntityHash' => ['Entity'],
-      'Feed' => ['EntityHash'],
+      'Feed' => [],
       'FreeEntry' => ['CompactUser'],
       'Place' => [],
       'SickDay' => ['CompactUser'],

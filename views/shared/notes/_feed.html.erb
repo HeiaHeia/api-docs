@@ -1,0 +1,7 @@
+The 'TextEntry' special kind of entry that can not be cheered and commented.
+This kind of entry contain atttributes 'description' and 'dict'.
+The 'description' attribute has special format contain embedded entries:
+<pre>{{User:3}}'s training goal ({{TrainingGoal:1}})</pre>
+<br>
+The information about embedded entries stored in 'dict' atrribute in format 'dict['kind:id']':
+<pre>{ \n \"dict\": {\n    \"User:3\": { \n      \"kind\": \"User\",\n      \"name\": \"Bender Bending Rodríguez\",\n      \"url\": \"https://api.heiaheia.com/v2/users/3\" \n    },\n    \"TrainingGoal:1\": {\n      \"kind\": \"TrainingGoal\",\n      \"name\": \"I’m gonna go build my own theme park, with blackjack and hookers!\",\n      \"url\": \"https://api.heiaheia.com/v2/training_goals/1\" \n    }\n  }\n}</pre>
