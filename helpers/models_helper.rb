@@ -469,14 +469,6 @@ module ModelsHelper
           :type => "boolean",
           :required => true
         },
-        :distance => {
-          :type => "int",
-          :description => "Sum of distances from sport params"
-        },
-        :steps => {
-          :type => "int",
-          :description => "Amount of steps from sport params"
-        },
         :exclude_stats => {
           :type => "boolean",
           :required => true
