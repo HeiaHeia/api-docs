@@ -5,12 +5,26 @@
   "resourcePath":"/cheers",
   "apis":[
     {
-      "path":"/cheers",
+      "path":"/cheers/available",
       "description":"Available cheers",
       "operations":[
         {
           "httpMethod":"GET",
           "summary":"Available cheers",
+          "responseClass":"List[CheerType]",
+          "nickname":"available",
+          "parameters":[],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/cheers/all",
+      "description":"Available cheers",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all cheer types",
           "responseClass":"List[CheerType]",
           "nickname":"index",
           "parameters":[],
