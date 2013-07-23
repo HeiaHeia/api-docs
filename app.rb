@@ -12,6 +12,7 @@ Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 require 'feed_stub'
 require 'user_stub'
+require 'const'
 
 Dir.glob("#{path_to('helpers')}/**/*_helper.rb")  { |f| require(f) }
 
@@ -82,7 +83,7 @@ class App < Sinatra::Base
   end
 
   get '/v2/feeds' do
-    api_url   = 'https://api.heiaheia.com/v2/feeds'
+    api_url   = "#{Const::BASE_PATH}/feeds"
     prev_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"prev\""
     next_link = "&lt;#{api_url}?since=#{params[:since]}&per_page=#{params[:per_page]}&direction=desc&gt;; rel=\"next\""
     new_link  = "&lt;#{api_url}?since=2&per_page=#{params[:per_page]}&direction=asc&gt;; rel=\"new\""

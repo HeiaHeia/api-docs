@@ -4,6 +4,7 @@ require 'ext/hash'
 require 'base_stub'
 require 'user_stub'
 require 'training_goal_stub'
+require 'const'
 
 class FeedStub
   include BaseStub
@@ -29,7 +30,7 @@ class FeedStub
             "TrainingLog:310" => {
               :kind => 'TrainingLog',
               :name => 'Running 4.5 km in 30 min, 24.06.2013',
-              :url => 'https://api.heiaheia.com/v2/training_logs/310'
+              :url => "#{Const::BASE_PATH}/training_logs/310"
             },
             "User:3" => UserStub.find(3).to_entity,
             "TrainingGoal:1" => TrainingGoalStub.find(1).to_entity
@@ -49,7 +50,7 @@ class FeedStub
   end
 
   def url
-    "https://api.heiaheia.com/v2/feeds/#{id}"
+    "#{Const::BASE_PATH}/feeds/#{id}"
   end
 
 end

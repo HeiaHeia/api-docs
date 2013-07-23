@@ -1,5 +1,7 @@
 module Const
 
+  BASE_PATH = ENV['RACK_ENV'] == 'production' ? 'https://api.heiaheia.com/v2' : 'http://localhost:4567/v2'
+
   BOOLEAN = 'boolean'.freeze
 
   BYTE = 'byte'.freeze

@@ -3,6 +3,7 @@
 require 'ext/hash'
 require 'base_stub'
 require 'user_stub'
+require 'const'
 
 class TrainingGoalStub
   include BaseStub
@@ -48,7 +49,7 @@ class TrainingGoalStub
 
 
   def url
-    "https://api.heiaheia.com/v2/training_goals/#{id}"
+    "#{Const::BASE_PATH}/training_goals/#{id}"
   end
 
   def comments_url
