@@ -117,3 +117,4 @@ end
 # TODO: Add resource TrainingGoal
 # TODO: Add resource Medal
 # TODO: Add resource TopSport
+# TODO: Add model SportParamValue

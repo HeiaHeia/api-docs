@@ -2,35 +2,36 @@
 
 require 'set'
 require 'ext/string'
+require 'const'
 
 module ModelsHelper
 
   def comment_model
     {
-      :id => "Comment",
+      :id => Const::COMMENT,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :user => {
-          :type => "CompactUser",
+          :type => Const::COMPACT_USER,
           :required => true
         },
         :notes => {
-          :type => "text",
+          :type => Const::TEXT,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :avatar_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :removable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         }
       }
@@ -39,25 +40,25 @@ module ModelsHelper
 
   def compact_user_model
     {
-      :id => "CompactUser",
+      :id => Const::COMPACT_USER,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :first_name => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :last_name => {
-          :type => "string"
+          :type => Const::STRING
         },
         :avatar_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         }
       }
@@ -66,137 +67,119 @@ module ModelsHelper
 
   def user_model
     {
-      :id => "User",
+      :id => Const::USER,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :first_name => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :last_name => {
-          :type => "string"
+          :type => Const::STRING
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         },
         :avatar_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :locale => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :measurement_units => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true,
           :allowableValues => {
-            :valueType => "LIST",
-            :values => [
-              "metric",
-              "imperial"
-            ]
+            :valueType => Const::LIST,
+            :values => %w(metric imperial)
           }
         },
         :birthday => {
-          :type => "Date"
+          :type => Const::DATE
         },
         :gender => {
-          :type => "string",
+          :type => Const::STRING,
           :allowableValues => {
-            :valueType => "LIST",
-            :values => [
-              "male",
-              "female"
-            ]
+            :valueType => Const::LIST,
+            :values => %w(male female)
           }
         },
         :country => {
-          :type => 'string'
+          :type => Const::STRING
         },
         :city => {
-          :type => 'string'
+          :type => Const::STRING
         },
         :level => {
-          :type => 'string',
+          :type => Const::STRING,
           :required => true,
           :allowableValues => {
-            :valueType => "LIST",
-            :values => [
-              "rookie",
-              "bronze",
-              "silver",
-              "gold",
-              "diamond",
-              "pro"
-            ]
+            :valueType => Const::LIST,
+            :values => %w(rookie bronze silver gold diamond pro)
           }
         },
         :my_sports => {
-          :type => 'text'
+          :type => Const::TEXT
         },
         :records_and_highlights => {
-          :type => 'text'
+          :type => Const::TEXT
         },
         :training_logs_count => {
-          :type => 'int',
+          :type => Const::INT,
           :required => true
         },
         :training_logs_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :medals_count => {
-          :type => 'int',
+          :type => Const::INT,
           :required => true
         },
         :medals_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :friends_count => {
-          :type => 'int',
+          :type => Const::INT,
           :required => true
         },
         :friends_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :top_sports_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :latest_activity => {
-          :type => 'TrainingLog'
+          :type => Const::TRAINING_LOG
         },
         :training_goal => {
-          :type => 'TrainingGoal'
+          :type => Const::TRAINING_GOAL
         },
         :friendship_status => {
-          :type => "string",
+          :type => Const::STRING,
           :description => "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
           :required => true,
           :allowableValues => {
-            :valueType => "LIST",
-            :values => [
-              "not_friend",
-              "friend",
-              "requested",
-              "pending"
-            ]
+            :valueType => Const::LIST,
+            :values => %w(not_friend friend requested pending)
           }
 
         },
         :friendship_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         }
       }
@@ -205,34 +188,34 @@ module ModelsHelper
 
   def sport_param_model
     {
-      :id => "SportParam",
+      :id => Const::SPORT_PARAM,
       :properties => {
         :id => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :name => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :unit => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :type => {
           :allowableValues => {
-            :valueType => "LIST",
+            :valueType => Const::LIST,
             :values => [
-              "int",
-              "float",
-              "string"
+              Const::INT,
+              Const::FLOAT,
+              Const::STRING
             ]
           },
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :value => {
-          :type => "int,float,string",
+          :type => 'int,float,string',
           :required => true
         }
       }
@@ -241,22 +224,22 @@ module ModelsHelper
 
   def cheer_model
     {
-      :id => "Cheer",
+      :id => Const::CHEER,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :user => {
-          :type => "CompactUser",
+          :type => Const::COMPACT_USER,
           :required => true
         },
         :cheer_type => {
-          :type => "CheerType",
+          :type => Const::CHEER_TYPE,
           :required => true
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         }
       }
@@ -265,26 +248,26 @@ module ModelsHelper
 
   def compact_sport_model
     {
-      :id => "CompactSport",
+      :id => Const::COMPACT_SPORT,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :name => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :planned_icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         }
       }
@@ -293,40 +276,40 @@ module ModelsHelper
 
   def sport_model
     {
-      :id => "Sport",
+      :id => Const::SPORT,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :name => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :planned_icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :sport_params => {
           :items => {
-            :$ref => "SportParam"
+            :$ref => Const::SPORT_PARAM
           },
-          :type => "Array"
+          :type => Const::ARRAY
         },
         :exclude_stats => {
           :required => true,
-          :type => "boolean"
+          :type => Const::BOOLEAN
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         }
       }
@@ -335,18 +318,18 @@ module ModelsHelper
 
   def cheer_type_model
     {
-      :id => "CheerType",
+      :id => Const::CHEER_TYPE,
       :properties => {
         :id => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :level => {
-          :type => "byte",
+          :type => Const::BYTE,
           :required => true
         }
       }
@@ -355,26 +338,26 @@ module ModelsHelper
 
   def place_model
     {
-      :id => "Place",
+      :id => Const::PLACE,
       :properties => {
         :id => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :name => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :latitude => {
-          :type => "double",
+          :type => Const::DOUBLE,
           :required => true
         },
         :longitude => {
-          :type => "double",
+          :type => Const::DOUBLE,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         }
       }
@@ -383,125 +366,121 @@ module ModelsHelper
 
   def training_log_model
     {
-      :id => "TrainingLog",
+      :id => Const::TRAINING_LOG,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :date => {
-          :type => "Date",
+          :type => Const::DATE,
           :required => true
         },
         :status => {
           :allowableValues => {
-            :valueType => "LIST",
-            :values => [
-              "regular",
-              "planned"
-            ]
+            :valueType => Const::LIST,
+            :values => %w(regular planned)
           },
-          :description => "training log status",
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :sport => {
-          :type => "CompactSport",
+          :type => Const::COMPACT_SPORT,
           :required => true
         },
         :user => {
-          :type => "CompactUser",
+          :type => Const::COMPACT_USER,
           :required => true
         },
         :notes => {
-          :type => "text",
+          :type => Const::TEXT,
           :required => true
         },
         :title => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :description => {
-          :type => "text"
+          :type => Const::TEXT
         },
         :mood => {
-          :type => "byte",
+          :type => Const::BYTE,
           :required => true,
-          :description => "A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
+          :description => 'A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood'
         },
         :mood_icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :calories => {
-          :type => "int"
+          :type => Const::INT
         },
         :duration_h => {
-          :type => "int"
+          :type => Const::INT
         },
         :duration_m => {
-          :type => "int"
+          :type => Const::INT
         },
         :duration_s => {
-          :type => "int"
+          :type => Const::INT
         },
         :avg_hr => {
-          :type => "int"
+          :type => Const::INT
         },
         :max_hr => {
-          :type => "int"
+          :type => Const::INT
         },
         :sport_params => {
           :items => {
-            :$ref => "SportParam"
+            :$ref => Const::SPORT_PARAM
           },
-          :type => "Array"
+          :type => Const::ARRAY
         },
         :favourite => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :private => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :exclude_stats => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :cheers_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :cheers_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :cheerable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :comments_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :comments_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :commentable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :place => {
-          :type => "Place"
+          :type => Const::PLACE
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         },
         :gpx_url => {
-          :type => "string"
+          :type => Const::STRING
         }
       }
     }
@@ -509,74 +488,74 @@ module ModelsHelper
 
   def weight_model
     {
-      :id => "Weight",
+      :id => Const::WEIGHT,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :date => {
-          :type => "Date",
+          :type => Const::DATE,
           :required => true
         },
         :user => {
-          :type => "CompactUser",
+          :type => Const::COMPACT_USER,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :notes => {
-          :type => "text",
+          :type => Const::TEXT,
           :required => true
         },
         :title => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :description => {
-          :type => "text"
+          :type => Const::TEXT
         },
         :value => {
-          :type => "text",
+          :type => Const::FLOAT,
           :required => true,
-          :description => "In unit that set in the user settings (kg or lb)"
+          :description => 'In unit that set in the user settings (kg or lb)'
         },
         :private => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :cheers_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :cheers_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :cheerable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :comments_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :comments_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :commentable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         }
       }
@@ -585,69 +564,69 @@ module ModelsHelper
 
   def sick_day_model
     {
-      :id => "SickDay",
+      :id => Const::SICK_DAY,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :date => {
-          :type => "Date",
+          :type => Const::DATE,
           :required => true
         },
         :user => {
-          :type => "CompactUser",
+          :type => Const::COMPACT_USER,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :notes => {
-          :type => "text",
+          :type => Const::TEXT,
           :required => true
         },
         :title => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :description => {
-          :type => "text"
+          :type => Const::TEXT
         },
         :private => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :cheers_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :cheers_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :cheerable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :comments_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :comments_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :commentable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         }
       }
@@ -656,69 +635,69 @@ module ModelsHelper
 
   def free_entry_model
     {
-      :id => "FreeEntry",
+      :id => Const::FREE_ENTRY,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :date => {
-          :type => "Date",
+          :type => Const::DATE,
           :required => true
         },
         :user => {
-          :type => "CompactUser",
+          :type => Const::COMPACT_USER,
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :icon_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :notes => {
-          :type => "text",
+          :type => Const::TEXT,
           :required => true
         },
         :title => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :description => {
-          :type => "text"
+          :type => Const::TEXT
         },
         :private => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :cheers_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :cheers_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :cheerable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :comments_count => {
-          :type => "int",
+          :type => Const::INT,
           :required => true
         },
         :comments_url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :commentable => {
-          :type => "boolean",
+          :type => Const::BOOLEAN,
           :required => true
         },
         :created_at => {
-          :type => "DateTime",
+          :type => Const::DATE_TIME,
           :required => true
         }
       }
@@ -727,29 +706,29 @@ module ModelsHelper
 
   def feed_types
     [
-      "TextEntry",
-      "TrainingLog",
-      "FreeEntry",
-      "Weight",
-      "SickDay",
-      "Medal",
-      "TrainingGoal"
+      Const::TEXT_ENTRY,
+      Const::TRAINING_LOG,
+      Const::FREE_ENTRY,
+      Const::WEIGHT,
+      Const::SICK_DAY,
+      Const::MEDAL,
+      Const::TRAINING_GOAL
     ]
   end
 
   def feed_model
     {
-      :id => "Feed",
+      :id => Const::FEED,
       :properties => {
         :id => {
-          :type => "long",
+          :type => Const::LONG,
           :required => true
         },
         :kind => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true,
           :allowableValues => {
-            :valueType => "LIST",
+            :valueType => Const::LIST,
             :values => feed_types
           }
         },
@@ -758,35 +737,11 @@ module ModelsHelper
           :required => true
         },
         :url => {
-          :type => "string",
+          :type => Const::STRING,
           :required => true
         },
         :created_at => {
-          :type => "DateTime",
-          :required => true
-        }
-      }
-    }
-  end
-
-  def text_entry_model
-    {
-      :id => "TextEntry",
-      :properties => {
-        :description => {
-          :type => "text",
-          :required => true
-        },
-        :cheerable => {
-          :type => "boolean",
-          :required => true
-        },
-        :commentable => {
-          :type => "boolean",
-          :required => true
-        },
-        :dict => {
-          :type => "EntityHash",
+          :type => Const::DATE_TIME,
           :required => true
         }
       }
@@ -801,24 +756,23 @@ module ModelsHelper
     hash.to_json
   end
 
-  private
-
   def model_dependencies
     {
-      'Cheer' => ['CheerType', 'CompactUser'],
-      'CheerType' => [],
-      'Comment' => ['CompactUser'],
-      'CompactSport' => [],
-      'CompactUser' => [],
-      'Feed' => [],
-      'FreeEntry' => ['CompactUser'],
-      'Place' => [],
-      'SickDay' => ['CompactUser'],
-      'Sport' => ['SportParam'],
-      'SportParam' => [],
-      'TrainingLog' => ['CompactSport', 'CompactUser', 'SportParam', 'Place'],
-      'User' => ['TrainingLog'],
-      'Weight' => ['CompactUser'],
+      Const::CHEER => [Const::CHEER_TYPE, Const::COMPACT_USER],
+      Const::CHEER_TYPE => [],
+      Const::COMMENT => [Const::COMPACT_USER],
+      Const::COMPACT_SPORT => [],
+      Const::COMPACT_USER => [],
+      Const::FEED => [],
+      Const::FREE_ENTRY => [Const::COMPACT_USER],
+      Const::PLACE => [],
+      Const::SICK_DAY => [Const::COMPACT_USER],
+      Const::SPORT => [Const::SPORT_PARAM],
+      Const::SPORT_PARAM => [],
+      #Const::TRAINING_GOAL => [Const::COMPACT_USER],
+      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::SPORT_PARAM, Const::PLACE],
+      Const::USER => [Const::TRAINING_LOG],
+      Const::WEIGHT => [Const::COMPACT_USER],
     }
   end
 
