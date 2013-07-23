@@ -8,10 +8,6 @@ require 'const'
 class UserStub
   include BaseStub
 
-  KIND = 'User'
-  MALE = '?'
-  FEMALE = '?'
-
   def self.entries
     [
       {
@@ -77,7 +73,7 @@ class UserStub
 
   def to_entity
     {
-      :kind => KIND,
+      :kind => Const::USER,
       :name => full_name,
       :url => url
     }

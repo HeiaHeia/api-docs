@@ -9,19 +9,17 @@ require 'const'
 class FeedStub
   include BaseStub
 
-  TEXT_ENTRY = 'TextEntry'
-
   def self.entries
     [
       {
         :id => 1,
-        :kind => TrainingGoalStub::KIND,
+        :kind => Const::TRAINING_GOAL,
         :entry => TrainingGoalStub.find(1).to_hash,
         :created_at => Time.new(2013, 06, 26, 17, 1, 18),
       },
       {
         :id => 2,
-        :kind => TEXT_ENTRY,
+        :kind => Const::TEXT_ENTRY,
         :entry => {
           :description => "{{User:1}} commented on {{User:2}}'s entry ({{TrainingLog:310}}) and {{User:3}}'s training goal ({{TrainingGoal:1}})",
           :dict => {

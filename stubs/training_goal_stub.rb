@@ -8,8 +8,6 @@ require 'const'
 class TrainingGoalStub
   include BaseStub
 
-  KIND = 'TrainingGoal'
-
   def self.entries
     [
       {
@@ -29,7 +27,7 @@ class TrainingGoalStub
   def to_hash
     @attributes.slice(:id, :title, :private, :cheers_count, :cheerable,
                       :comments_count, :commentable).merge({
-      :kind => KIND,
+      :kind => Const::TRAINING_GOAL,
       :icon_url => 'https://www.heiaheia.com/images/icons/training_goal.png',
       :url => url,
       :cheers_url => cheers_url,
@@ -41,7 +39,7 @@ class TrainingGoalStub
 
   def to_entity
     {
-      :kind => KIND,
+      :kind => Const::TRAINING_GOAL,
       :name => @attributes[:title],
       :url => url
     }
