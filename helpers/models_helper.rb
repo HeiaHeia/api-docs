@@ -748,6 +748,70 @@ module ModelsHelper
     }
   end
 
+  def message_model
+    {
+      :id => Const::MESSAGE,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :from => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :to => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :thread => {
+          :type => Const::THREAD,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :body => {
+          :type => Const::TEXT,
+          :required => true
+        },
+        :unread => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def thread_model
+    {
+      :id => Const::THREAD,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :messages_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :unread => {
+          :type => Const::BOOLEAN,
+          :required => true
+        }
+      }
+    }
+  end
+
   def models(*args)
     hash = {}
     model_names(args).each do |model|
@@ -765,10 +829,12 @@ module ModelsHelper
       Const::COMPACT_USER => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER],
+      Const::MESSAGE => [Const::COMPACT_USER, Const::THREAD],
       Const::PLACE => [],
       Const::SICK_DAY => [Const::COMPACT_USER],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
+      Const::THREAD => [],
       #Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::SPORT_PARAM, Const::PLACE],
       Const::USER => [Const::TRAINING_LOG],

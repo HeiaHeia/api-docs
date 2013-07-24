@@ -30,11 +30,13 @@ module Const
   FEED = 'Feed'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
   MEDAL = 'Medal'.freeze
+  MESSAGE = 'Message'.freeze
   PLACE = 'Place'.freeze
   SICK_DAY = 'SickDay'.freeze
   SPORT = 'Sport'.freeze
   SPORT_PARAM = 'SportParam'.freeze
   TEXT_ENTRY = 'TextEntry'.freeze
+  THREAD = 'Thread'.freeze
   TRAINING_GOAL = 'TrainingGoal'.freeze
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze

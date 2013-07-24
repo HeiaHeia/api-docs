@@ -42,6 +42,14 @@
     {
       "path":"/api-docs/friends.{format}",
       "description":"Friends"
+    },
+    {
+      "path":"/api-docs/messages.{format}",
+      "description":"Messages"
+    },
+    {
+      "path":"/api-docs/threads.{format}",
+      "description":"Threads"
     }
   ]
 }

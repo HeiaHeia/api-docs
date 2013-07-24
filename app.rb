@@ -119,3 +119,14 @@ end
 # TODO: Add resource Medal
 # TODO: Add resource TopSport
 # TODO: Add model SportParamValue
+# TODO: Fix sport_params params[:name] => params[:id]
+# TODO: Add properties or #name? to entries
+
+
+# GET  /threads
+# GET  /threads/unread
+# GET  /threads/:id/messages
+# POST /threads/:id/messages
+
+# GET  /messages/:id
+# PUT  /messages/:id
