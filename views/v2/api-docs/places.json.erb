@@ -13,20 +13,27 @@
           "summary":"Finds places",
           "responseClass":"List[Place]",
           "nickname":"index",
+          "notes":"The results ordered based on their distance from a given point.",
           "parameters":[
             {
               "name":"latitude",
               "description":"Latitude of the place, as accurate as is known.",
               "paramType":"form",
-              "dataType":"int",
+              "dataType":"double",
               "required":true
             },
             {
               "name":"longitude",
               "description":"Longitude of the place, as accurate as is known.",
               "paramType":"form",
-              "dataType":"int",
+              "dataType":"double",
               "required":true
+            },
+            {
+              "name":"q",
+              "description":"A search term to be applied against place names.",
+              "paramType":"query",
+              "dataType":"string"
             },
             <%= param_page %>,
             <%= param_per_page %>
@@ -43,19 +50,19 @@
               "name":"latitude",
               "description":"Latitude of the place, as accurate as is known.",
               "paramType":"form",
-              "dataType":"int",
+              "dataType":"double",
               "required":true
             },
             {
               "name":"longitude",
               "description":"Longitude of the place, as accurate as is known.",
               "paramType":"form",
-              "dataType":"int",
+              "dataType":"double",
               "required":true
             },
             {
               "name":"name",
-              "description":"The name of the place",
+              "description":"The name of the place.",
               "paramType":"form",
               "required":true,
               "dataType":"String"
