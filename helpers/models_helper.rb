@@ -200,7 +200,8 @@ module ModelsHelper
         },
         :unit => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => 'Human readable format: km, mi, m, ft, ...'
         },
         :type => {
           :allowableValues => {
