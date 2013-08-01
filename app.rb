@@ -122,11 +122,19 @@ end
 # TODO: Fix sport_params params[:name] => params[:id]
 # TODO: Add properties or #name? to entries
 
-
-# GET  /threads
-# GET  /threads/unread
-# GET  /threads/:id/messages
-# POST /threads/:id/messages
-
-# GET  /messages/:id
-# PUT  /messages/:id
+#  def param_type(param)
+#    case param.value_type
+#      when 0 # integer
+#        'int'
+#      when 1 # string
+#        'string'
+#      when 2 # float
+#        'float'
+#      when 3 # date
+#        'Date'
+#      when 4 # seconds?
+#        'int'
+#    end
+#  end
+#
+# s.sport_params.map { |param| {id: param.name(:en), name: param.name(locale), type: pew(param), unit: param.unit.name(locale), distance: param.is_distance?} }
