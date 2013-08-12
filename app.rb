@@ -121,6 +121,7 @@ end
 # TODO: Add model SportParamValue
 # TODO: Fix sport_params params[:name] => params[:id]
 # TODO: Add properties or #name? to entries
+# TODO: Add properties :removable and :editable
 
 #  def param_type(param)
 #    case param.value_type
