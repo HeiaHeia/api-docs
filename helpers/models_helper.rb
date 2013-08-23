@@ -705,6 +705,73 @@ module ModelsHelper
     }
   end
 
+  def training_goal_model
+    {
+      :id => Const::TRAINING_GOAL,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :user => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :notes => {
+          :type => Const::TEXT,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :private => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :cheers_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :cheers_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :cheerable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :comments_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :comments_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :commentable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        }
+      }
+    }
+  end
+
   def feed_types
     [
       Const::TEXT_ENTRY,
@@ -836,9 +903,9 @@ module ModelsHelper
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::THREAD => [],
-      #Const::TRAINING_GOAL => [Const::COMPACT_USER],
+      Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::SPORT_PARAM, Const::PLACE],
-      Const::USER => [Const::TRAINING_LOG],
+      Const::USER => [Const::TRAINING_LOG, Const::TRAINING_GOAL],
       Const::WEIGHT => [Const::COMPACT_USER],
     }
   end

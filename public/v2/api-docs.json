@@ -54,6 +54,10 @@
     {
       "path":"/api-docs/places.{format}",
       "description":"Places"
+    },
+    {
+      "path":"/api-docs/training_goals.{format}",
+      "description":"Training Goals"
     }
   ]
 }
