@@ -705,6 +705,66 @@ module ModelsHelper
     }
   end
 
+  def medal_model
+    {
+      :id => Const::MEDAL,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :year => {
+          :type => Const::INT,
+          :required => true
+        },
+        :user => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :cheers_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :cheers_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :cheerable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :comments_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :comments_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :commentable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        }
+      }
+    }
+  end
+
   def training_goal_model
     {
       :id => Const::TRAINING_GOAL,
@@ -907,6 +967,7 @@ module ModelsHelper
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::SPORT_PARAM, Const::PLACE],
       Const::USER => [Const::TRAINING_LOG, Const::TRAINING_GOAL],
       Const::WEIGHT => [Const::COMPACT_USER],
+      Const::MEDAL => [Const::COMPACT_USER]
     }
   end
 
