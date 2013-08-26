@@ -85,6 +85,13 @@
           "nickname":"index",
           "parameters":[
             {
+              "name":"user_id",
+              "description":"The id of the user",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
               "name":"year",
               "description":"Gets list of entries for given year. Be default it's current year.",
               "paramType":"query",
@@ -108,6 +115,13 @@
           "responseClass":"Medal",
           "nickname":"show",
           "parameters":[
+            {
+              "name":"user_id",
+              "description":"The id of the user",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
             {
               "name":"id",
               "description":"The id of the medal",
