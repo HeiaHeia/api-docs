@@ -30,7 +30,7 @@
     },
     {
       "path":"/medals/{id}",
-      "description":"Operations about medals of current user",
+      "description":"Operations about user medal",
       "operations":[
         {
           "httpMethod":"GET",
@@ -51,29 +51,7 @@
       ]
     },
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'medals/{medal_id}' } } %>,
-    {
-      "path":"/medals/{medal_id}/cheers",
-      "description":"Operations about cheers",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"Get list of cheers",
-          "responseClass":"List[Cheer]",
-          "nickname":"cheers_index",
-          "parameters":[
-            {
-              "name":"medal_id",
-              "paramType":"path",
-              "dataType":"long",
-              "required":true
-            },
-            <%= param_page %>,
-            <%= param_per_page %>
-          ],
-          "errorResponses":<%= responses(400) %>
-        }
-      ]
-    },
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'medals/{medal_id}' } } %>,
     {
       "path":"/users/{user_id}/medals",
       "description":"Operations about medals",
@@ -135,7 +113,7 @@
       ]
     },
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'users/{user_id}/medals/{medal_id}' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'users/{user_id}/medals/{medal_id}', :param_id => 'user_id' } } %>
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'users/{user_id}/medals/{medal_id}' } } %>
   ],
   "models":<%= models('Medal', 'Cheer', 'Comment') %>
 }
