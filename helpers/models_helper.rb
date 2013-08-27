@@ -319,7 +319,7 @@ module ModelsHelper
 
   def top_sport_model
     {
-      :id => Const::SPORT,
+      :id => Const::TOP_SPORT,
       :properties => {
         :sport => {
           :type => Const::COMPACT_SPORT,
