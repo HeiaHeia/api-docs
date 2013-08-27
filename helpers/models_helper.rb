@@ -317,6 +317,31 @@ module ModelsHelper
     }
   end
 
+  def top_sport_model
+    {
+      :id => Const::SPORT,
+      :properties => {
+        :sport => {
+          :type => Const::COMPACT_SPORT,
+          :required => true
+        },
+        :count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :duration_h => {
+          :type => Const::INT
+        },
+        :duration_m => {
+          :type => Const::INT
+        },
+        :distance => {
+          :type => Const::INT
+        }
+      }
+    }
+  end
+
   def cheer_type_model
     {
       :id => Const::CHEER_TYPE,

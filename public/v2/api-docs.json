@@ -62,6 +62,10 @@
     {
       "path":"/api-docs/medals.{format}",
       "description":"Medals"
+    },
+    {
+      "path":"/api-docs/top_sports.{format}",
+      "description":"Top Sports"
     }
   ]
 }
