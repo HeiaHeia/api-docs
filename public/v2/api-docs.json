@@ -58,6 +58,14 @@
     {
       "path":"/api-docs/training_goals.{format}",
       "description":"Training Goals"
+    },
+    {
+      "path":"/api-docs/medals.{format}",
+      "description":"Medals"
+    },
+    {
+      "path":"/api-docs/top_sports.{format}",
+      "description":"Top Sports"
     }
   ]
 }
