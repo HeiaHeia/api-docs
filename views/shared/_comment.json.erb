@@ -1,5 +1,6 @@
+<% param_list = path_params(resource) %>
 {
-  "path":"/<%= resource %>/{<%= param_id %>}/comments",
+  "path":"/<%= resource %>/comments",
   "description":"Operations about comments",
   "operations":[
     {
@@ -8,12 +9,14 @@
       "responseClass":"List[Comment]",
       "nickname":"comments_index",
       "parameters":[
-        {
-          "name":"<%= param_id %>",
-          "paramType":"path",
-          "dataType":"long",
-          "required":true
-        },
+        <% param_list.each do |param| %>
+          {
+            "name":"<%= param %>",
+            "paramType":"path",
+            "dataType":"long",
+            "required":true
+          },
+        <% end %>
         <%= param_page %>,
         <%= param_per_page %>
       ],
@@ -25,12 +28,14 @@
       "responseClass":"Comment",
       "nickname":"comments_create",
       "parameters":[
-        {
-          "name":"<%= param_id %>",
-          "paramType":"path",
-          "dataType":"long",
-          "required":true
-        },
+        <% param_list.each do |param| %>
+          {
+            "name":"<%= param %>",
+            "paramType":"path",
+            "dataType":"long",
+            "required":true
+          },
+        <% end %>
         {
           "name":"notes",
           "paramType":"query",
@@ -43,7 +48,7 @@
   ]
 },
 {
-  "path":"/<%= resource %>/{<%= param_id %>}/comments/{id}",
+  "path":"/<%= resource %>/comments/{id}",
   "description":"Operations about comment",
   "operations":[
     {
@@ -52,12 +57,14 @@
       "responseClass":"void",
       "nickname":"comments_destroy",
       "parameters":[
-        {
-          "name":"<%= param_id %>",
-          "paramType":"path",
-          "dataType":"long",
-          "required":true
-        },
+        <% param_list.each do |param| %>
+          {
+            "name":"<%= param %>",
+            "paramType":"path",
+            "dataType":"long",
+            "required":true
+          },
+        <% end %>
         {
           "name":"id",
           "description":"ID of comment that needs to be deleted",

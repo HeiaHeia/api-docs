@@ -1,0 +1,88 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/medals",
+  "apis":[
+    {
+      "path":"/medals",
+      "description":"Operations about current user's medals",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Medals of current user",
+          "responseClass":"List[Medal]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"year",
+              "description":"Gets list of entries for given year. Be default it's current year.",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"<%= Time.now.year %>"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/{user_id}/medals",
+      "description":"Operations about medals",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Medals of user specified by user_id",
+          "responseClass":"List[Medal]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"user_id",
+              "description":"The id of the user",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"year",
+              "description":"Gets list of entries for given year. Be default it's current year.",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"<%= Time.now.year %>"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/medals/{medal_id}",
+      "description":"Operations about user medal",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Get a medal by ID",
+          "responseClass":"Medal",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"medal_id",
+              "description":"The id of the medal",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    },
+    <%= erb :'shared/_comment.json', { :locals => { :resource => 'medals/{medal_id}' } } %>,
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'medals/{medal_id}' } } %>
+  ],
+  "models":<%= models('Medal', 'Cheer', 'Comment') %>
+}

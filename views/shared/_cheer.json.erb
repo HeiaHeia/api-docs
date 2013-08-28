@@ -1,5 +1,6 @@
+<% param_list = path_params(resource) %>
 {
-  "path":"/<%= resource %>/{<%= param_id %>}/cheers",
+  "path":"/<%= resource %>/cheers",
   "description":"Operations about cheers",
   "operations":[
     {
@@ -8,12 +9,14 @@
       "responseClass":"List[Cheer]",
       "nickname":"cheers_index",
       "parameters":[
-        {
-          "name":"<%= param_id %>",
-          "paramType":"path",
-          "dataType":"long",
-          "required":true
-        },
+        <% param_list.each do |param| %>
+          {
+            "name":"<%= param %>",
+            "paramType":"path",
+            "dataType":"long",
+            "required":true
+          },
+        <% end %>
         <%= param_page %>,
         <%= param_per_page %>
       ],
@@ -25,12 +28,14 @@
       "responseClass":"Cheer",
       "nickname":"cheer_create",
       "parameters":[
-        {
-          "name":"<%= param_id %>",
-          "paramType":"path",
-          "dataType":"long",
-          "required":true
-        },
+        <% param_list.each do |param| %>
+          {
+            "name":"<%= param %>",
+            "paramType":"path",
+            "dataType":"long",
+            "required":true
+          },
+        <% end %>
         {
           "name":"cheer_type_id",
           "paramType":"query",
