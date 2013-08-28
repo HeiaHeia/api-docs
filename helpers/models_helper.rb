@@ -197,14 +197,14 @@ module ModelsHelper
         :unit_type => {
           :type => Const::STRING,
           :required => true,
-          :description => 'km/mi, m/foot, min, km/mi, c/f, hms or empty. Depends on user unit system'
+          :description => 'mi, km, foot, m, min, f, c, hms or empty. Depends on user unit system'
         },
         :unit_name => {
           :type => Const::STRING,
           :required => true,
-          :description => 'Human readable format: km, mi, m, ft, ... Depends on user locale and unit system'
+          :description => 'Human readable format: "mi, km, ft, m, min, h, bpm, mph, km/h, sec, °F, °C, ''". Depends on user locale and unit system'
         },
-        :type => {
+        :value_type => {
           :allowableValues => {
             :valueType => Const::LIST,
             :values => [
