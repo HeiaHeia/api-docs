@@ -191,19 +191,20 @@ module ModelsHelper
       :id => Const::SPORT_PARAM,
       :properties => {
         :id => {
-          :type => Const::STRING,
+          :type => Const::LONG,
           :required => true
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :unit => {
+        :unit_type => {
           :type => Const::STRING,
           :required => true,
-          :description => 'Human readable format: km, mi, m, ft, ...'
+          :description => 'mi, km, foot, m, min, f, c, hms or empty. Depends on user unit system'
         },
-        :type => {
+        :unit_name => {
+          :type => Const::STRING,
+          :required => true,
+          :description => 'Human readable format: "mi, km, ft, m, min, h, bpm, mph, km/h, sec, °F, °C, ''". Depends on user locale and unit system'
+        },
+        :value_type => {
           :allowableValues => {
             :valueType => Const::LIST,
             :values => [
@@ -214,9 +215,21 @@ module ModelsHelper
           },
           :type => Const::STRING,
           :required => true
-        },
+        }
+      }
+    }
+  end
+
+  def sport_param_value_model
+    {
+      :id => Const::SPORT_PARAM_VALUE,
+      :properties => {
         :value => {
           :type => 'int,float,string',
+          :required => true
+        },
+        :sport_param => {
+          :type => Const::SPORT_PARAM,
           :required => true
         }
       }
@@ -456,9 +469,9 @@ module ModelsHelper
         :max_hr => {
           :type => Const::INT
         },
-        :sport_params => {
+        :sport_param_values => {
           :items => {
-            :$ref => Const::SPORT_PARAM
+            :$ref => Const::SPORT_PARAM_VALUE
           },
           :type => Const::ARRAY
         },
@@ -987,9 +1000,10 @@ module ModelsHelper
       Const::SICK_DAY => [Const::COMPACT_USER],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
+      Const::SPORT_PARAM_VALUE => [ Const::SPORT_PARAM ],
       Const::THREAD => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
-      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::SPORT_PARAM, Const::PLACE],
+      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE],
       Const::USER => [Const::TRAINING_LOG, Const::TRAINING_GOAL],
       Const::WEIGHT => [Const::COMPACT_USER],
       Const::MEDAL => [Const::COMPACT_USER]
