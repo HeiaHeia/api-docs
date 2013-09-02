@@ -95,8 +95,8 @@
         }
       ]
     },
-    <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_goals', :param_id => 'training_goal_id' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_goals', :param_id => 'training_goal_id' } } %>
+    <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_goals/{training_goal_id}' } } %>,
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_goals/{training_goal_id}' } } %>
   ],
   "models":<%= models('TrainingGoal', 'Cheer', 'Comment') %>
 }

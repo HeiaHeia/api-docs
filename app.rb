@@ -28,7 +28,7 @@ class App < Sinatra::Base
     'Record not found'
   end
 
-  helpers ErrorHelper, PaginatorHelper, ModelsHelper
+  helpers ErrorHelper, PaginatorHelper, ModelsHelper, UrlHelper
 
   get '/' do
     redirect '/index.html'
@@ -121,29 +121,6 @@ class App < Sinatra::Base
 end
 
 # FIXME: Fix usage of models with $ref
-# FIXME: swagger.js:369
-# TODO: Add client_app to all entries
-# TODO: Add resource TrainingGoal
-# TODO: Add resource Medal
-# TODO: Add resource TopSport
-# TODO: Add model SportParamValue
-# TODO: Fix sport_params params[:name] => params[:id]
+# FIXME: swagger.js:359
 # TODO: Add properties or #name? to entries
 # TODO: Add properties :removable and :editable
-
-#  def param_type(param)
-#    case param.value_type
-#      when 0 # integer
-#        'int'
-#      when 1 # string
-#        'string'
-#      when 2 # float
-#        'float'
-#      when 3 # date
-#        'Date'
-#      when 4 # seconds?
-#        'int'
-#    end
-#  end
-#
-# s.sport_params.map { |param| {id: param.name(:en), name: param.name(locale), type: pew(param), unit: param.unit.name(locale), distance: param.is_distance?} }

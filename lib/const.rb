@@ -34,7 +34,9 @@ module Const
   PLACE = 'Place'.freeze
   SICK_DAY = 'SickDay'.freeze
   SPORT = 'Sport'.freeze
+  TOP_SPORT = 'TopSport'.freeze
   SPORT_PARAM = 'SportParam'.freeze
+  SPORT_PARAM_VALUE = 'SportParamValue'.freeze
   TEXT_ENTRY = 'TextEntry'.freeze
   THREAD = 'Thread'.freeze
   TRAINING_GOAL = 'TrainingGoal'.freeze

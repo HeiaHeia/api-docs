@@ -46,7 +46,7 @@
         {
           "httpMethod":"POST",
           "summary":"Add a new training log",
-          "notes":"sport_id=2&training_log[avg_hr]=110&training_log[calories]=148&training_log[comment]=Great%20ride%21&training_log[date]=2010-04-27&training_log[duration_h]=1&training_log[duration_m]=15&training_log[duration_s]=34&training_log[favourite]=1&training_log[max_hr]=150&training_log[mood]=4&training_log[sport_params][0][name]=distance&training_log[sport_params][0][value]=34.5&training_log[sport_params][1][name]=elevation&training_log[sport_params][1][value]=112&training_log[sport_params][2][name]=avg.%20speed&training_log[sport_params][2][value]=27.2&training_log[sport_params][3][name]=max.%20speed&training_log[sport_params][3][value]=51.3",
+          "notes":"sport_id=2&training_log[avg_hr]=110&training_log[calories]=148&training_log[comment]=Great%20ride%21&training_log[date]=2010-04-27&training_log[duration_h]=1&training_log[duration_m]=15&training_log[duration_s]=34&training_log[favourite]=1&training_log[max_hr]=150&training_log[mood]=4&training_log[sport_params][0][id]=2&training_log[sport_params][0][value]=34.5&training_log[sport_params][1][id]=4&training_log[sport_params][1][value]=112&training_log[sport_params][2][id]=6&training_log[sport_params][2][value]=27.2&training_log[sport_params][3][id]=8&training_log[sport_params][3][value]=51.3",
           "responseClass":"TrainingLog",
           "nickname":"create",
           "parameters":[
@@ -142,9 +142,9 @@
               "description":"The file, support only GPX format."
             },
             {
-              "name":"sport_params[0][name]",
+              "name":"sport_params[0][id]",
               "paramType":"form",
-              "dataType":"string"
+              "dataType":"int"
             },
             {
               "name":"sport_params[0][value]",
@@ -152,9 +152,9 @@
               "dataType":"int,float,string"
             },
             {
-              "name":"sport_params[1][name]",
+              "name":"sport_params[1][id]",
               "paramType":"form",
-              "dataType":"string"
+              "dataType":"int"
             },
             {
               "name":"sport_params[1][value]",
@@ -300,7 +300,7 @@
               "description":"The file, support only GPX format."
             },
             {
-              "name":"sport_params[0][name]",
+              "name":"sport_params[0][id]",
               "paramType":"form",
               "dataType":"string"
             },
@@ -310,7 +310,7 @@
               "dataType":"int,float,string"
             },
             {
-              "name":"sport_params[1][name]",
+              "name":"sport_params[1][id]",
               "paramType":"form",
               "dataType":"string"
             },
@@ -350,8 +350,8 @@
         }
       ]
     },
-    <%= erb :'shared/_comment.json', { :locals => { :resource => "training_logs", :param_id => 'training_log_id' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => "training_logs", :param_id => 'training_log_id' } } %>
+    <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>,
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_logs/training_log_id' } } %>
   ],
   "models":<%= models('TrainingLog', 'Cheer', 'Comment') %>
 }

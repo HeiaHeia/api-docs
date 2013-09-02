@@ -126,8 +126,8 @@
         }
       ]
     },
-    <%= erb :'shared/_comment.json', { :locals => { :resource => "free_entries", :param_id => 'free_entry_id' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => "free_entries", :param_id => 'free_entry_id' } } %>
+    <%= erb :'shared/_comment.json', { :locals => { :resource => 'free_entries/{free_entry_id}' } } %>,
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'free_entries/{free_entry_id}' } } %>
   ],
   "models":<%= models('FreeEntry', 'Cheer', 'Comment') %>
 }
