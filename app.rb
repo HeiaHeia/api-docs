@@ -38,6 +38,10 @@ class App < Sinatra::Base
     erb request.path.to_sym
   end
 
+  get '/error-and-responses' do
+    erb :'error-and-responses'
+  end
+
   post '/v2/training_logs' do
     puts params.inspect
     body 'OK'
@@ -139,3 +143,53 @@ end
 #  end
 #
 # s.sport_params.map { |param| {id: param.name(:en), name: param.name(locale), type: pew(param), unit: param.unit.name(locale), distance: param.is_distance?} }
+
+#error:
+#
+#v1: Twitter
+#
+#
+#  [
+#    { :code => 21, :message => "date can't be blank", :url => "" },
+#    { :code => 22, :message => "sport_id is invalid", :url => "" }
+#  ]
+#
+#
+#v2:
+#
+#  {
+#    :message => "Validation Failed",
+#    :errors => [
+#      {
+#        :resource => "TrainingLog",
+#        :field => "date",
+#        :code => 21
+#      },
+#      {
+#        :resource => "TrainingLog",
+#        :field => "sport_id",
+#        :code => 21
+#      }
+#    ]
+#  }
+#
+#v3: Github
+#
+#  { :message => "Body should be a JSON Hash", :errors => []} # Error code in header
+#
+#
+#  {
+#    :message => "Validation Failed",
+#    :errors => [
+#      {
+#        :resource => "TrainingLog",
+#        :field => "date",
+#        :code => 21
+#      },
+#      {
+#        :resource => "TrainingLog",
+#        :field => "sport_id",
+#        :code => 21
+#      }
+#    ]
+#  }

@@ -1,0 +1,70 @@
+<h1>HTTP Status Codes</h1>
+
+<p>
+  The HeiaHeia API attempts to return appropriate <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">HTTP status codes</a> for every request.
+</p>
+<p></p>
+<table>
+  <thead>
+  <tr>
+    <th width="15%">Code</th>
+    <th width="25%">Text</th>
+    <th width="60%">Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>200</td>
+    <td>OK</td>
+    <td>Success!</td>
+  </tr>
+  <tr>
+    <td>304</td>
+    <td>Not Modified</td>
+    <td>There was no new data to return.</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request</td>
+    <td>The request was invalid or cannot be otherwise served. An accompanying error message will explain why.</td>
+  </tr>
+  <tr>
+    <td>401</td>
+    <td>Unauthorized</td>
+    <td><a href="/auth">Authentication credentials</a> were missing or incorrect.</td>
+  </tr>
+  <tr>
+    <td>403</td>
+    <td>Forbidden</td>
+    <td>The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.</td>
+  </tr>
+  <tr>
+    <td>404</td>
+    <td>Not Found</td>
+    <td>The URI requested is invalid or the resource requested, such as a user, does not exists.</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>Internal Server Error</td>
+    <td>Something is broken.</td>
+  </tr>
+  <tr>
+    <td>502</td>
+    <td>Bad Gateway</td>
+    <td>HeiaHeia is down or being upgraded.</td>
+  </tr>git  
+  </tbody>
+</table>
+
+<h1>Error Messages</h1>
+
+<p>
+  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+</p>
+<div class="snippet">
+  <pre>
+<code class="json">[
+  { :code => 21, :message => "date can't be blank", :url => "" },
+  { :code => 22, :message => "sport_id is invalid", :url => "" }
+]</code></pre>
+</div>
