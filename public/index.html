@@ -76,16 +76,13 @@
 
 <div class="swagger-ui-wrap">
   <p>
-      <a href="#" onclick="$('#swagger-ui-container').load('/error-and-responses'); return false;">Error Codes & Responses</a>
+      <a href="/" class="main-page-link" style="display: none;">Main page</a> &nbsp;
+      <a href="#" onclick="$('#swagger-ui-container').load('/error-and-responses');$('.main-page-link').show(); return false;">Error Codes & Responses</a> &nbsp;
+      <a href="#" onclick="$('#swagger-ui-container').load('/date-format');$('.main-page-link').show(); return false;">Date & DateTime format</a>
   </p>
 </div>
 
 <div id="swagger-ui-container" class="swagger-ui-wrap">
-</div>
-
-<div>
-  Date in format YYYY-MM-DD<br/>
-  DateTime in ISO-8601 format YYYY-MM-DDTHH:MM:SSZ
 </div>
 
 </body>
