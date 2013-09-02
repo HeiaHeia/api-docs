@@ -38,6 +38,14 @@ class App < Sinatra::Base
     erb request.path.to_sym
   end
 
+  get '/error-and-responses' do
+    erb :'error-and-responses'
+  end
+
+  get '/date-format' do
+    erb :'date-format'
+  end
+
   post '/v2/training_logs' do
     puts params.inspect
     body 'OK'
