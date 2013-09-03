@@ -70,6 +70,41 @@
           "errorResponses":<%= responses(400, 404) %>
         }
       ]
+    },
+    {
+      "path":"/users/invite",
+      "description":"Invite people by email",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Invite users",
+          "responseClass":"void",
+          "nickname":"invite",
+          "parameters":[
+            {
+              "name":"email",
+              "description":"User email.",
+              "paramType":"form",
+              "required":true,
+              "dataType":"string"
+            },
+            {
+              "name":"subject",
+              "paramType":"form",
+              "dataType":"string",
+              "required":true,
+              "description":"Subject of email."
+            },
+            {
+              "name":"message",
+              "paramType":"form",
+              "dataType":"text",
+              "description":"We’ll add a link to accept your invitation and send some explanatory text."
+            }
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
     }
 
   ],
