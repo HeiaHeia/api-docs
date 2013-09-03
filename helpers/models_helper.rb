@@ -347,6 +347,30 @@ module ModelsHelper
     }
   end
 
+  def sport_category_model
+    {
+      :id => Const::SPORT_CATEGORY,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
   def top_sport_model
     {
       :id => Const::TOP_SPORT,

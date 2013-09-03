@@ -123,4 +123,3 @@ end
 # FIXME: Fix usage of models with $ref
 # FIXME: swagger.js:359
 # TODO: Add properties or #name? to entries
-# TODO: Add properties :removable and :editable
