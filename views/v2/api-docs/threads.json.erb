@@ -21,6 +21,33 @@
       ]
     },
     {
+      "path":"/threads/{id}",
+      "description":"Operations about threads",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Update an existing thread",
+          "responseClass":"Thread",
+          "nickname":"update",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of thread that needs to be updated",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"unread",
+              "paramType":"form",
+              "dataType":"boolean"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/threads/unread",
       "operations":[
         {
