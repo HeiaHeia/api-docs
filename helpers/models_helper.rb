@@ -215,6 +215,11 @@ module ModelsHelper
           },
           :type => Const::STRING,
           :required => true
+        },
+        :distance => {
+          :type => Const::BOOLEAN,
+          :required => true,
+          :description => 'Params distance or not.'
         }
       }
     }
