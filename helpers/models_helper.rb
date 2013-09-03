@@ -220,13 +220,10 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :removable => {
+        :distance => {
           :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+          :required => true,
+          :description => 'Params distance or not.'
         }
       }
     }
@@ -242,14 +239,6 @@ module ModelsHelper
         },
         :sport_param => {
           :type => Const::SPORT_PARAM,
-          :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
-          :type => Const::BOOLEAN,
           :required => true
         }
       }
