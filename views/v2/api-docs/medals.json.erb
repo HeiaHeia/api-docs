@@ -29,37 +29,6 @@
       ]
     },
     {
-      "path":"/users/{user_id}/medals",
-      "description":"Operations about medals",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"Medals of user specified by user_id",
-          "responseClass":"List[Medal]",
-          "nickname":"index",
-          "parameters":[
-            {
-              "name":"user_id",
-              "description":"The id of the user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            },
-            {
-              "name":"year",
-              "description":"Gets list of entries for given year. Be default it's current year.",
-              "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"<%= Time.now.year %>"
-            },
-            <%= param_page %>,
-            <%= param_per_page %>
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        }
-      ]
-    },
-    {
       "path":"/medals/{medal_id}",
       "description":"Operations about user medal",
       "operations":[

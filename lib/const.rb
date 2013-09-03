@@ -34,6 +34,7 @@ module Const
   PLACE = 'Place'.freeze
   SICK_DAY = 'SickDay'.freeze
   SPORT = 'Sport'.freeze
+  SPORT_CATEGORY = 'SportCategory'.freeze
   TOP_SPORT = 'TopSport'.freeze
   SPORT_PARAM = 'SportParam'.freeze
   SPORT_PARAM_VALUE = 'SportParamValue'.freeze

@@ -26,7 +26,38 @@
       ]
     },
     {
-      "path":"/users/{id}/friends",
+      "path":"/users/{user_id}/medals",
+      "description":"Operations about medals",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Medals of user specified by user_id",
+          "responseClass":"List[Medal]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"user_id",
+              "description":"The id of the user",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"year",
+              "description":"Gets list of entries for given year. Be default it's current year.",
+              "paramType":"query",
+              "dataType":"int",
+              "defaultValue":"<%= Time.now.year %>"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/{user_id}/friends",
       "description":"Operations about friends",
       "operations":[
         {
@@ -36,7 +67,7 @@
           "nickname":"user_friends",
           "parameters":[
             {
-              "name":"id",
+              "name":"user_id",
               "paramType":"path",
               "required":true,
               "dataType":"long"
@@ -108,5 +139,5 @@
     }
 
   ],
-  "models":<%= models('User') %>
+  "models":<%= models('User', 'Medal') %>
 }
