@@ -33,9 +33,13 @@ module ModelsHelper
         :removable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
-    }.to_json
+    }
   end
 
   def compact_user_model
@@ -260,6 +264,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -403,6 +415,14 @@ module ModelsHelper
         :url => {
           :type => Const::STRING,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -525,6 +545,14 @@ module ModelsHelper
         },
         :gpx_url => {
           :type => Const::STRING
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -601,6 +629,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -671,6 +707,14 @@ module ModelsHelper
         },
         :created_at => {
           :type => Const::DATE_TIME,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
           :required => true
         }
       }
@@ -743,6 +787,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -802,6 +854,14 @@ module ModelsHelper
         },
         :created_at => {
           :type => Const::DATE_TIME,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
           :required => true
         }
       }
@@ -870,6 +930,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -914,6 +982,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -954,6 +1030,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
         }
       }
     }
@@ -976,6 +1060,14 @@ module ModelsHelper
           :required => true
         },
         :unread => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
           :type => Const::BOOLEAN,
           :required => true
         }
