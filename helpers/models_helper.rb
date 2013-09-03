@@ -1011,8 +1011,12 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
-        :thread => {
-          :type => Const::THREAD,
+        :thread_id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :thread_url => {
+          :type => Const::STRING,
           :required => true
         },
         :url => {
@@ -1059,6 +1063,10 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :last_message => {
+          :type => Const::MESSAGE,
+          :required => true
+        },
         :unread => {
           :type => Const::BOOLEAN,
           :required => true
@@ -1092,7 +1100,7 @@ module ModelsHelper
       Const::COMPACT_USER => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER],
-      Const::MESSAGE => [Const::COMPACT_USER, Const::THREAD],
+      Const::MESSAGE => [Const::COMPACT_USER],
       Const::PLACE => [],
       Const::SICK_DAY => [Const::COMPACT_USER],
       Const::SPORT => [Const::SPORT_PARAM],
