@@ -9,38 +9,6 @@
       "description":"Operations about places",
       "operations":[
         {
-          "httpMethod":"GET",
-          "summary":"Finds places",
-          "responseClass":"List[Place]",
-          "nickname":"index",
-          "notes":"The results ordered based on their distance from a given point.",
-          "parameters":[
-            {
-              "name":"latitude",
-              "description":"Latitude of the place, as accurate as is known.",
-              "paramType":"form",
-              "dataType":"double",
-              "required":true
-            },
-            {
-              "name":"longitude",
-              "description":"Longitude of the place, as accurate as is known.",
-              "paramType":"form",
-              "dataType":"double",
-              "required":true
-            },
-            {
-              "name":"q",
-              "description":"A search term to be applied against place names.",
-              "paramType":"query",
-              "dataType":"string"
-            },
-            <%= param_page %>,
-            <%= param_per_page %>
-          ],
-          "errorResponses":<%= responses(400) %>
-        },
-        {
           "httpMethod":"POST",
           "summary":"Add a new place",
           "responseClass":"Place",
@@ -91,6 +59,44 @@
             }
           ],
           "errorResponses":<%= responses(404) %>
+        }
+      ]
+    },
+    {
+      "path":"/places/serach",
+      "description":"Operations about places",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds places",
+          "responseClass":"List[Place]",
+          "nickname":"index",
+          "notes":"The results ordered based on their distance from a given point.",
+          "parameters":[
+            {
+              "name":"latitude",
+              "description":"Latitude of the place, as accurate as is known.",
+              "paramType":"form",
+              "dataType":"double",
+              "required":true
+            },
+            {
+              "name":"longitude",
+              "description":"Longitude of the place, as accurate as is known.",
+              "paramType":"form",
+              "dataType":"double",
+              "required":true
+            },
+            {
+              "name":"q",
+              "description":"A search term to be applied against place names.",
+              "paramType":"query",
+              "dataType":"string"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
         }
       ]
     }
