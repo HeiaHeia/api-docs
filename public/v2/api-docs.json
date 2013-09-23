@@ -4,10 +4,6 @@
   "basePath":"http://localhost:4567/v2",
   "apis":[
     {
-      "path":"/api-docs/sport_categories.{format}",
-      "description":"Sport categories"
-    },
-    {
       "path":"/api-docs/cheers.{format}",
       "description":"Cheers"
     },
@@ -46,6 +42,10 @@
     {
       "path":"/api-docs/threads.{format}",
       "description":"Threads"
+    },
+    {
+      "path":"/api-docs/sport_categories.{format}",
+      "description":"Sport categories"
     },
     {
       "path":"/api-docs/sports.{format}",
