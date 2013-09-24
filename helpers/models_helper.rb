@@ -166,12 +166,6 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :latest_activity => {
-          :type => Const::TRAINING_LOG
-        },
-        :training_goal => {
-          :type => Const::TRAINING_GOAL
-        },
         :friendship_status => {
           :type => Const::STRING,
           :description => "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
@@ -1138,7 +1132,7 @@ module ModelsHelper
       Const::THREAD => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE],
-      Const::USER => [Const::TRAINING_LOG, Const::TRAINING_GOAL],
+      Const::USER => [],
       Const::WEIGHT => [Const::COMPACT_USER],
       Const::MEDAL => [Const::COMPACT_USER]
     }
