@@ -346,7 +346,7 @@
       ]
     },
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_logs/training_log_id' } } %>
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>
   ],
   "models":<%= models('TrainingLog', 'Cheer', 'Comment') %>
 }
