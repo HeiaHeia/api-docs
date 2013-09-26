@@ -337,10 +337,6 @@ module ModelsHelper
         :exclude_stats => {
           :required => true,
           :type => Const::BOOLEAN
-        },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
         }
       }
     }
