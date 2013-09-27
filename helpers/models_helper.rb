@@ -361,6 +361,10 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true
+        },
+        :sports_url => {
+          :type => Const::STRING,
+          :required => true
         }
       }
     }
