@@ -63,7 +63,7 @@
         {
           "httpMethod":"GET",
           "summary":"User's friends",
-          "responseClass":"List[User]",
+          "responseClass":"List[CompactUser]",
           "nickname":"user_friends",
           "parameters":[
             {
@@ -139,5 +139,5 @@
     }
 
   ],
-  "models":<%= models('User', 'Medal') %>
+  "models":<%= models('User', 'Medal', 'CompactUser') %>
 }
