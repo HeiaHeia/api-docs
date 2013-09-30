@@ -13,6 +13,11 @@
           "summary":"Top sports of current user",
           "responseClass":"List[TopSport]",
           "nickname":"index",
+          "parameters":[
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
           "errorResponses":<%= responses(400, 404) %>
         }
       ]
@@ -55,7 +60,10 @@
               "paramType":"path",
               "required":true,
               "dataType":"long"
-            }
+            },
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
           ],
           "errorResponses":<%= responses(400, 404) %>
         }

@@ -14,12 +14,7 @@
           "responseClass":"TrainingGoal",
           "nickname":"create",
           "parameters":[
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the training goal."
-            },
+            <%= param_notes %>,
             {
               "name":"private",
               "paramType":"form",
@@ -63,12 +58,7 @@
               "required":true,
               "dataType":"long"
             },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the training goal."
-            },
+            <%= param_notes %>,
             {
               "name":"private",
               "paramType":"form",

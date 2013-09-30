@@ -35,20 +35,8 @@
           "responseClass":"List[Medal]",
           "nickname":"index",
           "parameters":[
-            {
-              "name":"user_id",
-              "description":"The id of the user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            },
-            {
-              "name":"year",
-              "description":"Gets list of entries for given year. Be default it's current year.",
-              "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"<%= Time.now.year %>"
-            },
+            <%= param_user_id %>,
+            <%= param_year %>,
             <%= param_page %>,
             <%= param_per_page %>
           ],
@@ -66,12 +54,7 @@
           "responseClass":"List[CompactUser]",
           "nickname":"user_friends",
           "parameters":[
-            {
-              "name":"user_id",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            },
+            <%= param_user_id %>,
             <%= param_page %>,
             <%= param_per_page %>
           ],

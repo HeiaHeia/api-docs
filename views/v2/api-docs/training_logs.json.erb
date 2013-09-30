@@ -31,13 +31,7 @@
               "required":false,
               "dataType":"string"
             },
-            {
-              "name":"year",
-              "description":"Gets list of entries for given year. Be default it's current year.",
-              "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"2013"
-            },
+            <%= param_year %>,
             <%= param_page %>,
             <%= param_per_page %>
           ],
@@ -50,13 +44,7 @@
           "responseClass":"TrainingLog",
           "nickname":"create",
           "parameters":[
-            {
-              "name":"date",
-              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
-              "paramType":"form",
-              "required":true,
-              "dataType":"Date"
-            },
+            <%= param_required_date %>,
             {
               "name":"sport_id",
               "paramType":"form",
@@ -95,12 +83,7 @@
               "dataType":"int",
               "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
             },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the training log."
-            },
+            <%= param_notes %>,
             {
               "name":"mood",
               "paramType":"form",
@@ -229,12 +212,7 @@
                 ]
               }
             },
-            {
-              "name":"date",
-              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
-              "paramType":"form",
-              "dataType":"Date"
-            },
+            <%= param_date %>,
             {
               "name":"duration_h",
               "paramType":"form",
@@ -253,12 +231,7 @@
               "dataType":"int",
               "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
             },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the training log."
-            },
+            <%= param_notes %>,
             {
               "name":"mood",
               "paramType":"form",
