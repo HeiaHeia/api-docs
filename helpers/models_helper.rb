@@ -378,6 +378,10 @@ module ModelsHelper
           :type => Const::COMPACT_SPORT,
           :required => true
         },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
         :count => {
           :type => Const::INT,
           :required => true
