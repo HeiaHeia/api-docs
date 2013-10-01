@@ -26,43 +26,6 @@
       ]
     },
     {
-      "path":"/users/{user_id}/medals",
-      "description":"Operations about medals",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"Medals of user specified by user_id",
-          "responseClass":"List[Medal]",
-          "nickname":"index",
-          "parameters":[
-            <%= param_user_id %>,
-            <%= param_year %>,
-            <%= param_page %>,
-            <%= param_per_page %>
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        }
-      ]
-    },
-    {
-      "path":"/users/{user_id}/friends",
-      "description":"Operations about friends",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"User's friends",
-          "responseClass":"List[CompactUser]",
-          "nickname":"user_friends",
-          "parameters":[
-            <%= param_user_id %>,
-            <%= param_page %>,
-            <%= param_per_page %>
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        }
-      ]
-    },
-    {
       "path":"/users/search",
       "description":"Operations about friends",
       "operations":[
@@ -119,8 +82,88 @@
           "errorResponses":<%= responses(400) %>
         }
       ]
+    },
+    {
+      "path":"/users/{user_id}/medals",
+      "description":"Operations about medals",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Medals of user specified by user_id",
+          "responseClass":"List[Medal]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/{user_id}/friends",
+      "description":"Operations about friends",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"User's friends",
+          "responseClass":"List[CompactUser]",
+          "nickname":"user_friends",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/{user_id}/top_sports",
+      "description":"Operations about top sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user top sports",
+          "responseClass":"List[TopSport]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/{user_id}/top_sports/{id}",
+      "description":"Operations about top sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Get a sport statistic by sport id",
+          "responseClass":"TopSport",
+          "nickname":"show",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"id",
+              "description":"The id of the sport",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_year %>
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
     }
 
   ],
-  "models":<%= models('User', 'Medal', 'CompactUser') %>
+  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport') %>
 }

@@ -382,14 +382,15 @@ module ModelsHelper
           :type => Const::INT,
           :required => true
         },
-        :duration_h => {
+        :hours => {
           :type => Const::INT
         },
-        :duration_m => {
+        :minutes => {
           :type => Const::INT
         },
         :distance => {
-          :type => Const::INT
+          :type => Const::INT,
+          :description => 'In unit that set in the user settings (km or mi)'
         }
       }
     }

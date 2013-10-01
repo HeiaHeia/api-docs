@@ -38,61 +38,8 @@
               "paramType":"path",
               "required":true,
               "dataType":"long"
-            }
-          ],
-          "errorResponses":<%= responses(404) %>
-        }
-      ]
-    },
-    {
-      "path":"/users/{user_id}/top_sports",
-      "description":"Operations about top sports",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"List of user top sports",
-          "responseClass":"List[TopSport]",
-          "nickname":"index",
-          "parameters":[
-            {
-              "name":"user_id",
-              "description":"The id of the user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
             },
-            <%= param_year %>,
-            <%= param_page %>,
-            <%= param_per_page %>
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        }
-      ]
-    },
-    {
-      "path":"/users/{user_id}/top_sports/{id}",
-      "description":"Operations about top sports",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"Get a sport statistic by sport id",
-          "responseClass":"TopSport",
-          "nickname":"show",
-          "parameters":[
-            {
-              "name":"user_id",
-              "description":"The id of the user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            },
-            {
-              "name":"id",
-              "description":"The id of the sport",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            }
+            <%= param_year %>
           ],
           "errorResponses":<%= responses(404) %>
         }
