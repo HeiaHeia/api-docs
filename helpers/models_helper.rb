@@ -26,8 +26,8 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :avatar_url => {
-          :type => Const::STRING,
+        :created_at => {
+          :type => Const::DATE_TIME,
           :required => true
         },
         :removable => {

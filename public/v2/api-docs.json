@@ -4,8 +4,12 @@
   "basePath":"http://localhost:4567/v2",
   "apis":[
     {
-      "path":"/api-docs/cheers.{format}",
-      "description":"Cheers"
+      "path":"/api-docs/cheer_types.{format}",
+      "description":"Cheer types"
+    },
+    {
+      "path":"/api-docs/comments.{format}",
+      "description":"Comments"
     },
     {
       "path":"/api-docs/feeds.{format}",

@@ -46,34 +46,4 @@
       "errorResponses":<%= responses(400, 403, 404) %>
     }
   ]
-},
-{
-  "path":"/<%= resource %>/comments/{id}",
-  "description":"Operations about comment",
-  "operations":[
-    {
-      "httpMethod":"DELETE",
-      "summary":"Delete comment entry",
-      "responseClass":"void",
-      "nickname":"comments_destroy",
-      "parameters":[
-        <% param_list.each do |param| %>
-          {
-            "name":"<%= param %>",
-            "paramType":"path",
-            "dataType":"long",
-            "required":true
-          },
-        <% end %>
-        {
-          "name":"id",
-          "description":"ID of comment that needs to be deleted",
-          "paramType":"path",
-          "required":true,
-          "dataType":"long"
-        }
-      ],
-      "errorResponses":<%= responses(400, 403, 404) %>
-    }
-  ]
 }

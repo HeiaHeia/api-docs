@@ -1,0 +1,30 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/comments",
+  "apis":[
+    {
+      "path":"/comments/{id}",
+      "operations":[
+        {
+          "httpMethod":"DELETE",
+          "summary":"Delete a comment entry",
+          "responseClass":"void",
+          "nickname":"destroy",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of comment that needs to be deleted",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 403, 404) %>
+        }
+      ]
+    }
+  ],
+  "models": []
+}
