@@ -1,0 +1,89 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/conversations",
+  "apis":[
+    {
+      "path":"/conversations",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of conversations",
+          "responseClass":"List[Conversation]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/conversations/unread",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of unread conversations",
+          "responseClass":"List[Conversation]",
+          "nickname":"unread_index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/conversations/{user_id}",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Update an existing conversation",
+          "responseClass":"Conversation",
+          "nickname":"update",
+          "parameters":[
+            <%= param_user_id %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/conversations/{user_id}/messages",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Get list of messages from conversation.",
+          "responseClass":"List[Message]",
+          "nickname":"messages_index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(404) %>
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Create a new message",
+          "responseClass":"Message",
+          "nickname":"create",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"body",
+              "paramType":"form",
+              "required":true,
+              "dataType":"text"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models('Conversation', 'Message') %>
+}

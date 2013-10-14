@@ -1039,11 +1039,11 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
-        :thread_id => {
+        :conversation_id => {
           :type => Const::LONG,
           :required => true
         },
-        :thread_url => {
+        :conversation_url => {
           :type => Const::STRING,
           :required => true
         },
@@ -1062,22 +1062,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
         }
       }
     }
   end
 
-  def thread_model
+  def conversation_model
     {
-      :id => Const::THREAD,
+      :id => Const::CONVERSATION,
       :properties => {
         :id => {
           :type => Const::LONG,
@@ -1096,14 +1088,6 @@ module ModelsHelper
           :required => true
         },
         :unread => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
           :type => Const::BOOLEAN,
           :required => true
         }
@@ -1134,7 +1118,7 @@ module ModelsHelper
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [ Const::SPORT_PARAM ],
-      Const::THREAD => [],
+      Const::CONVERSATION => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE],
       Const::USER => [],

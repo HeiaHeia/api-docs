@@ -12,6 +12,10 @@
       "description":"Comments"
     },
     {
+      "path":"/api-docs/conversations.{format}",
+      "description":"Conversations"
+    },
+    {
       "path":"/api-docs/feeds.{format}",
       "description":"Feeds"
     },
@@ -42,10 +46,6 @@
     {
       "path":"/api-docs/sick_days.{format}",
       "description":"Sick days"
-    },
-    {
-      "path":"/api-docs/threads.{format}",
-      "description":"Threads"
     },
     {
       "path":"/api-docs/sport_categories.{format}",
