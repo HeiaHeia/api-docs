@@ -526,7 +526,8 @@ module ModelsHelper
           :items => {
             :$ref => Const::SPORT_PARAM_VALUE
           },
-          :type => Const::ARRAY
+          :type => Const::ARRAY,
+          :description => "Contain all sport parameter values even if they have not been set"
         },
         :favourite => {
           :type => Const::BOOLEAN,
