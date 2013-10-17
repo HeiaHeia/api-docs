@@ -64,6 +64,19 @@ module ModelsHelper
         :url => {
           :type => Const::STRING,
           :required => true
+        },
+        :friendship_status => {
+          :type => Const::STRING,
+          :description => "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(not_friend friend requested pending)
+          }
+        },
+        :friendship_url => {
+          :type => Const::STRING,
+          :required => true
         }
       }
     }
