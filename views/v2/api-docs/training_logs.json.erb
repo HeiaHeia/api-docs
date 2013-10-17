@@ -31,13 +31,7 @@
               "required":false,
               "dataType":"string"
             },
-            {
-              "name":"year",
-              "description":"Gets list of entries for given year. Be default it's current year.",
-              "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"2013"
-            },
+            <%= param_year %>,
             <%= param_page %>,
             <%= param_per_page %>
           ],
@@ -46,17 +40,11 @@
         {
           "httpMethod":"POST",
           "summary":"Add a new training log",
-          "notes":"sport_id=2&training_log[avg_hr]=110&training_log[calories]=148&training_log[comment]=Great%20ride%21&training_log[date]=2010-04-27&training_log[duration_h]=1&training_log[duration_m]=15&training_log[duration_s]=34&training_log[favourite]=1&training_log[max_hr]=150&training_log[mood]=4&training_log[sport_params][0][id]=2&training_log[sport_params][0][value]=34.5&training_log[sport_params][1][id]=4&training_log[sport_params][1][value]=112&training_log[sport_params][2][id]=6&training_log[sport_params][2][value]=27.2&training_log[sport_params][3][id]=8&training_log[sport_params][3][value]=51.3",
+          "notes":"sport_id=2&avg_hr=110&calories=148&comment=Great%20ride%21&date=2010-04-27&duration_h=1&duration_m=15&duration_s=34&favourite=1&max_hr=150&mood=4&sport_param_values[0][id]=2&sport_param_values[0][value]=34.5&sport_param_values[1][id]=4&sport_param_values[1][value]=112&sport_param_values[2][id]=6&sport_param_values[2][value]=27.2&sport_param_values[3][id]=8&sport_param_values[3][value]=51.3",
           "responseClass":"TrainingLog",
           "nickname":"create",
           "parameters":[
-            {
-              "name":"date",
-              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
-              "paramType":"form",
-              "required":true,
-              "dataType":"Date"
-            },
+            <%= param_required_date %>,
             {
               "name":"sport_id",
               "paramType":"form",
@@ -95,12 +83,7 @@
               "dataType":"int",
               "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
             },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the training log."
-            },
+            <%= param_notes %>,
             {
               "name":"mood",
               "paramType":"form",
@@ -142,22 +125,22 @@
               "description":"The file, support only GPX format."
             },
             {
-              "name":"sport_params[0][id]",
+              "name":"sport_param_values[0][id]",
               "paramType":"form",
               "dataType":"int"
             },
             {
-              "name":"sport_params[0][value]",
+              "name":"sport_param_values[0][value]",
               "paramType":"form",
               "dataType":"int,float,string"
             },
             {
-              "name":"sport_params[1][id]",
+              "name":"sport_param_values[1][id]",
               "paramType":"form",
               "dataType":"int"
             },
             {
-              "name":"sport_params[1][value]",
+              "name":"sport_param_values[1][value]",
               "paramType":"form",
               "dataType":"int,float,string"
             },
@@ -229,12 +212,7 @@
                 ]
               }
             },
-            {
-              "name":"date",
-              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
-              "paramType":"form",
-              "dataType":"Date"
-            },
+            <%= param_date %>,
             {
               "name":"duration_h",
               "paramType":"form",
@@ -253,12 +231,7 @@
               "dataType":"int",
               "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
             },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the training log."
-            },
+            <%= param_notes %>,
             {
               "name":"mood",
               "paramType":"form",
@@ -300,29 +273,24 @@
               "description":"The file, support only GPX format."
             },
             {
-              "name":"sport_params[0][id]",
+              "name":"sport_param_values[0][id]",
               "paramType":"form",
               "dataType":"string"
             },
             {
-              "name":"sport_params[0][value]",
+              "name":"sport_param_values[0][value]",
               "paramType":"form",
               "dataType":"int,float,string"
             },
             {
-              "name":"sport_params[1][id]",
+              "name":"sport_param_values[1][id]",
               "paramType":"form",
               "dataType":"string"
             },
             {
-              "name":"sport_params[1][value]",
+              "name":"sport_param_values[1][value]",
               "paramType":"form",
               "dataType":"int,float,string"
-            },
-            {
-              "name":"place_id",
-              "paramType":"form",
-              "dataType":"int"
             },
             {
               "name":"exclude_stats",
@@ -351,7 +319,7 @@
       ]
     },
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_logs/training_log_id' } } %>
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>
   ],
   "models":<%= models('TrainingLog', 'Cheer', 'Comment') %>
 }

@@ -26,8 +26,8 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :avatar_url => {
-          :type => Const::STRING,
+        :created_at => {
+          :type => Const::DATE_TIME,
           :required => true
         },
         :removable => {
@@ -205,15 +205,20 @@ module ModelsHelper
           :type => Const::LONG,
           :required => true
         },
+        :name => {
+          :type => Const::STRING,
+          :required => true,
+          :description => 'Human readable name. Depends on user locale'
+        },
         :unit_type => {
           :type => Const::STRING,
           :required => true,
-          :description => 'mi, km, foot, m, min, f, c, hms or empty. Depends on user unit system'
+          :description => 'mi, km, ft, m, mph, kmph, sec, f, c or empty. Depends on user unit system'
         },
         :unit_name => {
           :type => Const::STRING,
           :required => true,
-          :description => 'Human readable format: "mi, km, ft, m, min, h, bpm, mph, km/h, sec, °F, °C, ''". Depends on user locale and unit system'
+          :description => 'Human readable format: "mi, km, ft, m, mph, km/h, sec, °F, °C, ''". Depends on user locale and unit system'
         },
         :value_type => {
           :allowableValues => {
@@ -345,10 +350,6 @@ module ModelsHelper
         :exclude_stats => {
           :required => true,
           :type => Const::BOOLEAN
-        },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
         }
       }
     }
@@ -373,6 +374,10 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true
+        },
+        :sports_url => {
+          :type => Const::STRING,
+          :required => true
         }
       }
     }
@@ -386,18 +391,23 @@ module ModelsHelper
           :type => Const::COMPACT_SPORT,
           :required => true
         },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
         :count => {
           :type => Const::INT,
           :required => true
         },
-        :duration_h => {
+        :hours => {
           :type => Const::INT
         },
-        :duration_m => {
+        :minutes => {
           :type => Const::INT
         },
         :distance => {
-          :type => Const::INT
+          :type => Const::INT,
+          :description => 'In unit that set in the user settings (km or mi)'
         }
       }
     }
@@ -529,7 +539,8 @@ module ModelsHelper
           :items => {
             :$ref => Const::SPORT_PARAM_VALUE
           },
-          :type => Const::ARRAY
+          :type => Const::ARRAY,
+          :description => "Contain all sport parameter values even if they have not been set"
         },
         :favourite => {
           :type => Const::BOOLEAN,
@@ -1042,11 +1053,11 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
-        :thread_id => {
+        :conversation_id => {
           :type => Const::LONG,
           :required => true
         },
-        :thread_url => {
+        :conversation_url => {
           :type => Const::STRING,
           :required => true
         },
@@ -1065,22 +1076,14 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
         }
       }
     }
   end
 
-  def thread_model
+  def conversation_model
     {
-      :id => Const::THREAD,
+      :id => Const::CONVERSATION,
       :properties => {
         :id => {
           :type => Const::LONG,
@@ -1099,14 +1102,6 @@ module ModelsHelper
           :required => true
         },
         :unread => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
           :type => Const::BOOLEAN,
           :required => true
         }
@@ -1137,7 +1132,7 @@ module ModelsHelper
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [ Const::SPORT_PARAM ],
-      Const::THREAD => [],
+      Const::CONVERSATION => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE],
       Const::USER => [],

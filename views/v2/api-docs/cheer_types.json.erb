@@ -2,28 +2,15 @@
   "apiVersion":"2",
   "swaggerVersion":"1.2",
   "basePath":"http://localhost:4567/v2",
-  "resourcePath":"/cheers",
+  "resourcePath":"/cheer_types",
   "apis":[
     {
-      "path":"/cheers/available",
+      "path":"/cheer_types",
       "operations":[
         {
           "httpMethod":"GET",
-          "summary":"Available cheers",
+          "summary":"Available cheer types",
           "notes":"Cheers refilled on Monday.",
-          "responseClass":"List[CheerType]",
-          "nickname":"available",
-          "parameters":[],
-          "errorResponses":<%= responses(400) %>
-        }
-      ]
-    },
-    {
-      "path":"/cheers/all",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"List of all cheer types",
           "responseClass":"List[CheerType]",
           "nickname":"index",
           "parameters":[],

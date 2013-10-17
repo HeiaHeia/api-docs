@@ -28,7 +28,7 @@ class App < Sinatra::Base
     'Record not found'
   end
 
-  helpers ErrorHelper, PaginatorHelper, ModelsHelper, UrlHelper
+  helpers ErrorHelper, ParamsHelper, ModelsHelper, UrlHelper
 
   get '/' do
     redirect '/index.html'

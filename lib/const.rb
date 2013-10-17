@@ -39,7 +39,7 @@ module Const
   SPORT_PARAM = 'SportParam'.freeze
   SPORT_PARAM_VALUE = 'SportParamValue'.freeze
   TEXT_ENTRY = 'TextEntry'.freeze
-  THREAD = 'Thread'.freeze
+  CONVERSATION = 'Conversation'.freeze
   TRAINING_GOAL = 'TrainingGoal'.freeze
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze

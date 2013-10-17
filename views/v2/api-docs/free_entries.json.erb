@@ -14,13 +14,7 @@
           "responseClass":"List[FreeEntry]",
           "nickname":"index",
           "parameters":[
-            {
-              "name":"year",
-              "description":"Gets list of entries for given year. Be default it's current year.",
-              "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"2013"
-            },
+            <%= param_year %>,
             <%= param_page %>,
             <%= param_per_page %>
           ],
@@ -32,19 +26,8 @@
           "responseClass":"FreeEntry",
           "nickname":"create",
           "parameters":[
-            {
-              "name":"date",
-              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
-              "paramType":"form",
-              "required":true,
-              "dataType":"Date"
-            },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the free entry."
-            },
+            <%= param_required_date %>,
+            <%= param_notes %>,
             {
               "name":"private",
               "paramType":"form",
@@ -88,18 +71,8 @@
               "required":true,
               "dataType":"long"
             },
-            {
-              "name":"date",
-              "description":"Date of the exercise as “YYYY-MM-DD”. Example “2010-04-23”",
-              "paramType":"form",
-              "dataType":"Date"
-            },
-            {
-              "name":"notes",
-              "paramType":"form",
-              "dataType":"text",
-              "description":"Informal notes for the free entry."
-            },
+            <%= param_date %>,
+            <%= param_notes %>,
             {
               "name":"private",
               "paramType":"form",

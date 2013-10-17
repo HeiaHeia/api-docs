@@ -14,13 +14,7 @@
           "responseClass":"List[Medal]",
           "nickname":"index",
           "parameters":[
-            {
-              "name":"year",
-              "description":"Gets list of entries for given year. Be default it's current year.",
-              "paramType":"query",
-              "dataType":"int",
-              "defaultValue":"<%= Time.now.year %>"
-            },
+            <%= param_year %>,
             <%= param_page %>,
             <%= param_per_page %>
           ],
