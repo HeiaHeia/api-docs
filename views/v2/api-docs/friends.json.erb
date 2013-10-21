@@ -31,13 +31,7 @@
           "responseClass":"CompactUser",
           "nickname":"create",
           "parameters":[
-            {
-              "name":"user_id",
-              "description":"ID of user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            }
+            <%= param_user_id %>
           ],
           "errorResponses":<%= responses(400, 404) %>
         },
@@ -47,13 +41,7 @@
           "responseClass":"void",
           "nickname":"destroy",
           "parameters":[
-            {
-              "name":"user_id",
-              "description":"ID of user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            }
+            <%= param_user_id %>
           ],
           "errorResponses":<%= responses(400, 404) %>
         }
