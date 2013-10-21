@@ -70,4 +70,13 @@ module ParamsHelper
     }.to_json
   end
 
+  def sport_param_values(key)
+    {
+      :name => "sport_param_values[#{key}]",
+      :paramType => "form",
+      :dataType => [Const::INT, Const::FLOAT, Const::STRING].join(', '),
+      :description => "Depends on the sport."
+    }.to_json
+  end
+
 end

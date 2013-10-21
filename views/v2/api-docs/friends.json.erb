@@ -11,7 +11,7 @@
         {
           "httpMethod":"GET",
           "summary":"My friends",
-          "responseClass":"List[User]",
+          "responseClass":"List[CompactUser]",
           "nickname":"index",
           "parameters":[
             <%= param_page %>,
@@ -22,22 +22,16 @@
       ]
     },
     {
-      "path":"/friends/{id}",
+      "path":"/friends/{user_id}",
       "description":"Operations about friends and friend requests",
       "operations":[
         {
           "httpMethod":"PUT",
           "summary":"Create or accept friendship requests",
-          "responseClass":"User",
+          "responseClass":"CompactUser",
           "nickname":"create",
           "parameters":[
-            {
-              "name":"id",
-              "description":"ID of user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            }
+            <%= param_user_id %>
           ],
           "errorResponses":<%= responses(400, 404) %>
         },
@@ -47,13 +41,7 @@
           "responseClass":"void",
           "nickname":"destroy",
           "parameters":[
-            {
-              "name":"id",
-              "description":"ID of user",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            }
+            <%= param_user_id %>
           ],
           "errorResponses":<%= responses(400, 404) %>
         }
@@ -66,7 +54,7 @@
         {
           "httpMethod":"GET",
           "summary":"My friend requests",
-          "responseClass":"List[User]",
+          "responseClass":"List[CompactUser]",
           "nickname":"requests_index",
           "parameters":[
             {
@@ -92,5 +80,5 @@
       ]
     }
   ],
-  "models":<%= models('User') %>
+  "models":<%= models('CompactUser') %>
 }
