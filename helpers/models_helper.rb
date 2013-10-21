@@ -1040,10 +1040,6 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
-        :conversation_id => {
-          :type => Const::LONG,
-          :required => true
-        },
         :conversation_url => {
           :type => Const::STRING,
           :required => true
@@ -1072,7 +1068,7 @@ module ModelsHelper
     {
       :id => Const::CONVERSATION,
       :properties => {
-        :id => {
+        :user_id => {
           :type => Const::LONG,
           :required => true
         },
