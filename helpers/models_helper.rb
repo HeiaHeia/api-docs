@@ -201,9 +201,10 @@ module ModelsHelper
     {
       :id => Const::SPORT_PARAM,
       :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+        :key => {
+          :type => Const::STRING,
+          :required => true,
+          :description => 'score, avg_speed, max_speed, best_lap_time, etc. Depends on the sport.'
         },
         :name => {
           :type => Const::STRING,
