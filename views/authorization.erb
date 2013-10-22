@@ -20,7 +20,7 @@ access_token = client.password.get_token('user@example.com', 'secret')</code></p
 <div class="snippet">
   <pre style="overflow-x: auto;"><code class="ruby">require 'oauth2'
 
-client_id     = '...' # your client's id generated with rake db:setup
+client_id     = '...' # your client's id generated
 client_secret = '...' # your client's secret
 redirect_uri  = '...' # your client's redirect uri
 
@@ -40,7 +40,7 @@ client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
 
 <div class="snippet">
   <pre style="overflow-x: auto;"><code class="ruby">client.auth_code.authorize_url(:redirect_uri => redirect_uri)
-# => http://localhost:3000/oauth/authorize?response_type=code&client_id=...&redirect_uri=...</code></pre>
+# => https://api.heiaheia.com/api/v2/oauth/authorize?response_type=code&client_id=...&redirect_uri=...</code></pre>
 </div>
 <br/>
 
