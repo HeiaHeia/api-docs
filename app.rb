@@ -38,6 +38,14 @@ class App < Sinatra::Base
     erb request.path.to_sym
   end
 
+  get '/authorization' do
+    erb :'authorization'
+  end
+
+  get '/authentication' do
+    erb :'authentication'
+  end
+
   get '/error-and-responses' do
     erb :'error-and-responses'
   end

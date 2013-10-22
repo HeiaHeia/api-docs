@@ -1,0 +1,58 @@
+<h1>Authorization</h1>
+
+<p>There are two ways to authorization through HeiaHeia API v2.</p>
+
+<h2>By password credentials</h2>
+
+<div class="snippet">
+  <pre>
+<code class="ruby">require 'oauth2'
+
+client = OAuth2::Client.new('id', 'secret', :site => "https://api.heiaheia.com/api/v2/")
+access_token = client.password.get_token('user@example.com', 'secret')</code></pre>
+</div>
+<br/><br/>
+
+<h2>By requesting authorization on HeiaHeia</h2>
+
+<p></p>
+
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">require 'oauth2'
+
+client_id     = '...' # your client's id generated with rake db:setup
+client_secret = '...' # your client's secret
+redirect_uri  = '...' # your client's redirect uri
+
+client = OAuth2::Client.new(client_id, 
+                            client_secret, 
+                            :site => 'https://api.heiaheia.com/api/v2/oauth', 
+                            :token_url => '/api/v2/oauth/token',
+                            :authorize_url => '/api/v2/oauth/authorize')
+ 
+client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
+</div>
+<br/>
+
+<p>Now that your client is ready, you can request an authorization code.<p>
+
+<p>Grab the authorization url with:<p>
+
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">client.auth_code.authorize_url(:redirect_uri => redirect_uri)
+# => http://localhost:3000/oauth/authorize?response_type=code&client_id=...&redirect_uri=...</code></pre>
+</div>
+<br/>
+
+<p>Go to this url in your browser. You'll see the authorization endpoint. If you click on Authorize, you'll get redirected to 'redirect_uri' with the code parameter in the query. With this code you will request the access token.</p>
+
+<p>Requesting the access token</p>
+
+<p>To request the access token, you should use the returned code and exchange it for an access token. To do that you can use any HTTP client.</p>
+  
+  <div class="snippet">
+    <pre style="overflow-x: auto;"><code class="ruby">code = "..." # code you got in the redirect uri
+token = client.auth_code.get_token(code, :redirect_uri => redirect_uri)
+# => <#OAuth2::AccessToken ...></code></pre>
+  </div>
+  <br/>

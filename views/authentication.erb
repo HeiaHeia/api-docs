@@ -1,0 +1,21 @@
+<h1>Authentication</h1>
+
+<p>There are two ways to authenticate through HeiaHeia API v2.</p>
+
+<h3>OAuth2 Token (sent in a header)</h3>
+
+<div class="snippet">
+  <pre>
+<code class="ruby">$ curl -H "Authorization: token OAUTH-TOKEN" https://api.heiaheia.com/api/v2</code></pre>
+</div>
+<br/>
+
+<h3>OAuth2 Token (sent as a parameter)</h3>
+
+<div class="snippet">
+  <pre>
+<code class="ruby">$ curl https://api.heiaheia.com/api/v2/?access_token=OAUTH-TOKEN</code></pre>
+</div>
+<br/>
+
+<p>Read <a href="http://oauth.net/2/" target="_blank">more about OAuth2</a>.</p>
