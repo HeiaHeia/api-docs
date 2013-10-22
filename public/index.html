@@ -77,6 +77,8 @@
 <div class="swagger-ui-wrap">
   <p>
       <a href="/" class="main-page-link" style="display: none;">Main page</a> &nbsp;
+      <a href="#" onclick="$('#swagger-ui-container').load('/authorization');$('.main-page-link').show(); return false;">Authorization</a> &nbsp;
+      <a href="#" onclick="$('#swagger-ui-container').load('/authentication');$('.main-page-link').show(); return false;">Authentication</a> &nbsp;
       <a href="#" onclick="$('#swagger-ui-container').load('/error-and-responses');$('.main-page-link').show(); return false;">Error Codes & Responses</a> &nbsp;
       <a href="#" onclick="$('#swagger-ui-container').load('/date-format');$('.main-page-link').show(); return false;">Date & DateTime format</a>
   </p>
