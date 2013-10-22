@@ -9,8 +9,7 @@
 <code class="ruby">require 'oauth2'
 
 client = OAuth2::Client.new('id', 'secret', :site => "https://api.heiaheia.com/api/v2/")
-access_token = client.password.get_token('user@example.com', 'secret')
-puts access_token.token</code></pre>
+access_token = client.password.get_token('user@example.com', 'secret')</code></pre>
 </div>
 <br/><br/>
 
@@ -24,15 +23,14 @@ puts access_token.token</code></pre>
 client_id     = '...' # your client's id generated with rake db:setup
 client_secret = '...' # your client's secret
 redirect_uri  = '...' # your client's redirect uri
-site          = 'https://api.heiaheia.com/api/v2/aouth'
 
 client = OAuth2::Client.new(client_id, 
                             client_secret, 
-                            :site => site, 
+                            :site => 'https://api.heiaheia.com/api/v2/oauth', 
                             :token_url => '/api/v2/oauth/token',
                             :authorize_url => '/api/v2/oauth/authorize')
  
-client.auth_code.authorize_url(:redirect_uri => redirect_uri)
+client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
 </div>
 <br/>
 
