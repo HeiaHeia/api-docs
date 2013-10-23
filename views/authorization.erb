@@ -10,7 +10,7 @@
 
 client = OAuth2::Client.new('id', 
                             'secret', 
-                            :site => "https://api.heiaheia.com/api/v2/", 
+                            :site => "https://api.heiaheia.com", 
                             :token_url => '/api/v2/oauth/token')
 access_token = client.password.get_token('user@example.com', 'secret')</code></pre>
 </div>
@@ -29,7 +29,7 @@ redirect_uri  = '...' # your client's redirect uri
 
 client = OAuth2::Client.new(client_id, 
                             client_secret, 
-                            :site => 'https://api.heiaheia.com/api/v2/oauth', 
+                            :site => 'https://api.heiaheia.com',
                             :token_url => '/api/v2/oauth/token',
                             :authorize_url => '/api/v2/oauth/authorize')
  
@@ -58,4 +58,4 @@ client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
 token = client.auth_code.get_token(code, :redirect_uri => redirect_uri)
 # => <#OAuth2::AccessToken ...></code></pre>
   </div>
-  <br/>
+<br/>
