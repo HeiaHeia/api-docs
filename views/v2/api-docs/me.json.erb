@@ -51,6 +51,15 @@
               }
             },
             {
+              "name":"privacy",
+              "paramType":"form",
+              "dataType":"string",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values": <%= Const::PRIVACIES.to_json %>
+              }
+            },
+            {
               "name":"birthdate",
               "paramType":"form",
               "dataType":"Date",
