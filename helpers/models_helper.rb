@@ -113,6 +113,14 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :privacy => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => Const::PRIVACIES
+          }
+        },
         :measurement_units => {
           :type => Const::STRING,
           :required => true,
