@@ -8,7 +8,10 @@
   <pre>
 <code class="ruby">require 'oauth2'
 
-client = OAuth2::Client.new('id', 'secret', :site => "https://api.heiaheia.com/api/v2/")
+client = OAuth2::Client.new('id', 
+                            'secret', 
+                            :site => "https://api.heiaheia.com/api/v2/", 
+                            :token_url => '/api/v2/oauth/token')
 access_token = client.password.get_token('user@example.com', 'secret')</code></pre>
 </div>
 <br/><br/>
