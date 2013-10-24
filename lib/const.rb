@@ -45,6 +45,6 @@ module Const
   USER = 'User'.freeze
   WEIGHT = 'Weight'.freeze
 
-  PRIVACIES = ['all', 'friends', 'colleagues'].freeze
+  PRIVACIES = ['all_users', 'friends', 'colleagues'].freeze
 
 end
