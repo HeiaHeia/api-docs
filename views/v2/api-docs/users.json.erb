@@ -91,7 +91,7 @@
           "httpMethod":"GET",
           "summary":"Medals of user specified by user_id",
           "responseClass":"List[Medal]",
-          "nickname":"index",
+          "nickname":"medals_index",
           "parameters":[
             <%= param_user_id %>,
             <%= param_year %>,
@@ -128,7 +128,7 @@
           "httpMethod":"GET",
           "summary":"List of user training goals",
           "responseClass":"List[TrainingGoal]",
-          "nickname":"index",
+          "nickname":"training_goals_index",
           "parameters":[
             <%= param_year %>,
             <%= param_page %>,
@@ -146,7 +146,7 @@
           "httpMethod":"GET",
           "summary":"List of user training logs",
           "responseClass":"List[TrainingLog]",
-          "nickname":"index",
+          "nickname":"training_logs_index",
           "parameters":[
             <%= param_user_id %>,
             <%= param_training_log_status %>,
@@ -166,7 +166,7 @@
           "httpMethod":"GET",
           "summary":"List of user top sports",
           "responseClass":"List[TopSport]",
-          "nickname":"index",
+          "nickname":"top_sports_index",
           "parameters":[
             <%= param_user_id %>,
             <%= param_year %>,

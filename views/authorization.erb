@@ -8,9 +8,9 @@
   <pre>
 <code class="ruby">require 'oauth2'
 
-client = OAuth2::Client.new('id', 
-                            'secret', 
-                            :site => "https://api.heiaheia.com", 
+client = OAuth2::Client.new('id',
+                            'secret',
+                            :site => "https://api.heiaheia.com",
                             :token_url => '/api/v2/oauth/token')
 access_token = client.password.get_token('user@example.com', 'secret')</code></pre>
 </div>
@@ -23,16 +23,16 @@ access_token = client.password.get_token('user@example.com', 'secret')</code></p
 <div class="snippet">
   <pre style="overflow-x: auto;"><code class="ruby">require 'oauth2'
 
-client_id     = '...' # your client's id generated
+client_id     = '...' # your client's id
 client_secret = '...' # your client's secret
 redirect_uri  = '...' # your client's redirect uri
 
-client = OAuth2::Client.new(client_id, 
-                            client_secret, 
+client = OAuth2::Client.new(client_id,
+                            client_secret,
                             :site => 'https://api.heiaheia.com',
                             :token_url => '/api/v2/oauth/token',
                             :authorize_url => '/api/v2/oauth/authorize')
- 
+
 client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
 </div>
 <br/>
@@ -52,7 +52,7 @@ client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
 <p>Requesting the access token</p>
 
 <p>To request the access token, you should use the returned code and exchange it for an access token. To do that you can use any HTTP client.</p>
-  
+
   <div class="snippet">
     <pre style="overflow-x: auto;"><code class="ruby">code = "..." # code you got in the redirect uri
 token = client.auth_code.get_token(code, :redirect_uri => redirect_uri)
