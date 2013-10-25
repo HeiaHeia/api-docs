@@ -121,6 +121,24 @@
       ]
     },
     {
+      "path":"/users/{user_id}/training_goals",
+      "description":"Operations about training goals",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user training goals",
+          "responseClass":"List[TrainingGoal]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/training_logs",
       "description":"Operations about training logs",
       "operations":[
@@ -185,5 +203,5 @@
     }
 
   ],
-  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog') %>
+  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal') %>
 }

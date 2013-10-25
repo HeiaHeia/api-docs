@@ -9,6 +9,19 @@
       "description":"Operations about training goals",
       "operations":[
         {
+          "httpMethod":"GET",
+          "summary":"Finds training goals",
+          "notes":"Finds training goals",
+          "responseClass":"List[TrainingGoal]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
           "httpMethod":"POST",
           "summary":"Add a new training goal",
           "responseClass":"TrainingGoal",
