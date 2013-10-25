@@ -15,22 +15,7 @@
           "responseClass":"List[TrainingLog]",
           "nickname":"index",
           "parameters":[
-            {
-              "name":"status",
-              "description":"Status values that need to be considered for filter",
-              "paramType":"query",
-              "defaultValue":"all",
-              "allowableValues":{
-                "valueType":"LIST",
-                "values":[
-                  "all",
-                  "regular",
-                  "planned"
-                ]
-              },
-              "required":false,
-              "dataType":"string"
-            },
+            <%= param_training_log_status %>,
             <%= param_year %>,
             <%= param_page %>,
             <%= param_per_page %>

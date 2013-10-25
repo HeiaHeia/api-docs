@@ -61,6 +61,21 @@ module ParamsHelper
     }.to_json
   end
 
+  def param_training_log_status
+    {
+      :name => 'status',
+      :paramType => 'query',
+      :description => 'Status values that need to be considered for filter',
+      :required => true,
+      :dataType => Const::STRING,
+      :defaultValue => 'all',
+      :allowableValues => {
+        :valueType => 'LIST',
+        :values => ['all', 'regular', 'planned']
+      }
+    }.to_json
+  end
+
   def param_notes
     {
       :name => 'notes',
