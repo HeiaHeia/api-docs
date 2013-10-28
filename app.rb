@@ -130,4 +130,16 @@ end
 
 # FIXME: Fix usage of models with $ref
 # FIXME: swagger.js:359
+
 # TODO: Add properties or #name? to entries
+# TODO: Add property items_url to users
+
+# TODO: Add resource /items
+# TODO: Add resource /items/years
+# TODO: Add resource /users/{user_id}/items
+# TODO: Add resource /users/{user_id}/items/years
+# TODO: Add resource /users/{user_id}/free_entries/years
+# TODO: Add resource /users/{user_id}/sick_days/years
+# TODO: Add resource /users/{user_id}/training_goals/years
+# TODO: Add resource /users/{user_id}/training_logs/years
+# TODO: Add resource /users/{user_id}/wights/years
