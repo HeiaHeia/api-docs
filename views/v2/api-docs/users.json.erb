@@ -102,6 +102,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/medals/years' } } %>,
     {
       "path":"/users/{user_id}/friends",
       "description":"Operations about friends",
@@ -138,6 +139,67 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/training_goals/years' } } %>,
+    {
+      "path":"/users/{user_id}/weights",
+      "description":"Operations about weights",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user weights",
+          "responseClass":"List[Weight]",
+          "nickname":"weights_index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/weights/years' } } %>,
+    {
+      "path":"/users/{user_id}/sick_days",
+      "description":"Operations about sick days",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user sick days",
+          "responseClass":"List[SickDay]",
+          "nickname":"sick_days_index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/sick_days/years' } } %>,
+    {
+      "path":"/users/{user_id}/free_entries",
+      "description":"Operations about free entries",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user free entries",
+          "responseClass":"List[FreeEntry]",
+          "nickname":"free_entries_index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/free_entries/years' } } %>,
     {
       "path":"/users/{user_id}/training_logs",
       "description":"Operations about training logs",
@@ -158,6 +220,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/training_logs/years' } } %>,
     {
       "path":"/users/{user_id}/top_sports",
       "description":"Operations about top sports",
@@ -203,5 +266,5 @@
     }
 
   ],
-  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal') %>
+  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry') %>
 }

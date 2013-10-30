@@ -138,7 +138,7 @@ end
 # TODO: Add resource /items/years
 # TODO: Add resource /users/{user_id}/items
 # TODO: Add resource /users/{user_id}/items/years
-# TODO: Add resource /users/{user_id}/free_entries/years
+# TODO: Add resource /users/{user_id}/free_entries/years !
 # TODO: Add resource /users/{user_id}/sick_days/years
 # TODO: Add resource /users/{user_id}/training_goals/years
 # TODO: Add resource /users/{user_id}/training_logs/years

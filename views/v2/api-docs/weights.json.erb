@@ -113,6 +113,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/weights/years' } } %>,
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'weights/{weight_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'weights/{weight_id}' } } %>
   ],

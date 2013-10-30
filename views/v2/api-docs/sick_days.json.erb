@@ -105,6 +105,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/sick_days/years' } } %>,
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'sick_days/{sick_day_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'sick_days/{sick_day_id}' } } %>
   ],

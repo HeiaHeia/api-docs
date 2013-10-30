@@ -98,6 +98,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/training_goals/years' } } %>,
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_goals/{training_goal_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_goals/{training_goal_id}' } } %>
   ],
