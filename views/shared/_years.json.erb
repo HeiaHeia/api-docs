@@ -1,0 +1,13 @@
+{
+  "path": "<%= resource %>",
+  "operations": [
+    {
+      "httpMethod": "GET",
+      "summary": "Get list of availables years",
+      "responseClass": "List[Integer]",
+      "nickname": "years_index",
+      "parameters": [],
+      "errorResponses":<%= responses(404) %>
+    }
+  ]
+}
