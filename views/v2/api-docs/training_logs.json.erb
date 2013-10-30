@@ -267,6 +267,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/training_logs/years' } } %>,
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_logs/{training_log_id}' } } %>
   ],

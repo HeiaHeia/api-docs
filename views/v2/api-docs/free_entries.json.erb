@@ -99,6 +99,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/free_entries/years' } } %>,
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'free_entries/{free_entry_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'free_entries/{free_entry_id}' } } %>
   ],
