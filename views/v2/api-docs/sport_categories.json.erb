@@ -22,6 +22,19 @@
       ]
     },
     {
+      "path":"/sport_categories/all",
+      "description":"List of all sport categories",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all sport categories",
+          "responseClass":"List[SportCategory]",
+          "nickname":"index",
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
       "path":"/sport_categories/{id}",
       "description":"Operations about sport categories",
       "operations":[
@@ -38,30 +51,6 @@
               "required":true,
               "dataType":"long"
             }
-          ],
-          "errorResponses":<%= responses(404) %>
-        }
-      ]
-    },
-    {
-      "path":"/sport_categories/{sport_category_id}/sports",
-      "description":"Operations about sports",
-      "operations":[
-        {
-          "httpMethod":"GET",
-          "summary":"Find sports by category ID",
-          "responseClass":"Sport",
-          "nickname":"index",
-          "parameters":[
-            {
-              "name":"sport_category_id",
-              "description":"The id of the sport category.",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            },
-            <%= param_page %>,
-            <%= param_per_page %>
           ],
           "errorResponses":<%= responses(404) %>
         }
