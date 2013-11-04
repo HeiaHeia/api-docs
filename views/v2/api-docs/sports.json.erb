@@ -22,6 +22,19 @@
       ]
     },
     {
+      "path":"/sports/all",
+      "description":"Operations about sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all sports",
+          "responseClass":"List[Sport]",
+          "nickname":"index",
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
       "path":"/sports/{id}",
       "description":"Operations about sports",
       "operations":[
