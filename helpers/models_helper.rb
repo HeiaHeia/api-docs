@@ -364,6 +364,34 @@ module ModelsHelper
     }
   end
 
+  def compact_sport_category_model
+    {
+      :id => Const::COMPACT_SPORT_CATEGORY,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :sports_url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
   def sport_category_model
     {
       :id => Const::SPORT_CATEGORY,
@@ -387,6 +415,12 @@ module ModelsHelper
         :sports_url => {
           :type => Const::STRING,
           :required => true
+        },
+        :sports => {
+          :items => {
+            :$ref => Const::SPORT
+          },
+          :type => Const::ARRAY
         }
       }
     }

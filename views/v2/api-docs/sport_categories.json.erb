@@ -11,12 +11,25 @@
         {
           "httpMethod":"GET",
           "summary":"List of sport categories",
-          "responseClass":"List[SportCategory]",
+          "responseClass":"List[CompactSportCategory]",
           "nickname":"index",
           "parameters":[
             <%= param_page %>,
             <%= param_per_page %>
           ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/sport_categories/all",
+      "description":"List of all sport categories",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all sport categories",
+          "responseClass":"List[SportCategory]",
+          "nickname":"index_all",
           "errorResponses":<%= responses(400) %>
         }
       ]
@@ -28,7 +41,7 @@
         {
           "httpMethod":"GET",
           "summary":"Find sport category by ID",
-          "responseClass":"SportCategory",
+          "responseClass":"CompactSportCategory",
           "nickname":"show",
           "parameters":[
             {
@@ -68,5 +81,5 @@
       ]
     }
   ],
-  "models":<%= models('SportCategory', 'Sport') %>
+  "models":<%= models('CompactSportCategory', 'SportCategory', 'Sport') %>
 }
