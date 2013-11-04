@@ -384,9 +384,11 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :sports_url => {
-          :type => Const::STRING,
-          :required => true
+        :sports => {
+          :items => {
+            :$ref => Const::SPORT
+          },
+          :type => Const::ARRAY
         }
       }
     }
