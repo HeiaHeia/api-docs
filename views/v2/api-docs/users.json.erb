@@ -84,6 +84,26 @@
       ]
     },
     {
+      "path":"/users/{user_id}/items",
+      "description":"Operations about items",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Items of user specified by user_id",
+          "responseClass":"List[Item]",
+          "nickname":"items_index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/items/years' } } %>,
+    {
       "path":"/users/{user_id}/medals",
       "description":"Operations about medals",
       "operations":[

@@ -20,6 +20,10 @@
       "description":"Feeds"
     },
     {
+      "path":"/api-docs/items.{format}",
+      "description":"Items"
+    },
+    {
       "path":"/api-docs/free_entries.{format}",
       "description":"Free entries"
     },

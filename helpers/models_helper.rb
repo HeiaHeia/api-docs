@@ -200,6 +200,10 @@ module ModelsHelper
         :friendship_url => {
           :type => Const::STRING,
           :required => true
+        },
+        :items_url => {
+          :type => Const::STRING,
+          :required => true
         }
       }
     }
@@ -1148,6 +1152,37 @@ module ModelsHelper
     }
   end
 
+  def item_types
+    [
+      Const::TRAINING_LOG,
+      Const::FREE_ENTRY,
+      Const::WEIGHT,
+      Const::SICK_DAY,
+      Const::MEDAL,
+      Const::TRAINING_GOAL
+    ]
+  end
+
+  def item_model
+    {
+      :id => Const::Item,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :entry => {
+          :type => item_types.join(' | '),
+          :required => true
+        }
+      }
+    }
+  end
+
   def models(*args)
     hash = {}
     model_names(args).each do |model|
@@ -1176,7 +1211,8 @@ module ModelsHelper
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE],
       Const::USER => [],
       Const::WEIGHT => [Const::COMPACT_USER],
-      Const::MEDAL => [Const::COMPACT_USER]
+      Const::MEDAL => [Const::COMPACT_USER],
+      Const::Item => [Const::COMPACT_USER]
     }
   end
 
