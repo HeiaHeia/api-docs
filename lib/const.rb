@@ -45,6 +45,7 @@ module Const
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
   WEIGHT = 'Weight'.freeze
+  Item = 'Item'.freeze
 
   PRIVACIES = ['all_users', 'friends', 'colleagues'].freeze
 
