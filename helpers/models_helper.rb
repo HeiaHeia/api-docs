@@ -60,8 +60,7 @@ module ModelsHelper
         :avatar_url => {
           :type => Const::STRING,
           :description => "for heiaheia users https://avatars-heiaheia-com.s3.amazonaws.com/images/avatars/IMAGE_ID/{size}.jpg,
-                           for FB user https://graph.facebook.com/FACEBOOK_ID/picture?width={size}&height={size}.
-                           {size} - possible size of image(counld be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144)",
+                           {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
           :required => true
         },
         :url => {
@@ -111,8 +110,7 @@ module ModelsHelper
         :avatar_url => {
           :type => Const::STRING,
           :description => "for heiaheia users https://avatars-heiaheia-com.s3.amazonaws.com/images/avatars/IMAGE_ID/{size}.jpg,
-                           for FB user https://graph.facebook.com/FACEBOOK_ID/picture?width={size}&height={size}.
-                           {size} - possible size of image(counld be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144)",
+                           {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
           :required => true
         },
         :locale => {
