@@ -673,7 +673,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://media-heiaheia-com.s3.amazonaws.com/images/icons/weight_log_{size}.jpg,
+          :description => "Example https://www.heiaheia.com/images/icons/weight_logs/weight_log_{size}.jpg,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144)",
           :required => true
         },
@@ -759,7 +759,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://media-heiaheia-com.s3.amazonaws.com/images/icons/sick_day_{size}.jpg,
+          :description => "Example https://www.heiaheia.com/images/icons/sick_days/sick_day_{size}.jpg,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144)",
           :required => true
         },
@@ -840,7 +840,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://media-heiaheia-com.s3.amazonaws.com/images/icons/free_entry_{size}.jpg,
+          :description => "Example https://www.heiaheia.com/images/icons/free_entries/free_entry_{size}.jpg,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144)",
           :required => true
         },
@@ -985,7 +985,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://media-heiaheia-com.s3.amazonaws.com/images/icons/training_goal_{size}.jpg,
+          :description => "Example https://www.heiaheia.com/images/icons/training_goals/training_goal_{size}.jpg,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144)",
           :required => true
         },
