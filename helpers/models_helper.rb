@@ -481,7 +481,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :description => "Template URL 'https://media-heiaheia-com.s3.amazonaws.com/cheer_types/icons/CHEER_TYPE_ID/{height}.png',
-                            where '{height}' value can be from this list ['34', '44', '60', '64', '72', '80', '96', '128', '144']",
+                            where '{height}' value can be from this list ['34', '44', '48', '60', '64', '72', '80', '96', '128', '144', '192']",
           :required => true
         },
         :level => {
