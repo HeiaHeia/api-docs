@@ -320,11 +320,13 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => sport_icon_description
         },
         :planned_icon_url => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => sport_icon_description('planned_icons')
         },
         :url => {
           :type => Const::STRING,
@@ -348,11 +350,13 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => sport_icon_description
         },
         :planned_icon_url => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => sport_icon_description('planned_icons')
         },
         :url => {
           :type => Const::STRING,
@@ -390,7 +394,8 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => sport_icon_description
         },
         :sports_url => {
           :type => Const::STRING,
@@ -418,7 +423,8 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :description => sport_icon_description
         },
         :sports_url => {
           :type => Const::STRING,
@@ -1231,6 +1237,11 @@ module ModelsHelper
       end
     end
     set
+  end
+
+  def sport_icon_description(type = 'regular_icons')
+    "Template URL 'https://media-heiaheia-com.s3.amazonaws.com/sports/#{type}/SPORT_ID/{size}.png',
+     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
 
 end
