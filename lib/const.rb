@@ -46,6 +46,7 @@ module Const
   USER = 'User'.freeze
   WEIGHT = 'Weight'.freeze
   Item = 'Item'.freeze
+  MEGAPHONE = 'Megaphone'.freeze
 
   PRIVACIES = ['all_users', 'friends', 'colleagues'].freeze
 

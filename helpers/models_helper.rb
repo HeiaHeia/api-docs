@@ -1189,6 +1189,77 @@ module ModelsHelper
     }
   end
 
+  def megaphone_model
+    {
+      :id => Const::MEGAPHONE,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :user => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :notes => {
+          :type => Const::TEXT,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :cheers_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :cheers_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :cheerable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :comments_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :comments_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :commentable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        }
+      }
+    }
+  end
+
   def models(*args)
     hash = {}
     model_names(args).each do |model|
@@ -1218,7 +1289,8 @@ module ModelsHelper
       Const::USER => [],
       Const::WEIGHT => [Const::COMPACT_USER],
       Const::MEDAL => [Const::COMPACT_USER],
-      Const::Item => [Const::COMPACT_USER]
+      Const::Item => [Const::COMPACT_USER],
+      Const::MEGAPHONE => [Const::COMPACT_USER]
     }
   end
 

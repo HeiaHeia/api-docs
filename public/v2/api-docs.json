@@ -40,6 +40,10 @@
       "description":"Medals"
     },
     {
+      "path":"/api-docs/megaphones.{format}",
+      "description":"Megaphones"
+    },
+    {
       "path":"/api-docs/messages.{format}",
       "description":"Messages"
     },
