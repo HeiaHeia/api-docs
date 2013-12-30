@@ -1165,7 +1165,8 @@ module ModelsHelper
       Const::WEIGHT,
       Const::SICK_DAY,
       Const::MEDAL,
-      Const::TRAINING_GOAL
+      Const::TRAINING_GOAL,
+      Const::MEGAPHONE
     ]
   end
 

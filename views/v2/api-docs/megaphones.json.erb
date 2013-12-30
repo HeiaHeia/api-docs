@@ -46,45 +46,6 @@
             }
           ],
           "errorResponses":<%= responses(404) %>
-        },
-        {
-          "httpMethod":"PUT",
-          "summary":"Update an existing megaphone",
-          "responseClass":"Megaphone",
-          "nickname":"update",
-          "parameters":[
-            {
-              "name":"id",
-              "description":"ID of megaphone that needs to be updated",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            },
-            <%= param_date %>,
-            <%= param_notes %>,
-            {
-              "name":"private",
-              "paramType":"form",
-              "dataType":"boolean"
-            }
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        },
-        {
-          "httpMethod":"DELETE",
-          "summary":"Delete megaphone entry",
-          "responseClass":"void",
-          "nickname":"destroy",
-          "parameters":[
-            {
-              "name":"id",
-              "description":"ID of megaphone that needs to be deleted",
-              "paramType":"path",
-              "required":true,
-              "dataType":"long"
-            }
-          ],
-          "errorResponses":<%= responses(400, 404) %>
         }
       ]
     },
