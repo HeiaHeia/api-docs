@@ -1052,7 +1052,8 @@ module ModelsHelper
       Const::WEIGHT,
       Const::SICK_DAY,
       Const::MEDAL,
-      Const::TRAINING_GOAL
+      Const::TRAINING_GOAL,
+      Const::MEGAPHONE
     ]
   end
 
@@ -1213,6 +1214,10 @@ module ModelsHelper
           :required => true
         },
         :icon_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :organisation_name => {
           :type => Const::STRING,
           :required => true
         },
