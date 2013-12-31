@@ -1217,6 +1217,10 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :organisation_name => {
+          :type => Const::STRING,
+          :required => true
+        },
         :notes => {
           :type => Const::TEXT,
           :required => true
