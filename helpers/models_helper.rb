@@ -682,7 +682,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :description => "Example https://www.heiaheia.com/images/icons/weight_logs/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144, 192x192)",
+                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
         :notes => {
@@ -768,7 +768,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :description => "Example https://www.heiaheia.com/images/icons/sick_days/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144, 192x192)",
+                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
         :notes => {
@@ -849,7 +849,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :description => "Example https://www.heiaheia.com/images/icons/free_entries/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144, 192x192)",
+                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
         :notes => {
@@ -994,7 +994,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :description => "Example https://www.heiaheia.com/images/icons/training_goals/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 144x144, 192x192)",
+                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
         :notes => {
