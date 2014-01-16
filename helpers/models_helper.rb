@@ -673,7 +673,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://www.heiaheia.com/images/icons/weight_logs/{size}.png,
+          :description => "Example https://www.heiaheia.com/images/icons/user_weights/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
@@ -985,7 +985,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://www.heiaheia.com/images/icons/training_goals/{size}.png,
+          :description => "Example https://www.heiaheia.com/images/icons/user_statuses/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
