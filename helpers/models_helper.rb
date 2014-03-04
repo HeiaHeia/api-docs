@@ -1197,6 +1197,14 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :kind => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => item_types
+          }
+        },
         :entry => {
           :type => item_types.join(' | '),
           :required => true
