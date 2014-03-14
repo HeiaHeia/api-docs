@@ -929,8 +929,10 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
+          :description => "Example https://example.com/{width}.png,
+                           {width} - possible width of image(could be 48, 64, 72, 80, 96, 120, 144, 192).
+                           Icon can be with dimension WxW or Wx4/3*W. All sizes of icons:
+                           48x48, 48x64, 64x64, 64x85, 72x72, 72x96, 80x80, 80x107, 96x96, 96x128, 120x120, 120x160, 144x144, 144x192, 192x192, 192x256",
           :required => true
         },
         :title => {
