@@ -25,7 +25,7 @@
         {
           "httpMethod":"POST",
           "summary":"Add a new training log",
-          "notes":"sport_id=2&avg_hr=110&calories=148&comment=Great%20ride%21&date=2010-04-27&duration_h=1&duration_m=15&duration_s=34&favourite=1&max_hr=150&mood=4&sport_param_values[distance]=34.5&sport_param_values[avg_speed]=12&sport_param_values[score]=27",
+          "notes":"Allowed only one tag with type 'strain' for entry.<br/>sport_id=2&avg_hr=110&calories=148&comment=Great%20ride%21&date=2010-04-27&duration_h=1&duration_m=15&duration_s=34&favourite=1&max_hr=150&mood=4&sport_param_values[distance]=34.5&sport_param_values[avg_speed]=12&sport_param_values[score]=27",
           "responseClass":"TrainingLog",
           "nickname":"create",
           "parameters":[
@@ -157,7 +157,7 @@
         {
           "httpMethod":"PUT",
           "summary":"Update an existing training log",
-          "notes":"If you want approve entry, just update entry with status=regular.",
+          "notes":"If you want approve entry, just update entry with status=regular.<br/>Allowed only one tag with type 'strain' for entry.",
           "responseClass":"TrainingLog",
           "nickname":"update",
           "parameters":[
