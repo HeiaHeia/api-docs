@@ -492,6 +492,26 @@ module ModelsHelper
     }
   end
 
+  def tag_model
+    {
+      :id => Const::TAG,
+      :properties => {
+        :type => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(strain commute own)
+          }
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
   def place_model
     {
       :id => Const::PLACE,
@@ -646,6 +666,12 @@ module ModelsHelper
         },
         :gpx_url => {
           :type => Const::STRING
+        },
+        :tags => {
+          :items => {
+            :$ref => Const::TAG
+          },
+          :type => Const::ARRAY
         },
         :removable => {
           :type => Const::BOOLEAN,
@@ -1191,7 +1217,7 @@ module ModelsHelper
 
   def item_model
     {
-      :id => Const::Item,
+      :id => Const::ITEM,
       :properties => {
         :id => {
           :type => Const::LONG,
@@ -1309,6 +1335,9 @@ module ModelsHelper
       Const::COMPACT_USER => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER],
+      Const::ITEM => [Const::COMPACT_USER],
+      Const::MEDAL => [Const::COMPACT_USER],
+      Const::MEGAPHONE => [Const::COMPACT_USER],
       Const::MESSAGE => [Const::COMPACT_USER],
       Const::PLACE => [],
       Const::SICK_DAY => [Const::COMPACT_USER],
@@ -1316,13 +1345,11 @@ module ModelsHelper
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [ Const::SPORT_PARAM ],
       Const::CONVERSATION => [],
+      Const::TAG => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
-      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE],
+      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG],
       Const::USER => [],
-      Const::WEIGHT => [Const::COMPACT_USER],
-      Const::MEDAL => [Const::COMPACT_USER],
-      Const::Item => [Const::COMPACT_USER],
-      Const::MEGAPHONE => [Const::COMPACT_USER]
+      Const::WEIGHT => [Const::COMPACT_USER]
     }
   end
 

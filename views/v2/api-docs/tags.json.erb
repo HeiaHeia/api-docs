@@ -1,0 +1,23 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v2",
+  "resourcePath":"/tags",
+  "apis":[
+    {
+      "path":"/tags",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Available tags",
+          "notes":"Always returns default tags with type 'strain' and 'commute' even if no entries with tags were created.",
+          "responseClass":"List[Tag]",
+          "nickname":"index",
+          "parameters":[],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models('Tag') %>
+}

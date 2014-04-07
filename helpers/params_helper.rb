@@ -94,4 +94,12 @@ module ParamsHelper
     }.to_json
   end
 
+  def param_tags
+    {
+      :name => 'tags[]',
+      :paramType => 'form',
+      :dataType => Const::STRING
+    }.to_json
+  end
+
 end

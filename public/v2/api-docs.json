@@ -64,6 +64,10 @@
       "description":"Sports"
     },
     {
+      "path":"/api-docs/tags.{format}",
+      "description":"Tags"
+    },
+    {
       "path":"/api-docs/top_sports.{format}",
       "description":"Top Sports"
     },

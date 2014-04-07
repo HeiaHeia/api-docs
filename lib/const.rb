@@ -29,13 +29,16 @@ module Const
   COMPACT_USER = 'CompactUser'.freeze
   FEED = 'Feed'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
+  ITEM = 'Item'.freeze
   MEDAL = 'Medal'.freeze
+  MEGAPHONE = 'Megaphone'.freeze
   MESSAGE = 'Message'.freeze
   PLACE = 'Place'.freeze
   SICK_DAY = 'SickDay'.freeze
   SPORT = 'Sport'.freeze
   SPORT_CATEGORY = 'SportCategory'.freeze
   COMPACT_SPORT_CATEGORY = 'CompactSportCategory'.freeze
+  TAG = 'Tag'.freeze
   TOP_SPORT = 'TopSport'.freeze
   SPORT_PARAM = 'SportParam'.freeze
   SPORT_PARAM_VALUE = 'SportParamValue'.freeze
@@ -45,8 +48,6 @@ module Const
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
   WEIGHT = 'Weight'.freeze
-  Item = 'Item'.freeze
-  MEGAPHONE = 'Megaphone'.freeze
 
   PRIVACIES = ['all_users', 'friends', 'colleagues'].freeze
 
