@@ -1318,6 +1318,154 @@ module ModelsHelper
     }
   end
 
+  def wellness_type_model
+    {
+      :id => Const::WELLNESS_TYPE,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :has_bool => {
+          :type => Const::BOOLEAN,
+          :required => true,
+          :description => 'if true then entries of this type can accept yes/no field'
+        },
+        :has_numeric => {
+          :type => Const::BOOLEAN,
+          :required => true,
+          :description => 'if true then entries of this type can accept numeric field'
+        },
+        :bool_title => {
+          :type => Const::STRING,
+          :required => false,
+          :description => 'Title of yes/no field. Will be empty if attribute "has_bool" is false'
+        },
+        :numeric_title => {
+          :type => Const::STRING,
+          :required => false,
+          :description => 'Title of numeric field. Will be empty if attribute "has_numeric" is false'
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => wellness_type_icon_description
+        },
+        :planned_icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => wellness_type_icon_description('planned_icons')
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def wellness_entry_model
+    {
+      :id => Const::WELLNESS_ENTRY,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :date => {
+          :type => Const::DATE,
+          :required => true
+        },
+        :user => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :wellness_type => {
+          :type => Const::WELLNESS_TYPE,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :description => wellness_type_icon_description,
+          :required => true
+        },
+        :notes => {
+          :type => Const::TEXT,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :numeric_value => {
+          :type => Const::FLOAT,
+          :required => true,
+          :description => 'Applicable if wellness type has enabled numeric value'
+        },
+        :bool_value => {
+          :type => Const::BOOLEAN,
+          :required => true,
+          :description => 'Applicable if wellness type has enabled boolean value'
+        },
+        :private => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :cheers_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :cheers_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :cheerable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :comments_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :comments_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :commentable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        }
+      }
+    }
+  end
+
   def models(*args)
     hash = {}
     model_names(args).each do |model|
@@ -1349,7 +1497,9 @@ module ModelsHelper
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG],
       Const::USER => [],
-      Const::WEIGHT => [Const::COMPACT_USER]
+      Const::WEIGHT => [Const::COMPACT_USER],
+      Const::WELLNESS_TYPE => [],
+      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE]
     }
   end
 
@@ -1366,6 +1516,11 @@ module ModelsHelper
 
   def sport_icon_description(type = 'regular_icons')
     "Template URL 'https://media-heiaheia-com.s3.amazonaws.com/sports/#{type}/SPORT_ID/{size}.png',
+     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
+  end
+
+  def wellness_type_icon_description(type = 'regular_icons')
+    "Template URL 'https://media-heiaheia-com.s3.amazonaws.com/wellness_types/#{type}/WELLNESS_TYPE_ID/{size}.png',
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
 

@@ -48,6 +48,8 @@ module Const
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
   WEIGHT = 'Weight'.freeze
+  WELLNESS_TYPE = 'WellnessType'.freeze
+  WELLNESS_ENTRY = 'WellnessEntry'.freeze
 
   PRIVACIES = ['all_users', 'friends', 'colleagues'].freeze
 
