@@ -1519,7 +1519,7 @@ module ModelsHelper
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
 
-  def wellness_type_icon_description(type = 'regular_icons')
+  def wellness_type_icon_description(type = 'icons')
     "Template URL 'https://media-heiaheia-com.s3.amazonaws.com/wellness_types/#{type}/WELLNESS_TYPE_ID/{size}.png',
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
