@@ -22,6 +22,19 @@
       ]
     },
     {
+      "path":"/wellness_types/all",
+      "description":"Operations about wellness entry types",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all available wellness entry types",
+          "responseClass":"List[WellnessType]",
+          "nickname":"index_all",
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
       "path":"/wellness_types/{id}",
       "description":"Operations about wellness type",
       "operations":[
