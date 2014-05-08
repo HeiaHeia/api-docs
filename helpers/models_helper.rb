@@ -1388,6 +1388,14 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
+        :status => {
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(regular planned)
+          },
+          :type => Const::STRING,
+          :required => true
+        },
         :wellness_type => {
           :type => Const::WELLNESS_TYPE,
           :required => true
