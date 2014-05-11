@@ -86,6 +86,14 @@
     {
       "path":"/api-docs/weights.{format}",
       "description":"Weights"
+    },
+    {
+      "path":"/api-docs/wellness_types.{format}",
+      "description":"Wellness entry types"
+    },
+    {
+      "path":"/api-docs/wellness_entries.{format}",
+      "description":"Wellness entries"
     }
   ]
 }
