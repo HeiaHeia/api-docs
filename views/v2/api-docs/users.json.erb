@@ -283,8 +283,28 @@
           "errorResponses":<%= responses(404) %>
         }
       ]
-    }
+    },
+    {
+      "path":"/users/{user_id}/wellness_entries",
+      "description":"Operations about wellness entries",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user wellness entries",
+          "responseClass":"List[WellnessEntry]",
+          "nickname":"wellness_entries_index",
+          "parameters":[
+            <%= param_user_id %>,
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/wellness_entries/years' } } %>
 
   ],
-  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry') %>
+  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry', 'WellnessEntry') %>
 }
