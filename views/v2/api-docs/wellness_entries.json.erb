@@ -36,6 +36,20 @@
               "description":"ID of WellnessType"
             },
             {
+              "name":"status",
+              "required":true,
+              "dataType":"string",
+              "paramType":"form",
+              "defaultValue":"regular",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "regular",
+                  "planned"
+                ]
+              }
+            },
+            {
               "name":"numeric_value",
               "paramType":"form",
               "dataType":"float",
@@ -84,14 +98,27 @@
           "responseClass":"WellnessEntry",
           "nickname":"update",
           "parameters":[
-            <%= param_required_date %>,
+            {
+              "name":"id",
+              "description":"ID of wellness entry that needs to be updated",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_date %>,
             <%= param_notes %>,
             {
-              "name":"wellness_type_id",
+              "name":"status",
+              "dataType":"string",
               "paramType":"form",
-              "required":true,
-              "dataType":"int",
-              "description":"ID of WellnessType"
+              "defaultValue":"regular",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "regular",
+                  "planned"
+                ]
+              }
             },
             {
               "name":"numeric_value",
