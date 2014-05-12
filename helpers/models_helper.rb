@@ -1091,7 +1091,8 @@ module ModelsHelper
       Const::SICK_DAY,
       Const::MEDAL,
       Const::TRAINING_GOAL,
-      Const::MEGAPHONE
+      Const::MEGAPHONE,
+      Const::WELLNESS_ENTRY
     ]
   end
 
@@ -1211,7 +1212,8 @@ module ModelsHelper
       Const::SICK_DAY,
       Const::MEDAL,
       Const::TRAINING_GOAL,
-      Const::MEGAPHONE
+      Const::MEGAPHONE,
+      Const::WELLNESS_ENTRY
     ]
   end
 
