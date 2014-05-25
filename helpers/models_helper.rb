@@ -59,7 +59,7 @@ module ModelsHelper
         },
         :avatar_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://example.com/images/avatars/IMAGE_ID/{size}.jpg,
+          :description => "for heiaheia users https://example.com/path/to/image/IMAGE_ID/{size}.jpg,
                            {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
           :required => true
         },
@@ -109,7 +109,7 @@ module ModelsHelper
         },
         :avatar_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://example.com/images/avatars/IMAGE_ID/{size}.jpg,
+          :description => "for heiaheia users https://example.com/path/to/image/IMAGE_ID/{size}.jpg,
                            {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
           :required => true
         },
@@ -480,7 +480,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Template URL 'https://example.com/cheer_types/icons/CHEER_TYPE_ID/{height}.png',
+          :description => "Template URL 'https://example.com/path/to/image/CHEER_TYPE_ID/{height}.png',
                             where '{height}' value can be from this list ['34', '44', '48', '60', '64', '72', '80', '96', '128', '144', '192']",
           :required => true
         },
@@ -707,7 +707,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/images/icons/user_weights/{size}.png,
+          :description => "Example https://example.com/path/to/image/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
@@ -793,7 +793,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/images/icons/sick_days/{size}.png,
+          :description => "Example https://example.com/path/to/image/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
@@ -874,7 +874,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/images/icons/free_entries/{size}.png,
+          :description => "Example https://example.com/path/to/image/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
@@ -955,7 +955,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/{width}.png,
+          :description => "Example https://example.com/path/to/image/{width}.png,
                            {width} - possible width of image(could be 48, 64, 72, 80, 96, 120, 144, 192).
                            Icon can be with dimension WxW or Wx4/3*W. All sizes of icons:
                            48x48, 48x64, 64x64, 64x85, 72x72, 72x96, 80x80, 80x107, 96x96, 96x128, 120x120, 120x160, 144x144, 144x192, 192x192, 192x256",
@@ -1023,7 +1023,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/images/icons/user_statuses/{size}.png,
+          :description => "Example https://example.com/path/to/image/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
           :required => true
         },
@@ -1525,12 +1525,12 @@ module ModelsHelper
   end
 
   def sport_icon_description(type = 'regular_icons')
-    "Template URL 'https://example.com/sports/#{type}/SPORT_ID/{size}.png',
+    "Template URL 'https://example.com/path/to/image/#{type}/SPORT_ID/{size}.png',
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
 
   def wellness_type_icon_description(type = 'icons')
-    "Template URL 'https://example.com/wellness_types/#{type}/WELLNESS_TYPE_ID/{size}.png',
+    "Template URL 'https://example.com/path/to/image/#{type}/WELLNESS_TYPE_ID/{size}.png',
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
 
