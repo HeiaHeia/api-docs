@@ -59,7 +59,7 @@ module ModelsHelper
         },
         :avatar_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://example.com/path/to/image/IMAGE_ID/{size}.jpg,
+          :description => "for heiaheia users https://example.com/path/to/image/{size}.jpg,
                            {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
           :required => true
         },
@@ -109,7 +109,7 @@ module ModelsHelper
         },
         :avatar_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://example.com/path/to/image/IMAGE_ID/{size}.jpg,
+          :description => "for heiaheia users https://example.com/path/to/image/{size}.jpg,
                            {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
           :required => true
         },
@@ -321,12 +321,12 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => sport_icon_description
+          :description => common_icon_description
         },
         :planned_icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => sport_icon_description('planned_icons')
+          :description => common_icon_description
         },
         :url => {
           :type => Const::STRING,
@@ -351,12 +351,12 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => sport_icon_description
+          :description => common_icon_description
         },
         :planned_icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => sport_icon_description('planned_icons')
+          :description => common_icon_description
         },
         :url => {
           :type => Const::STRING,
@@ -395,7 +395,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => sport_icon_description
+          :description => common_icon_description
         },
         :sports_url => {
           :type => Const::STRING,
@@ -424,7 +424,7 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => sport_icon_description
+          :description => common_icon_description
         },
         :sports_url => {
           :type => Const::STRING,
@@ -480,7 +480,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Template URL 'https://example.com/path/to/image/CHEER_TYPE_ID/{height}.png',
+          :description => "Template URL 'https://example.com/path/to/image/{height}.png',
                             where '{height}' value can be from this list ['34', '44', '48', '60', '64', '72', '80', '96', '128', '144', '192']",
           :required => true
         },
@@ -1359,12 +1359,12 @@ module ModelsHelper
         :icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => wellness_type_icon_description
+          :description => common_icon_description
         },
         :planned_icon_url => {
           :type => Const::STRING,
           :required => true,
-          :description => wellness_type_icon_description('planned_icons')
+          :description => common_icon_description
         },
         :url => {
           :type => Const::STRING,
@@ -1408,7 +1408,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => wellness_type_icon_description,
+          :description => common_icon_description,
           :required => true
         },
         :notes => {
@@ -1524,13 +1524,8 @@ module ModelsHelper
     set
   end
 
-  def sport_icon_description(type = 'regular_icons')
-    "Template URL 'https://example.com/path/to/image/#{type}/SPORT_ID/{size}.png',
-     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
-  end
-
-  def wellness_type_icon_description(type = 'icons')
-    "Template URL 'https://example.com/path/to/image/#{type}/WELLNESS_TYPE_ID/{size}.png',
+  def common_icon_description
+    "Template URL 'https://example.com/path/to/image/{size}.png',
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
   end
 

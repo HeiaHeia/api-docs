@@ -28,7 +28,7 @@ class TrainingGoalStub
     @attributes.slice(:id, :title, :private, :cheers_count, :cheerable,
                       :comments_count, :commentable).merge({
       :kind => Const::TRAINING_GOAL,
-      :icon_url => 'https://example.com/images/icons/training_goal.png',
+      :icon_url => 'https://example.com/path/to/image.png',
       :url => url,
       :cheers_url => cheers_url,
       :comments_url => comments_url,
