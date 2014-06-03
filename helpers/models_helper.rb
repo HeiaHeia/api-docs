@@ -59,8 +59,7 @@ module ModelsHelper
         },
         :avatar_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://example.com/path/to/image/{size}.jpg,
-                           {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
+          :description => common_icon_description,
           :required => true
         },
         :url => {
@@ -109,8 +108,7 @@ module ModelsHelper
         },
         :avatar_url => {
           :type => Const::STRING,
-          :description => "for heiaheia users https://example.com/path/to/image/{size}.jpg,
-                           {size} - possible size of image(could be 30x30, 34x34, 48x48, 64x64, 72x72, 73x73, 80x80, 96x96, 120x120, 144x144)",
+          :description => common_icon_description,
           :required => true
         },
         :locale => {
@@ -707,8 +705,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
+          :description => extra_model_icon_description,
           :required => true
         },
         :notes => {
@@ -793,8 +790,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
+          :description => extra_model_icon_description,
           :required => true
         },
         :notes => {
@@ -874,8 +870,7 @@ module ModelsHelper
         },
         :icon_url => {
           :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png,
-                           {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
+          :description => extra_model_icon_description,
           :required => true
         },
         :notes => {
@@ -1527,6 +1522,11 @@ module ModelsHelper
   def common_icon_description
     "Template URL 'https://example.com/path/to/image/{size}.png',
      where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
+  end
+
+  def extra_model_icon_description
+    "Example https://example.com/path/to/image/{size}.png,
+     {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)"
   end
 
 end
