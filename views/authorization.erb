@@ -47,7 +47,24 @@ client.auth_code.authorize_url(:redirect_uri => redirect_uri)</code></pre>
 </div>
 <br/>
 
-<p>Go to this url in your browser. You'll see the authorization endpoint. If you click on Authorize, you'll get redirected to 'redirect_uri' with the code parameter in the query. With this code you will request the access token.</p>
+<p>
+  We support an extra parameter for authorize_url:
+  <strong>&display = sign_in | sign_up | facebook</strong>.
+  By default authorize_url without param display behaves like sign_in.
+  Using this parameter you can select on of the actions: authorization,
+  registration or login via Facebook.
+</p>
+
+<p>For example:</p>
+
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code>https://api.heiaheia.com/oauth/authorize?response_type=code&client_id=...&redirect_uri=...&display=sign_in</code></pre>
+</div>
+<br/>
+
+<p>Open this url in your browser. You'll see the authorization endpoint. If you
+  click on Authorize, you'll get redirected to 'redirect_uri' with the code
+  parameter in the query. With this code you will request the access token.</p>
 
 <p>Requesting the access token</p>
 
