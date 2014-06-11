@@ -1,0 +1,16 @@
+{
+  "apiVersion":"3",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v3",
+  "resourcePath":"/free_entries",
+  "apis":[
+    {
+      "path":"/free_entries",
+      "description":"Operations about free entries",
+      "operations":[
+        <%= erb :'shared/free_entries/_create.json' %>
+      ]
+    }
+  ],
+  "models":<%= v3_models(Const::FREE_ENTRY) %>
+}

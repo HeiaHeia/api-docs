@@ -1,0 +1,23 @@
+{
+  "httpMethod":"POST",
+  "summary":"Add a new weight",
+  "responseClass":"Weight",
+  "nickname":"create",
+  "parameters":[
+    <%= param_required_date %>,
+    <%= param_notes %>,
+    {
+      "name":"value",
+      "paramType":"form",
+      "dataType":"text",
+      "description":"Value should be in unit that set in the user settings (kg or lb)."
+    },
+    {
+      "name":"private",
+      "paramType":"form",
+      "dataType":"boolean",
+      "description":"By default 'true'"
+    }
+  ],
+  "errorResponses":<%= responses(400, 404) %>
+}

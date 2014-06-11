@@ -1,0 +1,16 @@
+{
+  "apiVersion":"3",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v3",
+  "resourcePath":"/sick_days",
+  "apis":[
+    {
+      "path":"/sick_days",
+      "description":"Operations about sick days",
+      "operations":[
+        <%= erb :'shared/sick_days/_create.json' %>
+      ]
+    }
+  ],
+  "models":<%= v3_models(Const::SICK_DAY) %>
+}

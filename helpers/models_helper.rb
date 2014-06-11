@@ -848,6 +848,18 @@ module ModelsHelper
     }
   end
 
+  def v3_entry_model(const)
+    {
+      :id => const,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        }
+      }
+    }
+  end
+
   def free_entry_model
     {
       :id => Const::FREE_ENTRY,
@@ -1475,6 +1487,14 @@ module ModelsHelper
     hash = {}
     model_names(args).each do |model|
       hash[model] = send("#{model.underscore}_model")
+    end
+    hash.to_json
+  end
+
+  def v3_models(*args)
+    hash = {}
+    model_names(args).each do |model|
+      hash[model] = v3_entry_model(model)
     end
     hash.to_json
   end

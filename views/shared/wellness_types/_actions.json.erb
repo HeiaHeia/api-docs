@@ -1,0 +1,61 @@
+{
+  "apiVersion":"<%= api_version %>",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567<%= base_path %>",
+  "resourcePath":"/wellness_types",
+  "apis":[
+    {
+      "path":"/wellness_types",
+      "description":"Operations about wellness entry types",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of available wellness entry types",
+          "responseClass":"List[WellnessType]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/wellness_types/all",
+      "description":"Operations about wellness entry types",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all available wellness entry types",
+          "responseClass":"List[WellnessType]",
+          "nickname":"index_all",
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/wellness_types/{id}",
+      "description":"Operations about wellness type",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find wellness type by ID",
+          "responseClass":"WellnessType",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the wellness type.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models('WellnessType') %>
+}
