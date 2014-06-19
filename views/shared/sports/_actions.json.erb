@@ -1,0 +1,61 @@
+{
+  "apiVersion":"<%= api_version %>",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567<%= base_path %>",
+  "resourcePath":"/sports",
+  "apis":[
+    {
+      "path":"/sports",
+      "description":"Operations about sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds sports",
+          "responseClass":"List[Sport]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/sports/all",
+      "description":"Operations about sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of all sports",
+          "responseClass":"List[Sport]",
+          "nickname":"index_all",
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/sports/{id}",
+      "description":"Operations about sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find sport by ID",
+          "responseClass":"Sport",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the sport.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models('Sport') %>
+}

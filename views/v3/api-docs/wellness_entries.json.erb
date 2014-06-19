@@ -1,0 +1,16 @@
+{
+  "apiVersion":"3",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v3",
+  "resourcePath":"/wellness_entries",
+  "apis":[
+    {
+      "path":"/wellness_entries",
+      "description":"Operations about wellness entries",
+      "operations":[
+        <%= erb :'shared/wellness_entries/_create.json' %>
+      ]
+    }
+  ],
+  "models":<%= v3_models(Const::WELLNESS_ENTRY) %>
+}

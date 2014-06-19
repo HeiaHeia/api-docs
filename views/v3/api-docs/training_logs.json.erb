@@ -1,0 +1,16 @@
+{
+  "apiVersion":"3",
+  "swaggerVersion":"1.2",
+  "basePath":"http://localhost:4567/v3",
+  "resourcePath":"/training_logs",
+  "apis":[
+    {
+      "path":"/training_logs",
+      "description":"Operations about training logs",
+      "operations":[
+        <%= erb :'shared/training_logs/_create.json' %>
+      ]
+    }
+  ],
+  "models":<%= v3_models(Const::TRAINING_LOG) %>
+}

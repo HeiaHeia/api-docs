@@ -20,22 +20,7 @@
           ],
           "errorResponses":<%= responses(400) %>
         },
-        {
-          "httpMethod":"POST",
-          "summary":"Add a new free entry",
-          "responseClass":"FreeEntry",
-          "nickname":"create",
-          "parameters":[
-            <%= param_required_date %>,
-            <%= param_notes %>,
-            {
-              "name":"private",
-              "paramType":"form",
-              "dataType":"boolean"
-            }
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        }
+        <%= erb :'shared/free_entries/_create.json' %>
       ]
     },
     {

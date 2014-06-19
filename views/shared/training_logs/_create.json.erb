@@ -1,0 +1,104 @@
+{
+  "httpMethod":"POST",
+  "summary":"Add a new training log",
+  "notes":"Allowed only one tag with type 'strain' for entry.<br/>sport_id=2&avg_hr=110&calories=148&comment=Great%20ride%21&date=2010-04-27&duration_h=1&duration_m=15&duration_s=34&favourite=1&max_hr=150&mood=4&sport_param_values[distance]=34.5&sport_param_values[avg_speed]=12&sport_param_values[score]=27",
+  "responseClass":"TrainingLog",
+  "nickname":"create",
+  "parameters":[
+    <%= param_required_date %>,
+    {
+      "name":"sport_id",
+      "paramType":"form",
+      "required":true,
+      "dataType":"int"
+    },
+    {
+      "name":"status",
+      "required":true,
+      "dataType":"string",
+      "paramType":"form",
+      "defaultValue":"regular",
+      "allowableValues":{
+        "valueType":"LIST",
+        "values":[
+          "regular",
+          "planned"
+        ]
+      }
+    },
+    {
+      "name":"duration_h",
+      "paramType":"form",
+      "dataType":"int",
+      "description":"Duration of the exercise - hours."
+    },
+    {
+      "name":"duration_m",
+      "paramType":"form",
+      "dataType":"int",
+      "description":"Duration of the exercise - minutes."
+    },
+    {
+      "name":"duration_s",
+      "paramType":"form",
+      "dataType":"int",
+      "description":"Duration of the exercise - seconds. Note: duration can be expressed in any format convenient to the user: e.g. 110 minutes and 1 h 50 minutes are both acceptable."
+    },
+    <%= param_notes %>,
+    {
+      "name":"mood",
+      "paramType":"form",
+      "dataType":"byte",
+      "description":"A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood"
+    },
+    {
+      "name":"calories",
+      "paramType":"form",
+      "dataType":"int",
+      "description":"Calories spent during the exercise."
+    },
+    {
+      "name":"avg_hr",
+      "paramType":"form",
+      "dataType":"int",
+      "description":"Average heart rate."
+    },
+    {
+      "name":"max_hr",
+      "paramType":"form",
+      "dataType":"int",
+      "description":"Maximum heart rate."
+    },
+    {
+      "name":"favourite",
+      "paramType":"form",
+      "dataType":"boolean"
+    },
+    {
+      "name":"private",
+      "paramType":"form",
+      "dataType":"boolean"
+    },
+    {
+      "name":"gpx",
+      "paramType":"body",
+      "dataType":"file",
+      "description":"The file, support only GPX format."
+    },
+    <%= sport_param_values('distance') %>,
+    <%= sport_param_values('score') %>,
+    {
+      "name":"place_id",
+      "paramType":"form",
+      "dataType":"int"
+    },
+    {
+      "name":"exclude_stats",
+      "paramType":"form",
+      "dataType":"boolean"
+    },
+    <%= param_tags %>,
+    <%= param_tags %>
+  ],
+  "errorResponses":<%= responses(400, 404) %>
+}

@@ -1,0 +1,17 @@
+{
+  "httpMethod":"POST",
+  "summary":"Add a new sick day",
+  "responseClass":"SickDay",
+  "nickname":"create",
+  "parameters":[
+    <%= param_required_date %>,
+    <%= param_notes %>,
+    {
+      "name":"private",
+      "description":"By default 'true'",
+      "paramType":"form",
+      "dataType":"boolean"
+    }
+  ],
+  "errorResponses":<%= responses(400, 404) %>
+}

@@ -20,56 +20,7 @@
           ],
           "errorResponses":<%= responses(400) %>
         },
-        {
-          "httpMethod":"POST",
-          "summary":"Add a new wellness entry",
-          "responseClass":"WellnessEntry",
-          "nickname":"create",
-          "parameters":[
-            <%= param_required_date %>,
-            <%= param_notes %>,
-            {
-              "name":"wellness_type_id",
-              "paramType":"form",
-              "required":true,
-              "dataType":"int",
-              "description":"ID of WellnessType"
-            },
-            {
-              "name":"status",
-              "required":true,
-              "dataType":"string",
-              "paramType":"form",
-              "defaultValue":"regular",
-              "allowableValues":{
-                "valueType":"LIST",
-                "values":[
-                  "regular",
-                  "planned"
-                ]
-              }
-            },
-            {
-              "name":"numeric_value",
-              "paramType":"form",
-              "dataType":"float",
-              "description":"Applicable if wellness types has enabled numeric value"
-            },
-            {
-              "name":"bool_value",
-              "paramType":"form",
-              "dataType":"boolean",
-              "description":"Applicable if wellness types has enabled boolean value"
-            },
-            {
-              "name":"private",
-              "paramType":"form",
-              "dataType":"boolean",
-              "description":"By default 'false'"
-            }
-          ],
-          "errorResponses":<%= responses(400, 404) %>
-        }
+        <%= erb :'shared/wellness_entries/_create.json' %>
       ]
     },
     {
