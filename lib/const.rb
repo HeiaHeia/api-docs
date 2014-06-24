@@ -51,6 +51,6 @@ module Const
   WELLNESS_TYPE = 'WellnessType'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze
 
-  PRIVACIES = ['all_users', 'friends', 'colleagues'].freeze
+  PRIVACIES = ['all_users', 'friends', 'friends_and_colleagues'].freeze
 
 end
