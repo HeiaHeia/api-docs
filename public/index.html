@@ -18,8 +18,15 @@
 
     <script type="text/javascript">
 	$(function () {
-	    window.swaggerUi = new SwaggerUi({
-                discoveryUrl:"http://localhost:4567/v2/api-docs.json",
+        var api_version = 'v2';
+
+        // developers.heiaheia.com/docs/v3
+        if (window.location.pathname.indexOf('/v3') >= 0) {
+            api_version = 'v3';
+        }
+
+        window.swaggerUi = new SwaggerUi({
+                discoveryUrl: window.location.origin + "/" + api_version + "/api-docs.json",
 //                apiKey:"special-key",
                 apiKey: new Date().getTime(),
                 dom_id:"swagger-ui-container",
