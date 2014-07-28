@@ -1,1 +1,1 @@
-web: bundle exec shotgun --port 4567 config.ru
+web: bundle exec ruby app.rb -p 4567
