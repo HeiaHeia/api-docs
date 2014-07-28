@@ -1,7 +1,7 @@
 {
   "apiVersion":"2",
   "swaggerVersion":"1.2",
-  "basePath":"http://localhost:4567/v2",
+  "basePath":"/v2",
   "apis":[
     {
       "path":"/api-docs/cheer_types.{format}",

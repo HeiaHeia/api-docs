@@ -59,7 +59,7 @@
         if ((response.basePath != null) && jQuery.trim(response.basePath).length > 0) {
           _this.basePath = response.basePath;
           if (_this.basePath.match(/^HTTP/i) == null) {
-            _this.fail("discoveryUrl basePath must be a URL.");
+            // _this.fail("discoveryUrl basePath must be a URL.");
           }
           _this.basePath = _this.basePath.replace(/\/$/, '');
         } else {

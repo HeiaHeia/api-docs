@@ -1,7 +1,7 @@
 {
   "apiVersion":"3",
   "swaggerVersion":"1.2",
-  "basePath":"http://localhost:4567/v3",
+  "basePath":"/v3",
   "apis":[
     {
       "path":"/api-docs/free_entries.{format}",
