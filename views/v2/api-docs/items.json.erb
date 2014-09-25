@@ -46,5 +46,5 @@
     },
     <%= erb :'shared/_years.json', { :locals => { :resource => '/items/years' } } %>
   ],
-  "models":<%= models('Item') %>
+  "models":<%= models(params[:api_version], 'Item') %>
 }

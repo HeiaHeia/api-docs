@@ -24,6 +24,9 @@ module Const
   ARRAY = 'Array'.freeze
   LIST = 'LIST'.freeze
 
+  CHECKBOX = 'checkbox'.freeze
+  RADIO = 'radio'.freeze
+
   CHEER = 'Cheer'.freeze
   CHEER_TYPE = 'CheerType'.freeze
   COMMENT = 'Comment'.freeze
@@ -50,8 +53,11 @@ module Const
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
   WEIGHT = 'Weight'.freeze
-  WELLNESS_TYPE = 'WellnessType'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze
+  WELLNESS_PARAM = 'WellnessParam'.freeze
+  WELLNESS_PARAM_OPTION = 'WellnessParamOption'.freeze
+  WELLNESS_PARAM_VALUE = 'WellnessParamValue'.freeze
+  WELLNESS_TYPE = 'WellnessType'.freeze
 
   PRIVACIES = ['all_users', 'friends', 'friends_and_colleagues'].freeze
 

@@ -34,7 +34,7 @@ class App < Sinatra::Base
     redirect '/index.html'
   end
 
-  get '/:api_version/api-docs/*.json' do
+  get '/v:api_version/api-docs/*.json' do
     erb request.path.to_sym
   end
 

@@ -95,5 +95,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'weights/{weight_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'weights/{weight_id}' } } %>
   ],
-  "models":<%= models('Weight', 'Cheer', 'Comment') %>
+  "models":<%= models(params[:api_version], 'Weight', 'Cheer', 'Comment') %>
 }

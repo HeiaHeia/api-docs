@@ -1,2 +1,2 @@
 <%= erb :'shared/wellness_types/_actions.json',
-        :locals => { :api_version => '3', :base_path => '/v3' } %>
+        :locals => { :api_version => params[:api_version], :base_path => "/v#{params[:api_version]}" } %>

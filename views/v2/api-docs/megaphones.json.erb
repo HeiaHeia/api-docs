@@ -53,5 +53,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'megaphones/{megaphone_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'megaphones/{megaphone_id}' } } %>
   ],
-  "models":<%= models('Megaphone', 'Cheer', 'Comment') %>
+  "models":<%= models(params[:api_version], 'Megaphone', 'Cheer', 'Comment') %>
 }
