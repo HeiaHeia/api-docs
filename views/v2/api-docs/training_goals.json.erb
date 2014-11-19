@@ -88,5 +88,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'training_goals/{training_goal_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'training_goals/{training_goal_id}' } } %>
   ],
-  "models":<%= models('TrainingGoal', 'Cheer', 'Comment') %>
+  "models":<%= models(params[:api_version], 'TrainingGoal', 'Cheer', 'Comment') %>
 }

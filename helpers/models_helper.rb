@@ -1363,6 +1363,52 @@ module ModelsHelper
           :required => false,
           :description => 'Title of numeric field. Will be empty if attribute "has_numeric" is false'
         },
+        :params => {
+          :items => {
+            :$ref => Const::WELLNESS_PARAM
+          },
+          :type => Const::ARRAY
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => common_icon_description
+        },
+        :planned_icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => common_icon_description
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def v3_wellness_type_model
+    {
+      :id => Const::WELLNESS_TYPE,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :params => {
+          :items => {
+            :$ref => Const::WELLNESS_PARAM
+          },
+          :type => Const::ARRAY
+        },
         :icon_url => {
           :type => Const::STRING,
           :required => true,
@@ -1439,6 +1485,13 @@ module ModelsHelper
           :required => true,
           :description => 'Applicable if wellness type has enabled boolean value'
         },
+        :param_values => {
+          :items => {
+            :$ref => Const::WELLNESS_PARAM_VALUE
+          },
+          :type => Const::ARRAY,
+          :description => "Contain parameter values"
+        },
         :private => {
           :type => Const::BOOLEAN,
           :required => true
@@ -1483,15 +1536,89 @@ module ModelsHelper
     }
   end
 
-  def models(*args)
+  def wellness_param_model
+    {
+      :id => Const::WELLNESS_PARAM,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :value_type => {
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => [
+              Const::INT,
+              Const::FLOAT,
+              Const::BOOLEAN,
+              Const::CHECKBOX,
+              Const::RADIO
+            ]
+          },
+          :type => Const::STRING,
+          :required => true
+        },
+        :options => {
+          :items => {
+            :$ref => Const::WELLNESS_PARAM_OPTION
+          },
+          :type => Const::ARRAY,
+          :description => "Available when value type is radio or checkbox"
+        }
+      }
+    }
+  end
+
+  def wellness_param_option_model
+    {
+      :id => Const::WELLNESS_PARAM_OPTION,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def wellness_param_value_model
+    {
+      :id => Const::WELLNESS_PARAM_VALUE,
+      :properties => {
+        :value => {
+          :type => 'int,float,boolean,option_id,array[option_id]',
+          :required => true
+        },
+        :param => {
+          :type => Const::WELLNESS_PARAM,
+          :required => true
+        }
+      }
+    }
+  end
+
+
+  def models(version, *args)
     hash = {}
     model_names(args).each do |model|
-      hash[model] = send("#{model.underscore}_model")
+      if respond_to?("v#{version}_#{model.underscore}_model")
+        hash[model] = send("v#{version}_#{model.underscore}_model")
+      else
+        hash[model] = send("#{model.underscore}_model")
+      end
     end
     hash.to_json
   end
 
-  def v3_models(*args)
+  def v3_entry_models(*args)
     hash = {}
     model_names(args).each do |model|
       hash[model] = v3_entry_model(model)
@@ -1516,15 +1643,18 @@ module ModelsHelper
       Const::SICK_DAY => [Const::COMPACT_USER],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
-      Const::SPORT_PARAM_VALUE => [ Const::SPORT_PARAM ],
+      Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
       Const::CONVERSATION => [],
       Const::TAG => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG],
       Const::USER => [],
       Const::WEIGHT => [Const::COMPACT_USER],
-      Const::WELLNESS_TYPE => [],
-      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE]
+      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE],
+      Const::WELLNESS_PARAM => [Const::WELLNESS_PARAM_OPTION],
+      Const::WELLNESS_PARAM_OPTION => [],
+      Const::WELLNESS_PARAM_VALUE => [Const::WELLNESS_PARAM],
+      Const::WELLNESS_TYPE => [Const::WELLNESS_PARAM]
     }
   end
 

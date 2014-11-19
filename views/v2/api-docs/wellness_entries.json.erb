@@ -114,5 +114,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'wellness_entries/{wellness_entry_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'wellness_entries/{wellness_entry_id}' } } %>
   ],
-  "models":<%= models('WellnessEntry', 'WellnessType','Cheer', 'Comment') %>
+  "models":<%= models(params[:api_version], 'WellnessEntry', 'WellnessType','Cheer', 'Comment') %>
 }

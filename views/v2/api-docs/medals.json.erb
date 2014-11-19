@@ -48,5 +48,5 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'medals/{medal_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'medals/{medal_id}' } } %>
   ],
-  "models":<%= models('Medal', 'Cheer', 'Comment') %>
+  "models":<%= models(params[:api_version], 'Medal', 'Cheer', 'Comment') %>
 }

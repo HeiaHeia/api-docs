@@ -306,5 +306,5 @@
     <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/wellness_entries/years' } } %>
 
   ],
-  "models":<%= models('User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry', 'WellnessEntry') %>
+  "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry', 'WellnessEntry') %>
 }

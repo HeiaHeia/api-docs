@@ -94,6 +94,14 @@ module ParamsHelper
     }.to_json
   end
 
+  def wellness_param_values(key)
+    {
+      :name => "param_values[#{key}]",
+      :paramType => "form",
+      :dataType => [Const::INT, Const::FLOAT, Const::BOOLEAN, 'option_id', 'array[option_id]'].join(', ')
+    }.to_json
+  end
+
   def param_tags
     {
       :name => 'tags[]',
