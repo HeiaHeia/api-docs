@@ -1,0 +1,149 @@
+<h1>Getting started</h1>
+
+<h2>1. Register your application</h2>
+
+<p>Contact HeiaHeia (heia@heiaheia.com) for review of your application or service. We'll require the following information:</p>
+
+<ul style="list-style: disc inside;">
+  <li>Company or developer name and contact information</li>
+  <li>Name of application or service</li>
+  <li>Description of application or service</li>
+  <li>Application URL (format: https://www.example.com)</li>
+  <li>OAuth Redirect URL (format: https://www.example.com/aouth/callback or 'urn:ietf:wg:oauth:2.0:oob')</li>
+</ul>
+
+<br/>
+<p>After a successful review, we'll provide you with the following:</p>
+
+<ul style="list-style: disc inside;">
+  <li>Application name</li>
+  <li>Client ID</li>
+  <li>Client secret</li>
+  <li>Authorization server endpoints</li>
+  <li>Web services API endpoint</li>
+</ul>
+
+<br/>
+<p>Application Name, Client ID and Client secret are application specific and must only be used with your application or service.</p>
+
+<h2>2. Authorize your application</h2>
+
+<p>Before your application can utilize the HeiaHeia API, each individual (HeiaHeia) user must authorize your application to be used with her/his HeiaHeia account. You will need the Application Name, Client ID, Client secret and Authorization server endpoint addresses during the authorization process. At the end of the authorization process, your application receives an Access Token that is needed to access the user’s information via the API. The user can revoke your application’s access at any time from HeiaHeia's settings. If access is revoked, the only way to access the user’s information is to request the user to perform the authorization process again. In this case, a new access token is issued and the old token becomes invalid.</p>
+
+<h2>3. Using the API</h2>
+
+<p>The HeiaHeia API offers a way for applications and services to create data on a user's HeiaHeia account. Different "entry" types include sports entries, wellness entries, training goals, weight entries, sick day entries, and free for notes. Before creating entries, your application or service must fetch the list of entry types available for the user, and attributes attached to each of those entry types.</p>
+
+<br/>
+<h3>Fetching the list of sport types and creating an entry works as follows:</h3>
+
+<br/>
+<p>First of all we need to fetch sport's data: id, name, sport_params.</p>
+
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.heiaheia.com/v3/sports/1</code></pre>
+</div>
+
+<br/>
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">{
+  "id": 1,
+  "name": "Running",
+  "icon_url": "https://example.com/sports/regular_icons/1/{size}.png",
+  "url": "https://api.heiaheia.com/v3/sports/1",
+  "planned_icon_url": "https://example.com/sports/planned_icons/1/{size}.png",
+  "exclude_stats": false,
+  "sport_params": [
+    {
+      "key": "distance",
+      "name": "distance",
+      "unit_type": "km",
+      "unit_name": "km",
+      "value_type": "float"
+    }
+  ]
+}</code></pre>
+</div>
+
+<br/>
+<p>After that we can create training log entries using these data:</p>
+
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=SPORT_ID&date=2014-10-28&sport_param_values[SPORT_PARAM_KEY]=12.3" https://api.heiaheia.com/v3/training_logs</code></pre>
+</div>
+
+<br/>
+<p>Example of "running" with duration and distance</p>
+
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=1&date=2014-10-28&sport_param_values[distance]=12.3&duration_h=1&duration_m=2&duration_s=3" https://api.heiaheia.com/v3/training_logs</code></pre>
+</div>
+
+<br/>
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">{
+  "id": 1234567890
+}</code></pre>
+</div>
+
+<br/>
+<p>Example of "walking" with steps</p>
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.heiaheia.com/v3/sports/14</code></pre>
+</div>
+
+<br/>
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">{
+  "id": 14,
+  "name": "Walking",
+  "icon_url": "https://example.com/sports/regular_icons/14/{size}.png",
+  "url": "https://api.heiaheia.com/v3/sports/14",
+  "planned_icon_url": "https://example.com/sports/planned_icons/14/{size}.png",
+  "exclude_stats": false,
+  "sport_params": [
+    {
+      "key": "distance",
+      "name": "distance",
+      "unit_type": "km",
+      "unit_name": "km",
+      "value_type": "float"
+    },
+    {
+      "key": "elevation",
+      "name": "elevation",
+      "unit_type": "m",
+      "unit_name": "m",
+      "value_type": "float"
+    },
+    {
+      "key": "steps",
+      "name": "steps",
+      "unit_type": "none",
+      "unit_name": "",
+      "value_type": "integer"
+    }
+  ]
+}</code></pre>
+</div>
+
+<br/>
+<p>Example of "walking" with steps</p>
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=14&date=2014-10-28&sport_param_values[steps]=1234&duration_h=1" https://api.heiaheia.com/v3/training_logs</code></pre>
+</div>
+
+
+<br/>
+<p>Example of "walking" with steps</p>
+<div class="snippet">
+  <pre style="overflow-x: auto;"><code class="ruby">{
+  "id": 5197562042621
+}</code></pre>
+</div>
+
+
+
+<br/>
+<br/>
+<br/>

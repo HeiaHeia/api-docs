@@ -38,6 +38,10 @@ class App < Sinatra::Base
     erb request.path.to_sym
   end
 
+  get '/main_page' do
+    erb :'main_page'
+  end
+
   get '/authorization' do
     erb :'authorization'
   end
