@@ -68,13 +68,15 @@ module ParamsHelper
       :description => 'Status values that need to be considered for filter',
       :required => true,
       :dataType => Const::STRING,
-      :defaultValue => 'all',
+      :defaultValue => 'regular',
       :allowableValues => {
         :valueType => 'LIST',
-        :values => ['all', 'regular', 'planned']
+        :values => ['regular', 'planned', 'all']
       }
     }.to_json
   end
+
+  alias_method :param_wellness_entry_status, :param_training_log_status
 
   def param_notes
     {
