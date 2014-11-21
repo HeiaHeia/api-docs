@@ -27,8 +27,9 @@
 
         window.swaggerUi = new SwaggerUi({
                 discoveryUrl: window.location.origin + "/" + api_version + "/api-docs.json",
-//                apiKey:"special-key",
-                apiKey: new Date().getTime(),
+                apiKey:"access_token",
+                apiKeyName:"access_token",
+//                apiKey: new Date().getTime(),
                 dom_id:"swagger-ui-container",
                 supportHeaderParams: false,
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
