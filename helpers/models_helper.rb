@@ -1343,26 +1343,6 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :has_bool => {
-          :type => Const::BOOLEAN,
-          :required => true,
-          :description => 'if true then entries of this type can accept yes/no field'
-        },
-        :has_numeric => {
-          :type => Const::BOOLEAN,
-          :required => true,
-          :description => 'if true then entries of this type can accept numeric field'
-        },
-        :bool_title => {
-          :type => Const::STRING,
-          :required => false,
-          :description => 'Title of yes/no field. Will be empty if attribute "has_bool" is false'
-        },
-        :numeric_title => {
-          :type => Const::STRING,
-          :required => false,
-          :description => 'Title of numeric field. Will be empty if attribute "has_numeric" is false'
-        },
         :params => {
           :items => {
             :$ref => Const::WELLNESS_PARAM
