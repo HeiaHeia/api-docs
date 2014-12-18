@@ -1455,16 +1455,6 @@ module ModelsHelper
         :description => {
           :type => Const::TEXT
         },
-        :numeric_value => {
-          :type => Const::FLOAT,
-          :required => true,
-          :description => 'Applicable if wellness type has enabled numeric value'
-        },
-        :bool_value => {
-          :type => Const::BOOLEAN,
-          :required => true,
-          :description => 'Applicable if wellness type has enabled boolean value'
-        },
         :param_values => {
           :items => {
             :$ref => Const::WELLNESS_PARAM_VALUE
