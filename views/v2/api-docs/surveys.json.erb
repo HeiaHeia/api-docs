@@ -1,0 +1,57 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/surveys",
+  "apis":[
+    {
+      "path":"/surveys/{survey_id}/personal_programs",
+      "description":"Operations about personal programs",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new personal program",
+          "responseClass":"PersonalProgram",
+          "nickname":"personal_programs_create",
+          "parameters":[
+            <%= param_survey_id %>,
+            {
+              "name":"program_id",
+              "paramType":"form",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"start_date",
+              "paramType":"form",
+              "description":"Only monday",
+              "required":true,
+              "dataType":"Date"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/surveys/{survey_id}/programs",
+      "description":"Operations about programs",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Recommended programs",
+          "responseClass":"List[Program]",
+          "nickname":"programs_index",
+          "parameters":[
+            <%= param_survey_id %>,
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    }
+
+  ],
+  "models":<%= models(params[:api_version], 'Program', 'PersonalProgram') %>
+}

@@ -39,6 +39,8 @@ module Const
   MEGAPHONE = 'Megaphone'.freeze
   MESSAGE = 'Message'.freeze
   PLACE = 'Place'.freeze
+  PERSONAL_PROGRAM = 'PersonalProgram'.freeze
+  PROGRAM = 'Program'.freeze
   SICK_DAY = 'SickDay'.freeze
   SPORT = 'Sport'.freeze
   SPORT_CATEGORY = 'SportCategory'.freeze

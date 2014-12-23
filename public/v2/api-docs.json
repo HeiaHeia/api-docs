@@ -48,8 +48,16 @@
       "description":"Messages"
     },
     {
+      "path":"/api-docs/personal_programs.{format}",
+      "description":"Personal programs"
+    },
+    {
       "path":"/api-docs/places.{format}",
       "description":"Places"
+    },
+    {
+      "path":"/api-docs/programs.{format}",
+      "description":"Programs"
     },
     {
       "path":"/api-docs/sick_days.{format}",
@@ -62,6 +70,10 @@
     {
       "path":"/api-docs/sports.{format}",
       "description":"Sports"
+    },
+    {
+      "path":"/api-docs/surveys.{format}",
+      "description":"Surveys"
     },
     {
       "path":"/api-docs/tags.{format}",
