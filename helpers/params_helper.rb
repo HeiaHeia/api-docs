@@ -61,6 +61,15 @@ module ParamsHelper
     }.to_json
   end
 
+  def param_survey_id
+    {
+      :name => 'survey_id',
+      :paramType => 'path',
+      :required => true,
+      :dataType => Const::LONG
+    }.to_json
+  end
+
   def param_training_log_status
     {
       :name => 'status',
