@@ -4,6 +4,10 @@
   "basePath":"/v2",
   "apis":[
     {
+      "path":"/api-docs/answers.{format}",
+      "description":"Answers"
+    },
+    {
       "path":"/api-docs/cheer_types.{format}",
       "description":"Cheer types"
     },

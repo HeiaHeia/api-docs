@@ -1686,6 +1686,247 @@ module ModelsHelper
     }
   end
 
+  def survey_model
+    {
+      :id => Const::SURVEY,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :questions => {
+          :items => {
+            :$ref => Const::QUESTION
+          },
+          :type => Const::ARRAY,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => common_icon_description
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def compact_survey_model
+    {
+      :id => Const::COMPACT_SURVEY,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => common_icon_description
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def question_model
+    {
+      :id => Const::QUESTION,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :options => {
+          :items => {
+            :$ref => Const::QUESTION_OPTION
+          },
+          :type => Const::ARRAY,
+          :required => true
+        },
+        :kind => {
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => [
+              Const::BMI,
+              Const::STAR,
+              Const::BOOLEAN,
+              Const::CHECKBOX,
+              Const::RADIO,
+              Const::DROPDOWN
+            ]
+          },
+          :type => Const::STRING,
+          :required => true
+        },
+        :notable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def question_option_model
+    {
+      :id => Const::QUESTION_OPTION,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :conclusion => {
+          :type => Const::STRING
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :description => extra_model_icon_description,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def survey_result_model
+    {
+      :id => Const::SURVEY_RESULT,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :date => {
+          :type => Const::DATE,
+          :required => true
+        },
+        :user => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :survey => {
+          :type => Const::COMPACT_SURVEY,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :description => extra_model_icon_description,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :answers => {
+          :items => {
+            :$ref => Const::ANSWER
+          },
+          :type => Const::ARRAY,
+          :required => true
+        },
+        :private => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :cheers_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :cheers_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :cheerable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :comments_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :comments_url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :commentable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def answer_model
+    {
+      :id => Const::ANSWER,
+      :properties => {
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :options => {
+          :items => {
+            :$ref => Const::QUESTION_OPTION
+          },
+          :type => Const::ARRAY,
+          :required => true
+        },
+        :note => {
+          :type => Const::TEXT
+        }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -1708,11 +1949,14 @@ module ModelsHelper
 
   def model_dependencies
     {
+      Const::ANSWER => [Const::QUESTION, Const::QUESTION_OPTION],
       Const::CHEER => [Const::CHEER_TYPE, Const::COMPACT_USER],
       Const::CHEER_TYPE => [],
       Const::COMMENT => [Const::COMPACT_USER],
       Const::COMPACT_SPORT => [],
+      Const::COMPACT_SURVEY => [],
       Const::COMPACT_USER => [],
+      Const::CONVERSATION => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER],
       Const::ITEM => [Const::COMPACT_USER],
@@ -1722,11 +1966,13 @@ module ModelsHelper
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM],
       Const::PLACE => [],
       Const::PROGRAM => [],
+      Const::QUESTION => [Const::QUESTION_OPTION],
       Const::SICK_DAY => [Const::COMPACT_USER],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
-      Const::CONVERSATION => [],
+      Const::SURVEY => [Const::QUESTION],
+      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::COMPACT_USER],
       Const::TAG => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG],
