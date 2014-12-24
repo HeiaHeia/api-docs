@@ -28,14 +28,21 @@
           "parameters":[
             <%= param_survey_id %>,
             {
+              "name":"planned_survey_id",
+              "paramType":"form",
+              "dataType":"long"
+            },
+            {
               "name":"answers[][question_id]",
               "paramType":"form",
-              "dataType":"<%= Const::LONG %>"
+              "dataType":"<%= Const::LONG %>",
+              "required":true
             },
             {
               "name":"answers[][option_ids][]",
               "paramType":"form",
-              "dataType":"<%= Const::LONG %>"
+              "dataType":"<%= Const::LONG %>",
+              "required":true
             },
             {
               "name":"answers[][note]",
