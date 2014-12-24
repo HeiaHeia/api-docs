@@ -56,6 +56,10 @@
       "description":"Places"
     },
     {
+      "path":"/api-docs/planned_surveys.{format}",
+      "description":"Planned surveys"
+    },
+    {
       "path":"/api-docs/programs.{format}",
       "description":"Programs"
     },

@@ -47,6 +47,7 @@ module Const
   MESSAGE = 'Message'.freeze
   PERSONAL_PROGRAM = 'PersonalProgram'.freeze
   PLACE = 'Place'.freeze
+  PLANNED_SURVEY = 'PlannedSurvey'.freeze
   PROGRAM = 'Program'.freeze
   QUESTION = 'Question'.freeze
   QUESTION_OPTION = 'QuestionOption'.freeze

@@ -1927,6 +1927,23 @@ module ModelsHelper
     }
   end
 
+  def planned_survey_model
+    {
+      :id => Const::PLANNED_SURVEY,
+      :properties => {
+        :survey => {
+          :type => Const::SURVEY,
+          :required => true
+        },
+        :date => {
+          :type => Const::DATE,
+          :required => true
+        }
+      }
+    }
+  end
+
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -1965,6 +1982,7 @@ module ModelsHelper
       Const::MESSAGE => [Const::COMPACT_USER],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM],
       Const::PLACE => [],
+      Const::PLANNED_SURVEY => [Const::SURVEY],
       Const::PROGRAM => [],
       Const::QUESTION => [Const::QUESTION_OPTION],
       Const::SICK_DAY => [Const::COMPACT_USER],
