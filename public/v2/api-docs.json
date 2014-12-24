@@ -4,10 +4,6 @@
   "basePath":"/v2",
   "apis":[
     {
-      "path":"/api-docs/answers.{format}",
-      "description":"Answers"
-    },
-    {
       "path":"/api-docs/cheer_types.{format}",
       "description":"Cheer types"
     },
@@ -78,6 +74,10 @@
     {
       "path":"/api-docs/surveys.{format}",
       "description":"Surveys"
+    },
+    {
+      "path":"/api-docs/survey_results.{format}",
+      "description":"Survey results"
     },
     {
       "path":"/api-docs/tags.{format}",
