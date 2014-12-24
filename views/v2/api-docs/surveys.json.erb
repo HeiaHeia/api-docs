@@ -5,6 +5,37 @@
   "resourcePath":"/surveys",
   "apis":[
     {
+      "path":"/surveys",
+      "description":"Operations about surveys",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Available surveys",
+          "responseClass":"List[Survey]",
+          "nickname":"surveys_index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/surveys/{id}",
+      "description":"Operations about surveys",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find survey by ID",
+          "responseClass":"Survey",
+          "nickname":"survey_show",
+          "parameters":[],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/surveys/{survey_id}/personal_programs",
       "description":"Operations about personal programs",
       "operations":[
@@ -53,5 +84,5 @@
     }
 
   ],
-  "models":<%= models(params[:api_version], 'Program', 'PersonalProgram') %>
+  "models":<%= models(params[:api_version], 'Program', 'PersonalProgram', 'Survey') %>
 }

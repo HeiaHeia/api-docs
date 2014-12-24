@@ -76,6 +76,10 @@
       "description":"Surveys"
     },
     {
+      "path":"/api-docs/survey_results.{format}",
+      "description":"Survey results"
+    },
+    {
       "path":"/api-docs/tags.{format}",
       "description":"Tags"
     },
