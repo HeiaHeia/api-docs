@@ -1936,12 +1936,16 @@ module ModelsHelper
           :type => Const::LONG,
           :required => true
         },
+        :date => {
+          :type => Const::DATE,
+          :required => true
+        },
         :survey => {
           :type => Const::SURVEY,
           :required => true
         },
-        :date => {
-          :type => Const::DATE,
+        :url => {
+          :type => Const::STRING,
           :required => true
         }
       }
