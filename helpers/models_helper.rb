@@ -1932,6 +1932,10 @@ module ModelsHelper
     {
       :id => Const::PLANNED_SURVEY,
       :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
         :survey => {
           :type => Const::SURVEY,
           :required => true
