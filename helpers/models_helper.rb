@@ -1807,7 +1807,8 @@ module ModelsHelper
           :required => true
         },
         :conclusion => {
-          :type => Const::STRING
+          :type => Const::STRING,
+          :required => true
         },
         :icon_url => {
           :type => Const::STRING,
