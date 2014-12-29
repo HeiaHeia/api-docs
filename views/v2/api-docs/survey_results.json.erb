@@ -26,7 +26,11 @@
           "responseClass":"SurveyResult",
           "nickname":"create",
           "parameters":[
-            <%= param_survey_id %>,
+            {
+              "name":"survey_id",
+              "paramType":"form",
+              "dataType":"long"
+            },
             {
               "name":"planned_survey_id",
               "paramType":"form",
