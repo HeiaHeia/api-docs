@@ -1626,11 +1626,6 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => common_icon_description,
-          :required => true
-        },
         :title => {
           :type => Const::STRING,
           :required => true
