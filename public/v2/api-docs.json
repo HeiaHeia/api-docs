@@ -48,6 +48,10 @@
       "description":"Messages"
     },
     {
+      "path":"/api-docs/notifications.{format}",
+      "description":"Notifications"
+    },
+    {
       "path":"/api-docs/personal_programs.{format}",
       "description":"Personal programs"
     },

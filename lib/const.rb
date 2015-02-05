@@ -45,6 +45,8 @@ module Const
   MEDAL = 'Medal'.freeze
   MEGAPHONE = 'Megaphone'.freeze
   MESSAGE = 'Message'.freeze
+  NOTIFICATION = 'Notification'.freeze
+  NOTIFICATION_OBJECT = 'NotificationObject'.freeze
   PERSONAL_PROGRAM = 'PersonalProgram'.freeze
   PLACE = 'Place'.freeze
   PLANNED_SURVEY = 'PlannedSurvey'.freeze
