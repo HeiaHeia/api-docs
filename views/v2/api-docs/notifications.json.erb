@@ -1,0 +1,78 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/notifications",
+  "apis":[
+    {
+      "path":"/notifications",
+      "description":"Operations about notifications",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds notifications",
+          "responseClass":"List[Notification]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"after",
+              "paramType":"query",
+              "dataType":"long",
+              "description":"ID of the last seen notification"
+            },
+            {
+              "name":"unread",
+              "paramType":"query",
+              "dataType":"boolean"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
+          "httpMethod":"PUT",
+          "summary":"Mark all as read",
+          "responseClass":"void",
+          "nickname":"mark_all",
+          "parameters":[
+            {
+              "name":"before",
+              "paramType":"query",
+              "dataType":"long",
+              "description":"ID of the last seen notification"
+            },
+            {
+              "name":"unread",
+              "paramType":"query",
+              "dataType":"boolean"
+            }
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+
+      ]
+    },
+    {
+      "path":"/notifications/{id}",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Mark as read",
+          "responseClass":"Notification",
+          "nickname":"update",
+          "parameters":[
+            {
+              "name":"id",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'Notification') %>
+}

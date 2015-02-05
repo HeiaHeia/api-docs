@@ -1947,6 +1947,67 @@ module ModelsHelper
     }
   end
 
+  def notification_model
+    {
+      :id => Const::NOTIFICATION,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :message => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :actors => {
+          :items => {
+            :$ref => Const::COMPACT_USER
+          },
+          :type => Const::ARRAY
+        },
+        :action => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :object => {
+          :type => Const::NOTIFICATION_OBJECT,
+          :required => true
+        },
+        :unread => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def notification_object_model
+    {
+      :id => Const::NOTIFICATION_OBJECT,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :kind => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
 
   def models(version, *args)
     hash = {}
@@ -1984,6 +2045,8 @@ module ModelsHelper
       Const::MEDAL => [Const::COMPACT_USER],
       Const::MEGAPHONE => [Const::COMPACT_USER],
       Const::MESSAGE => [Const::COMPACT_USER],
+      Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
+      Const::NOTIFICATION_OBJECT => [],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM],
       Const::PLACE => [],
       Const::PLANNED_SURVEY => [Const::SURVEY],
