@@ -46,12 +46,7 @@
           "nickname":"personal_programs_create",
           "parameters":[
             <%= param_survey_id %>,
-            {
-              "name":"program_id",
-              "paramType":"form",
-              "required":true,
-              "dataType":"long"
-            }
+            <%= param_program_id %>
           ],
           "errorResponses":<%= responses(400, 404) %>
         }

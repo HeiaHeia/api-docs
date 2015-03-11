@@ -70,6 +70,15 @@ module ParamsHelper
     }.to_json
   end
 
+  def param_program_id
+    {
+      :name => 'program_id',
+      :paramType => 'form',
+      :required => true,
+      :dataType => Const::LONG
+    }.to_json
+  end
+
   def param_training_log_status
     {
       :name => 'status',
