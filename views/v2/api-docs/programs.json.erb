@@ -5,6 +5,22 @@
   "resourcePath":"/programs",
   "apis":[
     {
+      "path":"/programs",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of available programs",
+          "responseClass":"List[Program]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
       "path":"/programs/{id}",
       "description":"Operations about programs",
       "operations":[
