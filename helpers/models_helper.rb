@@ -1468,6 +1468,10 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :exclude_stats => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
         :cheers_count => {
           :type => Const::INT,
           :required => true
