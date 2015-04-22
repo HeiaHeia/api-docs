@@ -228,12 +228,12 @@ module ModelsHelper
         :unit_type => {
           :type => Const::STRING,
           :required => true,
-          :description => 'mi, km, ft, m, mph, kmph, sec, f, c or empty. Depends on user unit system'
+          :description => 'mi, km, ft, m, mph, kmph, sec, f, c, rpm or empty. Depends on user unit system'
         },
         :unit_name => {
           :type => Const::STRING,
           :required => true,
-          :description => 'Human readable format: "mi, km, ft, m, mph, km/h, sec, °F, °C, ''". Depends on user locale and unit system'
+          :description => 'Human readable format: "mi, km, ft, m, mph, km/h, sec, °F, °C, rpm ''". Depends on user locale and unit system'
         },
         :value_type => {
           :allowableValues => {
@@ -241,7 +241,8 @@ module ModelsHelper
             :values => [
               Const::INT,
               Const::FLOAT,
-              Const::STRING
+              Const::STRING,
+              Const::BOOLEAN
             ]
           },
           :type => Const::STRING,
