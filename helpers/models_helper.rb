@@ -370,6 +370,10 @@ module ModelsHelper
         :exclude_stats => {
           :required => true,
           :type => Const::BOOLEAN
+        },
+        dummy: {
+          required: true,
+          type: Const::BOOLEAN
         }
       }
     }
@@ -679,6 +683,10 @@ module ModelsHelper
         :editable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        editable_sport: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
