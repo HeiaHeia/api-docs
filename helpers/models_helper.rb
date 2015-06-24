@@ -78,6 +78,15 @@ module ModelsHelper
         :friendship_url => {
           :type => Const::STRING,
           :required => true
+        },
+        :country => {
+          :type => Const::STRING
+        },
+        :city => {
+          :type => Const::STRING
+        },
+        :training_for => {
+          :type => Const::STRING
         }
       }
     }
@@ -145,6 +154,9 @@ module ModelsHelper
           :type => Const::STRING
         },
         :city => {
+          :type => Const::STRING
+        },
+        :training_for => {
           :type => Const::STRING
         },
         :level => {
