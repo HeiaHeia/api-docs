@@ -1369,6 +1369,10 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :is_tip => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
         :params => {
           :items => {
             :$ref => Const::WELLNESS_PARAM
