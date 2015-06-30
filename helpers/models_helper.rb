@@ -1345,6 +1345,9 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :image_url => {
+          :type => Const::STRING
         }
       }
     }
