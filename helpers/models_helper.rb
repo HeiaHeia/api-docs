@@ -660,6 +660,12 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
+        },
         :comments_count => {
           :type => Const::INT,
           :required => true
@@ -761,6 +767,12 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
+        },
         :comments_count => {
           :type => Const::INT,
           :required => true
@@ -840,6 +852,12 @@ module ModelsHelper
         :cheerable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
         },
         :comments_count => {
           :type => Const::INT,
@@ -933,6 +951,12 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
+        },
         :comments_count => {
           :type => Const::INT,
           :required => true
@@ -1004,6 +1028,12 @@ module ModelsHelper
         :cheerable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
         },
         :comments_count => {
           :type => Const::INT,
@@ -1322,6 +1352,12 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
+        },
         :comments_count => {
           :type => Const::INT,
           :required => true
@@ -1512,6 +1548,12 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
+        },
         :comments_count => {
           :type => Const::INT,
           :required => true
@@ -1688,6 +1730,12 @@ module ModelsHelper
         :cheerable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
         },
         :comments_count => {
           :type => Const::INT,
@@ -1909,6 +1957,12 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :latest_cheers => {
+          :items => {
+            :$ref => Const::CHEER
+          },
+          :type => Const::ARRAY
+        },
         :comments_count => {
           :type => Const::INT,
           :required => true
@@ -2076,30 +2130,30 @@ module ModelsHelper
       Const::COMPACT_USER => [],
       Const::CONVERSATION => [],
       Const::FEED => [],
-      Const::FREE_ENTRY => [Const::COMPACT_USER],
+      Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER],
       Const::ITEM => [Const::COMPACT_USER],
-      Const::MEDAL => [Const::COMPACT_USER],
-      Const::MEGAPHONE => [Const::COMPACT_USER],
+      Const::MEDAL => [Const::COMPACT_USER, Const::CHEER],
+      Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER],
       Const::MESSAGE => [Const::COMPACT_USER],
       Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
       Const::NOTIFICATION_OBJECT => [],
-      Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM],
+      Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER],
       Const::PLACE => [],
       Const::PLANNED_SURVEY => [Const::SURVEY],
       Const::PROGRAM => [],
       Const::QUESTION => [Const::QUESTION_OPTION],
-      Const::SICK_DAY => [Const::COMPACT_USER],
+      Const::SICK_DAY => [Const::COMPACT_USER, Const::CHEER],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
       Const::SURVEY => [Const::QUESTION],
-      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::COMPACT_USER],
+      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::COMPACT_USER, Const::CHEER],
       Const::TAG => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
-      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG],
+      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG, Const::CHEER],
       Const::USER => [],
-      Const::WEIGHT => [Const::COMPACT_USER],
-      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE],
+      Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER],
+      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER],
       Const::WELLNESS_PARAM => [Const::WELLNESS_PARAM_OPTION],
       Const::WELLNESS_PARAM_OPTION => [],
       Const::WELLNESS_PARAM_VALUE => [Const::WELLNESS_PARAM],
