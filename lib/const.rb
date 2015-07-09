@@ -40,6 +40,7 @@ module Const
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   CONVERSATION = 'Conversation'.freeze
   FEED = 'Feed'.freeze
+  SURVEY_FEEDBACK = 'SurveyFeedback'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
   ITEM = 'Item'.freeze
   MEDAL = 'Medal'.freeze
