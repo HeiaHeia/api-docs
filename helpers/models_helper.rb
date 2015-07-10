@@ -1941,6 +1941,12 @@ module ModelsHelper
           :type => Const::ARRAY,
           :required => true
         },
+        :feedbacks => {
+          :items => {
+            :$ref => Const::SURVEY_FEEDBACK
+          },
+          :type => Const::ARRAY
+        },
         :private => {
           :type => Const::BOOLEAN,
           :required => true
@@ -2099,6 +2105,31 @@ module ModelsHelper
     }
   end
 
+  def survey_feedback_model
+    {
+      :id => Const::SURVEY_FEEDBACK,
+      :properties => {
+        :type => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(per_question subtotal total)
+          }
+        },
+        :conclusion => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :description => extra_model_icon_description,
+          :required => true
+        }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2147,7 +2178,7 @@ module ModelsHelper
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
       Const::SURVEY => [Const::QUESTION],
-      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::COMPACT_USER, Const::CHEER],
+      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER],
       Const::TAG => [],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG, Const::CHEER],
