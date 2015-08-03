@@ -386,6 +386,11 @@ module ModelsHelper
         dummy: {
           required: true,
           type: Const::BOOLEAN
+        },
+        creatable: {
+          required: true,
+          type: Const::BOOLEAN,
+          :description => "Indicates that user can create this kind of entry. Value is 'false' for Polar, FitBit, ActiveDay (wearable devices)."
         }
       }
     }
