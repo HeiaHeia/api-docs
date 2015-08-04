@@ -465,7 +465,7 @@ module ModelsHelper
       :id => Const::TOP_SPORT,
       :properties => {
         :sport => {
-          :type => Const::COMPACT_SPORT,
+          :type => Const::SPORT,
           :required => true
         },
         :url => {
@@ -2245,6 +2245,7 @@ module ModelsHelper
       Const::SURVEY => [Const::QUESTION],
       Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::TAG => [],
+      Const::TOP_SPORT => [Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG, Const::CHEER, Const::COMMENT],
       Const::USER => [],
