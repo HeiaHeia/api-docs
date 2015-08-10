@@ -218,6 +218,10 @@ module ModelsHelper
         :items_url => {
           :type => Const::STRING,
           :required => true
+        },
+        :daily_steps_target => {
+          :type => Const::INT,
+          :required => true
         }
       }
     }
