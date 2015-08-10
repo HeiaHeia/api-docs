@@ -489,6 +489,10 @@ module ModelsHelper
         :distance => {
           :type => Const::INT,
           :description => 'In unit that set in the user settings (km or mi)'
+        },
+        :mode_values => {
+          :type => Const::MODE_VALUES,
+          :description => 'Mode sport param values for this sport based on recent training log entries'
         }
       }
     }
@@ -2199,6 +2203,23 @@ module ModelsHelper
     }
   end
 
+  def mode_values_model
+    {
+      :id => Const::MODE_VALUES,
+      :properties => {
+        :duration => {
+          :type => Const::STRING
+        },
+        :distance => {
+          :type => Const::STRING
+        },
+        :steps => {
+          :type => Const::STRING
+        }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2235,6 +2256,7 @@ module ModelsHelper
       Const::MEDAL => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::MESSAGE => [Const::COMPACT_USER],
+      Const::MODE_VALUES => [],
       Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
       Const::NOTIFICATION_OBJECT => [],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],
@@ -2249,7 +2271,7 @@ module ModelsHelper
       Const::SURVEY => [Const::QUESTION],
       Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::TAG => [],
-      Const::TOP_SPORT => [Const::SPORT],
+      Const::TOP_SPORT => [Const::MODE_VALUES, Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG, Const::CHEER, Const::COMMENT],
       Const::USER => [],
