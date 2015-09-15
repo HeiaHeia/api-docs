@@ -692,6 +692,12 @@ module ModelsHelper
         :place => {
           :type => Const::PLACE
         },
+        :media => {
+          :items => {
+            :$ref => Const::MEDIA
+          },
+          :type => Const::ARRAY
+        },
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
@@ -802,6 +808,12 @@ module ModelsHelper
           },
           :type => Const::ARRAY
         },
+        :media => {
+          :items => {
+            :$ref => Const::MEDIA
+          },
+          :type => Const::ARRAY
+        },
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
@@ -891,6 +903,12 @@ module ModelsHelper
         :latest_comments => {
           :items => {
             :$ref => Const::COMMENT
+          },
+          :type => Const::ARRAY
+        },
+        :media => {
+          :items => {
+            :$ref => Const::MEDIA
           },
           :type => Const::ARRAY
         },
@@ -995,6 +1013,12 @@ module ModelsHelper
         :latest_comments => {
           :items => {
             :$ref => Const::COMMENT
+          },
+          :type => Const::ARRAY
+        },
+        :media => {
+          :items => {
+            :$ref => Const::MEDIA
           },
           :type => Const::ARRAY
         },
@@ -1619,6 +1643,12 @@ module ModelsHelper
           },
           :type => Const::ARRAY
         },
+        :media => {
+          :items => {
+            :$ref => Const::MEDIA
+          },
+          :type => Const::ARRAY
+        },
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
@@ -2190,7 +2220,53 @@ module ModelsHelper
           :type => Const::STRING,
           :description => extra_model_icon_description,
           :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
         }
+      }
+    }
+  end
+
+  def media_model
+    {
+      :id => Const::MEDIA,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :type => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(image)
+          }
+        },
+        :image_url => {
+          :type => Const::STRING,
+          :description => "Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)",
+          :required => true
+        },
+        :content_url => {
+          :type => Const::STRING,
+          :description => "URL on original file",
+          :required => true
+        },
+        :notes => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        },
       }
     }
   end
@@ -2226,7 +2302,7 @@ module ModelsHelper
       Const::COMPACT_USER => [],
       Const::CONVERSATION => [],
       Const::FEED => [],
-      Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
+      Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::ITEM => [Const::COMPACT_USER],
       Const::MEDAL => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
@@ -2238,7 +2314,7 @@ module ModelsHelper
       Const::PLANNED_SURVEY => [Const::SURVEY],
       Const::PROGRAM => [],
       Const::QUESTION => [Const::QUESTION_OPTION],
-      Const::SICK_DAY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
+      Const::SICK_DAY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
@@ -2247,10 +2323,11 @@ module ModelsHelper
       Const::TAG => [],
       Const::TOP_SPORT => [Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
-      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE, Const::TAG, Const::CHEER, Const::COMMENT],
+      Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
+                               Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA ],
       Const::USER => [],
-      Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
-      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT],
+      Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
+      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::WELLNESS_PARAM => [Const::WELLNESS_PARAM_OPTION],
       Const::WELLNESS_PARAM_OPTION => [],
       Const::WELLNESS_PARAM_VALUE => [Const::WELLNESS_PARAM],

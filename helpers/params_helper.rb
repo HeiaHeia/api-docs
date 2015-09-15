@@ -96,11 +96,11 @@ module ParamsHelper
 
   alias_method :param_wellness_entry_status, :param_training_log_status
 
-  def param_notes
+  def param_notes(dataType: Const::TEXT)
     {
       :name => 'notes',
       :paramType => 'form',
-      :dataType => Const::TEXT,
+      :dataType => dataType,
       :description => 'Informal notes for the entry.'
     }.to_json
   end
