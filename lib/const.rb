@@ -47,6 +47,7 @@ module Const
   MEDIA = 'Media'.freeze
   MEGAPHONE = 'Megaphone'.freeze
   MESSAGE = 'Message'.freeze
+  MODE_VALUES = 'ModeValues'.freeze
   NOTIFICATION = 'Notification'.freeze
   NOTIFICATION_OBJECT = 'NotificationObject'.freeze
   PERSONAL_PROGRAM = 'PersonalProgram'.freeze
