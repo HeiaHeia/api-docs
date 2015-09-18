@@ -285,6 +285,34 @@
       ]
     },
     {
+      "path":"/users/{user_id}/weekly_targets",
+      "description":"Operations for managing weekly targets",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user's weekly targets",
+          "responseClass":"List[WeeklyTarget]",
+          "nickname":"weekly_targets_index",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"since",
+              "description":"The year and week number (e.g. 2015-38) since when to return the targets",
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name":"weeks",
+              "description":"The number of weekly targets to return",
+              "paramType": "query",
+              "dataType": "int"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/wellness_entries",
       "description":"Operations about wellness entries",
       "operations":[
@@ -307,5 +335,5 @@
     <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/wellness_entries/years' } } %>
 
   ],
-  "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry', 'WellnessEntry') %>
+  "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal', 'Weight', 'SickDay', 'FreeEntry', 'WeeklyTarget', 'WellnessEntry') %>
 }

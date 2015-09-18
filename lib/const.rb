@@ -69,6 +69,7 @@ module Const
   TRAINING_GOAL = 'TrainingGoal'.freeze
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
+  WEEKLY_TARGET = 'WeeklyTarget'.freeze
   WEIGHT = 'Weight'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze
   WELLNESS_PARAM = 'WellnessParam'.freeze
