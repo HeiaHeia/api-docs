@@ -39,6 +39,7 @@ module Const
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   CONVERSATION = 'Conversation'.freeze
+  DAILY_STATISTIC = 'DailyStatistic'.freeze
   FEED = 'Feed'.freeze
   SURVEY_FEEDBACK = 'SurveyFeedback'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
