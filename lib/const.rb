@@ -44,6 +44,7 @@ module Const
   FREE_ENTRY = 'FreeEntry'.freeze
   ITEM = 'Item'.freeze
   MEDAL = 'Medal'.freeze
+  MEDIA = 'Media'.freeze
   MEGAPHONE = 'Megaphone'.freeze
   MESSAGE = 'Message'.freeze
   MODE_VALUES = 'ModeValues'.freeze
