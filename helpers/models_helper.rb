@@ -1468,6 +1468,77 @@ module ModelsHelper
     }
   end
 
+  def daily_statistic_model
+    {
+      :id => Const::DAILY_STATISTIC,
+      :properties => {
+        :date => {
+          :type => Const::STRING,
+          :required => true,
+          :description => "Date of the daily statistic, e.g. \"2015-09-18\""
+        },
+        :distance => {
+          :type => Const::FLOAT,
+          :description => "Distance covered in kilometers or miles (depending on user settings)"
+        },
+        :exercise_count => {
+          :type => Const::INT
+        },
+        :exercise_duration => {
+          :type => Const::INT,
+          :description => "Combined exercise duration in minutes"
+        },
+        :floors => {
+          :type => Const::INT
+        },
+        :sick_day => {
+          :type => Const::BOOLEAN
+        },
+        :sleep => {
+          :type => Const::INT,
+          :description => "Sleep in minutes"
+        },
+        :steps => {
+          :type => Const::INT
+        },
+        :weight => {
+          :type => Const::FLOAT,
+          :description => "Weight in kilograms or pounds (depending on user settings)"
+        },
+        :wellness_entry_count => {
+          :type => Const::INT
+        }
+      }
+    }
+  end
+
+  def weekly_target_model
+    {
+      :id => Const::WEEKLY_TARGET,
+      :properties => {
+        :week => {
+          :type => Const::STRING,
+          :required => true,
+          :description => "Year and week of the target, e.g. \"2015-38\""
+        },
+        :target_amount => {
+          :type => Const::FLOAT,
+        },
+        :real_amount => {
+          :type => Const::FLOAT
+        },
+        :unit => {
+          :type => Const::STRING,
+          :description => "Type of the weekly target metric",
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(hours exercises distance steps wellness_entries)
+          }
+        }
+      }
+    }
+  end
+
   def wellness_type_model
     {
       :id => Const::WELLNESS_TYPE,
@@ -2326,6 +2397,7 @@ module ModelsHelper
       Const::COMPACT_SURVEY => [],
       Const::COMPACT_USER => [],
       Const::CONVERSATION => [],
+      Const::DAILY_STATISTIC => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::ITEM => [Const::COMPACT_USER],
@@ -2352,6 +2424,7 @@ module ModelsHelper
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
                                Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA ],
       Const::USER => [],
+      Const::WEEKLY_TARGET => [],
       Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::WELLNESS_PARAM => [Const::WELLNESS_PARAM_OPTION],

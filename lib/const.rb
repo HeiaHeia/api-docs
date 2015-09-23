@@ -39,6 +39,7 @@ module Const
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   CONVERSATION = 'Conversation'.freeze
+  DAILY_STATISTIC = 'DailyStatistic'.freeze
   FEED = 'Feed'.freeze
   SURVEY_FEEDBACK = 'SurveyFeedback'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
@@ -69,6 +70,7 @@ module Const
   TRAINING_GOAL = 'TrainingGoal'.freeze
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
+  WEEKLY_TARGET = 'WeeklyTarget'.freeze
   WEIGHT = 'Weight'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze
   WELLNESS_PARAM = 'WellnessParam'.freeze
