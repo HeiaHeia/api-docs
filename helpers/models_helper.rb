@@ -1559,6 +1559,10 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
+        :notesable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
         :params => {
           :items => {
             :$ref => Const::WELLNESS_PARAM
