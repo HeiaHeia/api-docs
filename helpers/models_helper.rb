@@ -1507,6 +1507,9 @@ module ModelsHelper
         },
         :wellness_entry_count => {
           :type => Const::INT
+        },
+        :resting_heart_rate => {
+          :type => Const::INT
         }
       }
     }
