@@ -1515,6 +1515,23 @@ module ModelsHelper
     }
   end
 
+  def monthly_statistic_model
+    {
+      :id => Const::MONTHLY_STATISTIC,
+      :properties => {
+        :month => {
+          :type => Const::STRING,
+          :required => true,
+          :description => "Month of the monthly statistic, e.g. \"2015-10\""
+        },
+        :weight => {
+          :type => Const::FLOAT,
+          :description => "Weight in kilograms or pounds (depending on user settings)"
+        }
+      }
+    }
+  end
+
   def weekly_target_model
     {
       :id => Const::WEEKLY_TARGET,
@@ -2412,6 +2429,7 @@ module ModelsHelper
       Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::MESSAGE => [Const::COMPACT_USER],
       Const::MODE_VALUES => [],
+      Const::MONTHLY_STATISTIC => [],
       Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
       Const::NOTIFICATION_OBJECT => [],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],

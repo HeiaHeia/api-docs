@@ -229,6 +229,34 @@
       ]
     },
     {
+      "path":"/users/{user_id}/monthly_stats",
+      "description":"Operations for accessing monthly statistics",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user's monthly statistics",
+          "responseClass":"List[MonthlyStatistic]",
+          "nickname":"monthly_statistics_index",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"since",
+              "description":"The month (e.g. 2015-09) since when to return the monthly statistics",
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name":"months",
+              "description":"The number of months for which to return statistics",
+              "paramType": "query",
+              "dataType": "int"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/free_entries",
       "description":"Operations about free entries",
       "operations":[
@@ -364,5 +392,5 @@
 
   ],
   "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal',
-                      'Weight', 'SickDay', 'FreeEntry', 'DailyStatistic', 'WeeklyTarget', 'WellnessEntry') %>
+                      'Weight', 'SickDay', 'FreeEntry', 'DailyStatistic', 'MonthlyStatistic', 'WeeklyTarget', 'WellnessEntry') %>
 }
