@@ -2328,8 +2328,9 @@ module ModelsHelper
           :description => extra_model_icon_description,
           :required => true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
+        :program_ids  => {
+          :items => { :$ref => Const::LONG },
+          :type => Const::ARRAY,
           :required => true
         }
       }
