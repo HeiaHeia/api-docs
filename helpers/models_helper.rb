@@ -1402,6 +1402,10 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :organisation => {
+          :type => Const::ORGANISATION,
+          :required => true
+        },
         :notes => {
           :type => Const::TEXT,
           :required => true
@@ -2391,6 +2395,17 @@ module ModelsHelper
     }
   end
 
+  def organisation_model
+    {
+      id: Const::ORGANISATION,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        name: { type: Const::STRING, required: true },
+        creatable_megaphones: { type: Const::BOOLEAN, required: true }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2426,12 +2441,13 @@ module ModelsHelper
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::ITEM => [Const::COMPACT_USER],
       Const::MEDAL => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
-      Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
+      Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::ORGANISATION],
       Const::MESSAGE => [Const::COMPACT_USER],
       Const::MODE_VALUES => [],
       Const::MONTHLY_STATISTIC => [],
       Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
       Const::NOTIFICATION_OBJECT => [],
+      Const::ORGANISATION => [],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],
       Const::PLACE => [],
       Const::PLANNED_SURVEY => [Const::SURVEY],

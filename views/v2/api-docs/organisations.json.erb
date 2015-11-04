@@ -1,0 +1,22 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/organisations",
+  "apis":[
+    {
+      "path":"/organisations",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of my organisations",
+          "responseClass":"List[Organisation]",
+          "nickname":"index",
+          "parameters":[],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'Organisation') %>
+}
