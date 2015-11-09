@@ -914,12 +914,6 @@ module ModelsHelper
           },
           :type => Const::ARRAY
         },
-        :media => {
-          :items => {
-            :$ref => Const::MEDIA
-          },
-          :type => Const::ARRAY
-        },
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
@@ -1450,6 +1444,12 @@ module ModelsHelper
         :latest_comments => {
           :items => {
             :$ref => Const::COMMENT
+          },
+          :type => Const::ARRAY
+        },
+        :media => {
+          :items => {
+            :$ref => Const::MEDIA
           },
           :type => Const::ARRAY
         },
@@ -2442,7 +2442,7 @@ module ModelsHelper
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::ITEM => [Const::COMPACT_USER],
       Const::MEDAL => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
-      Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::ORGANISATION],
+      Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::ORGANISATION, Const::MEDIA],
       Const::MESSAGE => [Const::COMPACT_USER],
       Const::MODE_VALUES => [],
       Const::MONTHLY_STATISTIC => [],
@@ -2454,7 +2454,7 @@ module ModelsHelper
       Const::PLANNED_SURVEY => [Const::SURVEY],
       Const::PROGRAM => [],
       Const::QUESTION => [Const::QUESTION_OPTION],
-      Const::SICK_DAY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
+      Const::SICK_DAY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::SPORT => [Const::SPORT_PARAM],
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
