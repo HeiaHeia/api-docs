@@ -739,6 +739,36 @@ module ModelsHelper
     }
   end
 
+  def video_model
+    {
+      :id => Const::VIDEO,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :provider => {
+          :type => Const::STRING,
+          :description => "youtube or vimeo",
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :video_id => {
+          :type => Const::STRING,
+          :description => "Provider specific identifier of the video",
+          :required => true
+        }
+      }
+    }
+  end
+
   def weight_model
     {
       :id => Const::WEIGHT,
@@ -1328,6 +1358,100 @@ module ModelsHelper
         },
         :unread => {
           :type => Const::BOOLEAN,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def library_model
+    {
+      :id => Const::LIBRARY,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def library_folder_model
+    {
+      :id => Const::LIBRARY_FOLDER,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :name => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :program_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :survey_count => {
+          :type => Const::INT,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :video_count => {
+          :type => Const::INT,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def library_item_types
+    [
+      Const::PROGRAM,
+      Const::SURVEY,
+      Const::VIDEO
+    ]
+  end
+
+  def library_item_model
+    {
+      :id => Const::LIBRARY_ITEM,
+      :properties => {
+        :canonical_url => {
+          :type => Const::STRING,
+          :description => "Item URL without folder part",
+          :required => true
+        },
+        :entry => {
+          :type => library_item_types.join(" | "),
+          :required => true
+        },
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :kind => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => library_item_types
+          }
+        },
+        :url => {
+          :type => Const::STRING,
+          :description => "Full item URL, including folder part",
           :required => true
         }
       }
@@ -2445,6 +2569,9 @@ module ModelsHelper
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::ITEM => [Const::COMPACT_USER],
+      Const::LIBRARY => [],
+      Const::LIBRARY_FOLDER => [],
+      Const::LIBRARY_ITEM => [],
       Const::MEDAL => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::ORGANISATION, Const::MEDIA],
       Const::MESSAGE => [Const::COMPACT_USER],
@@ -2470,6 +2597,7 @@ module ModelsHelper
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
                                Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA ],
       Const::USER => [],
+      Const::VIDEO => [],
       Const::WEEKLY_TARGET => [],
       Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA],

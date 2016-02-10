@@ -44,6 +44,9 @@ module Const
   SURVEY_FEEDBACK = 'SurveyFeedback'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
   ITEM = 'Item'.freeze
+  LIBRARY = 'Library'.freeze
+  LIBRARY_FOLDER = 'LibraryFolder'.freeze
+  LIBRARY_ITEM = 'LibraryItem'.freeze
   MEDAL = 'Medal'.freeze
   MEDIA = 'Media'.freeze
   MEGAPHONE = 'Megaphone'.freeze
@@ -72,6 +75,7 @@ module Const
   TRAINING_GOAL = 'TrainingGoal'.freeze
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
+  VIDEO = 'Video'.freeze
   WEEKLY_TARGET = 'WeeklyTarget'.freeze
   WEIGHT = 'Weight'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze

@@ -32,6 +32,10 @@
       "description":"Friends"
     },
     {
+      "path":"/api-docs/libraries.{format}",
+      "description":"Libraries"
+    },
+    {
       "path":"/api-docs/me.{format}",
       "description":"Me"
     },

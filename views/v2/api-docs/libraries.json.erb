@@ -1,0 +1,197 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/libraries",
+  "apis":[
+    {
+      "path":"/libraries",
+      "description":"List all content libraries available for the calling user",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Lists available content libraries",
+          "responseClass":"List[Library]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/{id}",
+      "description":"Returns details of a specific content library",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find library by ID",
+          "responseClass":"Library",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the library.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(403, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/{library_id}/folders",
+      "description":"List all folders that belong to given content library",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List library folders",
+          "responseClass":"List[LibraryFolder]",
+          "nickname":"folders_index",
+          "parameters":[
+            {
+              "name":"library_id",
+              "description":"The id of the library whose folders to list.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(403, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/{library_id}/folders/{id}",
+      "description":"Returns details of a specific content library folder",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find library folder by ID",
+          "responseClass":"LibraryFolder",
+          "nickname":"show_folder",
+          "parameters":[
+            {
+              "name":"library_id",
+              "description":"The id of the library.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"id",
+              "description":"The id of the folder.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(403, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/{library_id}/items/{id}",
+      "description":"Returns details of a specific content library item",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find library item by ID",
+          "responseClass":"LibraryItem",
+          "nickname":"show_canonical_item",
+          "parameters":[
+            {
+              "name":"library_id",
+              "description":"The id of the library.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"id",
+              "description":"The id of the item.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(403, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/{library_id}/folders/{folder_id}/items",
+      "description":"List all items that belong to given content library folder",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List library folder items",
+          "responseClass":"List[LibraryItem]",
+          "nickname":"items_index",
+          "parameters":[
+            {
+              "name":"library_id",
+              "description":"The id of the library containing the folder whose items to list.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"folder_id",
+              "description":"The id of the folder whose items to list.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(403, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/{library_id}/folders/{folder_id}/items/{id}",
+      "description":"Returns details of a specific content library item",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find library item by ID",
+          "responseClass":"LibraryItem",
+          "nickname":"show_item",
+          "parameters":[
+            {
+              "name":"library_id",
+              "description":"The id of the library.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"folder_id",
+              "description":"The id of the folder.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            {
+              "name":"id",
+              "description":"The id of the item.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 403, 404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'Library', 'LibraryFolder', 'LibraryItem') %>
+}
