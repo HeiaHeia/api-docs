@@ -97,6 +97,30 @@
       ]
     },
     {
+      "path":"/libraries/{library_id}/items",
+      "description":"List all items that belong to given content library",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List library item",
+          "responseClass":"List[LibraryItem]",
+          "nickname":"library_items_index",
+          "parameters":[
+            {
+              "name":"library_id",
+              "description":"The id of the library whose items to list.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(403, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/libraries/{library_id}/items/{id}",
       "description":"Returns details of a specific content library item",
       "operations":[
