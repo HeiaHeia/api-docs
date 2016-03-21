@@ -1437,6 +1437,11 @@ module ModelsHelper
           :type => library_item_types.join(" | "),
           :required => true
         },
+        :folder_id => {
+          :type => Const::LONG,
+          :description => "Identifier of the folder the item is contained in",
+          :required => true
+        },
         :id => {
           :type => Const::LONG,
           :required => true
