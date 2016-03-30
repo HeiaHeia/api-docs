@@ -2449,7 +2449,7 @@ module ModelsHelper
           :required => true,
           :allowableValues => {
             :valueType => Const::LIST,
-            :values => %w(per_question subtotal total)
+            :values => %w(per_question subtotal total all_programs)
           }
         },
         :conclusion => {
