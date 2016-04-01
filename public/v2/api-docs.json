@@ -80,6 +80,10 @@
       "description":"Programs"
     },
     {
+      "path":"/api-docs/requests.{format}",
+      "description":"Requests"
+    },
+    {
       "path":"/api-docs/sick_days.{format}",
       "description":"Sick days"
     },

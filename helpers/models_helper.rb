@@ -2540,6 +2540,102 @@ module ModelsHelper
     }
   end
 
+  def group_model
+    {
+      id: Const::GROUP,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
+        },
+        name: {
+          type: Const::STRING,
+          required: true
+        },
+        :organisation => {
+          :type => Const::ORGANISATION,
+          :required => true
+        }
+      }
+    }
+  end
+
+  def request_model
+    {
+      id: Const::REQUEST,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :type => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(group_invite group_join friendship coach_request)
+          }
+        },
+        :status => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(open accepted rejected)
+          }
+        },
+        :icon_url => {
+          :type => Const::STRING,
+          :description => "Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)",
+          :required => true
+        },
+        :description => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :actor => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :target => {
+          :type => [Const::COMPACT_USER, Const::GROUP].join(' | '),
+          :required => true
+        },
+        :actions => {
+          :items => {
+            :$ref => Const::REQUEST_ACTION
+          },
+          :type => Const::ARRAY
+        }
+      }
+    }
+  end
+
+  def request_action_model
+    {
+      id: Const::REQUEST_ACTION,
+      properties: {
+        title: {
+          type: Const::STRING,
+          required: true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :type => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(accept reject)
+          }
+        }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2573,6 +2669,7 @@ module ModelsHelper
       Const::DAILY_STATISTIC => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
+      Const::GROUP => [Const::ORGANISATION],
       Const::ITEM => [Const::COMPACT_USER],
       Const::LIBRARY => [],
       Const::LIBRARY_FOLDER => [],
@@ -2589,6 +2686,8 @@ module ModelsHelper
       Const::PLACE => [],
       Const::PLANNED_SURVEY => [Const::SURVEY],
       Const::PROGRAM => [],
+      Const::REQUEST => [Const::COMPACT_USER, Const::GROUP, Const::REQUEST_ACTION],
+      Const::REQUEST_ACTION => [],
       Const::QUESTION => [Const::QUESTION_OPTION],
       Const::SICK_DAY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::SPORT => [Const::SPORT_PARAM],
