@@ -1,0 +1,102 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/requests",
+  "apis":[
+    {
+      "path":"/requests",
+      "description":"Operations about requests",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds requests",
+          "responseClass":"List[Request]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"after",
+              "paramType":"query",
+              "dataType":"long",
+              "description":"ID of the last seen request"
+            },
+            {
+              "name":"before",
+              "paramType":"query",
+              "dataType":"long",
+              "description":"Return only requests whose ID is less than this value"
+            },
+            {
+              "name":"status",
+              "dataType":"string",
+              "paramType":"form",
+              "defaultValue":"open",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "open",
+                  "accepted",
+                  "rejected"
+                ]
+              }
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/requests/{id}",
+      "description":"Operations about requests",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find request by ID",
+          "responseClass":"Request",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the request.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    },
+    {
+      "path":"/requests/{request_id}/accept",
+      "description":"Operations about requests",
+      "operations":[
+        {
+          "httpMethod":"PATCH",
+          "summary":"Accept request",
+          "responseClass":"Request",
+          "nickname":"request_accept",
+          "parameters":[],
+          "errorResponses":<%= responses(400, 403, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/requests/{request_id}/reject",
+      "description":"Operations about requests",
+      "operations":[
+        {
+          "httpMethod":"PATCH",
+          "summary":"Reject request",
+          "responseClass":"Request",
+          "nickname":"request_reject",
+          "parameters":[],
+          "errorResponses":<%= responses(400, 403, 404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'Request') %>
+}

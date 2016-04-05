@@ -39,6 +39,7 @@ module Const
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   CONVERSATION = 'Conversation'.freeze
+  GROUP = 'Group'.freeze
   DAILY_STATISTIC = 'DailyStatistic'.freeze
   FEED = 'Feed'.freeze
   SURVEY_FEEDBACK = 'SurveyFeedback'.freeze
@@ -60,6 +61,8 @@ module Const
   PLACE = 'Place'.freeze
   PLANNED_SURVEY = 'PlannedSurvey'.freeze
   PROGRAM = 'Program'.freeze
+  REQUEST = 'Request'.freeze
+  REQUEST_ACTION = 'RequestAction'.freeze
   QUESTION = 'Question'.freeze
   QUESTION_OPTION = 'QuestionOption'.freeze
   SICK_DAY = 'SickDay'.freeze
