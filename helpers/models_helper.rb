@@ -2402,7 +2402,11 @@ module ModelsHelper
         },
         :action => {
           :type => Const::STRING,
-          :required => true
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry)
+          }
         },
         :object => {
           :type => Const::NOTIFICATION_OBJECT,
