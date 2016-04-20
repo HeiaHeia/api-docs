@@ -1425,7 +1425,8 @@ module ModelsHelper
     [
       Const::PROGRAM,
       Const::SURVEY,
-      Const::VIDEO
+      Const::VIDEO,
+      Const::DOCUMENT
     ]
   end
 
@@ -1464,6 +1465,17 @@ module ModelsHelper
           :description => "Full item URL, including folder part",
           :required => true
         }
+      }
+    }
+  end
+
+  def document_model
+    {
+      id: Const::DOCUMENT,
+      properties: {
+        name: { type: Const::STRING, required: true },
+        attachment_url: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT }
       }
     }
   end
@@ -2676,6 +2688,7 @@ module ModelsHelper
       Const::COMPACT_USER => [],
       Const::CONVERSATION => [],
       Const::DAILY_STATISTIC => [],
+      Const::DOCUMENT => [],
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::GROUP => [Const::ORGANISATION],
