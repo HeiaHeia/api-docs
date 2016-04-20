@@ -223,6 +223,11 @@ module ModelsHelper
           :type => Const::INT,
           :required => true
         },
+        :sleep_target => {
+          :type => Const::INT,
+          :description => "Daily sleep target in minutes",
+          :required => true
+        },
         :linked_with_mixpanel => {
           :type => Const::BOOLEAN,
           :required => true

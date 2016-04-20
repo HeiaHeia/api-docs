@@ -369,6 +369,38 @@
       ]
     },
     {
+      "path":"/users/{user_id}/weekly_targets/current",
+      "description":"Operations for managing weekly targets",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Sets current weekly target for the user",
+          "responseClass":"WeeklyTarget",
+          "nickname":"set_weekly_target",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"unit",
+              "description":"Type of the weekly target metric",
+              "paramType":"form",
+              "dataType":"string",
+              "required":true,
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":["hours", "exercises", "distance", "steps", "wellness_entries"]
+              }
+            },
+            {
+              "name":"target_amount",
+              "paramType": "form",
+              "dataType": "float"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/wellness_entries",
       "description":"Operations about wellness entries",
       "operations":[
