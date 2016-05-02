@@ -761,6 +761,9 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :description => {
+          :type => Const::STRING
+        },
         :url => {
           :type => Const::STRING,
           :required => true
