@@ -21,8 +21,9 @@ class FeedStub
         :id => 2,
         :kind => Const::TEXT_ENTRY,
         :entry => {
+          :actor => UserStub.find(1).to_compact_hash,
           :description => "{{User:1}} commented on {{User:2}}'s entry ({{TrainingLog:310}}) and {{User:3}}'s training goal ({{TrainingGoal:1}})",
-          :dict => {
+          :dictionary => {
             "User:1" => UserStub.find(1).to_entity,
             "User:2" => UserStub.find(2).to_entity,
             "TrainingLog:310" => {
