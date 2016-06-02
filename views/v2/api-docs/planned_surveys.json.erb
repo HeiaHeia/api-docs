@@ -15,7 +15,13 @@
           "nickname":"index",
           "parameters":[
             <%= param_page %>,
-            <%= param_per_page %>
+            <%= param_per_page %>,
+            {
+              "name":"planned_after",
+              "paramType":"query",
+              "dataType":"Date",
+              "description":"Return only planned surveys that have been planned after given date"
+            }
           ],
           "errorResponses":<%= responses(400, 404) %>
         }
