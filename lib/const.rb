@@ -36,6 +36,7 @@ module Const
   COMMENT = 'Comment'.freeze
   COMPACT_SPORT = 'CompactSport'.freeze
   COMPACT_SPORT_CATEGORY = 'CompactSportCategory'.freeze
+  COMPACT_PERSONAL_PROGRAM = 'CompactPersonalProgram'.freeze
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   CONVERSATION = 'Conversation'.freeze

@@ -613,6 +613,9 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
+        :personal_program => {
+          :type => Const::COMPACT_PERSONAL_PROGRAM
+        },
         :notes => {
           :type => Const::TEXT,
           :required => true
@@ -1820,6 +1823,9 @@ module ModelsHelper
           :type => Const::COMPACT_USER,
           :required => true
         },
+        :personal_program => {
+          :type => Const::COMPACT_PERSONAL_PROGRAM
+        },
         :status => {
           :allowableValues => {
             :valueType => Const::LIST,
@@ -2114,6 +2120,49 @@ module ModelsHelper
     }
   end
 
+  def compact_personal_program_model
+    {
+      :id => Const::COMPACT_PERSONAL_PROGRAM,
+      :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true
+        },
+        :date => {
+          :type => Const::DATE,
+          :required => true
+        },
+        :url => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :title => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :description => {
+          :type => Const::TEXT
+        },
+        :start_date => {
+          :type => Const::DATE,
+          :required => true
+        },
+        :end_date => {
+          :type => Const::DATE,
+          :required => true
+        },
+        :removable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
+        :editable => {
+          :type => Const::BOOLEAN,
+          :required => true
+        }
+      }
+    }
+  end
+
   def survey_model
     {
       :id => Const::SURVEY,
@@ -2393,6 +2442,9 @@ module ModelsHelper
         :url => {
           :type => Const::STRING,
           :required => true
+        },
+        :personal_program => {
+          :type => Const::COMPACT_PERSONAL_PROGRAM
         }
       }
     }
@@ -2686,6 +2738,7 @@ module ModelsHelper
       Const::CHEER => [Const::CHEER_TYPE, Const::COMPACT_USER],
       Const::CHEER_TYPE => [],
       Const::COMMENT => [Const::COMPACT_USER],
+      Const::COMPACT_PERSONAL_PROGRAM => [],
       Const::COMPACT_SPORT => [],
       Const::COMPACT_SURVEY => [],
       Const::COMPACT_USER => [],
@@ -2709,7 +2762,7 @@ module ModelsHelper
       Const::ORGANISATION => [],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],
       Const::PLACE => [],
-      Const::PLANNED_SURVEY => [Const::SURVEY],
+      Const::PLANNED_SURVEY => [Const::SURVEY, Const::COMPACT_PERSONAL_PROGRAM],
       Const::PROGRAM => [],
       Const::REQUEST => [Const::COMPACT_USER, Const::GROUP, Const::REQUEST_ACTION],
       Const::REQUEST_ACTION => [],
@@ -2724,12 +2777,12 @@ module ModelsHelper
       Const::TOP_SPORT => [Const::MODE_VALUES, Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
-                               Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA ],
+                               Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
       Const::USER => [],
       Const::VIDEO => [],
       Const::WEEKLY_TARGET => [],
       Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
-      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA],
+      Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
       Const::WELLNESS_PARAM => [Const::WELLNESS_PARAM_OPTION],
       Const::WELLNESS_PARAM_OPTION => [],
       Const::WELLNESS_PARAM_VALUE => [Const::WELLNESS_PARAM],
