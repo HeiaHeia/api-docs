@@ -142,6 +142,57 @@
       ]
     },
     {
+      "path":"/users/{user_id}/personal_programs",
+      "description":"Operations about personal_programs",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds personal programs",
+          "responseClass":"List[PersonalProgram]",
+          "nickname":"personal_programs_index",
+          "parameters":[
+            <%= param_year %>,
+            <%= param_page %>,
+            <%= param_per_page %>,
+            {
+              "name":"status",
+              "paramType":"query",
+              "required":true,
+              "dataType":"string",
+              "defaultValue":"all",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":["all", "ongoing"]
+              }
+            }
+          ],
+          "errorResponses":[
+            {
+              "code":400,
+              "reason":"The request was invalid."
+            }
+          ]
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new personal program",
+          "responseClass":"PersonalProgram",
+          "nickname":"create",
+          "parameters":[
+            <%= param_program_id %>,
+            {
+              "name":"start_date",
+              "paramType":"form",
+              "description":"Only monday",
+              "required":true,
+              "dataType":"Date"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/training_goals",
       "description":"Operations about training goals",
       "operations":[
@@ -293,7 +344,8 @@
             <%= param_per_page %>
           ],
           "errorResponses":<%= responses(400, 404) %>
-        }
+        },
+        <%= erb :'shared/training_logs/_create.json' %>
       ]
     },
     <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/training_logs/years' } } %>,
@@ -417,11 +469,11 @@
             <%= param_per_page %>
           ],
           "errorResponses":<%= responses(400, 404) %>
-        }
+        },
+        <%= erb :'shared/wellness_entries/_create.json' %>
       ]
     },
     <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/wellness_entries/years' } } %>
-
   ],
   "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal',
                       'Weight', 'SickDay', 'FreeEntry', 'DailyStatistic', 'MonthlyStatistic', 'WeeklyTarget', 'WellnessEntry') %>
