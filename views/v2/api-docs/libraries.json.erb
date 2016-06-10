@@ -215,6 +215,54 @@
           "errorResponses":<%= responses(400, 403, 404) %>
         }
       ]
+    },
+    {
+      "path":"/libraries/training_logs",
+      "description":"Operations about training logs",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Clone a training log entry",
+          "responseClass":"TrainingLog",
+          "nickname":"training_logs_create",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of training log entry from the library",
+              "paramType":"form",
+              "dataType":"long",
+              "required":true
+            },
+            <%= param_required_date %>,
+            <%= param_status %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/libraries/wellness_entries",
+      "description":"Operations about wellness entries",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Clone a wellness entry",
+          "responseClass":"WellnessEntry",
+          "nickname":"welllness_entries_create",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"ID of wellness entry from the library",
+              "paramType":"form",
+              "dataType":"long",
+              "required":true
+            },
+            <%= param_required_date %>,
+            <%= param_status %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
     }
   ],
   "models":<%= models(params[:api_version], 'Library', 'LibraryFolder', 'LibraryItem') %>

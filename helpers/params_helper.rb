@@ -131,4 +131,18 @@ module ParamsHelper
     }.to_json
   end
 
+  def param_status
+    {
+      name: "status",
+      required: true,
+      dataType: "string",
+      paramType: "form",
+      defaultValue: "regular",
+      allowableValues: {
+        valueType: "LIST",
+        values: ["regular", "planned"]
+      }
+    }.to_json
+  end
+
 end

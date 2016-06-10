@@ -1432,45 +1432,40 @@ module ModelsHelper
       Const::PROGRAM,
       Const::SURVEY,
       Const::VIDEO,
-      Const::DOCUMENT
+      Const::DOCUMENT,
+      Const::TRAINING_LOG,
+      Const::WELLNESS_ENTRY
     ]
   end
 
   def library_item_model
     {
-      :id => Const::LIBRARY_ITEM,
-      :properties => {
-        :canonical_url => {
-          :type => Const::STRING,
-          :description => "Item URL without folder part",
-          :required => true
+      id: Const::LIBRARY_ITEM,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        url: {
+          type: Const::STRING,
+          description: "Full item URL, including folder part",
+          required: true
         },
-        :entry => {
-          :type => library_item_types.join(" | "),
-          :required => true
+        canonical_url: {
+          type: Const::STRING,
+          description: "Item URL without folder part",
+          required: true
         },
-        :folder_id => {
-          :type => Const::LONG,
-          :description => "Identifier of the folder the item is contained in",
-          :required => true
+        folder_id: {
+          type: Const::LONG,
+          description: "Identifier of the folder the item is contained in",
+          required: true
         },
-        :id => {
-          :type => Const::LONG,
-          :required => true
+        name: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        kind: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: { valueType: Const::LIST, values: library_item_types }
         },
-        :kind => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => library_item_types
-          }
-        },
-        :url => {
-          :type => Const::STRING,
-          :description => "Full item URL, including folder part",
-          :required => true
-        }
+        entry: { type: library_item_types.join(" | "), required: true }
       }
     }
   end
