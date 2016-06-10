@@ -12,20 +12,7 @@
       "required":true,
       "dataType":"int"
     },
-    {
-      "name":"status",
-      "required":true,
-      "dataType":"string",
-      "paramType":"form",
-      "defaultValue":"regular",
-      "allowableValues":{
-        "valueType":"LIST",
-        "values":[
-          "regular",
-          "planned"
-        ]
-      }
-    },
+    <%= param_status %>,
     {
       "name":"duration_h",
       "paramType":"form",
