@@ -124,6 +124,10 @@
       "description":"Users"
     },
     {
+      "path":"/api-docs/wearables.{format}",
+      "description":"Wearable device services"
+    },
+    {
       "path":"/api-docs/weights.{format}",
       "description":"Weights"
     },
