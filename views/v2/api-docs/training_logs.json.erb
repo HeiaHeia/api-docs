@@ -17,6 +17,12 @@
           "parameters":[
             <%= param_training_log_status %>,
             <%= param_year %>,
+            {
+              "name":"date",
+              "description":"Only return entries on given date",
+              "paramType":"query",
+              "dataType":"Date"
+            },
             <%= param_page %>,
             <%= param_per_page %>
           ],
