@@ -2712,6 +2712,68 @@ module ModelsHelper
     }
   end
 
+  def wearable_model
+    {
+      :id => Const::WEARABLE,
+      :properties => {
+        :confirm_url => {
+          :type => Const::STRING,
+          :description => "URL where the user should be redirected after requesting connection. Only applicable when connection_mechanism is 'email'."
+        },
+        :connection_mechanism => {
+          :type => Const::STRING,
+          :description => "This value is 'oauth' for most services, indicating regular OAuth flow. For Polar the value is 'email'.",
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(oauth email)
+          }
+        },
+        :disconnectable => {
+          :type => Const::BOOLEAN,
+          :description => "Tells whether or not the service can be disconnected via API. If false user needs to disconnect from the wearable provider side.",
+          :required => true
+        },
+        :display_name => {
+          :type => Const::STRING,
+          :description => "Display name of the service",
+          :required => true
+        },
+        :email => {
+          :type => Const::STRING,
+          :description => "Email associated with this service, if any. Only applicable when connection_mechanism is 'email'."
+        },
+        :logo_url => {
+          :type => Const::STRING,
+          :description => "URL for service logo (png). No size patterns are supported and the logo size is always 160x160 pixels.",
+          :required => true
+        },
+        :oauth_redirect_url_pattern => {
+          :type => Const::STRING,
+          :description => "Regular expression defining the URL where browser will be redirected at the end of the OAuth flow."
+        },
+        :oauth_url => {
+          :type => Const::STRING,
+          :description => "URL where user should be taken to start the OAuth flow. Only returned when explicitly requested."
+        },
+        :provider => {
+          :type => Const::STRING,
+          :description => "Name of the wearable service provider.",
+          :required => true
+        },
+        :status => {
+          :type => Const::STRING,
+          :description => "Current connection status for this service.",
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => %w(disconnected requested connected)
+          }
+        },
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2780,6 +2842,7 @@ module ModelsHelper
                                Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
       Const::USER => [],
       Const::VIDEO => [],
+      Const::WEARABLE => [],
       Const::WEEKLY_TARGET => [],
       Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],

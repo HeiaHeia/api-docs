@@ -81,6 +81,7 @@ module Const
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
   VIDEO = 'Video'.freeze
+  WEARABLE = 'Wearable'.freeze
   WEEKLY_TARGET = 'WeeklyTarget'.freeze
   WEIGHT = 'Weight'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze
