@@ -5,6 +5,71 @@
   "resourcePath":"/users",
   "apis":[
     {
+      "path":"/users",
+      "description":"Create a new user",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Create user",
+          "responseClass":"void",
+          "nickname":"new",
+          "parameters":[
+            {
+              "name":"client_id",
+              "description":"Client id for the creating application",
+              "paramType":"form",
+              "required":true,
+              "dataType":"string"
+            },
+            {
+              "name":"client_secret",
+              "description":"client secret of the creating application",
+              "paramType":"form",
+              "required":true,
+              "dataType":"string"
+            },
+            {
+              "name":"token",
+              "description":"Signup token for users email",
+              "paramType":"form",
+              "required":true,
+              "dataType":"string"
+            },
+            {
+              "name":"password",
+              "description":"New password for user",
+              "paramType":"form",
+              "required": false,
+              "dataType":"string"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/new",
+      "description":"Create a new invitation with given email",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Create sigunp token by email",
+          "responseClass":"void",
+          "nickname":"new",
+          "parameters":[
+            {
+              "name":"email",
+              "description":"User email.",
+              "paramType":"form",
+              "required":true,
+              "dataType":"string"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{id}",
       "description":"Operations about users",
       "operations":[
