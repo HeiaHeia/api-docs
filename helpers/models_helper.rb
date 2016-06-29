@@ -1339,12 +1339,6 @@ module ModelsHelper
           :type => Const::BOOLEAN,
           :required => true
         },
-        :media => {
-          :items => {
-            :$ref => Const::MEDIA
-          },
-          :type => Const::ARRAY
-        },
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
@@ -2822,7 +2816,7 @@ module ModelsHelper
       Const::LIBRARY_ITEM => [],
       Const::MEDAL => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::MEGAPHONE => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::ORGANISATION, Const::MEDIA],
-      Const::MESSAGE => [Const::COMPACT_USER, Const::MEDIA],
+      Const::MESSAGE => [Const::COMPACT_USER],
       Const::MODE_VALUES => [],
       Const::MONTHLY_STATISTIC => [],
       Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
