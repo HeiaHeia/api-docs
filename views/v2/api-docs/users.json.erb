@@ -193,6 +193,40 @@
       ]
     },
     {
+      "path":"/users/{user_id}/planned_surveys",
+      "description":"Operations about planned surveys",
+      "operations":[
+        {
+          "httpMethod":"POST",
+          "summary":"Add a new planned survey",
+          "responseClass":"PlannedSurvey",
+          "nickname":"create",
+          "parameters":[
+            <%= param_survey_id %>,
+            <%= param_required_date %>,
+            {
+              "name":"recurrence_type",
+              "paramType":"form",
+              "dataType":"string",
+              "description":"This event recurs for (N) days/weeks.",
+              "required":true,
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":["week", "day"]
+              }
+            },
+            {
+              "name":"recurrence_times",
+              "paramType":"form",
+              "dataType":"int",
+              "required":true
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/training_goals",
       "description":"Operations about training goals",
       "operations":[
@@ -476,5 +510,6 @@
     <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/wellness_entries/years' } } %>
   ],
   "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal',
-                      'Weight', 'SickDay', 'FreeEntry', 'DailyStatistic', 'MonthlyStatistic', 'WeeklyTarget', 'WellnessEntry') %>
+                      'Weight', 'SickDay', 'FreeEntry', 'DailyStatistic', 'MonthlyStatistic', 'WeeklyTarget',
+                      'WellnessEntry', 'PlannedSurvey') %>
 }
