@@ -1335,6 +1335,10 @@ module ModelsHelper
           :type => Const::TEXT,
           :required => true
         },
+        :image_url => {
+          :type => Const::STRING,
+          :description => "Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)"
+        },
         :unread => {
           :type => Const::BOOLEAN,
           :required => true
