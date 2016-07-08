@@ -40,6 +40,7 @@ module Const
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   CONVERSATION = 'Conversation'.freeze
+  CREATE_ACCOUNT = 'CreateAccount'.freeze
   DOCUMENT = 'Document'.freeze
   GROUP = 'Group'.freeze
   DAILY_STATISTIC = 'DailyStatistic'.freeze

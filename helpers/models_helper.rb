@@ -2774,6 +2774,22 @@ module ModelsHelper
     }
   end
 
+  def create_account_model
+    {
+      :id => Const::CREATE_ACCOUNT,
+      :properties => {
+        :token => {
+          :type => Const::STRING,
+          :description => "Access token for the newly created user"
+        },
+        :user => {
+          :type => Const::USER,
+          :description => "Newly created user"
+        }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2805,6 +2821,7 @@ module ModelsHelper
       Const::COMPACT_SURVEY => [],
       Const::COMPACT_USER => [],
       Const::CONVERSATION => [],
+      Const::CREATE_ACCOUNT => [Const::USER],
       Const::DAILY_STATISTIC => [],
       Const::DOCUMENT => [],
       Const::FEED => [],
