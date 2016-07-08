@@ -77,7 +77,14 @@
               "name":"body",
               "paramType":"form",
               "required":true,
-              "dataType":"text"
+              "dataType":"text",
+              "description":"Required if image param blank."
+            },
+            {
+              "name":"image",
+              "paramType":"body",
+              "dataType":"file",
+              "description":"The file, support only .JPEG and .PNG format."
             }
           ],
           "errorResponses":<%= responses(400, 404) %>
