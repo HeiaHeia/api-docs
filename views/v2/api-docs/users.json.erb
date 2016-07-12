@@ -41,6 +41,24 @@
               "required":true,
               "dataType":"string"
             },
+            {
+              "name":"colleagues",
+              "description":"When 'true' returns only colleagues from all organizations where you member.",
+              "paramType":"query",
+              "dataType":"string",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "true"
+                ]
+              }
+            },
+            {
+              "name":"organisation_id",
+              "description":"Restricts search by one particular organization.",
+              "paramType":"query",
+              "dataType":"int"
+            },
             <%= param_page %>,
             <%= param_per_page %>
           ],
