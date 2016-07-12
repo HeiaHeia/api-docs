@@ -2614,6 +2614,7 @@ module ModelsHelper
       id: Const::ORGANISATION,
       properties: {
         id: { type: Const::LONG, required: true },
+        :url => { :type => Const::STRING, :required => true },
         name: { type: Const::STRING, required: true },
         creatable_megaphones: { type: Const::BOOLEAN, required: true }
       }

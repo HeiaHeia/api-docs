@@ -12,8 +12,43 @@
           "summary":"List of my organisations",
           "responseClass":"List[Organisation]",
           "nickname":"index",
-          "parameters":[],
+          "parameters":[
+            {
+              "name":"coach",
+              "description":"When 'true' returns organisations where you coach in.",
+              "paramType":"query",
+              "dataType":"string",
+              "allowableValues":{
+                "valueType":"LIST",
+                "values":[
+                  "true"
+                ]
+              }
+            }
+          ],
           "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/organisations/{id}",
+      "description":"Operations about organisation",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find organisation by ID",
+          "responseClass":"Organisation",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The ID of the organisation.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
         }
       ]
     }
