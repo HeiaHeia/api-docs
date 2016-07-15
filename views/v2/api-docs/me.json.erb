@@ -104,7 +104,35 @@
           "errorResponses":<%= responses(400) %>
         }
       ]
+    },
+    {
+      "path":"/me/avatar",
+      "description":"Operations about user avatar",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Update user avatar",
+          "responseClass":"CompactUser",
+          "nickname":"update_avatar",
+          "parameters":[
+            {
+              "name":"image",
+              "paramType":"body",
+              "dataType":"file",
+              "description":"The image should be square size, support only .JPEG and .PNG format."
+            }
+          ],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
+          "httpMethod":"DELETE",
+          "summary":"Delete avatar",
+          "responseClass":"void",
+          "nickname":"destroy",
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
     }
   ],
-  "models":<%= models(params[:api_version], 'User') %>
+  "models":<%= models(params[:api_version], 'User', 'CompactUser') %>
 }
