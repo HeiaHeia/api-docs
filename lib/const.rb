@@ -46,6 +46,7 @@ module Const
   FEED = 'Feed'.freeze
   SURVEY_FEEDBACK = 'SurveyFeedback'.freeze
   FREE_ENTRY = 'FreeEntry'.freeze
+  INVITE = 'Invite'.freeze
   ITEM = 'Item'.freeze
   LIBRARY = 'Library'.freeze
   LIBRARY_FOLDER = 'LibraryFolder'.freeze

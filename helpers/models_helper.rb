@@ -1490,6 +1490,27 @@ module ModelsHelper
     }
   end
 
+  def invite_model
+    {
+      :id => Const::INVITE,
+      :properties => {
+        :user => {
+          :type => Const::COMPACT_USER,
+          :required => true
+        },
+        :status => {
+          :type => Const::STRING,
+          :required => true,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => ['new', 'existing']
+          }
+        }
+      }
+    }
+  end
+
+
   def item_types
     [
       Const::TRAINING_LOG,
@@ -2815,6 +2836,7 @@ module ModelsHelper
       Const::FEED => [],
       Const::FREE_ENTRY => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::GROUP => [Const::ORGANISATION],
+      Const::INVITE => [Const::COMPACT_USER],
       Const::ITEM => [Const::COMPACT_USER],
       Const::LIBRARY => [],
       Const::LIBRARY_FOLDER => [],
