@@ -1505,6 +1505,11 @@ module ModelsHelper
             :valueType => Const::LIST,
             :values => ['new', 'existing']
           }
+        },
+        :email => {
+          :type => Const::STRING,
+          :required => true,
+          :description => "Email associated with this invite."
         }
       }
     }
