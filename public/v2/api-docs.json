@@ -84,6 +84,10 @@
       "description":"Programs"
     },
     {
+      "path":"/api-docs/reset_password.{format}",
+      "description":"Reset password"
+    },
+    {
       "path":"/api-docs/requests.{format}",
       "description":"Requests"
     },
