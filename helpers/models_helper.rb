@@ -1377,52 +1377,26 @@ module ModelsHelper
 
   def library_model
     {
-      :id => Const::LIBRARY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :name => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        }
+      id: Const::LIBRARY,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        name: { type: Const::STRING, required: true },
+        url: { type: Const::STRING, required: true }
       }
     }
   end
 
   def library_folder_model
     {
-      :id => Const::LIBRARY_FOLDER,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :name => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :program_count => {
-          :type => Const::INT,
-          :required => true
-        },
-        :survey_count => {
-          :type => Const::INT,
-          :required => true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :video_count => {
-          :type => Const::INT,
-          :required => true
-        }
+      id: Const::LIBRARY_FOLDER,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        name: { type: Const::STRING, required: true },
+        url: { type: Const::STRING, required: true },
+        program_count: { type: Const::INT, required: true },
+        survey_count: { type: Const::INT, required: true },
+        video_count: { type: Const::INT, required: true },
+        exercise_count: { type: Const::INT, required: true }
       }
     }
   end
