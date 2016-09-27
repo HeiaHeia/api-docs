@@ -2641,49 +2641,26 @@ module ModelsHelper
       id: Const::REQUEST,
       properties: {
         id: { type: Const::LONG, required: true },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :type => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(group_invite group_join friendship coach_request)
+        url: { type: Const::STRING, required: true },
+        type: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w(group_invite group_join friendship coach_request, org_invite)
           }
         },
-        :status => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(open accepted rejected)
-          }
+        status: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: { valueType: Const::LIST, values: %w(open accepted rejected) }
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)",
-          :required => true
-        },
-        :description => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :actor => {
-          :type => Const::COMPACT_USER,
-          :required => true
-        },
-        :target => {
-          :type => [Const::COMPACT_USER, Const::GROUP].join(' | '),
-          :required => true
-        },
-        :actions => {
-          :items => {
-            :$ref => Const::REQUEST_ACTION
-          },
-          :type => Const::ARRAY
-        }
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::STRING },
+        extra_note: { type: Const::STRING },
+        actor: { type: Const::COMPACT_USER, required: true },
+        target: { type: [Const::COMPACT_USER, Const::GROUP, Const::ORGANISATION].join(' | '), required: true },
+        actions: { items: { :$ref => Const::REQUEST_ACTION }, type: Const::ARRAY }
       }
     }
   end
@@ -2692,21 +2669,12 @@ module ModelsHelper
     {
       id: Const::REQUEST_ACTION,
       properties: {
-        title: {
+        title: { type: Const::STRING, required: true },
+        url: { type: Const::STRING, required: true },
+        type: {
           type: Const::STRING,
-          required: true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :type => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(accept reject)
-          }
+          required: true,
+          allowableValues: { valueType: Const::LIST, values: %w(accept reject) }
         }
       }
     }
