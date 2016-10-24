@@ -2190,6 +2190,11 @@ module ModelsHelper
           :required => true,
           :description => common_icon_description
         },
+        :planned_icon_url => {
+          :type => Const::STRING,
+          :required => true,
+          :description => common_icon_description
+        },
         :url => {
           :type => Const::STRING,
           :required => true
