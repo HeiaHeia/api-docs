@@ -23,6 +23,37 @@
       ]
     },
     {
+      "path":"/items/agenda",
+      "description":"Returns agenda items for calling user",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds agenda items",
+          "responseClass":"List[Item]",
+          "nickname":"agenda",
+          "parameters":[
+            {
+              "name":"start_date",
+              "description":"Fetch agenda starting from this date (inclusive)",
+              "paramType":"path",
+              "required":true,
+              "dataType":"Date"
+            },
+            {
+              "name":"end_date",
+              "description":"Fetch agenda until this date (inclusive)",
+              "paramType":"path",
+              "required":true,
+              "dataType":"Date"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
       "path":"/items/{id}",
       "description":"Operations about item",
       "operations":[
