@@ -41,7 +41,7 @@
 <p>First of all we need to fetch sport's data: id, name, sport_params.</p>
 
 <div class="snippet">
-  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.heiaheia.com/v3/sports/1</code></pre>
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.heiaheia.com/v2/sports/1</code></pre>
 </div>
 
 <br/>
@@ -50,7 +50,7 @@
   "id": 1,
   "name": "Running",
   "icon_url": "https://example.com/sports/regular_icons/1/{size}.png",
-  "url": "https://api.heiaheia.com/v3/sports/1",
+  "url": "https://api.heiaheia.com/v2/sports/1",
   "planned_icon_url": "https://example.com/sports/planned_icons/1/{size}.png",
   "exclude_stats": false,
   "sport_params": [
@@ -69,14 +69,14 @@
 <p>After that we can create training log entries using these data:</p>
 
 <div class="snippet">
-  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=SPORT_ID&date=2014-10-28&sport_param_values[SPORT_PARAM_KEY]=12.3" https://api.heiaheia.com/v3/training_logs</code></pre>
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=SPORT_ID&date=2014-10-28&sport_param_values[SPORT_PARAM_KEY]=12.3" https://api.heiaheia.com/v2/training_logs</code></pre>
 </div>
 
 <br/>
 <p>Example of "running" with duration and distance</p>
 
 <div class="snippet">
-  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=1&date=2014-10-28&sport_param_values[distance]=12.3&duration_h=1&duration_m=2&duration_s=3" https://api.heiaheia.com/v3/training_logs</code></pre>
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=1&date=2014-10-28&sport_param_values[distance]=12.3&duration_h=1&duration_m=2&duration_s=3" https://api.heiaheia.com/v2/training_logs</code></pre>
 </div>
 
 <br/>
@@ -89,7 +89,7 @@
 <br/>
 <p>Example of "walking" with steps</p>
 <div class="snippet">
-  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.heiaheia.com/v3/sports/14</code></pre>
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" https://api.heiaheia.com/v2/sports/14</code></pre>
 </div>
 
 <br/>
@@ -98,7 +98,7 @@
   "id": 14,
   "name": "Walking",
   "icon_url": "https://example.com/sports/regular_icons/14/{size}.png",
-  "url": "https://api.heiaheia.com/v3/sports/14",
+  "url": "https://api.heiaheia.com/v2/sports/14",
   "planned_icon_url": "https://example.com/sports/planned_icons/14/{size}.png",
   "exclude_stats": false,
   "sport_params": [
@@ -129,7 +129,7 @@
 
 <br/>
 <div class="snippet">
-  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=14&date=2014-10-28&sport_param_values[steps]=1234&duration_h=1" https://api.heiaheia.com/v3/training_logs</code></pre>
+  <pre style="overflow-x: auto;"><code class="ruby">$ curl -H "Authorization: Bearer OAUTH-TOKEN" -d "sport_id=14&date=2014-10-28&sport_param_values[steps]=1234&duration_h=1" https://api.heiaheia.com/v2/training_logs</code></pre>
 </div>
 
 

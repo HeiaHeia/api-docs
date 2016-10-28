@@ -975,18 +975,6 @@ module ModelsHelper
     }
   end
 
-  def v3_entry_model(const)
-    {
-      :id => const,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        }
-      }
-    }
-  end
-
   def free_entry_model
     {
       :id => Const::FREE_ENTRY,
@@ -1740,46 +1728,6 @@ module ModelsHelper
         },
         :notesable => {
           :type => Const::BOOLEAN,
-          :required => true
-        },
-        :params => {
-          :items => {
-            :$ref => Const::WELLNESS_PARAM
-          },
-          :type => Const::ARRAY
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :planned_icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        }
-      }
-    }
-  end
-
-  def v3_wellness_type_model
-    {
-      :id => Const::WELLNESS_TYPE,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :title => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :description => {
-          :type => Const::STRING,
           :required => true
         },
         :params => {
@@ -2755,14 +2703,6 @@ module ModelsHelper
       else
         hash[model] = send("#{model.underscore}_model")
       end
-    end
-    hash.to_json
-  end
-
-  def v3_entry_models(*args)
-    hash = {}
-    model_names(args).each do |model|
-      hash[model] = v3_entry_model(model)
     end
     hash.to_json
   end
