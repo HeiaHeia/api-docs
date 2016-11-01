@@ -1,6 +1,6 @@
 module Const
 
-  BASE_PATH = ENV['RACK_ENV'] == 'production' ? 'https://api.heiaheia.com/v3' : 'http://api.hh.dev:3000/v3'
+  BASE_PATH = ENV['RACK_ENV'] == 'production' ? 'https://api.heiaheia.com/v2' : 'http://api.hh.dev:3000/v2'
 
   BASE_URL = ENV['RACK_ENV'] == 'production' ? 'https://api.heiaheia.com' : 'http://api.hh.dev:3000'
 
