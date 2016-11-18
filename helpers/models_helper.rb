@@ -1152,6 +1152,9 @@ module ModelsHelper
         :editable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        :organisation => {
+          :type => Const::ORGANISATION
         }
       }
     }
