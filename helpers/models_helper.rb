@@ -1155,6 +1155,9 @@ module ModelsHelper
         },
         :organisation => {
           :type => Const::ORGANISATION
+        },
+        :description => {
+          :type => Const::STRING
         }
       }
     }
