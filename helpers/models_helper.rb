@@ -2841,7 +2841,7 @@ module ModelsHelper
 
   def common_icon_description
     "Template URL 'https://example.com/path/to/image/{size}.png',
-     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
+     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'"
   end
 
   def extra_model_icon_description
