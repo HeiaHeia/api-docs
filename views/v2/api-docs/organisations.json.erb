@@ -51,7 +51,31 @@
           "errorResponses":<%= responses(404) %>
         }
       ]
+    },
+    {
+      "path":"/organisations/{organisation_id}/teams",
+      "description":"Team operations",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List all teams belonging to given organisation",
+          "responseClass":"Group",
+          "nickname":"list",
+          "parameters":[
+            {
+              "name":"organisation_id",
+              "description":"The ID of the organisation.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
     }
   ],
-  "models":<%= models(params[:api_version], 'Organisation') %>
+  "models":<%= models(params[:api_version], 'Group', 'Organisation') %>
 }
