@@ -287,7 +287,7 @@ module ModelsHelper
       :id => Const::SPORT_PARAM_VALUE,
       :properties => {
         :value => {
-          :type => 'int,float,string',
+          :type => 'int,float,string,boolean',
           :required => true
         },
         :sport_param => {
