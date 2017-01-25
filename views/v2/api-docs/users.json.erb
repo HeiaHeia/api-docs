@@ -380,6 +380,71 @@
     },
     <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/free_entries/years' } } %>,
     {
+      "path":"/users/{user_id}/team_memberships",
+      "description":"Operations for managing team memberships",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user's team memberships",
+          "responseClass":"List[TeamMembership]",
+          "nickname":"team_memberships_index",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"organisation_id",
+              "description":"Optional filter for returning team memberships only for the given organisation",
+              "required":false,
+              "paramType":"query",
+              "dataType":"long"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Join a team or request to join a team",
+          "responseClass":"TeamMembership",
+          "nickname":"team_membership_create",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name":"team_id",
+              "description":"Identifier of the team to join",
+              "required":true,
+              "paramType":"form",
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    },
+    {
+      "path":"/users/{user_id}/team_memberships/{id}",
+      "description":"Operations for managing team memberships",
+      "operations":[
+        {
+          "httpMethod":"DELETE",
+          "summary":"Unjoin a team",
+          "responseClass":"void",
+          "nickname":"unjoin_team",
+          "parameters":[
+            <%= param_user_id %>,
+            {
+              "name": "id",
+              "description": "The id of the team membership",
+              "paramType": "path",
+              "required": true,
+              "dataType": "long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    },
+    {
       "path":"/users/{user_id}/training_logs",
       "description":"Operations about training logs",
       "operations":[
@@ -529,5 +594,5 @@
   ],
   "models":<%= models(params[:api_version], 'User', 'Medal', 'CompactUser', 'TopSport', 'TrainingLog', 'TrainingGoal',
                       'Weight', 'SickDay', 'FreeEntry', 'DailyStatistic', 'MonthlyStatistic', 'WeeklyTarget',
-                      'WellnessEntry', 'PlannedSurvey') %>
+                      'WellnessEntry', 'PlannedSurvey', 'TeamMembership') %>
 }

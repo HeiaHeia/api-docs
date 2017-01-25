@@ -287,7 +287,7 @@ module ModelsHelper
       :id => Const::SPORT_PARAM_VALUE,
       :properties => {
         :value => {
-          :type => 'int,float,string',
+          :type => 'int,float,string,boolean',
           :required => true
         },
         :sport_param => {
@@ -2579,6 +2579,24 @@ module ModelsHelper
     {
       id: Const::GROUP,
       properties: {
+        access_type: {
+          type: Const::STRING,
+          description: "Defines whether the team can be joined by anyone, membership needs to be requested, or the team is invite only",
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w(public requested private)
+          },
+          required: true
+        },
+        avatar_url: {
+          type: Const::STRING,
+          description: common_icon_description,
+          required: false
+        },
+        description: {
+          type: Const::STRING,
+          required: false
+        },
         id: {
           type: Const::LONG,
           required: true
@@ -2587,9 +2605,45 @@ module ModelsHelper
           type: Const::STRING,
           required: true
         },
+        official: {
+          type: Const::BOOLEAN,
+          description: "True for teams greated by organisation administrator, false for user created teams",
+          required: true
+        },
         :organisation => {
           :type => Const::ORGANISATION,
           :required => true
+        }
+      }
+    }
+  end
+
+  def team_membership_model
+    {
+      id: Const::TEAM_MEMBERSHIP,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
+        },
+        status: {
+          type: Const::STRING,
+          description: "Indicates whether the team membership has been accepted or not",
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w(accepted pending)
+          }
+        },
+        team_id: {
+          type: Const::LONG,
+          description: "Identifier of the team this membership is associated with",
+          required: true
+        },
+        team: {
+          type: Const::GROUP,
+          description: "Details of the team this membership is associated with",
+          required: true
         }
       }
     }
@@ -2756,6 +2810,7 @@ module ModelsHelper
       Const::SURVEY => [Const::QUESTION],
       Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::TAG => [],
+      Const::TEAM_MEMBERSHIP => [Const::GROUP],
       Const::TOP_SPORT => [Const::MODE_VALUES, Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
@@ -2786,7 +2841,7 @@ module ModelsHelper
 
   def common_icon_description
     "Template URL 'https://example.com/path/to/image/{size}.png',
-     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']"
+     where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'"
   end
 
   def extra_model_icon_description
