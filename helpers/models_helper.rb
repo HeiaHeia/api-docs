@@ -2221,6 +2221,14 @@ module ModelsHelper
           :type => Const::STRING,
           :required => true
         },
+        :subtype => {
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => ["slider"]
+          },
+          :type => Const::STRING,
+          :required => false
+        },
         :notable => {
           :type => Const::BOOLEAN,
           :required => true
