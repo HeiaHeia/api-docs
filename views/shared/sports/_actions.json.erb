@@ -35,6 +35,19 @@
       ]
     },
     {
+      "path":"/sports/recommended",
+      "description":"Recommended sports",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of recommended sports",
+          "responseClass":"List[Sport]",
+          "nickname":"recommended",
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
       "path":"/sports/{id}",
       "description":"Operations about sports",
       "operations":[
