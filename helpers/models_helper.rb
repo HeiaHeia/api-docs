@@ -44,50 +44,27 @@ module ModelsHelper
 
   def compact_user_model
     {
-      :id => Const::COMPACT_USER,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :first_name => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :last_name => {
-          :type => Const::STRING
-        },
-        :avatar_url => {
-          :type => Const::STRING,
-          :description => common_icon_description,
-          :required => true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :friendship_status => {
-          :type => Const::STRING,
-          :description => "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(not_friend friend requested pending)
+      id: Const::COMPACT_USER,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        first_name: { type: Const::STRING, required: true },
+        last_name: { type: Const::STRING },
+        avatar_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true },
+        friendship_status: {
+          type: Const::STRING,
+          required: true,
+          description: "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w(not_friend friend requested pending)
           }
         },
-        :friendship_url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :country => {
-          :type => Const::STRING
-        },
-        :city => {
-          :type => Const::STRING
-        },
-        :training_for => {
-          :type => Const::STRING
-        }
+        friendship_url: { type: Const::STRING, required: true },
+        country: { type: Const::STRING },
+        city: { type: Const::STRING },
+        training_for: { type: Const::STRING },
+        pymk_reason: { type: Const::STRING }
       }
     }
   end
