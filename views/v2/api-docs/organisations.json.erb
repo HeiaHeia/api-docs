@@ -27,6 +27,21 @@
             }
           ],
           "errorResponses":<%= responses(400) %>
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Join an organisation",
+          "responseClass":"Organisation",
+          "nickname":"join",
+          "parameters":[
+            {
+              "name":"code",
+              "description":"Company code for the organisation to join.",
+              "paramType":"query",
+              "dataType":"string"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
         }
       ]
     },
@@ -34,6 +49,22 @@
       "path":"/organisations/{id}",
       "description":"Operations about organisation",
       "operations":[
+        {
+          "httpMethod":"DELETE",
+          "summary":"Remove organisation membership",
+          "responseClass":null,
+          "nickname":"unjoin",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The ID of the organisation to unjoin.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        },
         {
           "httpMethod":"GET",
           "summary":"Find organisation by ID",
