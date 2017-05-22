@@ -16,7 +16,14 @@
           "parameters":[
             <%= param_year %>,
             <%= param_page %>,
-            <%= param_per_page %>
+            <%= param_per_page %>,
+            {
+              "name": "survey_id",
+              "paramType": "form",
+              "dataType": "long",
+              "required": false,
+              "description": "Return only results associated with given survey. The year parameter is ignored when survey_id is present."
+            }
           ],
           "errorResponses":<%= responses(400) %>
         },
