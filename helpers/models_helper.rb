@@ -2128,6 +2128,22 @@ module ModelsHelper
         :url => {
           :type => Const::STRING,
           :required => true
+        },
+        :graph_type => {
+          :type => Const::STRING,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => [
+              "bar"
+            ]
+          },
+          :required => false,
+          :description => "Type of historical comparison to show for this survey. Unsupported graph types must be ignored."
+        },
+        :graph_options => {
+          :type => Const::INT,
+          :required => false,
+          :description => "Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be included in the comparison."
         }
       }
     }
@@ -2209,6 +2225,22 @@ module ModelsHelper
         :notable => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        :global_comparison_type => {
+          :type => Const::STRING,
+          :allowableValues => {
+            :valueType => Const::LIST,
+            :values => [
+              "mean"
+            ]
+          },
+          :required => false,
+          :description => "The algorithm to apply to answer option's answer percentage to calculate reference number to compare user's result to. Unsupported types must be ignored."
+        },
+        :show_historical_comparison => {
+          :type => Const::BOOLEAN,
+          :required => true,
+          :description => "Whether or not this question should be included in graph comparing current answer with old answers."
         }
       }
     }
@@ -2234,6 +2266,11 @@ module ModelsHelper
           :type => Const::STRING,
           :description => extra_model_icon_description,
           :required => true
+        },
+        :answer_percentage => {
+          :type => Const::FLOAT,
+          :required => true,
+          :description => "The percentage (0.0-100.0) of answers where this particular option was chosen."
         }
       }
     }
