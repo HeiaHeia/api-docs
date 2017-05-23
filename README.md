@@ -13,3 +13,6 @@ $ ruby app.rb
 
 Visit http://localhost:4567/ in browser.
 
+URLS:
+http://developers.heiaheia.com
+https://hh-api-docs.herokuapp.com
