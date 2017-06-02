@@ -2101,6 +2101,11 @@ module ModelsHelper
           :type => Const::LONG,
           :required => true
         },
+        :banner_image_url => {
+          :type => Const::STRING,
+          :required => false,
+          :description => "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
+        },
         :title => {
           :type => Const::STRING,
           :required => true
@@ -2156,6 +2161,11 @@ module ModelsHelper
         :id => {
           :type => Const::LONG,
           :required => true
+        },
+        :banner_image_url => {
+          :type => Const::STRING,
+          :required => false,
+          :description => "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
         },
         :title => {
           :type => Const::STRING,
@@ -2324,6 +2334,16 @@ module ModelsHelper
             :$ref => Const::SURVEY_FEEDBACK
           },
           :type => Const::ARRAY
+        },
+        :user_score => {
+          :type => Const::INT,
+          :required => true,
+          :description => "Stable score the user got from the survey (bigger number is better)."
+        },
+        :maximum_score => {
+          :type => Const::INT,
+          :required => true,
+          :description => "The maximum score possible to obtain for this survey."
         },
         :private => {
           :type => Const::BOOLEAN,
@@ -2516,6 +2536,11 @@ module ModelsHelper
           :type => Const::STRING,
           :description => extra_model_icon_description,
           :required => true
+        },
+        :non_square_icon_url => {
+          :type => Const::STRING,
+          :description => "(A possibly) non-square icon that should be used with surveys that have banner image. {height} variable in the URL needs to be replaced with desired height, width is undefined and depends on icon. Accepted height values are 40, 60, 80, 120 and 160.",
+          :required => false
         },
         :program_ids  => {
           :items => { :$ref => Const::LONG },
