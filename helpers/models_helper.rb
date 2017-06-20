@@ -1326,9 +1326,19 @@ module ModelsHelper
     {
       :id => Const::CONVERSATION,
       :properties => {
+        :id => {
+          :type => Const::LONG,
+          :required => true,
+          :description => "Identifier of the conversation"
+        },
+        :group => {
+          :type => Const::GROUP,
+          :required => false,
+          :description => "The team this conversation belongs to. Only present for team conversations"
+        },
         :user_id => {
           :type => Const::LONG,
-          :required => true
+          :required => false
         },
         :url => {
           :type => Const::STRING,
@@ -2491,6 +2501,11 @@ module ModelsHelper
         :created_at => {
           :type => Const::DATE_TIME,
           :required => true
+        },
+        :conversation => {
+          :type => Const::CONVERSATION,
+          :required => false,
+          :description => "Conversation associated with this notification. Only present if action is 'sent_message'"
         }
       }
     }
@@ -2646,6 +2661,11 @@ module ModelsHelper
         },
         id: {
           type: Const::LONG,
+          required: true
+        },
+        member_count: {
+          type: Const::INT,
+          description: "Number of accepted members in the group",
           required: true
         },
         name: {
