@@ -13,8 +13,35 @@
           "responseClass":"List[Conversation]",
           "nickname":"index",
           "parameters":[
+            {
+              "name":"by_conversation",
+              "description":"When true also team related conversations are returned",
+              "paramType":"query",
+              "dataType":"boolean"
+            },
             <%= param_page %>,
             <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Create or fetch conversation",
+          "responseClass":"Conversation",
+          "nickname":"create",
+          "parameters":[
+            {
+              "name":"user_id",
+              "description":"The user for whom to create or fetch a conversation. Either this or group_id must be provided",
+              "paramType":"form",
+              "dataType":"long"
+            },
+            {
+              "name":"group_id",
+              "description":"The group for which to create or fetch a conversation. Either this or user_id must be provided",
+              "paramType":"form",
+              "dataType":"long"
+            }
           ],
           "errorResponses":<%= responses(400) %>
         }
@@ -29,6 +56,12 @@
           "responseClass":"List[Conversation]",
           "nickname":"unread_index",
           "parameters":[
+            {
+              "name":"by_conversation",
+              "description":"When true also team related conversations are returned",
+              "paramType":"query",
+              "dataType":"boolean"
+            },
             <%= param_page %>,
             <%= param_per_page %>
           ],
@@ -37,7 +70,7 @@
       ]
     },
     {
-      "path":"/conversations/{user_id}",
+      "path":"/conversations/{id}",
       "operations":[
         {
           "httpMethod":"PUT",
@@ -45,24 +78,48 @@
           "responseClass":"Conversation",
           "nickname":"update",
           "parameters":[
-            <%= param_user_id %>
+            {
+              "name":"id",
+              "description":"Identifier of the conversation. When by_conversation is omitted or false this is the conversation partner (user) id",
+              "paramType":"path",
+              "required":"true",
+              "dataType":"long"
+            },
+            {
+              "name":"by_conversation",
+              "description":"Specifies how the id parameter should be handled",
+              "paramType":"query",
+              "dataType":"boolean"
+            }
           ],
           "errorResponses":<%= responses(400, 404) %>
         },
         {
           "httpMethod":"DELETE",
-          "summary":"Delete conversation",
+          "summary":"Delete conversation. Note: This operation is currently not allowed when by_conversation is true",
           "responseClass":"void",
           "nickname":"destroy",
           "parameters":[
-            <%= param_user_id %>
+            {
+              "name":"id",
+              "description":"Identifier of the conversation. When by_conversation is omitted or false this is the conversation partner (user) id",
+              "paramType":"path",
+              "required":"true",
+              "dataType":"long"
+            },
+            {
+              "name":"by_conversation",
+              "description":"Specifies how the id parameter should be handled",
+              "paramType":"query",
+              "dataType":"boolean"
+            }
           ],
           "errorResponses":<%= responses(400, 404) %>
         }
       ]
     },
     {
-      "path":"/conversations/{user_id}/messages",
+      "path":"/conversations/{id}/messages",
       "operations":[
         {
           "httpMethod":"GET",
@@ -70,7 +127,19 @@
           "responseClass":"List[Message]",
           "nickname":"messages_index",
           "parameters":[
-            <%= param_user_id %>,
+            {
+              "name":"id",
+              "description":"Identifier of the conversation. When by_conversation is omitted or false this is the conversation partner (user) id",
+              "paramType":"path",
+              "required":"true",
+              "dataType":"long"
+            },
+            {
+              "name":"by_conversation",
+              "description":"Specifies how the id parameter should be handled",
+              "paramType":"query",
+              "dataType":"boolean"
+            },
             <%= param_page %>,
             <%= param_per_page %>
           ],
@@ -82,7 +151,19 @@
           "responseClass":"Message",
           "nickname":"create",
           "parameters":[
-            <%= param_user_id %>,
+            {
+              "name":"id",
+              "description":"Identifier of the conversation. When by_conversation is omitted or false this is the conversation partner (user) id",
+              "paramType":"path",
+              "required":"true",
+              "dataType":"long"
+            },
+            {
+              "name":"by_conversation",
+              "description":"Specifies how the id parameter should be handled",
+              "paramType":"query",
+              "dataType":"boolean"
+            },
             {
               "name":"body",
               "paramType":"form",
