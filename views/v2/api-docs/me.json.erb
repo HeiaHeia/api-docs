@@ -17,6 +17,14 @@
           "errorResponses":<%= responses(400) %>
         },
         {
+          "httpMethod":"DELETE",
+          "summary":"Deletes the user account of the logged in user",
+          "responseClass":"void",
+          "nickname":"destroy",
+          "parameters":[],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
           "httpMethod":"PUT",
           "summary":"Update logged in user",
           "responseClass":"User",
