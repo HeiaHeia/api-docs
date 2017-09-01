@@ -37,6 +37,13 @@
               "required":true,
               "dataType":"long"
             },
+            {
+              "name": "notify",
+              "description": "Set to false to skip generating feed entries and notifications; update to true later when media uploads are finished",
+              "paramType": "form",
+              "required": false,
+              "dataType": "boolean"
+            },
             <%= param_notes required: true %>
           ],
           "errorResponses":<%= responses(400, 403, 404) %>
@@ -69,6 +76,13 @@
           "responseClass":"Megaphone",
           "nickname":"update",
           "parameters":[
+            {
+              "name": "notify",
+              "description": "Generates feed entries and notifications when set to true (unless already generated earlier)",
+              "paramType": "form",
+              "required": false,
+              "dataType": "boolean"
+            },
             <%= param_notes required: true %>
           ],
           "errorResponses":<%= responses(400, 403, 404) %>
