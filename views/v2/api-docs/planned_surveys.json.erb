@@ -38,6 +38,14 @@
       "description":"Operations about planned surveys",
       "operations":[
         {
+          "httpMethod":"GET",
+          "summary":"Return planned survey",
+          "responseClass":"PlannedSurvey",
+          "nickname":"show",
+          "parameters":[],
+          "errorResponses":<%= responses(404) %>
+        },
+        {
           "httpMethod":"DELETE",
           "summary":"Delete planned survey",
           "responseClass":"void",

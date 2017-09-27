@@ -2304,6 +2304,10 @@ module ModelsHelper
           :type => Const::LONG,
           :required => true
         },
+        :complete => {
+          :type => Const::BOOLEAN,
+          :required => true
+        },
         :date => {
           :type => Const::DATE,
           :required => true
