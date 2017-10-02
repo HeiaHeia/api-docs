@@ -23,6 +23,12 @@
               "dataType": "long",
               "required": false,
               "description": "Return only results associated with given survey. The year parameter is ignored when survey_id is present."
+            },
+            {
+              "name": "planned_survey_id",
+              "paramType": "form",
+              "dataType": "long",
+              "description": "Fetches survey results associated with given planned survey. In practise only returns incomplete results and cannot return more than one entry."
             }
           ],
           "errorResponses":<%= responses(400) %>
@@ -43,6 +49,12 @@
               "name":"planned_survey_id",
               "paramType":"form",
               "dataType":"long"
+            },
+            {
+              "name":"complete",
+              "description":"Whether the survey was fully completed or only in part. Default is true",
+              "paramType":"form",
+              "dataType":"boolean"
             },
             {
               "name":"answers[][question_id]",
@@ -86,6 +98,38 @@
             }
           ],
           "errorResponses":<%= responses(404) %>
+        },
+        {
+          "httpMethod":"PUT",
+          "summary":"Update existing incomplete survey result",
+          "responseClass":"SurveyResult",
+          "nickname":"update",
+          "parameters":[
+            {
+              "name":"complete",
+              "description":"Whether the survey was fully completed or only in part. Existing state is not changed when this parameter is missing.",
+              "paramType":"form",
+              "dataType":"boolean"
+            },
+            {
+              "name":"answers[][question_id]",
+              "paramType":"form",
+              "dataType":"<%= Const::LONG %>",
+              "required":true
+            },
+            {
+              "name":"answers[][option_ids][]",
+              "paramType":"form",
+              "dataType":"<%= Const::LONG %>",
+              "required":true
+            },
+            {
+              "name":"answers[][note]",
+              "paramType":"form",
+              "dataType":"<%= Const::TEXT %>"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
         },
         {
           "httpMethod":"DELETE",
