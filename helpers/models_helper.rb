@@ -2212,6 +2212,9 @@ module ModelsHelper
         :description => {
           :type => Const::TEXT
         },
+        :category => {
+          :type => Const::TEXT
+        },
         :options => {
           :items => {
             :$ref => Const::QUESTION_OPTION
