@@ -2212,6 +2212,9 @@ module ModelsHelper
         :description => {
           :type => Const::TEXT
         },
+        :category => {
+          :type => Const::TEXT
+        },
         :options => {
           :items => {
             :$ref => Const::QUESTION_OPTION
@@ -2665,6 +2668,11 @@ module ModelsHelper
         },
         id: {
           type: Const::LONG,
+          required: true
+        },
+        managed: {
+          type: Const::BOOLEAN,
+          description: "True for teams whose memberships are managed by administrators, false for teams that can be freely joined and left by users themselves",
           required: true
         },
         member_count: {
