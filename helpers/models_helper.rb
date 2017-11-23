@@ -2667,6 +2667,11 @@ module ModelsHelper
           type: Const::LONG,
           required: true
         },
+        managed: {
+          type: Const::BOOLEAN,
+          description: "True for teams whose memberships are managed by administrators, false for teams that can be freely joined and left by users themselves",
+          required: true
+        },
         member_count: {
           type: Const::INT,
           description: "Number of accepted members in the group",
