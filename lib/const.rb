@@ -63,6 +63,9 @@ module Const
   PERSONAL_PROGRAM = 'PersonalProgram'.freeze
   PLACE = 'Place'.freeze
   PLANNED_SURVEY = 'PlannedSurvey'.freeze
+  POINT_SYSTEM = 'PointSystem'.freeze
+  POINT_SYSTEM_LEVEL = 'PointSystemLevel'.freeze
+  POINT_SYSTEM_RULE = 'PointSystemRule'.freeze
   PROGRAM = 'Program'.freeze
   REQUEST = 'Request'.freeze
   REQUEST_ACTION = 'RequestAction'.freeze
