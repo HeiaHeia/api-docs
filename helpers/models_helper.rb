@@ -2840,8 +2840,16 @@ module ModelsHelper
       properties: {
         title: { type: Const::STRING, required: true },
         description: { type: Const::TEXT, required: true },
-        image_url: { type: Const::STRING, required: true },
-        rules_image_url: { type: Const::STRING, required: true },
+        image_url: {
+          type: Const::STRING,
+          required: true,
+          description: "Example https://example.com/path/to/image?size={resolution}, where {resolution} in (640x344, 750x344, 1242x516)"
+        },
+        rules_image_url: {
+          type: Const::STRING,
+          required: true,
+          description: "Example https://example.com/path/to/image?width={width}, where {width} in (640, 750, 1242)"
+        },
         levels_title: { type: Const::STRING, required: true },
         levels: { items: { "$ref": Const::POINT_SYSTEM_LEVEL }, type: Const::ARRAY, required: true },
         rules_title: { type: Const::STRING, required: true },
