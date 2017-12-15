@@ -2834,6 +2834,34 @@ module ModelsHelper
     }
   end
 
+  def point_system_model
+    {
+      id: Const::POINT_SYSTEM,
+      properties: {
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT, required: true },
+        image_url: { type: Const::STRING, required: true },
+        rules_image_url: { type: Const::STRING, required: true },
+        levels_title: { type: Const::STRING, required: true },
+        levels: { items: { "$ref": Const::POINT_SYSTEM_LEVEL }, type: Const::ARRAY, required: true },
+        rules_title: { type: Const::STRING, required: true },
+        rules: { items: { "$ref": Const::POINT_SYSTEM_RULE }, type: Const::ARRAY, required: true }
+      }
+    }
+  end
+
+  def point_system_level_model
+    {
+      id: Const::POINT_SYSTEM_LEVEL,
+      properties: {
+        title: { type: Const::STRING, required: true },
+        points: { type: Const::STRING, required: true }
+      }
+    }
+  end
+
+  alias_method :point_system_rule_model, :point_system_level_model
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2878,6 +2906,9 @@ module ModelsHelper
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],
       Const::PLACE => [],
       Const::PLANNED_SURVEY => [Const::SURVEY, Const::COMPACT_PERSONAL_PROGRAM],
+      Const::POINT_SYSTEM => [Const::POINT_SYSTEM_LEVEL, Const::POINT_SYSTEM_RULE],
+      Const::POINT_SYSTEM_LEVEL => [],
+      Const::POINT_SYSTEM_RULE => [],
       Const::PROGRAM => [],
       Const::REQUEST => [Const::COMPACT_USER, Const::GROUP, Const::REQUEST_ACTION],
       Const::REQUEST_ACTION => [],

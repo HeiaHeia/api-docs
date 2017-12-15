@@ -1,0 +1,22 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/point_systems",
+  "apis":[
+    {
+      "path":"/point_systems",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of user's point systems",
+          "responseClass":"List[PointSystem]",
+          "nickname":"index",
+          "parameters":[],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'PointSystem') %>
+}
