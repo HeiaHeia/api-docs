@@ -2863,12 +2863,21 @@ module ModelsHelper
       id: Const::POINT_SYSTEM_LEVEL,
       properties: {
         title: { type: Const::STRING, required: true },
+        name: { type: Const::STRING, required: true },
         points: { type: Const::STRING, required: true }
       }
     }
   end
 
-  alias_method :point_system_rule_model, :point_system_level_model
+  def point_system_rule_model
+    {
+      id: Const::POINT_SYSTEM_LEVEL,
+      properties: {
+        title: { type: Const::STRING, required: true },
+        points: { type: Const::STRING, required: true }
+      }
+    }
+  end
 
   def models(version, *args)
     hash = {}
