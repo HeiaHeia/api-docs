@@ -2838,6 +2838,7 @@ module ModelsHelper
     {
       id: Const::POINT_SYSTEM,
       properties: {
+        id: { type: Const::INT, required: true },
         title: { type: Const::STRING, required: true },
         description: { type: Const::TEXT, required: true },
         image_url: {
@@ -2871,7 +2872,7 @@ module ModelsHelper
 
   def point_system_rule_model
     {
-      id: Const::POINT_SYSTEM_LEVEL,
+      id: Const::POINT_SYSTEM_RULE,
       properties: {
         title: { type: Const::STRING, required: true },
         points: { type: Const::STRING, required: true }
