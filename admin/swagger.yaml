@@ -1,0 +1,3830 @@
+openapi: 3.0.0
+servers:
+  - url: 'https://api.heiaheia.com'
+    description: "Production"
+  - url: 'https://api.h2hstage.com'
+    description: "Staging"
+  - url: 'http://api.hh.test'
+    description: "Development"
+info:
+  description: |
+    This document describes how to use the HeiaHeia admin API.
+    
+    Authentication
+    ==============
+    
+    For basic resource owner flow one needs to start by making a call to the
+    `/oauth/token` resource:
+    
+    `POST /oauth/token?username=foo@example.com&password=bar`
+    
+    The server responds with a JSON object containing, among other things,
+    the access token:
+    
+    `{"access_token": "secret_token"}`
+    
+    For any subsequent calls the access token must be passed either as a
+    query parameter (`access_token=secret_token`) or as a header
+    (`Authorization: Bearer secret_token`).
+  version: '1.0.1'
+  title: HeiaHeia Admin API
+  termsOfService: 'https://www.hintsa.com/terms/'
+  contact:
+    email: admin@luotaamo.fi
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: organisations
+    description: Operations for managing organisations
+  - name: memberships
+    description: >-
+      Operations for managing user accounts / user memberships in 
+      organisation
+  - name: scheduled surveys
+    description: Operations for managing scheduled surveys
+  - name: surveys
+    description: Operations for fetching surveys
+  - name: reports
+    description: Operations for managing reports
+  - name: tags
+    description: Operations for managing organisation tags
+  - name: teams
+    description: Operations for managing organisation teams
+  - name: updates
+    description: Operations for following data changes on server
+  - name: membership mass actions
+    description: >-
+      Mass operations that perform operations for a set of users.
+      Since the mass operations can affect a large number of users
+      and take considerable amount of time, they are performed in
+      the background and caller should poll the `actions/{id}` API
+      to follow the progress of operation. Note that technically it
+      is possible for the operation to complete immediately and the
+      caller must be prepared for that too.
+  - name: membership imports
+    description: >-
+      Operations for managing importing users from CSV files
+  - name: authentication
+    description: >-
+      Operations for managing authentication
+paths:
+  /admin/v1/documents/organisations:
+    get:
+      tags:
+        - organisations
+      summary: >-
+        List all organisations that can be administered by calling
+        user
+      operationId: listOrganisations
+      parameters:
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Organisations were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationsResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{id}':
+    get:
+      tags:
+        - organisations
+      summary: Return details for a specific organisation
+      operationId: showOrganisation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: >-
+            Identifier of the organisation whose details to fetch
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Organisation was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of: 
+            `invalid_param`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/memberships':
+    get:
+      tags:
+        - memberships
+      summary: List all user memberships for given organisation
+      operationId: listMemberships
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+      responses:
+        '200':
+          description: Memberships were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - memberships
+      summary: >-
+        Add a new member to an organisation. If no user with given
+        email address exists in the system, also adds a new user.
+      operationId: addMembership
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        description: >-
+          Defines attributes of the membership to add. Note that the
+          following properties cannot currently be set for this API
+          operation: `tags`, `active_suveys`. Also, the objects in the
+          `team_memberships` array are expected to contain `id` field (and
+          only the `id` field) as opposed to what the example shows.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationMembership'
+      responses:
+        '200':
+          description: Membership was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembership'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `email_already_in_use`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/memberships/{membership_id}':
+    get:
+      tags:
+        - memberships
+      summary: Return details for a specific membership
+      operationId: showMembership
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_membership_id'
+      responses:
+        '200':
+          description: Membership was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembership'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership not found. `error` can be any of:
+            `membership_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    put:
+      tags:
+        - memberships
+      summary: >-
+        Update an existing organisation membership.
+      operationId: updateMembership
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_membership_id'
+      requestBody:
+        description: >-
+          Defines new attributes for the membership. Note that the
+          following properties cannot currently be set with this API
+          operation: `active_suveys`, `tags`, `team_memberships`.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationMembership'
+      responses:
+        '200':
+          description: Membership was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembership'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `email_already_in_use`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership not found. `error` can be any of:
+            `membership_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - memberships
+      summary: Remove a user from an organisation
+      operationId: deleteMembership
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_membership_id'
+      responses:
+        '204':
+          description: Membership was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership not found. `error` can be any of:
+            `membership_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/scheduled_surveys':
+    get:
+      tags:
+        - scheduled surveys
+      summary: List all scheduled surveys
+      operationId: listScheduledSurveys
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: closed
+          in: query
+          description: >-
+            Defines whether to return only scheduled surveys that are
+            currently open, only those that are closed, or all scheduled
+            surveys (when this parameter is not defined all scheduled
+            surveys are returned).
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Scheduled surveys were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationScheduledSurveysResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - scheduled surveys
+      summary: >-
+        Schedule new survey.
+      operationId: scheduleSurvey
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        description: >-
+          Defines attributes of the scheduled survey to add.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationScheduledSurvey'
+      responses:
+        '200':
+          description: Scheduled survey was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationScheduledSurvey'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `survey_already_open`,
+            `survey_not_found`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/scheduled_surveys/{survey_id}':
+    get:
+      tags:
+        - scheduled surveys
+      summary: Return details for a specific scheduled survey
+      operationId: showScheduledSurvey
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/scheduled_survey_id'
+      responses:
+        '200':
+          description: Scheduled survey was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationScheduledSurvey'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    put:
+      tags:
+        - scheduled surveys
+      summary: >-
+        Update an existing scheduled survey.
+      operationId: updateScheduledSurvey
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/scheduled_survey_id'
+      requestBody:
+        description: >-
+          Defines new attributes for the scheduled survey. The
+          `closed` property is automatically updated based on the
+          `ends_on` value. Note that the embedded survey object
+          cannot in fact be updated.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationScheduledSurvey'
+      responses:
+        '200':
+          description: Scheduled survey was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationScheduledSurvey'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - scheduled surveys
+      summary: >-
+        Remove a sheculed survey (and related reports) from an
+        organisation
+      operationId: removeScheduledSurvey
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/scheduled_survey_id'
+      responses:
+        '204':
+          description: Scheduled survey was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/scheduled_surveys/{survey_id}/breakdown':
+    get:
+      tags:
+        - scheduled surveys
+      summary: >-
+        Return participant and answer breakdown for a specific scheduled
+        survey
+      operationId: showScheduledSurveyBreakdown
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/scheduled_survey_id'
+      responses:
+        '200':
+          description: Breakdown was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationScheduledSurveyBreakdown'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/surveys':
+    get:
+      tags:
+        - surveys
+      summary: List all surveys
+      operationId: listSurveys
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: schedulable
+          in: query
+          description: >-
+            Defines whether to return only surveys that can currently be
+            scheduled, only those that cannot be scheduled, or all surveys
+            that can be accessed (when this parameter is not defined all
+            surveys are returned).
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Surveys were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSurveysResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/surveys/{survey_id}':
+    get:
+      tags:
+        - surveys
+      summary: Return details for a specific survey
+      operationId: showSurvey
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: survey_id
+          in: path
+          required: true
+          description: Identifier of the survey whose details to fetch
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Survey was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Survey not found. `error` can be any of:
+            `survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/reports':
+    get:
+      tags:
+        - reports
+      summary: Fetch available reports for given organisation
+      operationId: listReports
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Reports successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationSurveyReportsResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - reports
+      summary: Create report
+      operationId: createReport
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrganisationReport'
+      responses:
+        '200':
+          description: Report successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationSurveyReport'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `scheduled_survey_not_found`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/reports/{report_id}':
+    put:
+      tags:
+        - reports
+      summary: >-
+        Update an existing report.
+      operationId: updateReport
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: report_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: >-
+          Defines new attributes for the report. Only the `viewed` property
+          can be set.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationSurveyReport'
+      responses:
+        '200':
+          description: Report was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationSurveyReport'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Report not found. `error` can be any of: `report_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/tags':
+    get:
+      tags:
+        - tags
+      summary: List all tags for given organisation
+      operationId: listTags
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Tags were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTagsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - tags
+      summary: >-
+        Add a new tag to an organisation.
+      operationId: addTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        description: >-
+          Defines attributes of the tag to add.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationTag'
+      responses:
+        '200':
+          description: Tag was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTag'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `tag_already_exists`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/tags/{tag_id}':
+    get:
+      tags:
+        - tags
+      summary: Return details for a specific tag
+      operationId: showTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_tag_id'
+      responses:
+        '200':
+          description: Tag was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTag'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Tag not found. `error` can be any of: `tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    put:
+      tags:
+        - tags
+      summary: >-
+        Update an existing tag.
+      operationId: updateTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_tag_id'
+      requestBody:
+        description: >-
+          Defines new attributes for the tag.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationTag'
+      responses:
+        '200':
+          description: Tag was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTag'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Tag not found. `error` can be any of: `tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - tags
+      summary: Remove a tag from the system
+      operationId: deleteTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_tag_id'
+      responses:
+        '204':
+          description: Tag was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Tag not found. `error` can be any of: `tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/teams':
+    get:
+      tags:
+        - teams
+      summary: List all teams for given organisation
+      operationId: listTeams
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Teams were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTeamsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - teams
+      summary: >-
+        Add a new team to an organisation.
+      operationId: addTeam
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        description: >-
+          Defines attributes of the team to add.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationTeam'
+      responses:
+        '200':
+          description: Team was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTeam'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `team_already_exists`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/teams/{team_id}':
+    get:
+      tags:
+        - teams
+      summary: Return details for a specific team
+      operationId: showTeam
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_team_id'
+      responses:
+        '200':
+          description: Team was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTeam'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Team not found. `error` can be any of: `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    put:
+      tags:
+        - teams
+      summary: >-
+        Update an existing team.
+      operationId: updateTeam
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_team_id'
+      requestBody:
+        description: >-
+          Defines new attributes for the team.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationTeam'
+      responses:
+        '200':
+          description: Team was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTeam'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Team not found. `error` can be any of: `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - teams
+      summary: Remove a team from the system
+      operationId: deleteTeam
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_team_id'
+      responses:
+        '204':
+          description: Team was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Team not found. `error` can be any of: `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/teams/{team_id}/avatar':
+    put:
+      tags:
+        - teams
+      summary: Set a new avatar for a team
+      operationId: setAvatar
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_team_id'
+      requestBody:
+        description: >-
+          The image to use as team avatar. JPEG and PNG formats are
+          supported. The server automatically generates various
+          thumbnail sizes for the avatar.
+        content:
+          'image/png':
+            schema:
+              type: string
+              format: binary        
+          'image/jpeg':
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: New avatar was successfully uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTeam'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Team not found. `error` can be any of: `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - teams
+      summary: Remove avatar from a team
+      operationId: removeAvatar
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/organisation_team_id'
+      responses:
+        '200':
+          description: Team avatar was successfully removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationTeam'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Team not found. `error` can be any of: `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/updates':
+    get:
+      tags:
+        - updates
+      summary: Fetch updates that have taken place since last call
+      description: >-
+        This API allows the caller to be notified of updates to
+        objects the caller may have cached locally. Rich clients
+        typically want to periodically poll this API to get ensure
+        they remain up-to-date.
+        This API uses different kind of pagination than other APIs
+        and instead of passing some kind of page number the caller
+        needs to pass the largest `OrganisationUpdate` object id it
+        has seen thus far. Before the first call this API the client
+        needs to make a call to the `latest_id` API to get initial
+        identifier that must be passed to this API.
+      operationId: listUpdates
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: last_seen_id
+          in: query
+          required: true
+          description: >-
+            Largest id seen in the last call to this API operation (or
+            the value returned by the `latest_id` API call in case no
+            updates have previously been returned).
+          example: 592150323
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Updates successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationUpdatesResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/updates/latest_id':
+    get:
+      tags:
+        - updates
+      summary: Fetch identifier of latest id
+      description: >-
+        This API returns initial value that the client must pass
+        to the first `updates` API call that it makes. Passing any
+        other value than what this API returns may result in the
+        `updates` API returning unexpected updates. This API should
+        only be called once, after the first call the client needs
+        to determine appropriate id based on the `updates` API
+        response.
+      operationId: getLatestUpdateId
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      responses:
+        '200':
+          description: Latest id successfully fetched
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+                example: 5285685
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/{action_id}':
+    get:
+      tags:
+        - membership mass actions
+      summary: >-
+        Fetch latest state of a mass admin action
+      description: >-
+        Returns current state of given mass action. Clients should
+        poll this API to observe the progress of a mass action
+        until it completes.
+      operationId: fetchMassActionDetails
+      parameters:
+        - name: action_id
+          in: path
+          description: Identifier of the mass action to access
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Action details were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Action not found. `error` can be any of:
+            `mass_action_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/{action_id}/errors':
+    get:
+      tags:
+        - membership mass actions
+      summary: List errors for given mass admin action
+      operationId: listMassActionErrors
+      parameters:
+        - name: action_id
+          in: path
+          description: Identifier of the mass action to access
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Errors were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMassActionErrorsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Mass action not found. `error` can be any of:
+            `mass_action_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/enable_hh_core':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Enable HeiaHeia (Parempi Vire) functionality for user(s).
+      description: >-
+        Finds all users matching given filter conditions and enables
+        HeiaHeia functionality for matching users who don't already
+        have it enabled. Users who already have it enabled are
+        unaffected. Users are sent an email with instructions for
+        taking the service into use.
+      operationId: massEnableHHCore
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/disable_hh_core':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Disable HeiaHeia (Parempi Vire) functionality for user(s).
+      description: >-
+        Finds all users matching given filter conditions and disables
+        HeiaHeia functionality for matching users who currently
+        have it enabled. Users who already have it disabled are
+        unaffected.
+      operationId: massDisableHHCore
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/resend_invitation':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Resend HeiaHeia (Parempi Vire) invitation to user(s).
+      description: >-
+        Finds all users matching given filter conditions and resends
+        invitation to start using the HeiaHeia (Parempi Vire) service
+        to them. The invitation is not resent to users for whom the
+        functionality has not been enabled.
+      operationId: massResendInvitation
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/add_tag':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Add tag for user(s).
+      description: >-
+        Finds all users matching given filter conditions and adds
+        given tag for them. Users who already have the tag are
+        unaffected.
+      operationId: massAddTag
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: tag_id
+          in: query
+          example: 520211
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/remove_tag':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Remove tag from user(s).
+      description: >-
+        Finds all users matching given filter conditions and removes
+        given tag from them. Users who don't currently have the tag
+        are unaffected.
+      operationId: massRemoveTag
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: tag_id
+          in: query
+          example: 520211
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/join_team':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Add user(s) to team.
+      description: >-
+        Finds all users matching given filter conditions and makes
+        them members of given team. Users who are already members
+        of the team are unaffected.
+      operationId: massJoinTeam
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: team_id
+          in: query
+          example: 45328951
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/leave_team':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Remove user(s) from team.
+      description: >-
+        Finds all users matching given filter conditions and removes
+        them from given team. Users who aren't currently members of
+        the team are unaffected.
+      operationId: massLeaveTeam
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: team_id
+          in: query
+          example: 45328951
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/start_survey':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Active survey for user(s).
+      description: >-
+        Finds all users matching given filter conditions and activates
+        given survey for them. Users for whom the survey is already
+        active are unaffected; use the `resend_survey_invitation` API
+        to resend invitation for those. Affected users will be sent an
+        email invitation to take the survey.
+      operationId: massStartSurvey
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: scheduled_survey_id
+          in: query
+          example: 48373
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`,
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/stop_survey':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Deactivate survey for user(s).
+      description: >-
+        Finds all users matching given filter conditions and disables
+        given scheduled survey for them. Users who have not been
+        invited to take the survey are unaffected. Affected users
+        will not be notified but if they try to take the survey using
+        link they received earlier, they will be told the survey no
+        longer exists.
+      operationId: massStopSurvey
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: scheduled_survey_id
+          in: query
+          example: 48373
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`,
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/resend_survey_invitation':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Resend survey invitation to user(s).
+      description: >-
+        Finds all users matching given filter conditions and resends
+        invitation to take the survey to them. The invitation is not
+        resent for users who have not been invited to the survey nor
+        to users who have already completed the survey.
+      operationId: massResendSurveyInvitation
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: scheduled_survey_id
+          in: query
+          example: 48373
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`,
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/membership_imports':
+    get:
+      tags:
+        - membership imports
+      summary: List all membership import tasks for given organisation
+      description: >-
+        The imports remain available for an indefinite amount after creation
+        before they are cleaned up.
+      operationId: listMembershipImports
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Membership imports were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - membership imports
+      summary: >-
+        Create new membership import task
+      description: >-
+        The newly created task will be in `pending` state initially. Individual
+        operations associated with the task can be listed and toggled on or off
+        until the operation is actually started by updating the `state` field
+        to value `ongoing`.
+      operationId: addMembershipImport
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  type: string
+                  description: >-
+                    A CSV file containing details of the users to add to the
+                    organisation. The CSV must contain columns `first_name`,
+                    `last_name` and `email`. The CSV may optionally contain
+                    `id` (external identifier of the user if available, should
+                    be provided to allow changing the user's email address if
+                    user's name changes, otherwise email is used to identify
+                    users), `language` (two letter language code like `en`,
+                    defaults to `fi`), `hh_enabled` (synonym for `pv_enabled`,
+                    whether or not to enabled the HH / PV functionality for the
+                    user, default is `false`), `team` (multiple columns with
+                    this name can be defined to specify multiple teams, the
+                    value may contain bar separated values like `BU1|Unit1`
+                    to define team hierarchy), `tag` (multiple columns with
+                    this name can be defined to specify multiple tags, the
+                    value may contain bar separated value like `Foreman|John`
+                    to specify the category of a tag in addition to the name).
+                mode:
+                  type: string
+                  enum:
+                    - add_and_update_only
+                    - remove_imported
+                    - full_replace
+                  default: remove_imported
+                  description: >-
+                    Defines how to handle current organisation members that
+                    are not present in the input data. `add_and_update_only`
+                    does not remove any users from the organisation, it only
+                    adds new ones and updates those with matching email / id.
+                    `remove_imported` removes existing members who are not
+                    found from input data and have previously been imported
+                    (as opposed to being manually created from UI).
+                    `full_replace` removes any existing members who are not
+                    found from input data.
+                hh_core_enabled:
+                  type: boolean
+                  default: null
+                  description: >-
+                    Whether or not to enable HH / PV functionality for users.
+                    This setting only has effect in case the CSV file does not
+                    contain `hh_enabled` / `pv_enabled` column or value of that
+                    field is empty for some users. When the value is not
+                    provided HH / PV functionality will be disabled for new
+                    users and kept in existing state for existing users, when
+                    `false` the functionality will be disabled for all users,
+                    and when `true` the functionality will be enabled for all
+                    users ("all" referring to all users for whom no explicit
+                    value has been defined in the CSV).
+      responses:
+        '200':
+          description: Membership import task was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembershipImportTask'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `xls_not_supported` (file type is `.xls(x)`, which
+            is not supported), `csv_required` (file type is anything but
+            `.csv` or `.xls(x)`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/membership_imports/{import_id}':
+    get:
+      tags:
+        - membership imports
+      summary: >-
+        Return current state of a specific membership import task
+      operationId: showMembershipImport
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/membership_import_id'
+      responses:
+        '200':
+          description: Membership import task was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembershipImportTask'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership import not found. `error` can be any of:
+            `membership_import_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    put:
+      tags:
+        - membership imports
+      summary: >-
+        Update (start) an existing organisation membership import task.
+      operationId: updateMembershipImport
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/membership_import_id'
+      requestBody:
+        required: true
+        description: >-
+          The only valid state transition for `state` is from `pending` to
+          `ongoing`, which starts the import operation.
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationMembershipImportTask'
+      responses:
+        '200':
+          description: Membership import was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembership'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `email_already_in_use`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership not found. `error` can be any of:
+            `membership_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - membership imports
+      summary: Remove a membership import task
+      operationId: deleteMembershipImport
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/membership_import_id'
+      responses:
+        '204':
+          description: Membership import task was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership import not found. `error` can be any of:
+            `membership_import_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/membership_imports/{import_id}/items':
+    get:
+      tags:
+        - membership imports
+      summary: List all membership import items for given import task
+      operationId: listMembershipImportItems
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/membership_import_id'
+        - name: actions
+          in: query
+          description: >-
+            Filter results by action type. Multiple types may be specified.
+            If missing/empty all types of actions are returned.
+          schema:
+            type: array
+            items:
+              type: string
+              enum: ["add", "update", "remove", "error"]
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Membership import items were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipImportItemsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership import not found. `error` can be any of:
+            `membership_import_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/membership_imports/{import_id}/items/{item_id}':
+    put:
+      tags:
+        - membership imports
+      summary: Update a membership import item
+      operationId: updateMembershipImportItem
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/membership_import_id'
+        - name: item_id
+          in: path
+          required: true
+          description: >-
+            Identifier of the membership import item to update
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        description: >-
+          The `skip` attribute cannot be updated for items with `action`
+          set to `error`, those will always be skipped.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganisationMembershipImportItem'
+      responses:
+        '200':
+          description: Membership import item was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationMembershipImportItem'
+        '400':
+          description: >-
+            Invalid request. `error` can be any of `invalid_param`,
+            `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership import task or item not found. `error` can be any of:
+            `membership_import_not_found`, `membership_import_item_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  /admin/v1/control/login/send_token:
+    post:
+      tags:
+        - authentication
+      summary: >-
+        Request one-time authentication token via email.
+      description: >-
+        All parameters may be provided either as query parameters or in
+        request body.
+      operationId: sendAuthTokenViaEmail
+      parameters:
+        - name: email
+          in: query
+          description: >-
+            Email address of the user for whom to send login token.
+          required: true
+          schema:
+            type: string
+        - name: language
+          in: query
+          description: >-
+            Language for the login token email. Defaults to user's language
+            configured in the backend database.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Email was successfully sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationsResponse'
+        '400':
+          description: >-
+            Invalid request. `error` can be any of `invalid_param`,
+            `missing_param`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  /oauth/token:
+    post:
+      tags:
+        - authentication
+      summary: >-
+        Create new access token
+      description: >-
+        All parameters may be provided either as query parameters or in
+        request body.
+      operationId: createAccessToken
+      parameters:
+        - name: client_id
+          in: query
+          description: >-
+            Identifier of the client application
+          required: true
+          schema:
+            type: string
+        - name: client_secret
+          in: query
+          description: >-
+            Secret of the client application. This should not be exposed
+            publicly if technically.
+          required: true
+          schema:
+            type: string
+        - name: grant_type
+          in: query
+          description: >-
+            Type of the OAuth grant to use for authentication. One of
+            `password`, `magic_token`.
+          required: true
+          schema:
+            type: string
+            enum: ["password", "magic_token"]
+        - name: username
+          in: query
+          description: >-
+            Email of the user for whom to create access token. Must be
+            provided when `grant_type` is `password`.
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: >-
+            User password. Must be provided when `grant_type` is `password`.
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: >-
+            Email of the user for whom to create access token. Must be
+            provided when `grant_type` is `password`.
+          schema:
+            type: string
+        - name: magic_token
+          in: query
+          description: >-
+            One-time magic token. Must be provided when `grant_type` is
+            `magic_token`.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Access token was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+        '400':
+          description: >-
+            Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: >-
+            Invalid authentication details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /oauth/revoke:
+    post:
+      tags:
+        - authentication
+      summary: >-
+        Revoke an access token
+      description: >-
+        Revokes the access token used to authenticate this request.
+      operationId: revokeAccessToken
+      responses:
+        '204':
+          description: Access token was successfully revoked.
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+security:
+  - admin_api_auth:
+      - admin_api
+components:
+  schemas:
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: C6061FA11655417D9CEA90366054638F
+    BreakdownItem:
+      type: object
+      description: >-
+        Participant and answer details for a specific team or tag.
+        Depending on the type of the referenced group, only the
+        `team` or `tag` property is present.
+      properties:
+        id:
+          type: string
+          example: 485402_team_3205492853
+        answer_count:
+          type: integer
+          format: int32
+          example: 44
+          description: >-
+            Number of answers in this group.
+        participant_count:
+          type: integer
+          format: int32
+          example: 69
+          description: >-
+            Number of participants in this group.
+        insufficient_data:
+          type: boolean
+          example: false
+          description: >-
+            `true` if the group can be shown in report, `false`
+            otherwise.
+        insufficient_data_reason:
+          type: string
+          example: null
+          enum: ["too_few_results", "too_similar"]
+          description: >-
+            Identifies the reason why this group cannot be shown
+            in the report. `too_few_results` indicates that the
+            number of respondents in this group was below required
+            threshold. `too_similar` indicates that this group is
+            too similar to some other group or combination or groups.
+        tag:
+          $ref: '#/components/schemas/OrganisationTag'
+        team:
+          $ref: '#/components/schemas/CompactOrganisationTeam'
+    CompactOrganisation:
+      type: object
+      description: >-
+        Compact representation of an organisation.
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 840299
+        name:
+          type: string
+          example: Acme Corporation
+        size_class:
+          type: integer
+          format: int32
+          example: 50
+          description: >-
+            One of three values to indicate small (20), medium (50)
+            or large (10000) organisation
+    CompactOrganisationScheduledSurvey:
+      type: object
+      description: >-
+        Compact representation of organisation specific instance
+        of a survey. The compact variant of survey is used in some
+        API calls to make the responses smaller.
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 4305091
+        started_at:
+          type: string
+          format: dateTime
+          readOnly: true
+          description: >-
+            Date and time when the organisation survey was initially
+            started. Does not change if a closed survey is reopened.
+          example: "2018-01-01T08:00:10+00:00"
+        ends_on:
+          type: string
+          format: date
+          description: >-
+            Date when the survey closes. The survey can still be
+            taken on this day. The server sends automatic reminder to
+            take the survey the day before closing day (for users
+            who haven't yet taken the survey) so it is recommended to
+            pick some day between Tuesday and Friday.
+          example: "2018-01-14"
+        closed:
+          type: boolean
+          readOnly: true
+          example: false
+          description: >-
+            Defines whether the survey can still be taken or not.
+            This attribute is automatically updated when current date
+            goes beyond the end date of the survey.
+        survey:
+          $ref: '#/components/schemas/CompactSurvey'
+    CompactOrganisationTeam:
+      type: object
+      description: >-
+        Compact representation of a team within an organisation.
+        Compact teams are used in API calls that do not directly
+        manage teams themselves to make the responses smaller.
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          example: 3205492853
+        name:
+          type: string
+          example: Accounting
+        parent_id:
+          type: integer
+          format: int64
+          example: 6869313054
+          description: >-
+            Teams are structured in a tree hierarchy. This property
+            defines the parent of this team.
+    CompactSurvey:
+      type: object
+      description: >-
+        Compact representation of a survey. Surveys are global
+        constructs that may be referenced from organisation specific
+        instances ([Compact]OrganisationScheduledSurvey). The compact
+        variant of survey is used in some API calls to make the
+        responses smaller.
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 8402
+        title:
+          $ref: '#/components/schemas/MultilanguageString'
+    MassAction:
+      type: object
+      description: >-
+        Details of (potentially) asynchronous mass operation.
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 629221
+        action:
+          type: string
+          description: >-
+            Name of the operation this action is associated with.
+          example: enable_hh_core
+          enum:
+            - enable_hh_core
+            - disable_hh_core
+            - add_tag
+            - remove_tag
+            - join_team
+            - leave_team
+            - start_survey
+            - stop_survey
+            - resend_invitation
+            - resend_survey_invitation
+        total:
+          type: integer
+          format: int32
+          description: Number of entries matched by filter params.
+          example: 152
+        progress:
+          type: integer
+          format: int32
+          description: Number of entries processed so far.
+          example: 130
+        failed:
+          type: integer
+          format: int32
+          example: 0
+          description: >-
+            Number of entries for which the operation failed. Use
+            the `actions/{id}/errors` API to fetch details of the
+            errors.
+        noops:
+          type: integer
+          format: int32
+          example: 20
+          description: >-
+            Number of entries for which the operation was not
+            applicable. E.g. for `enable_hh_core` this would be
+            the number of members who already had the HeiaHeia
+            functionality enabled.
+            Note that for some operations `noops` does not
+            return expected value due to privacy concerns. E.g.
+            the `resend_survey_invitation` does not return the
+            number of users for whom the invitation was not
+            resent as that would tell which users have taken
+            the survey.
+        completed:
+          type: boolean
+          example: false
+          description: >-
+            `true` if the operation has completed, `false`
+            otherwise. Typically `progress` should equal
+            `total` for completed actions.
+    MassActionError:
+      description: >-
+        Details of an error that occurred for a mass action.
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: >-
+            Identifier of the error object (not the id of the object
+            that failed to be updated).
+          example: 4002156
+        item_type:
+          type: string
+          enum: ["Organisation", "OrganisationMembership", "OrganisationScheduledSurvey"]
+          description: >-
+            Identifies the type of object that was attempted to be
+            changed.
+          example: Organisation
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          type: object
+          description: An object corresponding to the `item_type` value.
+          example: { "id": 568210, "name": "Acme Co", "size_class": 10000, "total_membership_count": 5041, "hh_core_total_membership_count": 4154, "hh_core_accepted_membership_count": 3747 }
+    MultilanguageString:
+      type: object
+      readOnly: true
+      description: >-
+        Translated string. English and Finnish are typically always
+        defined, other languages may or may not be available
+        depending on the use-case.
+      properties:
+        en:
+          type: string
+          example: Some string
+        fi:
+          type: string
+          example: Jokin teksti
+        sv:
+          type: string
+          example: Något text
+    NewOrganisationReport:
+      type: object
+      properties:
+        sheduled_survey:
+          $ref: '#/components/schemas/NewOrganisationReportSurvey'
+    NewOrganisationReportSurvey:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: >-
+            Identifier of the scheduled survey for which to create a report
+          example: 85205
+    Organisation:
+      description: Full representation of an organisation.
+      allOf:
+        - $ref: '#/components/schemas/CompactOrganisation'
+        - type: object
+          properties:
+            total_membership_count:
+              type: integer
+              format: int32
+              readOnly: true
+              example: 36
+              description: >-
+                Total number of members currently in the organisation
+            hh_core_total_membership_count:
+              type: integer
+              format: int32
+              readOnly: true
+              example: '26'
+              description: >-
+                Total number of members with the HeiaHeia (Parempi
+                Vire) functionality enabled
+            hh_core_accepted_membership_count:
+              type: integer
+              format: int32
+              readOnly: true
+              example: '22'
+              description: >-
+                Number of members for whom HeiaHeia (Parempi Vire)
+                has been enabled and who have taken the service into
+                use
+    OrganisationMembership:
+      type: object
+      description: >-
+        User membership in a specific organisation along with any
+        other user / membership attributes.
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          example: 575602351
+        hh_core_enabled:
+          type: boolean
+          example: true
+          description: >-
+            Defines whether the HeiaHeia (/ Parempi Vire)
+            functionality (mobile apps, web interface) is enabled
+            for this user in this organisation.
+        hh_core_accepted_at:
+          type: string
+          format: dateTime
+          readOnly: true
+          example: "2018-01-03T13:24:10+00:00"
+          description: >-
+            Date and time when user took the HeiaHeia (/ Parempi
+            Vire) service into use (always `null` when
+            `hh_core_enabled` is `false`).
+        email:
+          type: string
+          example: john.smith@example.com
+          description: >-
+            User's email address in current organisation. Same user
+            may have other email addressess in other organisations
+        primary:
+          type: boolean
+          readOnly: true
+          example: true
+          description: >-
+            True if this is user's primary organisation membership.
+            Certain fields (user's name and email) are not editable
+            via API for non-primary organisation memberships.
+        tags:
+          type: array
+          description: "User's tags in current organisation"
+          items:
+            $ref: '#/components/schemas/OrganisationTag'
+        team_memberships:
+          type: array
+          description: >-
+            User's team memberships in current organisation. Only
+            accepted team memberships are shown (admin defined
+            memberships are always accepted).
+          items:
+            $ref: '#/components/schemas/CompactOrganisationTeam'
+        active_surveys:
+          type: array
+          description: >-
+            The open surveys the user has currently been invited to
+            take.
+          items:
+            $ref: '#/components/schemas/CompactOrganisationScheduledSurvey'
+        user:
+          $ref: '#/components/schemas/User'
+    OrganisationMembershipImportTask:
+      type: object
+      description: >-
+        Membership import task. The task is associated with a number of
+        import items that define the individual operations to be performed.
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 9351
+        created_at:
+          type: string
+          format: dateTime
+          readOnly: true
+          example: "2018-01-08T14:53:40+00:00"
+        add_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 325
+          description: >-
+            The number of new members that shall be added to the organisation.
+        update_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 67
+          description: >-
+            The number of members that shall be updated.
+        remove_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 38
+          description: >-
+            The number of members that shall be removed.
+        error_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 1
+          description: >-
+            The number of rows that had one or more errors and cannot be
+            imported.
+        noop_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 520
+          description: >-
+            The number of rows that fully matched existing members and do not
+            result in any kind of change in the system state.
+        state:
+          type: string
+          enum: ["pending", "ongoing", "completed"]
+          example: pending
+          description: >-
+            Current state of the import task. All new tasks start in
+            `pending` state and need to be explicitly updated to `ongoing`
+            state to actually start the import.
+        unknown_columns:
+          type: array
+          readOnly: true
+          description: >-
+            Identifies column names that could not be mapped to any supported
+            column. Unknown columns typically indicate an error in the input
+            that should be corrected.
+            Note that the array of unknown columns may also contain empty
+            string. This happens when a column that is missing name altogether
+            still has data and is typically also an indication of invalid
+            input.
+          example: ["teem"]
+          items:
+            type: string
+    OrganisationMembershipImportItem:
+      type: object
+      description: >-
+        Membership import item. The item describes an individual import action
+        and can be toggled on or off.
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 4725485
+        action:
+          type: string
+          enum:
+            - add
+            - update
+            - remove
+            - error
+          readOnly: true
+          example: add
+          description: >-
+            The actual action that will be performed. `error` is a special case
+            that indicates there was something wrong with the input data and
+            the row could not be processed.
+        skip:
+          type: boolean
+          default: false
+          description: >-
+            Defines whether this action should be applied or not. By default
+            all actions (except errors) shall be applied but user may be given
+            an option to skip actions in case they are undesired for any
+            reason.
+        updates:
+          type: array
+          description: >-
+            In case `action` is `update` this defines the fields that will be
+            updated.
+          readOnly: true
+          items:
+            type: string
+            enum:
+              - hh_core_enabled
+              - language
+              - teams
+              - tags
+              - first_name
+              - last_name
+              - email
+        properties:
+          $ref: '#/components/schemas/OrganisationMembershipImportItemProperties'
+        errors:
+          $ref: '#/components/schemas/OrganisationMembershipImportItemErrors'
+    OrganisationMembershipImportItemProperties:
+      type: object
+      readOnly: true
+      description: >-
+        Values read from input data for this user. Some fields may be identical
+        to existing data (in case `action` is `update` and the `updates` field
+        in the import item should be used to see what has actually changed).
+      properties:
+        hh_core_enabled:
+          type: boolean
+          example: true
+        language:
+          type: string
+          example: fi
+          enum: ["da", "de", "en", "es", "fi", "fr", "it", "no", "pl", "ru", "sl", "sv", "zh"]
+        teams:
+          type: array
+          items:
+            type: string
+          example: ["Accounting"]
+        tags:
+          type: array
+          items:
+            type: string
+          example: ["Left handed"]
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Smith
+        email:
+          type: string
+          example: john.smith@example.com
+    OrganisationMembershipImportItemErrors:
+      type: object
+      readOnly: true
+      description: >-
+        Defines field specific errors that were encountered while parsing the
+        input data. Any error prevents importing the entry.
+      properties:
+        id:
+          type: array
+          description: >-
+            `sequential` is returned if the provided identifiers form a
+            sequence where each value is previous plus one (the order does
+            not actually need to be sequential, the backend sorts the ids).
+            This is practially always an indication of user generating the
+            data misunderstanding how the field should be used and manually
+            generating identifiers instead of using actual ids from the
+            system the data originates from. `duplicate` is returned if the
+            same identifier repeats for multiple entries.
+          items:
+            type: string
+            enum: ["sequential", "duplidate"]
+        email:
+          type: array
+          items:
+            type: string
+            enum: ["duplicate", "invalid", "missing"]
+        first_name:
+          type: array
+          description: >-
+            Limit for `too_long` is currently set to 40 characters. While the
+            system does support longer names, in the context of importing data
+            longer values typically indicate somehow malformed input.
+          items:
+            type: string
+            enum: ["missing", "too_long"]
+        last_name:
+          type: array
+          description: >-
+            Limit for `too_long` is currently set to 40 characters. While the
+            system does support longer names, in the context of importing data
+            longer values typically indicate somehow malformed input.
+          items:
+            type: string
+            enum: ["missing", "too_long"]
+        teams:
+          type: array
+          description: >-
+            `circular_team_tree` is returned when a team name that has already
+            been seen appears again in the team hierarchy. For example
+            `"BU1|Unit1|BU1`. `too_short` is returned when any individual team
+            name is not at least 2 characters and `too_long` when any
+            individual team name is over 180 characters.
+          items:
+            type: string
+            enum: ["circular_team_tree", "too_long", "too_short"]
+        tags:
+          type: array
+          description: >-
+            `too_long` is returned when name is over 180 characters.
+          items:
+            type: string
+            enum: ["too_long"]
+        language:
+          type: array
+          description: >-
+            `invalid` is returned if the value is not a language code from the
+            set of supported languages.
+          items:
+            type: string
+            enum: ["invalid"]
+    OrganisationScheduledSurvey:
+      description: >-
+        Full representation of organisation specific survey instance.
+      allOf:
+        - $ref: '#/components/schemas/CompactOrganisationScheduledSurvey'
+        - type: object
+          properties:
+            participant_count:
+              type: integer
+              format: int32
+              readOnly: true
+              example: 1320
+              description: >-
+                Number of users that have been invited to take the
+                survey.
+            answer_count:
+              type: integer
+              format: int32
+              readOnly: true
+              example: 584
+              description: >-
+                Number of users who have taken the survey so far.
+            survey:
+              $ref: '#/components/schemas/Survey'
+    OrganisationScheduledSurveyBreakdown:
+      type: object
+      description: >-
+        Breakdown of how many people were invited to the survey and how
+        many actually took it grouped by teams and tags.
+      properties:
+        minimum_answer_count:
+          type: integer
+          format: int32
+          example: 5
+          description: >-
+            Minimum number of answers required per group in order for
+            the group to be included in actual report.
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BreakdownItem'
+        total:
+          type: integer
+          format: int32
+          example: 58
+          description: >-
+            Number of items in the response. The API currently always
+            returns all results so this field is redundant and only
+            returned for the sake of consistency.
+    OrganisationTag:
+      type: object
+      description: >-
+        Tags are used to describe non-hierarchy related user
+        information. Typical information includes things like the time
+        the person has worked for the organisation, age, location,
+        etc. Tags are not visible for the end-users themselves.
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 4395402
+        name:
+          type: string
+          example: 0-1 years
+    OrganisationTeam:
+      description: >-
+        Teams are used to describe organisation hierarchy. They may
+        be modeled to a tree structure.
+        Team memberships and non-managed teams are visible
+        for any user's for whom HH core functionality has been
+        enabled.
+      allOf:
+        - $ref: '#/components/schemas/CompactOrganisationTeam'
+        - type: object
+          properties:
+            avatar_url:
+              type: string
+              readOnly: true
+              example: "https://example.com/path/{size}.png"
+              description: >-
+                URL containing avatar for the user. Caller must
+                replace the {size} placeholder with actual desired
+                size (one of 60x60, 80x80, 120x120, 160x160,
+                320x320)".
+            description:
+              type: string
+              example: Team for all employees in the accounting dep.
+              description: >-
+                Optional description of the team. Typically useful for
+                defining the purpose of the team in case end-users can
+                manage team memberships themselves.
+            managed:
+              type: boolean
+              example: true
+              description: >-
+                Defines whether end-users can join or leave this team.
+                For managed teams memberships are always set by the
+                administrator as part of user import or explicitly
+                via the admin user interface.
+    OrganisationSurveyReport:
+      description: >-
+        Organisation report metadata. Actual report data is accessible via
+        a link defined in the metadata.
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+          description: >-
+            Identifier of the report.
+          example: 38572
+        report_data_url:
+          type: string
+          readOnly: true
+          description: >-
+            URL through which the actual report data can be downloaded. This
+            property is only available when `viewed` has been set to `true`.
+          example: https://example.com/path/report.json
+        viewed:
+          type: boolean
+          description: >-
+            Whether or not the report data has been viewed by the end user.
+            This must be set to `true` before the report data URL can be
+            accessed. Once this is `true` the report can no longer be
+            re-generated via the API.
+          example: true
+        first_viewed_at:
+          type: string
+          format: dateTime
+          readOnly: true
+          description: >-
+            Date and time when report was marked as viwed.
+          example: "2018-01-17T09:46:29+00:00"
+        generated_at:
+          type: string
+          format: dateTime
+          readOnly: true
+          description: >-
+            Date and time when the report was generated. This value changes
+            whenever the report is regenerated. The reports are automatically
+            generated when scheduled surveys close so this can be earlier time
+            than `first_viewed_at`. Reports may be regenerated by customer
+            support in which case this will be later than `first_viewed_at`.
+        scheduled_survey:
+          $ref: '#/components/schemas/CompactOrganisationScheduledSurvey'
+    OrganisationUpdate:
+      description: >-
+        Details of any kind of data change that took place on server.
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: >-
+            Identifier of the update object (not the id of the object
+            that was updated).
+          example: 4002156
+        item_type:
+          type: string
+          enum: ["Organisation", "OrganisationMembership", "OrganisationScheduledSurvey"]
+          description: Identifies the type of object that was changed
+          example: Organisation
+        operation:
+          type: string
+          enum: ["update"]
+          description: >-
+            Identifies the type of change that took place for the
+            object. Currently only `"update"` is supported.
+        data:
+          type: object
+          description: An object corresponding to the `item_type` value.
+          example: { "id": 568210, "name": "Acme Co", "size_class": 10000, "total_membership_count": 5041, "hh_core_total_membership_count": 4154, "hh_core_accepted_membership_count": 3747 }
+    Survey:
+      description: >-
+        Full details of a global (non-organisation) survey.
+      allOf:
+        - $ref: '#/components/schemas/CompactSurvey'
+        - type: object
+          properties:
+            description:
+              $ref: '#/components/schemas/MultilanguageString'
+            icon_url:
+              type: string
+              example: "https://example.com/path/{size}.png"
+              readOnly: true
+              description: >-
+                URL of icon for the survey. Caller must replace the
+                {size} placeholder with actual size (one of 48x48,
+                72x72, 80x80, 96x96, 120x120, 144x144, 192x192).
+            report_key:
+              type: string
+              readOnly: true
+              description: >-
+                Identifies the type of report that should be generated
+                for this survey.
+              default: tyovire
+              enum: ["tyovire", "tyoyhteisovire"]
+    User:
+      type: object
+      description: >-
+        The global (non-organisation specific) data related to
+        organisation user membership.
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          example: 23684028531
+        avatar_url:
+          type: string
+          readOnly: true
+          description: >-
+            URL containing avatar for the user. Caller must replace
+            the {size} placeholder with actual desired size (one of
+            60x60, 80x80, 120x120, 160x160, 320x320)".
+          example: "https://example.com/path/{size}.png"
+        first_name:
+          type: string
+          example: John
+          description: >-
+            User's first name. This property can only be set if
+            current organisation context is the user's primary
+            organisation.
+        last_name:
+          type: string
+          example: Smith
+          description: >-
+            User's last name. This property can only be set if current
+            organisation context is the user's primary organisation.
+        language:
+          type: string
+          example: fi
+          default: en
+          enum: ["da", "de", "en", "es", "fi", "fr", "it", "no", "pl", "ru", "sl", "sv", "zh"]
+          description: >-
+            User's language. This property can only be set if current
+            organisation context is the user's primary organisation.
+    ListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+          example: 1
+          description: >-
+            Total number of results that would be available accross
+            all pages for given request parameters. This value
+            typically defaults to `null` when not explicitly
+            requested.
+    ListMassActionErrorsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/MassActionError'
+    ListOrganisationMembershipsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationMembership'
+    ListOrganisationMembershipImportsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationMembershipImportTask'
+    ListOrganisationMembershipImportItemsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationMembershipImportItem'
+    ListOrganisationScheduledSurveysResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationScheduledSurvey'
+    ListOrganisationSurveyReportsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationSurveyReport'
+    ListOrganisationTagsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationTag'
+    ListOrganisationTeamsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationTeam'
+    ListOrganisationUpdatesResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationUpdate'
+    ListOrganisationsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/CompactOrganisation'
+    ListSurveysResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Survey'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: >-
+            Code that identifies in more detail (over the HTTP status
+            code) what failed exactly
+          default: invalid_param
+          enum:
+            - invalid_api_version
+            - not_found
+            - email_already_in_use
+            - email_not_found
+            - membership_not_found
+            - tag_not_found
+            - team_not_found
+            - mass_action_not_found
+            - report_not_found
+            - membership_import_not_found
+            - membership_import_item_not_found
+            - survey_not_found
+            - scheduled_survey_not_found
+            - report_already_exists
+            - report_already_viewed
+            - survey_already_open
+            - invalid_param
+            - missing_param
+            - no_org_access
+            - xls_not_supported
+            - csv_required
+            - unknown_error
+        error_description:
+          type: string
+          description: >-
+            Additional details regarding the error. Only used for
+            debugging purposes, typically not available in production
+            environments
+  responses:
+    MissingAuthorization:
+      description: Missing authorization information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerNotAvailable:
+      description: Server is temporarily unavailable. Try again later
+  parameters:
+    organisation_id:
+      name: organisation_id
+      in: path
+      required: true
+      description: Identifier of the organisation being accessed
+      schema:
+        type: integer
+        format: int32
+    query_organisation_id:
+      name: organisation_id
+      in: query
+      required: true
+      description: Identifier of the organisation being accessed
+      schema:
+        type: integer
+        format: int32
+    organisation_membership_id:
+      name: membership_id
+      in: path
+      required: true
+      description: >-
+        Identifier of the organisation membership being accessed
+      schema:
+        type: integer
+        format: int32
+    membership_import_id:
+      name: import_id
+      in: path
+      required: true
+      description: >-
+        Identifier of the membership import task being accessed
+      schema:
+        type: integer
+        format: int32
+    organisation_tag_id:
+      name: tag_id
+      in: path
+      required: true
+      description: Identifier of the tag being accessed
+      schema:
+        type: integer
+        format: int32
+    organisation_team_id:
+      name: team_id
+      in: path
+      required: true
+      description: Identifier of the team being accessed
+      schema:
+        type: integer
+        format: int64
+    scheduled_survey_id:
+      name: survey_id
+      in: path
+      required: true
+      description: >-
+        Identifier of the scheduled survey being accessed
+      schema:
+        type: integer
+        format: int32
+    total_required:
+      name: total_required
+      in: query
+      description: >-
+        Defines whether or not total number of results should be
+        returned in the response. Producing the total number of
+        results results in additional load on server side so it is
+        advised not to request it unless the client actually makes
+        use of the value. (default `false`)
+      schema:
+        type: boolean
+        default: false
+    page:
+      name: page
+      in: query
+      description: >-
+        Result page to return. Offset is automatically calculated
+        based on the `per_page` parameter.
+      schema:
+        type: integer
+        format: int32
+        default: 1
+        minimum: 1
+    per_page:
+      name: per_page
+      in: query
+      description: >-
+        Number of results to return per page. (default 20, maximum
+        500)
+      schema:
+        type: integer
+        format: int32
+        default: 20
+        minimum: 1
+        maximum: 500
+    filter_membership_ids:
+      name: membership_ids
+      in: query
+      description: >-
+        Explicit identifiers of the memberships being accessed.
+      schema:
+        type: array
+        example: 857343062,785275391
+        items:
+          type: integer
+          format: int64
+    filter_search:
+      name: search
+      in: query
+      description: >-
+        Text search to perform for the result set produced by
+        other filter conditions (if any). Matches against users'
+        full names.
+        Multiple words may be provided, in which case all of them
+        must (partially) match some words in the user name. E.g.
+        `Jo Do` would match `John Doe` but not `Jane Doe`.
+      schema:
+        type: string
+        example: John Doe
+    filter_tag_ids:
+      name: tag_ids
+      in: query
+      description: >-
+        Identifiers of the tags whose members are being accessed.
+        This is additive between tags and teams.
+      schema:
+        type: array
+        example: 61056,61068
+        items:
+          type: integer
+          format: int64
+    filter_team_ids:
+      name: team_ids
+      in: query
+      description: >-
+        Identifiers of the teams whose members are being accessed.
+        This is additive between teams and tags.
+      schema:
+        type: array
+        example: 52045263,52045266
+        items:
+          type: integer
+          format: int64
+    filter_no_filters:
+      name: no_filters
+      in: query
+      description: >-
+        This parameter must be provided and set to `true` when no
+        filters are provided. This is intended as a safeguard to
+        prevent accidentally applying an operation to all users
+        when no users were intended to be affected.
+      schema:
+        type: boolean
+        example: false
+  securitySchemes:
+    admin_api_auth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /oauth/token
+          scopes:
+            admin_api: Full access to the admin API
