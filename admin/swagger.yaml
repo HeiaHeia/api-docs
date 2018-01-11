@@ -3754,6 +3754,101 @@ components:
           example: [2.8, 3.1699, 4.25, 3.817, 3.5, 3.25]
         breakdown:
           $ref: '#/components/schemas/OrganisationSurveyQuestionOptionBreakdown'
+    OrganisationSurveyReportOrganisationData:
+      type: object
+      description: >-
+        Data across all respondents for organisation, team or tag.
+      allOf:
+        - $ref: '#/components/schemas/OrganisationSurveyReportGlobalData'
+        - type: object
+          properties:
+            participant_count:
+              type: integer
+              format: int32
+              description: >-
+                Number of users in this group who were invited to take
+                the survey.
+              example: 79
+            answer_count:
+              type: integer
+              format: int32
+              description: >-
+                Number of users in this group who completed the survey.
+              example: 51
+            point_categories:
+              type: array
+              description: >-
+                Distribution of users in this group in specific point
+                categories. See `OrganisationSurveyReportPointCategoryMetadata`
+                for more details.
+              items:
+                type: number
+              example: [0, 2.439, 0, 4.878, 12.1951, 14.6341, 34.1463, 31.7073]
+            insufficient_data:
+              type: boolean
+              description: >-
+                `true` if this group either has too few answers or cannot be
+                included in results due to some other reason. When this is `true`
+                any values apart from `participant_count` and `answer_count` for
+                this object will be `null`.
+              example: false
+            insufficient_data_reason:
+              type: string
+              enum:
+                - too_few_results
+                - too_similar
+              description: >-
+                Defines why the data for this group cannot be provided.
+                `too_few_results` is used when the answer count is below the
+                minimum required threshold, `too_similar` is used when the
+                survey participants of this group of users is very similar
+                to some other group(s) of users returned elsewhere in the
+                report.
+              example: null
+    ShareableOrganisationSurveyReportOrganisationData:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
+        - type: object
+          properties:
+            shareable_report_data_url:
+              type: string
+              description: >-
+                Report containing the subset of data for this particular
+                group. This URL can be shared with people who are allowed to
+                access data for a specific group (like a team or tag) but
+                not all other data.
+              example: "https://example.com/path/shareable_report.json"
+    ShareableOrganisationSurveyReportTeamData:
+      type: object
+      description: >-
+        Data across all respondents in a team. In addition to the full team
+        data, this object may also contain tag specific breakdown for the
+        team in question.
+      allOf:
+        - $ref: '#/components/schemas/ShareableOrganisationSurveyReportOrganisationData'
+        - type: object
+          properties:
+            tags:
+              $ref: '#/components/schemas/OrganisationSurveyReportTagsData'
+    OrganisationSurveyReportTeamsData:
+      type: object
+      description: >-
+        Results for all teams in the organisation. This object contains keys
+        for each team, not just a single key. The key values are team ids as
+        strings.
+      properties:
+        "53894821":
+          $ref: '#/components/schemas/ShareableOrganisationSurveyReportTeamData'
+    OrganisationSurveyReportTagsData:
+      type: object
+      description: >-
+        Results for all tags in the organisation. This object contains keys
+        for each tag, not just a single key. The key values are tag ids as
+        strings.
+      properties:
+        "472683":
+          $ref: '#/components/schemas/ShareableOrganisationSurveyReportOrganisationData'
     OrganisationSurveyReportDataInstance:
       type: object
       description: >-
@@ -3788,6 +3883,12 @@ components:
           $ref: '#/components/schemas/OrganisationSurveyReportPointCategoryMetadata'
         global:
           $ref: '#/components/schemas/OrganisationSurveyReportGlobalData'
+        organisation:
+          $ref: '#/components/schemas/ShareableOrganisationSurveyReportOrganisationData'
+        teams:
+          $ref: '#/components/schemas/OrganisationSurveyReportTeamsData'
+        tags:
+          $ref: '#/components/schemas/OrganisationSurveyReportTagsData'
     OrganisationSurveyReportData:
       type: object
       description: >-
@@ -3825,6 +3926,22 @@ components:
             result to the oldest.
           items:
             $ref: '#/components/schemas/OrganisationSurveyReportDataInstance'
+        filter_type:
+          type: string
+          enum:
+            - organisation
+            - teams
+            - tags
+          example: null
+          description: >-
+            If this report is a shareable subreport this key identifies the
+            kind of data that is included in this report.
+        filter_id:
+          type: string
+          example: null
+          description: >-
+            If `filter_type` is `"teams"` or `"tags"` this is the identifier
+            of the team or tag contained in this shared report (as a string).
   responses:
     MissingAuthorization:
       description: Missing authorization information
