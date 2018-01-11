@@ -16,7 +16,7 @@ info:
     For basic resource owner flow one needs to start by making a call to the
     `/oauth/token` resource:
     
-    `POST /oauth/token?username=foo@example.com&password=bar`
+    `POST /oauth/token?username=foo@example.com&password=bar&client_id=id&client_secret=secret`
     
     The server responds with a JSON object containing, among other things,
     the access token:
@@ -1134,7 +1134,9 @@ paths:
         - $ref: '#/components/parameters/organisation_id'
       requestBody:
         description: >-
-          Defines attributes of the team to add.
+          Defines attributes of the team to add. Note that for
+          the parent team only the `id` field needs to / can be
+          assigned.
         required: true
         content:
           'application/json':
@@ -1222,7 +1224,9 @@ paths:
         - $ref: '#/components/parameters/organisation_team_id'
       requestBody:
         description: >-
-          Defines new attributes for the team.
+          Defines new attributes for the team. Note that only the
+          `id` field for the parent needs to / can be defined. To
+          clear the parent set the parent `id` to `null`.
         required: true
         content:
           'application/json':
@@ -1238,7 +1242,8 @@ paths:
         '400':
           description: >-
             Request was invalid. `error` can be any of:
-            `invalid_param`, `missing_param`
+            `invalid_param`, `missing_param`, `circular_team_tree`,
+            (parent) `team_not_found`
           content:
             application/json:
               schema:
@@ -2797,18 +2802,10 @@ components:
         id:
           type: integer
           format: int64
-          readOnly: true
           example: 3205492853
         name:
           type: string
           example: Accounting
-        parent_id:
-          type: integer
-          format: int64
-          example: 6869313054
-          description: >-
-            Teams are structured in a tree hierarchy. This property
-            defines the parent of this team.
     CompactSurvey:
       type: object
       description: >-
@@ -3369,10 +3366,14 @@ components:
                 For managed teams memberships are always set by the
                 administrator as part of user import or explicitly
                 via the admin user interface.
+            parent:
+              $ref: '#/components/schemas/CompactOrganisationTeam'
     OrganisationSurveyReport:
       description: >-
         Organisation report metadata. Actual report data is accessible via
-        a link defined in the metadata.
+        a link defined in the metadata. See definition of
+        OrganisationSurveyReportData in this document for details about the
+        actual report data format.
       type: object
       properties:
         id:
@@ -3657,6 +3658,173 @@ components:
             Additional details regarding the error. Only used for
             debugging purposes, typically not available in production
             environments
+    SurveyQuestionOption:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: "8430172"
+        points:
+          type: integer
+          format: int32
+          example: 5
+          description: >-
+            Number of points granted for picking this option.
+        title:
+          $ref: '#/components/schemas/MultilanguageString'
+    SurveyQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 3214893
+        title:
+          $ref: '#/components/schemas/MultilanguageString'
+        description:
+          $ref: '#/components/schemas/MultilanguageString'
+        category:
+          $ref: '#/components/schemas/MultilanguageString'
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurveyQuestionOption'
+    OrganisationSurveyReportPointCategoryMetadata:
+      type: object
+      description: >-
+        Defines range of possible points users may have scored and the step
+        by which category breakdowns are incremented.
+      properties:
+        minimum:
+          type: integer
+          format: int32
+          description: >-
+            Number of points granted if user chose the worst possible option.
+          example: 1
+        maximum:
+          type: integer
+          format: int32
+          description: >-
+            Number of points granted if user chose the best possible option.
+          example: 5
+        step:
+          type: number
+          description: >-
+            The number of points between each value in point category
+            breakdown. E.g. if this value is 0.5, and `minimum` is 1, then
+            the first value in point breakdown is percentage of users whose
+            average score fell between 1 and 1.4999... points, the second
+            value is users whose average was between 1.5 and 1.999...
+            points, etc.
+          example: 0.5
+    OrganisationSurveyQuestionOptionBreakdown:
+      type: object
+      description: >-
+        Breakdown of how many percentages of users picked a specific
+        option per question.
+      properties:
+        "185430":
+          type: array
+          description: >-
+            Breakdown for a specific question. Note that the key is not
+            `"186430"` but the actual identifier of the question as a
+            string and there is separate key for each question in the
+            survey.
+          items:
+            type: number
+          example: [7.5, 12.5, 10, 60, 20]
+    OrganisationSurveyReportGlobalData:
+      type: object
+      description: >-
+        Data across all respondents from all organisations.
+      properties:
+        average_points:
+          type: number
+          description: Average points for users in the group
+          example: 3.435
+        answer_percentages:
+          type: array
+          description: >-
+            Question specific average points for users in the group.
+            Values are in the same order as the questions defined in
+            `OrganisationSurveyReportData`.
+          items:
+            type: number
+          example: [2.8, 3.1699, 4.25, 3.817, 3.5, 3.25]
+        breakdown:
+          $ref: '#/components/schemas/OrganisationSurveyQuestionOptionBreakdown'
+    OrganisationSurveyReportDataInstance:
+      type: object
+      description: >-
+        Results for a single instance of a survey.
+      properties:
+        generated_at:
+          type: string
+          format: dateTime
+          description: Date and time when this data was generated
+          example: "2018-01-10T09:24:32+00:00"
+        start_time:
+          type: string
+          format: dateTime
+          description: >-
+            Start time of the scheduled survey this data is associated with
+          example: "2018-01-02T07:01:10+00:00"
+        ends_on:
+          type: string
+          format: date
+          description: >-
+            End date of the scheduled survey this data is associated with
+          example: "2018-01-09"
+        minimum_answer_count:
+          type: integer
+          format: int32
+          description: >-
+            Minimum number of answers required per group in order to show
+            results for the group. This limit is applied to protect the
+            privacy of individual respondents.
+          example: 5
+        point_categories:
+          $ref: '#/components/schemas/OrganisationSurveyReportPointCategoryMetadata'
+        global:
+          $ref: '#/components/schemas/OrganisationSurveyReportGlobalData'
+    OrganisationSurveyReportData:
+      type: object
+      description: >-
+        The actual data contained within an organisation survey report. Example
+        report is available [here](https://pv-reports-production.s3.amazonaws.com/33042a21-e6f1-4eef-9e37-b73030e97397/organisation_2806_survey_key_tyovire2_82_4e81984d411f96f0933a57196471a2d3c8cfcd5e85647069cf937d6f465b.json).
+      properties:
+        organisation:
+          $ref: '#/components/schemas/Organisation'
+        survey:
+          $ref: '#/components/schemas/Survey'
+        teams:
+          type: array
+          description: >-
+            All teams in the organisation at the time the report was generated.
+          items:
+            $ref: '#/components/schemas/OrganisationTeam'
+        tags:
+          type: array
+          description: >-
+            All tags in the organisation at the time the report was generated.
+          items:
+            $ref: '#/components/schemas/OrganisationTag'
+        questions:
+          type: array
+          description: >-
+            List of questions associated with the survey this report is for.
+          items:
+            $ref: '#/components/schemas/SurveyQuestion'
+        instances:
+          type: array
+          description: >-
+            List of report instances. If the same survey has been taken
+            multiple times, this list contains results also for any old
+            instances of the same survey. Order is from most recent
+            result to the oldest.
+          items:
+            $ref: '#/components/schemas/OrganisationSurveyReportDataInstance'
   responses:
     MissingAuthorization:
       description: Missing authorization information
