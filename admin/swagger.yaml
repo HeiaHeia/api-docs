@@ -373,7 +373,7 @@ paths:
         - name: closed
           in: query
           description: >-
-            Defines whether to return only scheduled surveys that are
+            Defines whether or not to return only scheduled surveys that are
             currently open, only those that are closed, or all scheduled
             surveys (when this parameter is not defined all scheduled
             surveys are returned).
@@ -651,8 +651,8 @@ paths:
         - name: schedulable
           in: query
           description: >-
-            Defines whether to return only surveys that can currently be
-            scheduled, only those that cannot be scheduled, or all surveys
+            Defines whether or not to return only surveys that can currently
+            the scheduled, only those that cannot be scheduled, or all surveys
             that can be accessed (when this parameter is not defined all
             surveys are returned).
           schema:
@@ -2792,6 +2792,22 @@ components:
             goes beyond the end date of the survey.
         survey:
           $ref: '#/components/schemas/CompactSurvey'
+    CompactOrganisationTag:
+      type: object
+      description: >-
+        Tags are used to describe non-hierarchy related user
+        information. Typical information includes things like the time
+        the person has worked for the organisation, age, location,
+        etc. Tags are not visible for the end-users themselves.
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 4395402
+        name:
+          type: string
+          example: 0-1 years
     CompactOrganisationTeam:
       type: object
       description: >-
@@ -2987,7 +3003,7 @@ components:
           type: boolean
           example: true
           description: >-
-            Defines whether the HeiaHeia (/ Parempi Vire)
+            Defines whether or not the HeiaHeia (/ Parempi Vire)
             functionality (mobile apps, web interface) is enabled
             for this user in this organisation.
         hh_core_accepted_at:
@@ -3017,7 +3033,7 @@ components:
           type: array
           description: "User's tags in current organisation"
           items:
-            $ref: '#/components/schemas/OrganisationTag'
+            $ref: '#/components/schemas/CompactOrganisationTag'
         team_memberships:
           type: array
           description: >-
@@ -3316,21 +3332,20 @@ components:
             returns all results so this field is redundant and only
             returned for the sake of consistency.
     OrganisationTag:
-      type: object
-      description: >-
-        Tags are used to describe non-hierarchy related user
-        information. Typical information includes things like the time
-        the person has worked for the organisation, age, location,
-        etc. Tags are not visible for the end-users themselves.
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-          example: 4395402
-        name:
-          type: string
-          example: 0-1 years
+      allOf:
+        - $ref: '#/components/schemas/CompactOrganisationTag'
+        - type: object
+          properties:
+            include_in_team_tag_breakdown:
+              type: boolean
+              example: true
+              readOnly: true
+              description: >-
+                Defines whether or not this tag should be included in tag
+                the report data breakdown for teams that also have breakdown
+                enabled and have members with this tag. The value may be
+                `null` to indicate that it has not yet been decided whether
+                this tag should be included in breakdown or not.
     OrganisationTeam:
       description: >-
         Teams are used to describe organisation hierarchy. They may
@@ -3362,10 +3377,19 @@ components:
               type: boolean
               example: true
               description: >-
-                Defines whether end-users can join or leave this team.
-                For managed teams memberships are always set by the
-                administrator as part of user import or explicitly
+                Defines whether end-users can join or leave this team
+                or not. For managed teams memberships are always set by
+                the administrator as part of user import or explicitly
                 via the admin user interface.
+            include_in_team_tag_breakdown:
+              type: boolean
+              example: true
+              readOnly: true
+              description: >-
+                Defines whether or not this team should be included in tag
+                specific report data breakdown. The value may be `null` to
+                indicate that it has not yet been decided whether this team
+                should be included in breakdown or not.
             parent:
               $ref: '#/components/schemas/CompactOrganisationTeam'
     OrganisationSurveyReport:
@@ -3651,6 +3675,7 @@ components:
             - no_org_access
             - xls_not_supported
             - csv_required
+            - circular_team_tree
             - unknown_error
         error_description:
           type: string
