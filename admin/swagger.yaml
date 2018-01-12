@@ -81,6 +81,10 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Organisations were successfully fetched
@@ -107,6 +111,10 @@ paths:
           schema:
             type: integer
             format: int32
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Organisation was successfully fetched
@@ -149,6 +157,10 @@ paths:
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
         - $ref: '#/components/parameters/filter_search'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Memberships were successfully fetched
@@ -233,6 +245,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/organisation_membership_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Membership was successfully fetched
@@ -382,6 +398,10 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Scheduled surveys were successfully fetched
@@ -462,6 +482,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/scheduled_survey_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Scheduled survey was successfully fetched
@@ -605,6 +629,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/scheduled_survey_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Breakdown was successfully fetched
@@ -660,6 +688,10 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Surveys were successfully fetched
@@ -701,6 +733,10 @@ paths:
           schema:
             type: integer
             format: int32
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Survey was successfully fetched
@@ -747,6 +783,10 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Reports successfully fetched
@@ -884,6 +924,10 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Tags were successfully fetched
@@ -963,6 +1007,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/organisation_tag_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Tag was successfully fetched
@@ -1098,6 +1146,10 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Teams were successfully fetched
@@ -1179,6 +1231,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/organisation_team_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
       responses:
         '200':
           description: Team was successfully fetched
@@ -4138,3 +4194,4 @@ components:
           tokenUrl: /oauth/token
           scopes:
             admin_api: Full access to the admin API
+            read_only_admin_api: Read-only access to admin API
