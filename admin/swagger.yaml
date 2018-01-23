@@ -3739,6 +3739,21 @@ components:
             Additional details regarding the error. Only used for
             debugging purposes, typically not available in production
             environments
+    CompactSurveyQuestionCategory:
+      type: object
+      description: >-
+        Compact representation of question category. Categories are
+        used to group similar questions together. Some objects
+        expose the category via property called `category_object` and
+        `category` property for such objects has the category title.
+        This is due to backwards compatibility.
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 526
+        title:
+          $ref: '#/components/schemas/MultilanguageString'
     SurveyQuestionOption:
       type: object
       properties:
@@ -3754,6 +3769,18 @@ components:
             Number of points granted for picking this option.
         title:
           $ref: '#/components/schemas/MultilanguageString'
+    SurveyQuestionCategory:
+      description: >-
+        Categories are used to group similar questions together. Some
+        objects expose the category via property called
+        `category_object` and `category` property for such objects has
+        the category title. This is due to backwards compatibility.
+      allOf:
+        - $ref: '#/components/schemas/CompactSurveyQuestionCategory'
+        - type: object
+          properties:
+            description:
+              $ref: '#/components/schemas/MultilanguageString'
     SurveyQuestion:
       type: object
       properties:
@@ -3767,6 +3794,8 @@ components:
           $ref: '#/components/schemas/MultilanguageString'
         category:
           $ref: '#/components/schemas/MultilanguageString'
+        category_object:
+          $ref: '#/components/schemas/CompactSurveyQuestionCategory'
         options:
           type: array
           items:
@@ -3992,6 +4021,12 @@ components:
             All tags in the organisation at the time the report was generated.
           items:
             $ref: '#/components/schemas/OrganisationTag'
+        question_categories:
+          type: array
+          description: >-
+            List of categories associated with the survey this report is for.
+          items:
+            $ref: '#/components/schemas/SurveyQuestionCategory'
         questions:
           type: array
           description: >-
