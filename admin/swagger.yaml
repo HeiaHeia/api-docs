@@ -1282,7 +1282,7 @@ paths:
         description: >-
           Defines new attributes for the team. Note that only the
           `id` field for the parent needs to / can be defined. To
-          clear the parent set the parent `id` to `null`.
+          clear the parent set the parent to `null`.
         required: true
         content:
           'application/json':
@@ -2207,6 +2207,14 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - name: state
+          in: query
+          description: >-
+            Only return import tasks whose state matches given value. By
+            default all tasks of any state are returned.
+          schema:
+            type: string
+            enum: ["pending", "ongoing", "completed"]
       responses:
         '200':
           description: Membership imports were successfully fetched
@@ -3182,6 +3190,25 @@ components:
           example: ["teem"]
           items:
             type: string
+        applied_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 0
+          description: >-
+            Number of individual import operations that have been performed.
+            The import task state will change to `completed` when `applied_count`
+            reaches `execute_count`.
+        execute_count:
+          type: integer
+          format: int32
+          readOnly: true
+          example: null
+          description: >-
+            Number of import operations that will be executed. This value is
+            always `null` until the operation is actually started, at which
+            point this is computed based on the number of non-error/non-noop
+            operations for which `skip` is false.
     OrganisationMembershipImportItem:
       type: object
       description: >-
