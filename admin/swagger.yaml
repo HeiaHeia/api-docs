@@ -2664,7 +2664,7 @@ paths:
       summary: Get metadata of a report
       operationId: getReportMetadata
       parameters:
-        - $ref: '#/components/parameters/report_secret_id'
+        - $ref: '#/components/parameters/report_data_instance_metadata_id'
       responses:
         '200':
           description: Metadata was successfully fetched
