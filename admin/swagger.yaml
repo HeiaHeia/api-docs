@@ -2030,13 +2030,69 @@ paths:
       tags:
         - membership mass actions
       summary: >-
-        Active survey for user(s).
+        Invite user(s) to take .urvey
       description: >-
         Finds all users matching given filter conditions and activates
         given survey for them. Users for whom the survey is already
         active are unaffected; use the `resend_survey_invitation` API
         to resend invitation for those. Affected users will be sent an
         email invitation to take the survey.
+      operationId: massStartSurvey
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: scheduled_survey_id
+          in: query
+          example: 48373
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`,
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/start_or_resend_survey':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Send survey invitation (first or reminder) to user(s)
+      description: >-
+        Finds all users matching given filter conditions and if the
+        survey hasn't already been activated for them it will be
+        activated and all matching users (excluding those who have
+        already taken the survey) will be sent email invitation to
+        take the survey.
       operationId: massStartSurvey
       parameters:
         - $ref: '#/components/parameters/query_organisation_id'
@@ -2496,7 +2552,7 @@ paths:
             type: array
             items:
               type: string
-              enum: ["add", "update", "remove", "error"]
+              enum: ["add", "update", "remove", "error", "noop"]
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
@@ -2555,7 +2611,7 @@ paths:
         required: true
         description: >-
           The `skip` attribute cannot be updated for items with `action`
-          set to `error`, those will always be skipped.
+          set to `error` or `noop`, those will always be skipped.
         content:
           application/json:
             schema:
@@ -2980,7 +3036,7 @@ components:
           example: 4002156
         item_type:
           type: string
-          enum: ["Organisation", "OrganisationMembership", "OrganisationScheduledSurvey"]
+          enum: ["Organisation", "OrganisationMembership", "OrganisationScheduledSurvey", "OrganisationMembershipImportTask"]
           description: >-
             Identifies the type of object that was attempted to be
             changed.
@@ -3190,6 +3246,20 @@ components:
           example: ["teem"]
           items:
             type: string
+        missing_columns:
+          type: array
+          readOnly: true
+          description: >-
+            Lists required columns that were not defined in the input file.
+          example: ["first_name"]
+          items:
+            type: string
+            enum: ["first_name", "last_name", "email"]
+        file_name:
+          type: string
+          readOnly: true
+          description: >-
+            Name of the file based on which this import task was created.
         applied_count:
           type: integer
           format: int32
@@ -3227,12 +3297,18 @@ components:
             - update
             - remove
             - error
+            - noop
           readOnly: true
           example: add
           description: >-
             The actual action that will be performed. `error` is a special case
             that indicates there was something wrong with the input data and
-            the row could not be processed.
+            the row could not be processed. `noop` is another special case,
+            indicating a member that already exists in the system with exactly
+            the same attributes as those specified in the input. `noop` items
+            are only created for users explicitly listed in the CSV (i.e if
+            performing add/update operation, this does not list the existing
+            users in the system that were not included in the CSV).
         skip:
           type: boolean
           default: false
