@@ -2705,6 +2705,39 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/reports/v1/documents/reports/{id}/shares':
+    post:
+      tags:
+        - reports
+      summary: Create new shared report
+      operationId: createSharedReport
+      parameters:
+        - $ref: '#/components/parameters/report_data_instance_metadata_id'
+      requestBody:
+        required: true
+        description: >-
+          For `teams`, `tags` and `filter_tags` only the `id`
+          property of the objects is required/processed.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportDataInstanceMetadata'
+      responses:
+        '200':
+          description: Shared report was successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportDataInstanceMetadata'
+        '404':
+          description: >-
+            Report data not found. `error` can be any of: `not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   /admin/v1/control/login/send_token:
     post:
       tags:
@@ -4187,12 +4220,14 @@ components:
       properties:
         id:
           type: string
+          readOnly: true
           description: >-
             Identifier of the report data instance metadata. This is a long
             alphanumeric sequence.
           example: "04df2fd4b131b4421da9025b291c1fce1e8dbfaee1395d5acd8dba2efb48"
         type:
           type: string
+          readOnly: true
           description: >-
             Type of this report data instance. Currently always
             `"OrganisationSurveyReportDataInstance"`
@@ -4205,6 +4240,7 @@ components:
           properties:
             original:
               type: boolean
+              readOnly: true
               description: >-
                 `true` if this is the original copy of report data. `false`
                 if this is a shared copy of the original report (which
