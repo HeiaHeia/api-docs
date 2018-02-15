@@ -4185,6 +4185,40 @@ components:
                 `true` if this is the original copy of report data. `false`
                 if this is a shared copy of the original report (which
                 typically contains only a subset of the original data).
+            ui_state:
+              type: object
+              description: >-
+                Client defined state of UI by the time this shared copy
+                of a report was created. `null` for original versions of
+                report.
+              example: { "company_selected": true, "selected_team_ids": [], "selected_tag_ids": [] }
+            teams:
+              type: array
+              description: >-
+                List of teams included in this report data instance. If
+                all teams are included this is set to `null` and when no
+                teams are included this is empty array.
+              items:
+                $ref: '#/components/schemas/CompactOrganisationTeam'
+              example: []
+            tags:
+              type: array
+              description: >-
+                List of tags included in this report data instance. If
+                all tags are included this is set to `null` and when no
+                tags are included this is empty array.
+              items:
+                $ref: '#/components/schemas/CompactOrganisationTag'
+              example: []
+            filter_tags:
+              type: array
+              description: >-
+                List of team filter tags included in this report data instance.
+                If all filter tags are included this is set to `null` and when
+                no filter tags are included this is empty array.
+              items:
+                $ref: '#/components/schemas/CompactOrganisationTag'
+              example: null
   responses:
     MissingAuthorization:
       description: Missing authorization information
