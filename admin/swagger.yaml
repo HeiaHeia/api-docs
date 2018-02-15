@@ -45,7 +45,7 @@ tags:
     description: Operations for managing scheduled surveys
   - name: surveys
     description: Operations for fetching surveys
-  - name: reports
+  - name: admin reports
     description: Operations for managing reports
   - name: tags
     description: Operations for managing organisation tags
@@ -65,6 +65,11 @@ tags:
   - name: membership imports
     description: >-
       Operations for managing importing users from CSV files
+  - name: reports
+    description: >-
+      Operations for accessing and sharing reports. These API calls
+      do not require any authentication information, knowing the id
+      of the report being accessed is sufficient.
   - name: authentication
     description: >-
       Operations for managing authentication
@@ -775,7 +780,7 @@ paths:
   '/admin/v1/documents/organisations/{organisation_id}/reports':
     get:
       tags:
-        - reports
+        - admin reports
       summary: Fetch available reports for given organisation
       operationId: listReports
       parameters:
@@ -816,7 +821,7 @@ paths:
           $ref: '#/components/responses/ServerNotAvailable'
     post:
       tags:
-        - reports
+        - admin reports
       summary: Create report
       operationId: createReport
       parameters:
@@ -857,7 +862,7 @@ paths:
   '/admin/v1/documents/organisations/{organisation_id}/reports/{report_id}':
     put:
       tags:
-        - reports
+        - admin reports
       summary: >-
         Update an existing report.
       operationId: updateReport
@@ -2652,6 +2657,30 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/reports/v1/documents/reports/{id}':
+    get:
+      tags:
+        - reports
+      summary: Get metadata of a report
+      operationId: getReportMetadata
+      parameters:
+        - $ref: '#/components/parameters/report_secret_id'
+      responses:
+        '200':
+          description: Metadata was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportDataInstanceMetadata'
+        '404':
+          description: >-
+            Report metadata not found. `error` can be any of: `not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   /admin/v1/control/login/send_token:
     post:
       tags:
@@ -3566,18 +3595,13 @@ components:
           description: >-
             Identifier of the report.
           example: 38572
-        report_data_url:
-          type: string
-          readOnly: true
-          description: >-
-            URL through which the actual report data can be downloaded. This
-            property is only available when `viewed` has been set to `true`.
-          example: https://example.com/path/report.json
+        data_instance:
+          $ref: '#/components/schemas/CompactReportDataInstanceMetadata'
         viewed:
           type: boolean
           description: >-
             Whether or not the report data has been viewed by the end user.
-            This must be set to `true` before the report data URL can be
+            This must be set to `true` before `data_instance` can be
             accessed. Once this is `true` the report can no longer be
             re-generated via the API.
           example: true
@@ -4018,28 +4042,14 @@ components:
                 to some other group(s) of users returned elsewhere in the
                 report.
               example: null
-    ShareableOrganisationSurveyReportOrganisationData:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
-        - type: object
-          properties:
-            shareable_report_data_url:
-              type: string
-              description: >-
-                Report containing the subset of data for this particular
-                group. This URL can be shared with people who are allowed to
-                access data for a specific group (like a team or tag) but
-                not all other data.
-              example: "https://example.com/path/shareable_report.json"
-    ShareableOrganisationSurveyReportTeamData:
+    OrganisationSurveyReportTeamData:
       type: object
       description: >-
         Data across all respondents in a team. In addition to the full team
         data, this object may also contain tag specific breakdown for the
         team in question.
       allOf:
-        - $ref: '#/components/schemas/ShareableOrganisationSurveyReportOrganisationData'
+        - $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
         - type: object
           properties:
             tags:
@@ -4052,7 +4062,7 @@ components:
         strings.
       properties:
         "53894821":
-          $ref: '#/components/schemas/ShareableOrganisationSurveyReportTeamData'
+          $ref: '#/components/schemas/OrganisationSurveyReportTeamData'
     OrganisationSurveyReportTagsData:
       type: object
       description: >-
@@ -4061,7 +4071,7 @@ components:
         strings.
       properties:
         "472683":
-          $ref: '#/components/schemas/ShareableOrganisationSurveyReportOrganisationData'
+          $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
     OrganisationSurveyReportDataInstance:
       type: object
       description: >-
@@ -4097,7 +4107,7 @@ components:
         global:
           $ref: '#/components/schemas/OrganisationSurveyReportGlobalData'
         organisation:
-          $ref: '#/components/schemas/ShareableOrganisationSurveyReportOrganisationData'
+          $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
         teams:
           $ref: '#/components/schemas/OrganisationSurveyReportTeamsData'
         tags:
@@ -4145,22 +4155,36 @@ components:
             result to the oldest.
           items:
             $ref: '#/components/schemas/OrganisationSurveyReportDataInstance'
-        filter_type:
+    CompactReportDataInstanceMetadata:
+      type: object
+      description: >-
+        Metadata describing instance of a report (either the original report
+        or a shared copy of the original).
+      properties:
+        id:
           type: string
-          enum:
-            - organisation
-            - teams
-            - tags
-          example: null
           description: >-
-            If this report is a shareable subreport this key identifies the
-            kind of data that is included in this report.
-        filter_id:
+            Identifier of the report data instance metadata. This is a long
+            alphanumeric sequence.
+          example: "04df2fd4b131b4421da9025b291c1fce1e8dbfaee1395d5acd8dba2efb48"
+        type:
           type: string
-          example: null
           description: >-
-            If `filter_type` is `"teams"` or `"tags"` this is the identifier
-            of the team or tag contained in this shared report (as a string).
+            Type of this report data instance. Currently always
+            `"OrganisationSurveyReportDataInstance"`
+          example: "OrganisationSurveyReportDataInstance"
+    ReportDataInstanceMetadata:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CompactReportDataInstanceMetadata'
+        - type: object
+          properties:
+            original:
+              type: boolean
+              description: >-
+                `true` if this is the original copy of report data. `false`
+                if this is a shared copy of the original report (which
+                typically contains only a subset of the original data).
   responses:
     MissingAuthorization:
       description: Missing authorization information
@@ -4230,6 +4254,14 @@ components:
       schema:
         type: integer
         format: int32
+    report_data_instance_metadata_id:
+      name: id
+      in: path
+      required: true
+      description: >-
+        Identifier of the report data instance metadata being accessed
+      schema:
+        type: string
     total_required:
       name: total_required
       in: query
