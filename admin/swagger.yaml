@@ -2681,6 +2681,30 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/reports/v1/documents/reports/{id}/full_data':
+    get:
+      tags:
+        - reports
+      summary: Get actual report data
+      operationId: getReportData
+      parameters:
+        - $ref: '#/components/parameters/report_data_instance_metadata_id'
+      responses:
+        '200':
+          description: Data was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationSurveyReportData'
+        '404':
+          description: >-
+            Report data not found. `error` can be any of: `not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   /admin/v1/control/login/send_token:
     post:
       tags:
@@ -4293,7 +4317,7 @@ components:
       in: path
       required: true
       description: >-
-        Identifier of the report data instance metadata being accessed
+        Identifier of the report data instance being accessed
       schema:
         type: string
     total_required:
