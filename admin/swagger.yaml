@@ -4362,7 +4362,7 @@ components:
       description: >-
         Defines whether or not total number of results should be
         returned in the response. Producing the total number of
-        results results in additional load on server side so it is
+        results causes additional load on server side so it is
         advised not to request it unless the client actually makes
         use of the value. (default `false`)
       schema:
