@@ -44,7 +44,9 @@ tags:
   - name: scheduled surveys
     description: Operations for managing scheduled surveys
   - name: surveys
-    description: Operations for fetching surveys
+    description: Operations for managing surveys
+  - name: survey categories
+    description: Operations for managing survey question categories
   - name: admin reports
     description: Operations for managing reports
   - name: tags
@@ -723,6 +725,53 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - surveys
+      summary: >-
+        Add a new organisation specific variant of an existing survey.
+      operationId: addSurvey
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        description: >-
+          Defines attributes of the survey to add. Note that only the
+          parent object can be specified in request body and only the
+          `id` field is expected to be present for that object.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Survey'
+      responses:
+        '200':
+          description: Survey was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `survey_not_found` (missing parent),
+            `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/surveys/{survey_id}':
     get:
       tags:
@@ -731,13 +780,7 @@ paths:
       operationId: showSurvey
       parameters:
         - $ref: '#/components/parameters/organisation_id'
-        - name: survey_id
-          in: path
-          required: true
-          description: Identifier of the survey whose details to fetch
-          schema:
-            type: integer
-            format: int32
+        - $ref: '#/components/parameters/survey_id'
       security:
         - admin_api_auth:
             - admin_api
@@ -771,6 +814,221 @@ paths:
           description: >-
             Survey not found. `error` can be any of:
             `survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/surveys/{survey_id}/categories':
+    get:
+      tags:
+        - survey categories
+      summary: List all question categories for a given survey
+      operationId: listSurveyCategories
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+        - name: custom
+          in: query
+          description: >-
+            Determines whether to return custom categories (those belonging
+            organisation specific survey), non-custom categories (those
+            belonging to global survey) or both. Default is to return both.
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Survey question categories were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSurveyCategoriesResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Object not found. `error` can be `survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - survey categories
+      summary: >-
+        Add a question category to a survey.
+      operationId: addSurveyCategory
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+      requestBody:
+        description: >-
+          Defines attributes of the survey question category to add.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SurveyQuestionCategory'
+      responses:
+        '200':
+          description: Survey question category was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyQuestionCategory'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `survey_not_owned`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Object not found. `error` can be `survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/surveys/{survey_id}/categories/{category_id}':
+    put:
+      tags:
+        - survey categories
+      summary: >-
+        Updates details of survey question category. Only custom
+        categories can be updated.
+      operationId: updateSurveyCategory
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+        - name: category_id
+          in: path
+          required: true
+          description: Identifier of the category
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: >-
+          Defines updated attributes for the survey question category.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SurveyQuestionCategory'
+      responses:
+        '200':
+          description: Survey question category was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyQuestionCategory'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `survey_not_owned`,
+            `category_not_owned`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Survey or category not found. `error` can be any of:
+            `survey_not_found`, `survey_category_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - survey categories
+      summary: Remove a custom survey question category
+      operationId: deleteSurveyCategory
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+        - name: category_id
+          in: path
+          required: true
+          description: Identifier of the category
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: Category was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `survey_not_owned`, `category_not_owned`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Survey or category not found. `error` can be any of:
+            `survey_not_found`, `survey_category_not_found`
           content:
             application/json:
               schema:
@@ -3150,6 +3408,21 @@ components:
         sv:
           type: string
           example: Något text
+    WriteableMultilanguageString:
+      type: object
+      description: >-
+        Translated string. English must always be provided, other language
+        should be set according to usage.
+      properties:
+        en:
+          type: string
+          example: Some string
+        fi:
+          type: string
+          example: Jokin teksti
+        sv:
+          type: string
+          example: Något text
     NewOrganisationReport:
       type: object
       properties:
@@ -3715,6 +3988,13 @@ components:
         - $ref: '#/components/schemas/CompactSurvey'
         - type: object
           properties:
+            custom:
+              type: boolean
+              example: false
+              readOnly: true
+              description: >-
+                `true` for surveys that are organisation specific, `false`
+                for base surveys that are shared between organisations.
             description:
               $ref: '#/components/schemas/MultilanguageString'
             icon_url:
@@ -3733,6 +4013,8 @@ components:
                 for this survey.
               default: tyovire
               enum: ["tyovire", "tyoyhteisovire"]
+            parent:
+              $ref: '#/components/schemas/CompactSurvey'
     User:
       type: object
       description: >-
@@ -3884,6 +4166,24 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Survey'
+    ListSurveyCategoriesResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/SurveyQuestionCategory'
+    ListSurveyQuestionsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/SurveyQuestion'
     ErrorResponse:
       type: object
       properties:
@@ -3937,7 +4237,7 @@ components:
           format: int32
           example: 526
         title:
-          $ref: '#/components/schemas/MultilanguageString'
+          $ref: '#/components/schemas/WriteableMultilanguageString'
     SurveyQuestionOption:
       type: object
       properties:
@@ -3964,7 +4264,15 @@ components:
         - type: object
           properties:
             description:
-              $ref: '#/components/schemas/MultilanguageString'
+              $ref: '#/components/schemas/WriteableMultilanguageString'
+            custom:
+              type: boolean
+              example: false
+              readOnly: true
+              description: >-
+                `true` if this category belongs to organisation
+                specific survey, `false` if it belongs to global
+                survey.
     SurveyQuestion:
       type: object
       properties:
@@ -3973,9 +4281,9 @@ components:
           format: int32
           example: 3214893
         title:
-          $ref: '#/components/schemas/MultilanguageString'
+          $ref: '#/components/schemas/WriteableMultilanguageString'
         description:
-          $ref: '#/components/schemas/MultilanguageString'
+          $ref: '#/components/schemas/WriteableMultilanguageString'
         category:
           $ref: '#/components/schemas/MultilanguageString'
         category_object:
@@ -3984,6 +4292,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SurveyQuestionOption'
+        custom:
+          type: boolean
+          example: false
+          readOnly: true
+          description: >-
+            `true` if this question belongs to organisation
+            specific survey, `false` if it belongs to global
+            survey.
     OrganisationSurveyReportPointCategoryMetadata:
       type: object
       description: >-
@@ -4345,6 +4661,14 @@ components:
       required: true
       description: >-
         Identifier of the scheduled survey being accessed
+      schema:
+        type: integer
+        format: int32
+    survey_id:
+      name: survey_id
+      in: path
+      required: true
+      description: Identifier of the survey to access
       schema:
         type: integer
         format: int32
