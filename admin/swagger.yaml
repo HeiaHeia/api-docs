@@ -4488,7 +4488,7 @@ components:
         - type: object
           properties:
             description:
-              $ref: '#/components/schemas/WriteableMultilanguageString'
+              $ref: '#/components/schemas/MultilanguageString'
             custom:
               type: boolean
               example: false
@@ -4507,7 +4507,7 @@ components:
         title:
           $ref: '#/components/schemas/WriteableMultilanguageString'
         description:
-          $ref: '#/components/schemas/WriteableMultilanguageString'
+          $ref: '#/components/schemas/MultilanguageString'
         category:
           $ref: '#/components/schemas/MultilanguageString'
         category_object:
