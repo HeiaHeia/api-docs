@@ -47,6 +47,8 @@ tags:
     description: Operations for managing surveys
   - name: survey categories
     description: Operations for managing survey question categories
+  - name: survey questions
+    description: Operations for managing survey questions
   - name: admin reports
     description: Operations for managing reports
   - name: tags
@@ -1029,6 +1031,228 @@ paths:
           description: >-
             Survey or category not found. `error` can be any of:
             `survey_not_found`, `survey_category_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/surveys/{survey_id}/questions':
+    get:
+      tags:
+        - survey questions
+      summary: List all questions for a given survey
+      operationId: listSurveyQuestions
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+        - name: custom
+          in: query
+          description: >-
+            Determines whether to return custom questions (those belonging
+            to organisation specific survey), non-custom categories (those
+            belonging to global survey) or both. Default is to return both.
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Survey questions were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSurveyQuestionsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Object not found. `error` can be `survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - survey questions
+      summary: >-
+        Add a question to a survey.
+      operationId: addSurveyQuestion
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+      requestBody:
+        description: |
+          Defines attributes of the survey question to add.
+
+          **Note:** The request must currently contain property named
+          `copy_options_from_parent` with value `true`. This will make
+          the server automatically copy options for the question from
+          similar question in parent survey. This is the only allowed
+          mode of operation for the time being.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SurveyQuestion'
+      responses:
+        '200':
+          description: Survey question was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyQuestion'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `survey_not_owned`,
+            `survey_category_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Object not found. `error` can be `survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/surveys/{survey_id}/questions/{question_id}':
+    put:
+      tags:
+        - survey questions
+      summary: >-
+        Updates details of survey question. Only custom
+        questions can be updated.
+      operationId: updateSurveyQuestion
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+        - name: question_id
+          in: path
+          required: true
+          description: Identifier of the question
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: >-
+          Defines updated attributes for the survey question.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SurveyQuestion'
+      responses:
+        '200':
+          description: Survey question was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyQuestion'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `survey_not_owned`,
+            `question_not_owned`, `survey_category_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Survey or category not found. `error` can be any of:
+            `survey_not_found`, `survey_question_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - survey questions
+      summary: Remove a custom survey question
+      operationId: deleteSurveyQuestion
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/survey_id'
+        - name: question_id
+          in: path
+          required: true
+          description: Identifier of the question
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: Question was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `survey_not_owned`, `question_not_owned`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Survey or category not found. `error` can be any of:
+            `survey_not_found`, `survey_question_not_found`
           content:
             application/json:
               schema:
@@ -4290,6 +4514,7 @@ components:
           $ref: '#/components/schemas/CompactSurveyQuestionCategory'
         options:
           type: array
+          readOnly: true
           items:
             $ref: '#/components/schemas/SurveyQuestionOption'
         custom:
@@ -4300,6 +4525,29 @@ components:
             `true` if this question belongs to organisation
             specific survey, `false` if it belongs to global
             survey.
+        enabled:
+          type: boolean
+          example: true
+          description: >-
+            `true` if this question is currently enabled and will
+            be shown for users taking the survey. If `false` the
+            question will not be shown in questionnaires but the
+            question can be utilised in later surveys and history
+            data shall be available.
+        position:
+          type: integer
+          format: int32
+          example: 0
+          description: >-
+            Defines the position of the question in the survey.
+            For inherited surveys parent questions always precede
+            child questions.
+        kind:
+          type: string
+          description: >-
+            Type of this question.
+          enum:
+            - radio
     OrganisationSurveyReportPointCategoryMetadata:
       type: object
       description: >-
