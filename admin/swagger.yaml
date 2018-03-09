@@ -8,7 +8,7 @@ servers:
     description: "Development"
 info:
   description: |
-    This document describes how to use the HeiaHeia admin API.
+    This document describes how to use the HeiaHeia Admin API.
     
     Authentication
     ==============
@@ -4046,6 +4046,13 @@ components:
               example: 584
               description: >-
                 Number of users who have taken the survey so far.
+            no_consent_count:
+              type: integer
+              format: int32
+              readOnly: true
+              example: 322
+              description: >-
+                Number of users who have refused to take the survey so far.
             survey:
               $ref: '#/components/schemas/Survey'
     OrganisationScheduledSurveyBreakdown:
