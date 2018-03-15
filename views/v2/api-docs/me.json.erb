@@ -140,7 +140,49 @@
           "errorResponses":<%= responses(400, 404) %>
         }
       ]
+    },
+    {
+      "path":"/me/consents",
+      "description":"Operations for managing user consents",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List the consents the user has given",
+          "responseClass":"List[UserConsent]",
+          "nickname":"list_consents",
+          "parameters":[
+            {
+              "name":"scope",
+              "paramType":"query",
+              "dataType":"string",
+              "description":"Restricts consents to return by scope. Supported scopes are 'hh' and 'org_surveys'."
+            }
+          ],
+          "errorResponses":<%= responses(400) %>
+        },
+        {
+          "httpMethod":"POST",
+          "summary":"Adds new consent given by the user",
+          "responseClass":"UserConsent",
+          "nickname":"list_consents",
+          "parameters":[
+            {
+              "name":"scope",
+              "paramType":"form",
+              "dataType":"string",
+              "description":"The scope of the given consent. Supported scopes are 'hh' and 'org_surveys'."
+            },
+            {
+              "name":"consent_type",
+              "paramType":"form",
+              "dataType":"string",
+              "description":"The type of consent that was given. Supported types are 'terms_of_service' and 'privacy_policy'."
+            }
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
     }
   ],
-  "models":<%= models(params[:api_version], 'User', 'CompactUser') %>
+  "models":<%= models(params[:api_version], 'User', 'CompactUser', 'UserConsent') %>
 }

@@ -85,6 +85,7 @@ module Const
   TRAINING_GOAL = 'TrainingGoal'.freeze
   TRAINING_LOG = 'TrainingLog'.freeze
   USER = 'User'.freeze
+  USER_CONSENT = 'UserConsent'.freeze
   VIDEO = 'Video'.freeze
   WEARABLE = 'Wearable'.freeze
   WEEKLY_TARGET = 'WeeklyTarget'.freeze
