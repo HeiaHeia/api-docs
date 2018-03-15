@@ -69,6 +69,30 @@ module ModelsHelper
     }
   end
 
+  def user_consent_model
+    {
+      :id => Const::USER_CONSENT,
+      :properties => {
+        :id => {
+          :type => Const::INT,
+          :required => true
+        },
+        :consent_type => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :scope => {
+          :type => Const::STRING,
+          :required => true
+        },
+        :created_at => {
+          :type => Const::DATE_TIME,
+          :required => true
+        }
+      }
+    }
+  end
+
   def user_model
     {
       :id => Const::USER,
@@ -2944,6 +2968,7 @@ module ModelsHelper
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
                                Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
       Const::USER => [],
+      Const::USER_CONSENT => [],
       Const::VIDEO => [],
       Const::WEARABLE => [],
       Const::WEEKLY_TARGET => [],
