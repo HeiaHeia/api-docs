@@ -74,6 +74,12 @@ tags:
       Operations for accessing and sharing reports. These API calls
       do not require any authentication information, knowing the id
       of the report being accessed is sufficient.
+  - name: energy levels
+    description: >-
+      Access to Parempi Vire "Test your energy levels" survey results.
+  - name: statistics
+    description: >-
+      Access to organisation statistics.
   - name: authentication
     description: >-
       Operations for managing authentication
@@ -90,6 +96,24 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - name: size_classes
+          in: query
+          description: >-
+            Only return organisations whose size_class attribute matches any
+            of the given size classes. (allowed values 20, 50, 10000)
+          schema:
+            type: array
+            items:
+              type: integer
+              enum: [20, 50, 10000]
+        - name: organisation_ids
+          in: query
+          description: >-
+            Only return organisations whose id matches any of the given ids.
+          schema:
+            type: array
+            items:
+              type: integer
       security:
         - admin_api_auth:
             - admin_api
@@ -1394,6 +1418,124 @@ paths:
         '404':
           description: >-
             Report not found. `error` can be any of: `report_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/energy_levels':
+    get:
+      tags:
+        - energy levels
+      summary: >-
+        Get Parempi Vire "Test your energy levels" survey results.
+      description: |
+        Retruns survey results based on current database state.
+        
+        This API should be used to obtain data right after desired date
+        range has become available and the results stored offline.
+        While the API allows getting results from any point in history,
+        that typically does not yield desired data because the
+        results do not reflect the historical state. E.g. team
+        memberships may have changed or users may have been removed
+        from the system and the results are generated based on the
+        current system state, not the state that existed at the end
+        of the given date range.
+        
+        The participant count in the generated data is the number of
+        answers plus the number of planned (unanswered) surveys within
+        the date range. If the range is longer than the period at which
+        the "Test your energy levels" survey repeats, same user may be
+        included in the count multiple times. (Same goes for answers.)
+      operationId: getEnergyLevels
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: start_date
+          in: query
+          required: true
+          description: >-
+            Include answers given on or after this date.
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          required: true
+          description: >-
+            Include answers given on or before this date.
+          schema:
+            type: string
+            format: date
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Survey results successfully generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParempiVireSurveyReportData'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/stats':
+    get:
+      tags:
+        - statistics
+      summary: >-
+        Get current organisation statistics.
+      description: >-
+        Retruns current live statistics for the organisation. The caller
+        is responsible for storing values if showing trends, past values
+        or values within a date range is required.
+      operationId: getStatistics
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Statistics successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationStats'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
           content:
             application/json:
               schema:
@@ -4080,6 +4222,51 @@ components:
             Number of items in the response. The API currently always
             returns all results so this field is redundant and only
             returned for the sake of consistency.
+    OrganisationStats:
+      type: object
+      description: >-
+        Current statistics for an organisation.
+      properties:
+        usage:
+          $ref: '#/components/schemas/OrganisationUsageStats'
+    OrganisationUsageStats:
+      type: object
+      description: >-
+        Current service usage related statistics.
+      properties:
+        total_membership_count:
+          type: integer
+          format: int32
+          description: >-
+            Number of users currently added to the organisation.
+          example: 450
+        hh_core_total_membership_count:
+          type: integer
+          format: int32
+          description: >-
+            Number of users with HeiaHeia (/ Parempi Vire) functionality
+            currently added to the organisation.
+          example: 220
+        hh_core_accepted_membership_count:
+          type: integer
+          format: int32
+          description: >-
+            Number of users with HeiaHeia (/ Parempi Vire) functionality
+            who have taken the service into use.
+          example: 170
+        app_use_count:
+          type: integer
+          format: int64
+          description: >-
+            Number of times users belonging to this organisation have used
+            the HeiaHeia (/ Parempi Vire) mobile applications. This is
+            cumulative counter over the entire time the organisation
+            has existed (or since the counter was introduced [2018-03-14],
+            whichever is last). Only uses done while the user have belonged
+            to the organisation are counted, i.e. if existing HeiaHeia user
+            joins new organisation the user's old HeiaHeia use does not
+            affect the counter.
+          example: 380314
     OrganisationTag:
       allOf:
         - $ref: '#/components/schemas/CompactOrganisationTag'
@@ -4555,6 +4742,13 @@ components:
             Type of this question.
           enum:
             - radio
+        global_comparison_type:
+          type: string
+          description: >-
+            How the answers for this question are compared. Currently
+            the only accepted value is "mean", which performs a
+            "mean average" comparison.
+          enum: ["mean"]
     OrganisationSurveyReportPointCategoryMetadata:
       type: object
       description: >-
@@ -4682,6 +4876,16 @@ components:
           properties:
             tags:
               $ref: '#/components/schemas/OrganisationSurveyReportTagsData'
+    ParempiVireSurveyReportTeamsData:
+      type: object
+      description: >-
+        Results for all teams in the organisation. This object contains keys
+        for each team, not just a single key. The key values are team ids as
+        strings. This is subset of the data contained in
+        OrganisationSurveyReportTeamsData
+      properties:
+        "53894821":
+          $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
     OrganisationSurveyReportTeamsData:
       type: object
       description: >-
@@ -4700,6 +4904,26 @@ components:
       properties:
         "472683":
           $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
+    ParempiVireSurveyReportDataInstance:
+      type: object
+      description: >-
+        Results for a single date range for a Parempi Vire survey. This is a subset
+        of the data contained in OrganisationSurveyReportDataInstance
+      properties:
+        minimum_answer_count:
+          type: integer
+          format: int32
+          description: >-
+            Minimum number of answers required per group in order to show
+            results for the group. This limit is applied to protect the
+            privacy of individual respondents.
+          example: 7
+        global:
+          $ref: '#/components/schemas/OrganisationSurveyReportGlobalData'
+        organisation:
+          $ref: '#/components/schemas/OrganisationSurveyReportOrganisationData'
+        teams:
+          $ref: '#/components/schemas/ParempiVireSurveyReportTeamsData'
     OrganisationSurveyReportDataInstance:
       type: object
       description: >-
@@ -4740,6 +4964,32 @@ components:
           $ref: '#/components/schemas/OrganisationSurveyReportTeamsData'
         tags:
           $ref: '#/components/schemas/OrganisationSurveyReportTagsData'
+    ParempiVireSurveyReportData:
+      type: object
+      description: >-
+        Data for a Parempi Vire "Test your energy levels" survey report. This is
+        a subset of the data available in OrganisationSurveyReportData.
+      properties:
+        teams:
+          type: array
+          description: >-
+            All teams in the organisation at the time the report was generated.
+          items:
+            $ref: '#/components/schemas/OrganisationTeam'
+        questions:
+          type: array
+          description: >-
+            List of questions associated with the survey this report is for.
+          items:
+            $ref: '#/components/schemas/SurveyQuestion'
+        instances:
+          type: array
+          description: >-
+            List of report instances. This currently only ever contains single
+            entry. API consumers are responsible for storing old data in order
+            to provide trends and comparisons.
+          items:
+            $ref: '#/components/schemas/ParempiVireSurveyReportDataInstance'
     OrganisationSurveyReportData:
       type: object
       description: >-
