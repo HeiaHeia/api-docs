@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.5.0'
 
-gem 'sinatra', '~> 1.4.7'
-gem 'puma', '~> 3.6'
-gem 'json', '~> 2.0'
+gem 'sinatra', '~> 2.0'
+gem 'puma', '~> 3.11'
+gem 'json', '~> 2.1'
 
 group :development do
   gem 'shotgun', '~> 0.9'
