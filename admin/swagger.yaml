@@ -233,7 +233,7 @@ paths:
         description: >-
           Defines attributes of the membership to add. Note that the
           following properties cannot currently be set for this API
-          operation: `tags`, `active_suveys`. Also, the objects in the
+          operation: `active_suveys`. Also, the objects in the `tags` and
           `team_memberships` array are expected to contain `id` field (and
           only the `id` field) as opposed to what the example shows.
         required: true
@@ -1294,6 +1294,15 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - name: viewed
+          in: query
+          description: >-
+            Allows restricting results by their `viewed` status. By default
+            all reports are returned regardless of whether they've been viewed
+            or not, if this value is specified only reports matching given
+            state are returned.
+          schema:
+            type: boolean
       security:
         - admin_api_auth:
             - admin_api
@@ -3582,6 +3591,18 @@ components:
           description: >-
             One of three values to indicate small (20), medium (50)
             or large (10000) organisation
+        su_access:
+          type: boolean
+          example: false
+          readOnly: true
+          description: >-
+            If this value is `true` the calling user has superuser
+            access to this organisation. The su access allows performing
+            operations that would otherwise not be allowed, such as
+            re-generating a report that has already been viewed. (Other
+            restrictions may still apply, e.g. if the API is accessed
+            using a token that only permits read-only operations, the
+            re-generation is not allowed even if `su_access` is `true`.)
     CompactOrganisationScheduledSurvey:
       type: object
       description: >-
@@ -3833,6 +3854,16 @@ components:
                 Number of members for whom HeiaHeia (Parempi Vire)
                 has been enabled and who have taken the service into
                 use
+            feature_tags:
+              type: array
+              description: >-
+                List of features that have been enabled for this
+                organisation. This could for example contain name of
+                a feature that is currently in beta mode and not
+                generally available but has been explicitly enabled
+                for this particular organisation.
+              items:
+                type: string
     OrganisationMembership:
       type: object
       description: >-
