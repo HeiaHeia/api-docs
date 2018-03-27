@@ -96,6 +96,7 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
         - name: size_classes
           in: query
           description: >-
@@ -190,6 +191,7 @@ paths:
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
         - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/compact'
       security:
         - admin_api_auth:
             - admin_api
@@ -431,6 +433,7 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
       security:
         - admin_api_auth:
             - admin_api
@@ -721,6 +724,7 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
       security:
         - admin_api_auth:
             - admin_api
@@ -866,6 +870,7 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
       security:
         - admin_api_auth:
             - admin_api
@@ -1562,6 +1567,7 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
       security:
         - admin_api_auth:
             - admin_api
@@ -1784,6 +1790,7 @@ paths:
         - $ref: '#/components/parameters/total_required'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
       security:
         - admin_api_auth:
             - admin_api
@@ -5251,6 +5258,17 @@ components:
         default: 20
         minimum: 1
         maximum: 500
+    compact:
+      name: compact
+      in: query
+      description: >-
+        Controls whether the API returns full or compact objects.
+        Default in most cases is to return compact objects, which
+        are smaller and require less resources to produce on server
+        side.
+      schema:
+        type: boolean
+        example: true
     filter_membership_ids:
       name: membership_ids
       in: query
