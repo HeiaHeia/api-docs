@@ -2183,7 +2183,8 @@ module ModelsHelper
           :type => Const::INT,
           :required => false,
           :description => "Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be included in the comparison."
-        }
+        },
+        recurring: { type: Const::BOOLEAN, required: true  }
       }
     }
   end
