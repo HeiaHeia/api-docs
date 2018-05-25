@@ -91,6 +91,7 @@
       "path":"/api-docs/pymk.{format}",
       "description":"PYMK"
     },
+    { "path":"/api-docs/recurring_surveys.{format}", "description":"Recurring surveys" },
     {
       "path":"/api-docs/reset_password.{format}",
       "description":"Reset password"
