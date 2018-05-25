@@ -2487,7 +2487,8 @@ module ModelsHelper
         },
         :personal_program => {
           :type => Const::COMPACT_PERSONAL_PROGRAM
-        }
+        },
+        sticky_days: { type: Const::INT, required: true }
       }
     }
   end
