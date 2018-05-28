@@ -2577,7 +2577,7 @@ module ModelsHelper
           }
         },
         :conclusion => {
-          :type => Const::STRING,
+          :type => Const::TEXT,
           :required => true
         },
         :icon_url => {
@@ -2594,7 +2594,9 @@ module ModelsHelper
           :items => { :$ref => Const::LONG },
           :type => Const::ARRAY,
           :required => true
-        }
+        },
+        title: { type: Const::STRING },
+        summary: { type: Const::TEXT }
       }
     }
   end
