@@ -2488,7 +2488,13 @@ module ModelsHelper
         :personal_program => {
           :type => Const::COMPACT_PERSONAL_PROGRAM
         },
-        sticky_days: { type: Const::INT, required: true }
+        sticky_days: { type: Const::INT, required: true },
+        reminder_title: { type: Const::STRING },
+        reminder_title_short: { type: Const::STRING },
+        reminder_description: { type: Const::TEXT },
+        reminder_description_short: { type: Const::TEXT },
+        reminder_footer: { type: Const::TEXT },
+        reminder_button: { type: Const::STRING }
       }
     }
   end
