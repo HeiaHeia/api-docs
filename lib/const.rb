@@ -60,6 +60,7 @@ module Const
   NOTIFICATION = 'Notification'.freeze
   NOTIFICATION_OBJECT = 'NotificationObject'.freeze
   ORGANISATION = 'Organisation'.freeze
+  ORGANISATION_SURVEY = 'OrganisationSurvey'.freeze
   PERSONAL_PROGRAM = 'PersonalProgram'.freeze
   PLACE = 'Place'.freeze
   PLANNED_SURVEY = 'PlannedSurvey'.freeze
