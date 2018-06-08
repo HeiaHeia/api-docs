@@ -2494,7 +2494,8 @@ module ModelsHelper
         reminder_description: { type: Const::TEXT },
         reminder_description_short: { type: Const::TEXT },
         reminder_footer: { type: Const::TEXT },
-        reminder_button: { type: Const::STRING }
+        reminder_button: { type: Const::STRING },
+        organisation_survey: { type: Const::ORGANISATION_SURVEY }
       }
     }
   end
@@ -2914,6 +2915,17 @@ module ModelsHelper
     }
   end
 
+  def organisation_survey_model
+    {
+      id: Const::ORGANISATION_SURVEY,
+      properties: {
+        title: { type: Const::STRING },
+        started_at: { type: Const::DATE_TIME, required: true },
+        ends_on: { type: Const::DATE, required: true }
+      }
+    }
+  end
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2955,9 +2967,10 @@ module ModelsHelper
       Const::NOTIFICATION => [Const::COMPACT_USER, Const::NOTIFICATION_OBJECT],
       Const::NOTIFICATION_OBJECT => [],
       Const::ORGANISATION => [],
+      Const::ORGANISATION_SURVEY => [],
       Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],
       Const::PLACE => [],
-      Const::PLANNED_SURVEY => [Const::SURVEY, Const::COMPACT_PERSONAL_PROGRAM],
+      Const::PLANNED_SURVEY => [Const::SURVEY, Const::COMPACT_PERSONAL_PROGRAM, Const::ORGANISATION_SURVEY],
       Const::POINT_SYSTEM => [Const::POINT_SYSTEM_LEVEL, Const::POINT_SYSTEM_RULE],
       Const::POINT_SYSTEM_LEVEL => [],
       Const::POINT_SYSTEM_RULE => [],
