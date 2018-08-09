@@ -1779,6 +1779,48 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/tags/search':          
+    get:
+      tags:
+        - tags
+      summary: Search tags
+      operationId: searchTags
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_tag_ids'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Tags were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTagsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'     
   '/admin/v1/documents/organisations/{organisation_id}/teams':
     get:
       tags:
