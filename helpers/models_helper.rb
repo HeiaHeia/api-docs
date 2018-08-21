@@ -2129,95 +2129,53 @@ module ModelsHelper
 
   def survey_model
     {
-      :id => Const::SURVEY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::SURVEY,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        banner_image_url: {
+          type: Const::STRING,
+          required: false,
+          description: "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
         },
-        :banner_image_url => {
-          :type => Const::STRING,
-          :required => false,
-          :description => "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        planned_icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true },
+        recurring: { type: Const::BOOLEAN, required: true },
+        questions: { items: { :$ref => Const::QUESTION }, type: Const::ARRAY, required: true },
+        graph_type: {
+          type: Const::STRING,
+          allowableValues: { valueType: Const::LIST, values: ["bar"] },
+          required: false,
+          description: "Type of historical comparison to show for this survey. Unsupported graph types must be ignored."
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        graph_options: {
+          type: Const::INT,
+          required: false,
+          description: "Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be included in the comparison."
         },
-        :description => {
-          :type => Const::TEXT
-        },
-        :questions => {
-          :items => {
-            :$ref => Const::QUESTION
-          },
-          :type => Const::ARRAY,
-          :required => true
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :planned_icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :graph_type => {
-          :type => Const::STRING,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => [
-              "bar"
-            ]
-          },
-          :required => false,
-          :description => "Type of historical comparison to show for this survey. Unsupported graph types must be ignored."
-        },
-        :graph_options => {
-          :type => Const::INT,
-          :required => false,
-          :description => "Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be included in the comparison."
-        },
-        recurring: { type: Const::BOOLEAN, required: true  }
+        report_key: { type: Const::STRING },
       }
     }
   end
 
   def compact_survey_model
     {
-      :id => Const::COMPACT_SURVEY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::COMPACT_SURVEY,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        banner_image_url: {
+          type: Const::STRING,
+          required: false,
+          description: "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
         },
-        :banner_image_url => {
-          :type => Const::STRING,
-          :required => false,
-          :description => "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
-        },
-        :title => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :description => {
-          :type => Const::TEXT
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        }
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        planned_icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true },
+        recurring: { type: Const::BOOLEAN, required: true }
       }
     }
   end
