@@ -3732,6 +3732,12 @@ components:
             Defines whether the survey can still be taken or not.
             This attribute is automatically updated when current date
             goes beyond the end date of the survey.
+        enabled_questions:
+          type: array
+          description: >-
+            List of enabled questions.
+          items:
+            type: integer
         survey:
           $ref: '#/components/schemas/CompactSurvey'
     CompactOrganisationTag:
