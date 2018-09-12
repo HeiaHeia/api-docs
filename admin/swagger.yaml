@@ -3381,6 +3381,53 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/membership_exports':
+    get:
+      tags:
+        - membership exports
+      summary: List all membership export tasks for given organisation
+      description: >-
+        This will exports available members as csv file under the given organisation.
+      operationId: listMembershipExports
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - name: state
+          in: query
+          description: >-
+            Only return export tasks whose state matches given value. By
+            default all tasks of any state are returned.
+          schema:
+            type: string
+            enum: ["pending", "ongoing", "completed"]
+      responses:
+        '200':
+          description: Membership exports were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipExportsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'        
   '/reports/v1/documents/reports/{id}':
     get:
       tags:
