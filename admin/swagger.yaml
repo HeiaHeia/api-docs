@@ -69,6 +69,9 @@ tags:
   - name: membership imports
     description: >-
       Operations for managing importing users from CSV files
+  - name: membership exports
+    description: >-
+      Operations for managing exporting users to CSV file    
   - name: reports
     description: >-
       Operations for accessing and sharing reports. These API calls
@@ -3408,7 +3411,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListOrganisationMembershipExportsResponse'
+                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
         '400':
           description: Invalid request
           content:
