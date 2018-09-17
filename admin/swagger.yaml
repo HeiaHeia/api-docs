@@ -3385,7 +3385,7 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/membership_exports':
-    get:
+    post:
       tags:
         - membership exports
       summary: List all membership export tasks for given organisation
