@@ -22,6 +22,8 @@ info:
     the access token:
     
     `{"access_token": "secret_token"}`
+    Also response contains header `Content-Language` with user's language 
+    
     
     For any subsequent calls the access token must be passed either as a
     query parameter (`access_token=secret_token`) or as a header
