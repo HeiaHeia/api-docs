@@ -79,6 +79,10 @@ tags:
       Operations for accessing and sharing reports. These API calls
       do not require any authentication information, knowing the id
       of the report being accessed is sufficient.
+  - name: survey report exports
+    description: >-
+      Operations for managing exporting survey reports to excel file    
+
   - name: energy levels
     description: >-
       Access to Parempi Vire "Test your energy levels" survey results.
@@ -3433,6 +3437,55 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'        
+  '/admin/v1/documents/organisations/{organisation_id}/report_exports':
+    post:
+      tags:
+        - survey report exports
+      summary: List all survey report export tasks for given organisation
+      description: >-
+        This will exports available members as csv file under the given organisation.
+      operationId: listReportExports
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: secret_id
+          in: query
+          required: true
+          description: >-
+            should include secret_id as params to find the data
+          schema:
+            type: string
+        - name: locale
+          in: query
+          description: >-
+            Only return excel file of one survey report in english by default. You can use locale = "fi" for example to get report in Finnish. 
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Survey report exports were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'  
   '/reports/v1/documents/reports/{id}':
     get:
       tags:
