@@ -509,6 +509,7 @@
         }
       ]
     },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/users/{user_id}/top_sports/years' } } %>,
     {
       "path":"/users/{user_id}/weekly_targets",
       "description":"Operations for managing weekly targets",

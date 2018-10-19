@@ -44,7 +44,8 @@
           "errorResponses":<%= responses(404) %>
         }
       ]
-    }
+    },
+    <%= erb :'shared/_years.json', { :locals => { :resource => '/top_sports/years' } } %>
   ],
   "models":<%= models(params[:api_version], 'TopSport') %>
 }
