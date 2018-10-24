@@ -3460,6 +3460,22 @@ paths:
             Only return excel file of one survey report in english by default. You can use locale = "fi" for example to get report in Finnish. 
           schema:
             type: string
+        - name: team_ids
+          in: query
+          description: >- 
+            Return excel file of one survey report only for required teams and tags
+          schema: 
+            type: array
+            items:
+              type: string
+        - name: tag_ids
+          in: query
+          description: >-
+            Return excel file of one survey report only for required teams and tags
+          schema:
+            type: array
+            items: 
+              type: string
       responses:
         '200':
           description: Survey report exports were successfully fetched
