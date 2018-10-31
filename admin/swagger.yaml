@@ -3562,7 +3562,7 @@ paths:
         required: true
         description: >-
           For `teams`, `tags` and `filter_tags` only the `id`
-          property of the objects is required/processed. To regenerate,`force` need to be added with body as an extra params to be as `true`.  
+          property of the objects is required/processed. To regenerate,`force` need to be added with body as an extra param to be `true`.  
         content:
           application/json:
             schema:
