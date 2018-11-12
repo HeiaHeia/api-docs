@@ -74,7 +74,7 @@ tags:
   - name: membership exports
     description: >-
       Operations for managing exporting users to CSV file
-  - name: supervisor
+  - name: supervisors
     description: >-
       Operations for supervisor to initiate and/or destroy supervisor role under organisation.
   - name: reports
