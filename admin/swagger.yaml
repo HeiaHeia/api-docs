@@ -3443,7 +3443,7 @@ paths:
   '/admin/v1/documents/organisations/{organisation_id}/report_exports':
   post:
       tags:
-        - supervisor
+        - supervisors
       summary: Create supervisor role to user for one or multiple team.
       description: >-
         This will create supervisor for teams under given organisation.
