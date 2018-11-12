@@ -3440,8 +3440,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'        
-  '/admin/v1/documents/organisations/{organisation_id}/report_exports':
-  post:
+  '/admin/v1/documents/organisations/{organisation_id}/supervisors':
+    post:
       tags:
         - supervisors
       summary: Create supervisor role to user for one or multiple team.
