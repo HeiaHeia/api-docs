@@ -3484,7 +3484,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable'   
+          $ref: '#/components/responses/ServerNotAvailable'  
+  '/admin/v1/documents/organisations/{organisation_id}/supervisors/{supervisor_id}':
     delete:
       tags:
         - supervisors
