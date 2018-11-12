@@ -3484,7 +3484,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable'        
+          $ref: '#/components/responses/ServerNotAvailable'   
+    delete:
+      tags:
+        - supervisors
+      summary: Remove supervisor role
+      operationId: deleteSupervisorRole
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/supervisor_role_id'
+      responses:
+        '204':
+          description: Supervisor role was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Supervisor role not found. `error` can be any of:
+            `supervisor_role_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'      
   '/admin/v1/documents/organisations/{organisation_id}/report_exports':
     post:
       tags:
@@ -5505,6 +5544,15 @@ components:
         format: int32
         default: 1
         minimum: 1
+    supervisor_role_id:
+      name: supervisor_role_id
+      in: path
+      required: true
+      description: >-
+        Identifier of the organisation membership being accessed
+      schema:
+        type: integer
+        example: 61056
     user_ids:
       name: user_ids
       in: path
