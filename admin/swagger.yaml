@@ -3450,17 +3450,8 @@ paths:
       operationId: supervisors
       parameters:
         - $ref: '#/components/parameters/organisation_id'
-      requestBody:
-        - team_ids: 
-            type: array
-            required: true
-            item: integer 
-            enum: [111, 3333]
-        - user_ids:
-            type: array
-          required: true
-          item: integer 
-          enum: [111, 3333]
+        - $ref: '#/components/parameters/user_ids'
+        - $ref: '#/components/parameters/team_ids'
         - name: state
           in: query
           description: >-
@@ -5514,6 +5505,30 @@ components:
         format: int32
         default: 1
         minimum: 1
+    user_ids:
+      name: user_ids
+      in: path
+      required: true
+      description: >-
+        Identifier of the organisation membership being accessed
+      schema:
+        type: array
+        example: 61056,61068
+        items:
+          type: integer
+          format: int64 
+    team_ids:
+      name: team_ids
+      in: path
+      required: true
+      description: >-
+        Identifier of the organisation teams being accessed
+      schema:
+        type: array
+        example: 61056,61068
+        items:
+          type: integer
+          format: int64 
     per_page:
       name: per_page
       in: query
