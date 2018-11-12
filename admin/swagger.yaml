@@ -3485,7 +3485,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'        
-  '/admin/v1/documents/organisations/{organisation_id}/supervisors':
+  '/admin/v1/documents/organisations/{organisation_id}/report_exports':
     post:
       tags:
         - survey report exports
