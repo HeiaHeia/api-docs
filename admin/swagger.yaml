@@ -3492,7 +3492,7 @@ paths:
       operationId: deleteSupervisorRole
       parameters:
         - $ref: '#/components/parameters/organisation_id'
-        - $ref: '#/components/parameters/supervisor_id'
+        - $ref: '#/components/parameters/supervisor_role_id'
       responses:
         '204':
           description: Supervisor was successfully removed
@@ -5544,7 +5544,7 @@ components:
         format: int32
         default: 1
         minimum: 1
-    supervisor_id:
+    supervisor_role_id:
       name: supervisor_id
       in: path
       required: true
