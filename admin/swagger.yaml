@@ -73,7 +73,10 @@ tags:
       Operations for managing importing users from CSV files
   - name: membership exports
     description: >-
-      Operations for managing exporting users to CSV file    
+      Operations for managing exporting users to CSV file
+  - name: supervisor
+    description: >-
+      Operations for supervisor to initiate and/or destroy supervisor role under organisation.
   - name: reports
     description: >-
       Operations for accessing and sharing reports. These API calls
@@ -3438,6 +3441,60 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'        
   '/admin/v1/documents/organisations/{organisation_id}/report_exports':
+  post:
+      tags:
+        - supervisor
+      summary: Create supervisor role to user for one or multiple team.
+      description: >-
+        This will create supervisor for teams under given organisation.
+      operationId: supervisors
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      requestBody:
+        - team_ids: 
+            type: array
+            required: true
+            item: integer 
+            enum: [111, 3333]
+        - user_ids:
+            type: array
+          required: true
+          item: integer 
+          enum: [111, 3333]
+        - name: state
+          in: query
+          description: >-
+            Only return the hash of created supervisor and team ids.
+          schema:
+            type: string
+            enum: ["pending", "ongoing", "completed"]
+      responses:
+        '200':
+          description: Supervisor creared successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'        
+  '/admin/v1/documents/organisations/{organisation_id}/supervisors':
     post:
       tags:
         - survey report exports
