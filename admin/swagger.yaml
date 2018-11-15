@@ -4604,6 +4604,19 @@ components:
             joins new organisation the user's old HeiaHeia use does not
             affect the counter.
           example: 380314
+        app_monthly_use_count:
+          type: integer
+          format: int64
+          description: >-
+            Number of times users belonging to this organisation have used
+            the HeiaHeia (/ Parempi Vire) mobile applications in the last month.
+            This is cumulative counter over the entire time the organisation
+            has existed (or since the counter was introduced [2018-03-14],
+            whichever is last). Only uses done while the user have belonged
+            to the organisation are counted, i.e. if existing HeiaHeia user
+            joins new organisation the user's old HeiaHeia use does not
+            affect the counter.
+          example: 314  
     OrganisationTag:
       allOf:
         - $ref: '#/components/schemas/CompactOrganisationTag'
