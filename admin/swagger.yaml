@@ -3441,6 +3441,47 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'        
   '/admin/v1/documents/organisations/{organisation_id}/supervisors':
+    get:
+      tags:
+        - supervisors
+      summary: List all user supervisors for given organisation
+      operationId: listSupervisors
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/filter_search'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Supervisors were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     post:
       tags:
         - supervisors
