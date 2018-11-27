@@ -84,8 +84,10 @@ tags:
       of the report being accessed is sufficient.
   - name: survey report exports
     description: >-
-      Operations for managing exporting survey reports to excel file    
-
+      Operations for managing exporting survey reports to excel file
+  - name: automatic report share
+    description: >-
+      report can be share to supervisor more automatically through mail.
   - name: energy levels
     description: >-
       Access to Parempi Vire "Test your energy levels" survey results.
@@ -3566,6 +3568,81 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'      
+  '/admin/v1/documents/organisations/{organisation_id}/dynamic_report_shares':
+    post:
+      tags:
+        - automatic report shares
+      summary: Create survey report for selected teams and tags and send the report through email to supervisor.
+      description: >-
+        This will send specific report team/tag/subteams report to selected supervisors.
+      operationId: automaticReportShare
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: report_id
+          in: query
+          required: true
+          description: >-
+            should include report_id as params to find the original company report
+          schema:
+            type: string
+        - name: subteams
+          in: query
+          description: >-
+            By deault it will be true. True for getting all the subteams under one selected teams.
+          schema:
+            type: boolean
+        - name: user_id
+          in: query
+          description: >-
+            user.id will act as the key of each hash and each hash will contain team_ids, tag_ids and ui_state
+          schema:
+            type: array
+            items: 
+              type: string    
+        - name: team_ids
+          in: query
+          description: >- 
+            Team ids should be inside of an array as item may act as string or integer. 
+          schema: 
+            type: array
+            items:
+              type: string
+        - name: tag_ids
+          in: query
+          description: >-
+            Tag ids should be inside of an array as item may act as string or integer.
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Survey report exports were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable' 
+          
+          
   '/admin/v1/documents/organisations/{organisation_id}/report_exports':
     post:
       tags:
