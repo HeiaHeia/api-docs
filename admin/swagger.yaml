@@ -3617,7 +3617,7 @@ paths:
               type: string
       responses:
         '200':
-          description: Survey report exports were successfully fetched
+          description: Report shares were successfully done. 
           content:
             application/json:
               schema:
