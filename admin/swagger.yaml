@@ -85,7 +85,7 @@ tags:
   - name: survey report exports
     description: >-
       Operations for managing exporting survey reports to excel file
-  - name: automatic report share
+  - name: automatic report shares
     description: >-
       report can be share to supervisor more automatically through mail.
   - name: energy levels
