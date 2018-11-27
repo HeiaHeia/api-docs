@@ -3616,8 +3616,8 @@ paths:
             items: 
               type: string
       responses:
-        '200':
-          description: Report shares were successfully done. 
+        '204':
+          description: Report shares were successfully done. Supervisor will receive report thrpugh mailer and will not render nothing.
           content:
             application/json:
               schema:
