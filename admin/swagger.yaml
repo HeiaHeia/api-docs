@@ -3585,6 +3585,13 @@ paths:
             should include report_id as params to find the original company report
           schema:
             type: string
+        - name: filter
+          in: query
+          required: true
+          description: >-
+            should include filter as params to create shared reprot for individual supervisor. filter will be an object and it will contain multiple hash for multiple users. each hash should include team_ids, tag_ids and as optional ui_state. 
+          schema:
+            type: object    
         - name: subteams
           in: query
           description: >-
@@ -3617,7 +3624,7 @@ paths:
               type: string
       responses:
         '204':
-          description: Report shares were successfully done. Supervisor will receive report thrpugh mailer and will not render nothing.
+          description: Report shares were successfully done. Supervisor will receive report thrpugh mailer and wil render nothing.
           content:
             application/json:
               schema:
