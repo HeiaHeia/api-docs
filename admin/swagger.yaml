@@ -3603,9 +3603,7 @@ paths:
           description: >-
             user.id will act as the key of each hash and each hash will contain team_ids, tag_ids and ui_state
           schema:
-            type: array
-            items: 
-              type: string    
+            type: string
         - name: team_ids
           in: query
           description: >- 
