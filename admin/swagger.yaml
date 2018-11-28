@@ -3508,7 +3508,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
+                type: object
+                example: { "user_ids": [id1], team_ids: [id1] }
         '400':
           description: Invalid request
           content:
@@ -3589,10 +3590,10 @@ paths:
           in: query
           required: true
           description: >-
-            should include filter as params to create shared report for individual supervisor. filter will be an object and it will contain multiple hash for multiple users. each hash should include team_ids, tag_ids and as optional ui_state. The example of body will be inside of filter object. 
+            should include filter as params to create shared reprot for individual supervisor. filter will be an object and it will contain multiple hash for multiple users. each hash should include team_ids, tag_ids and as optional ui_state. 
           schema:
             type: object
-            example: { "user_id": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }  
+          example: { "user_id": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }  
         - name: subteams
           in: query
           description: >-
@@ -3627,8 +3628,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                example: { "user_id1": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }
+                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
         '400':
           description: Invalid request
           content:
