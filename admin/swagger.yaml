@@ -3464,7 +3464,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListOrganisationMembershipsResponse'
+                $ref: '#/components/schemas/SupervisorRole'
         '400':
           description: Invalid request
           content:
