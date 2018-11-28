@@ -3591,7 +3591,8 @@ paths:
           description: >-
             should include filter as params to create shared reprot for individual supervisor. filter will be an object and it will contain multiple hash for multiple users. each hash should include team_ids, tag_ids and as optional ui_state. 
           schema:
-            type: object 
+            type: object
+          example: { "user_id": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }  
         - name: subteams
           in: query
           description: >-
