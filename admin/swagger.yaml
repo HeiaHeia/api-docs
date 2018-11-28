@@ -5684,7 +5684,7 @@ components:
         default: 1
         minimum: 1
     supervisor_role_id:
-      name: supervisor_id
+      name: id
       in: path
       required: true
       description: >-
