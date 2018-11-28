@@ -3464,7 +3464,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SupervisorRole'
+                type: object
+                example: { "total": 1, "items": {"id": 12323323, "first_name": "john", "last_name": "Doe", "avatar_url": nil, "language": "fi"}, "team": {"id": 111, "name": "T Name"} } 
         '400':
           description: Invalid request
           content:
