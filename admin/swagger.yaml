@@ -3628,7 +3628,7 @@ paths:
             application/json:
               schema:
                 type: object
-                example: { "user_id": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }
+                example: { "user_id1": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }
         '400':
           description: Invalid request
           content:
