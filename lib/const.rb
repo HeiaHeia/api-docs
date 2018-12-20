@@ -39,6 +39,7 @@ module Const
   COMPACT_PERSONAL_PROGRAM = 'CompactPersonalProgram'.freeze
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
+  COMPACT_WEEKLY_POINT_SYSTEM_SUMMARY = 'CompactWeeklyPointSystemSummary'.freeze
   CONVERSATION = 'Conversation'.freeze
   DOCUMENT = 'Document'.freeze
   GROUP = 'Group'.freeze
@@ -89,6 +90,10 @@ module Const
   USER_CONSENT = 'UserConsent'.freeze
   VIDEO = 'Video'.freeze
   WEARABLE = 'Wearable'.freeze
+  WEEKLY_POINT_SYSTEM_SUMMARY = 'WeeklyPointSystemSummary'.freeze
+  WEEKLY_POINT_SYSTEM_SUMMARY_BREAKDOWN = 'WeeklyPointSystemSummaryBreakdown'.freeze
+  WEEKLY_SUMMARY = 'WeeklySummary'.freeze
+  WEEKLY_SUMMARY_BREAKDOWN = 'WeeklySummaryBreakdown'.freeze
   WEEKLY_TARGET = 'WeeklyTarget'.freeze
   WEIGHT = 'Weight'.freeze
   WELLNESS_ENTRY = 'WellnessEntry'.freeze

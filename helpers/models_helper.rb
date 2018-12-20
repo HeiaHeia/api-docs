@@ -2884,6 +2884,91 @@ module ModelsHelper
     }
   end
 
+  def weekly_summary_model
+    {
+      id: Const::WEEKLY_SUMMARY,
+      properties: {
+        id: { type: Const::INT, required: true },
+        url: { type: Const::STRING, required: true },
+        user: { type: Const::COMPACT_USER, required: true },
+        created_at: { type: Const::DATE_TIME, required: true },
+        start_date: { type: Const::DATE, required: true },
+        end_date: { type: Const::DATE, required: true },
+        title: { type: Const::STRING, required: true },
+        private: { type: Const::BOOLEAN, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true },
+        cheerable: { type: Const::BOOLEAN, required: true },
+        commentable: { type: Const::BOOLEAN, required: true },
+        highlight: { type: Const::STRING },
+        breakdown: { items: { "$ref": Const::WEEKLY_SUMMARY_BREAKDOWN }, type: Const::ARRAY, required: true },
+        point_systems: { items: { "$ref": Const::WEEKLY_POINT_SYSTEM_SUMMARY }, type: Const::ARRAY },
+      }
+    }
+  end
+
+  def weekly_summary_breakdown_model
+    {
+      id: Const::WEEKLY_SUMMARY_BREAKDOWN,
+      properties: {
+        kind: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: { valueType: Const::LIST, values: %w[exercises steps sleep weight] }
+        },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::STRING },
+        result: { type: Const::STRING }
+      }
+    }
+  end
+
+  def compact_weekly_point_system_summary_model
+    {
+      id: Const::COMPACT_WEEKLY_POINT_SYSTEM_SUMMARY,
+      properties: {
+        start_date: { type: Const::DATE, required: true },
+        end_date: { type: Const::DATE, required: true },
+        points_total: { type: Const::INT, required: true },
+        points_earned: { type: Const::INT, required: true },
+        points_expired: { type: Const::INT, required: true }
+      }
+    }
+  end
+
+  def weekly_point_system_summary_breakdown_model
+    {
+      id: Const::WEEKLY_POINT_SYSTEM_SUMMARY_BREAKDOWN,
+      properties: {
+        title: { type: Const::STRING, required: true },
+        points: { type: Const::STRING, required: true },
+        details: { type: Const::STRING }
+      }
+    }
+  end
+
+
+  def weekly_point_system_summary_model
+    {
+      id: Const::WEEKLY_POINT_SYSTEM_SUMMARY,
+      properties: {
+        id: { type: Const::INT, required: true },
+        url: { type: Const::STRING, required: true },
+        title: { type: Const::STRING, required: true },
+        start_date: { type: Const::DATE, required: true },
+        end_date: { type: Const::DATE, required: true },
+        points_total: { type: Const::INT, required: true },
+        points_earned: { type: Const::INT, required: true },
+        points_expired: { type: Const::INT, required: true },
+        points_balance: { type: Const::STRING, required: true },
+        points_history: { items: { "$ref": Const::COMPACT_WEEKLY_POINT_SYSTEM_SUMMARY }, type: Const::ARRAY },
+        points_breakdown: { items: { "$ref": Const::WEEKLY_POINT_SYSTEM_SUMMARY_BREAKDOWN }, type: Const::ARRAY,
+                            required: true},
+      }
+    }
+  end
+
+
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
@@ -2952,6 +3037,11 @@ module ModelsHelper
       Const::USER_CONSENT => [],
       Const::VIDEO => [],
       Const::WEARABLE => [],
+      Const::WEEKLY_POINT_SYSTEM_SUMMARY => [Const::COMPACT_WEEKLY_POINT_SYSTEM_SUMMARY,
+                                             Const::WEEKLY_POINT_SYSTEM_SUMMARY_BREAKDOWN],
+      Const::WEEKLY_SUMMARY => [Const::COMPACT_USER, Const::WEEKLY_SUMMARY_BREAKDOWN,
+                                Const::WEEKLY_POINT_SYSTEM_SUMMARY],
+      Const::WEEKLY_SUMMARY_BREAKDOWN => [],
       Const::WEEKLY_TARGET => [],
       Const::WEIGHT => [Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::MEDIA],
       Const::WELLNESS_ENTRY => [Const::COMPACT_USER, Const::WELLNESS_TYPE, Const::WELLNESS_PARAM_VALUE, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
