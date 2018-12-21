@@ -145,6 +145,14 @@
       "description":"Wearable device services"
     },
     {
+      "path":"/api-docs/weekly_summaries.{format}",
+      "description":"Weekly summaries"
+    },
+    {
+      "path":"/api-docs/weekly_point_system_summaries.{format}",
+      "description":"Weekly point system summaries"
+    },
+    {
       "path":"/api-docs/weights.{format}",
       "description":"Weights"
     },

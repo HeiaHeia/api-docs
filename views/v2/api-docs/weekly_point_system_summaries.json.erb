@@ -1,0 +1,54 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/weekly_point_system_summaries",
+  "apis":[
+    {
+      "path":"/weekly_point_system_summaries",
+      "description":"Operations about weekly point system summaries",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Finds weekly point system summaries",
+          "responseClass":"List[WeeklyPointSystemSummary]",
+          "nickname":"index",
+          "parameters":[
+            {
+              "name":"point_system_id",
+              "paramType":"query",
+              "dataType":"int",
+              "description":"ID of the point system"
+            },
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/weekly_point_system_summaries/{id}",
+      "description":"Operations about weekly point system summaries",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find summary by ID",
+          "responseClass":"WeeklyPointSystemSummary",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the weekly point system summary.",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'WeeklyPointSystemSummary') %>
+}
