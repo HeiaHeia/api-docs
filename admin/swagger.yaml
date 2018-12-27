@@ -3494,6 +3494,44 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{campaign_id}':
+    delete:
+      tags:
+        - campaigns
+      summary: Remove campaign from organsiation
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      responses:
+        '204':
+          description: Campaign was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership import not found. `error` can be any of:
+            `membership_import_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/supervisors':
     get:
       tags:
@@ -6043,6 +6081,15 @@ components:
         example: [1213123, 324124124]
         items:
           type: integer
+    campaign_id:
+      name: campaign_id
+      in: path
+      required: true
+      description: >-
+        This should be campaign id of selected item.
+      schema:
+        type: integer
+        example: 1213123
   securitySchemes:
     admin_api_auth:
       type: oauth2
