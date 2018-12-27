@@ -5078,6 +5078,12 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SurveyQuestion'
+    ListOrganisationTargetAdaptiveResponse:
+      allOf:
+        - $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
+    ListOrganisationTargetTeamRaceResponse:
+      allOf:
+        - $ref: '#/components/schemas/OrganisationTargetTeamRaceMetaData'    
     ErrorResponse:
       type: object
       properties:
@@ -5611,17 +5617,17 @@ components:
           example: 1
         filtered_groups:
           type: Array
+          example: [3205492853, 3205492853]
           item:
             type: integer
-          example: [3205492853, 3205492853]
         background_url:
           type: string
           example: "/domain/system/location/images/1/web.jpg?1545731933"
         results:
           type: Array
-          item:
+          example: [{"index": 1,"group_name": "groupName","value": 100}]
+          items:
             type: object
-            example: [{"index": 1,"group_name": "groupName","value": 100}]
     ReportDataInstanceMetadata:
       type: object
       allOf:
