@@ -3468,11 +3468,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
-          tr_description: TeamRace Campaign has been created successfully.
-          tr_content:
-            tr_application/json:
-              schema:
-                $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'
         '400':
           description: Invalid request
           content:
@@ -5969,7 +5964,7 @@ components:
       name: engine_name
       in: query
       description: >-
-        This parameter must be provided and set to `adaptive` for adaptive campaign creation.
+        `common` This parameter must be provided and set to `adaptive` for adaptive campaign creation.
         This is intended to create campaign meter under adaptive engine. This engine type will define
         the campaign of each campaign creation.
       schema:
@@ -5979,7 +5974,7 @@ components:
       name: participant
       in: query
       description: >-
-        This parameter must be provided and set to any integer value.
+        `adaptive only` This parameter must be provided and set to any integer value.
         This is intended to create campaign for those participant 
       schema:
         type: integer
@@ -5988,7 +5983,7 @@ components:
       name: start_date
       in: query
       description: >-
-        This parameter must be provided and set to date in DateTime format. 
+        `common` This parameter must be provided and set to date in DateTime format. 
         If the date doesn't belongs to Monday, it will autonatically select the date of nearest Monday.
         The response will be based on the modified date.
       schema:
@@ -5999,7 +5994,7 @@ components:
       name: period
       in: query
       description: >-
-        This parameter must be provided and set to `8`, `10` or `12` in integer as 
+        `common` This parameter must be provided and set to `8`, `10` or `12` in integer as 
         represent in weeks for example 8 weeks, 10 weeks or 12 weeks. 
       schema:
         type: integer
@@ -6008,7 +6003,7 @@ components:
       name: level
       in: query
       description: >-
-        This parameter must be provided and set to `0` or `1` in integer as 
+        `common` This parameter must be provided and set to `0` or `1` in integer as 
         0 belongs to `easy` and 1 belongs to `challengigng`. 
       schema:
         type: integer
@@ -6017,7 +6012,7 @@ components:
       name: target_amount
       in: query
       description: >-
-        This parameter must be provided and client will calculate the amount based on 
+        `adaptive only` This parameter must be provided and client will calculate the amount based on 
         campaign types, period and participant following predefined algorithm. 
       schema:
         type: integer
@@ -6026,11 +6021,21 @@ components:
       name: comment
       in: query
       description: >-
-        This parameter must be provided and client will integrate the title with body and need to send as comment. 
+        `common` This parameter must be provided and client will integrate the title with body and need to send as comment. 
         CLient can also separate the title from comment by adding `!.,#` or line_break.
       schema:
         type: string
-        example: "Hello pew[title]!I am the body"    
+        example: "Hello pew[title]!I am the body" 
+    filtered_groups:
+      name: filtered_groups
+      in: query
+      description: >-
+        `team_race only` This parameter must be provided and this array should contain the ids of teams in integer value.
+      schema:
+        type: array
+        example: [1213123, 324124124]
+        items:
+          type: integer
   securitySchemes:
     admin_api_auth:
       type: oauth2
