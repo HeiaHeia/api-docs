@@ -3518,7 +3518,7 @@ paths:
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/OrganisationScheduledSurvey'
+              $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
       responses:
         '200: adaptive':
           description: Adaptive Campaign has been created successfully.
