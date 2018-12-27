@@ -3494,7 +3494,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
-  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{campaign_id}':
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}':
     delete:
       tags:
         - campaigns
