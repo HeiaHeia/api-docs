@@ -5529,6 +5529,99 @@ components:
             Type of this report data instance. Currently always
             `"OrganisationSurveyReportDataInstance"`
           example: "OrganisationSurveyReportDataInstance"
+    OrganisationTargetAdaptiveMetaData:
+      type: object
+      description: >-
+        Defines Organisation target of attributes for campaign meter or adaptive.
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        comment:
+          type: string
+          example: "Pew! I am a comment"
+        period:
+          type: integer
+          format: int64
+          example: 8
+        start_date:
+          type: string
+          format: DateTime
+          example: "2018-12-10"
+        end_date:
+          type: string
+          format: DateTime
+          example: "2019-01-03"
+        engine_name:
+          type: string
+          example: "adaptive"
+        organisation_target_background_id:
+          type: integer
+          format: int64
+          example: 3205492853
+        level:
+          type: integer
+          format: int64
+          example: 1
+        participant:
+          type: integer
+          format: int64
+          example: 420
+        background_url:
+          type: string
+          example: "/domain/system/location/images/1/web.jpg?1545731933"
+        target_amount:
+          type: number
+          example: 320.5
+    OrganisationTargetTeamRaceMetaData:
+      type: object
+      description: >-
+        Defines Organisation target of common attributes for team race.
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        comment:
+          type: string
+          example: "Pew! I am a comment"
+        period:
+          type: integer
+          format: int64
+          example: 8
+        start_date:
+          type: string
+          format: DateTime
+          example: "2018-12-10"
+        end_date:
+          type: string
+          format: DateTime
+          example: "2019-01-03"
+        engine_name:
+          type: string
+          example: "team_race"
+        organisation_target_background_id:
+          type: integer
+          format: int64
+          example: 3205492853
+        level:
+          type: integer
+          format: int64
+          example: 1
+        filtered_groups:
+          type: Array
+          item:
+            type: integer
+          example: [3205492853, 3205492853]
+        background_url:
+          type: string
+          example: "/domain/system/location/images/1/web.jpg?1545731933"
+        results:
+          type: Array
+          item:
+            type: object
+            example: [{"index": 1,"group_name": "groupName","value": 100}]
     ReportDataInstanceMetadata:
       type: object
       allOf:
