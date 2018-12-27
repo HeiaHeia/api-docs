@@ -3495,6 +3495,72 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}':
+    put:
+      tags:
+        - campaigns
+      summary: >-
+        Update an existing campaign.
+      operationId: updateExistingCampaign
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+        - $ref: '#/components/parameters/participant'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/level'
+        - $ref: '#/components/parameters/target_amount'
+        - $ref: '#/components/parameters/comment'
+        - $ref: '#/components/parameters/filtered_groups'
+      requestBody:
+        description: >-
+          Define new value of each field and send the latest value including campaign id and organisation id.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationScheduledSurvey'
+      responses:
+        '200: adaptive':
+          description: Adaptive Campaign has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+        '200: team_race':
+          description: TeamRace Campaign has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     delete:
       tags:
         - campaigns
