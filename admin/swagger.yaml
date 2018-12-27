@@ -74,7 +74,7 @@ tags:
   - name: membership exports
     description: >-
       Operations for managing exporting users to CSV file
-  - name: campaign
+  - name: campaigns
     description: >-
       Operations for campaign under organisation.
   - name: supervisors
@@ -3444,7 +3444,49 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable'        
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns':
+    post:
+      tags:
+        - campaigns
+      summary: Execute the create operation of `adaptive` campaign under organisation.
+      description: >-
+        This will create adaptive `also called campaign meter` campaign under the given organisation.
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/engine_name'
+        - $ref: '#/components/parameters/participant'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/level'
+        - $ref: '#/components/parameters/target_amount'
+        - $ref: '#/components/parameters/comment'
+      responses:
+        '200':
+          description: Campaign has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/supervisors':
     get:
       tags:
@@ -5619,15 +5661,15 @@ components:
           format: int64
           example: 1
         filtered_groups:
-          type: Array
+          type: array
           example: [3205492853, 3205492853]
-          item:
+          items:
             type: integer
         background_url:
           type: string
           example: "/domain/system/location/images/1/web.jpg?1545731933"
         results:
-          type: Array
+          type: array
           example: [{"index": 1,"group_name": "groupName","value": 100}]
           items:
             type: object
@@ -5918,6 +5960,72 @@ components:
       schema:
         type: boolean
         example: false
+    engine_name:
+      name: engine_name
+      in: query
+      description: >-
+        This parameter must be provided and set to `adaptive` for adaptive campaign creation.
+        This is intended to create campaign meter under adaptive engine. This engine type will define
+        the campaign of each campaign creation.
+      schema:
+        type: string
+        example: "adaptive"
+    participant:
+      name: participant
+      in: query
+      description: >-
+        This parameter must be provided and set to any integer value.
+        This is intended to create campaign for those participant 
+      schema:
+        type: integer
+        example: 400
+    start_date:
+      name: start_date
+      in: query
+      description: >-
+        This parameter must be provided and set to date in DateTime format. 
+        If the date doesn't belongs to Monday, it will autonatically select the date of nearest Monday.
+        The response will be based on the modified date.
+      schema:
+        type: string
+        format: DateTime
+        example: "2018-12-10"
+    period:
+      name: period
+      in: query
+      description: >-
+        This parameter must be provided and set to `8`, `10` or `12` in integer as 
+        represent in weeks for example 8 weeks, 10 weeks or 12 weeks. 
+      schema:
+        type: integer
+        example: 8
+    level:
+      name: level
+      in: query
+      description: >-
+        This parameter must be provided and set to `0` or `1` in integer as 
+        0 belongs to `easy` and 1 belongs to `challengigng`. 
+      schema:
+        type: integer
+        example: 0 
+    target_amount:
+      name: target_amount
+      in: query
+      description: >-
+        This parameter must be provided and client will calculate the amount based on 
+        campaign types, period and participant following predefined algorithm. 
+      schema:
+        type: integer
+        example: 300 
+    comment:
+      name: comment
+      in: query
+      description: >-
+        This parameter must be provided and client will integrate the title with body and need to send as comment. 
+        CLient can also separate the title from comment by adding `!.,#` or line_break.
+      schema:
+        type: string
+        example: "Hello pew[title]!I am the body"    
   securitySchemes:
     admin_api_auth:
       type: oauth2
