@@ -74,9 +74,9 @@ tags:
   - name: membership exports
     description: >-
       Operations for exporting users to CSV file
-  - name: adaptive campaigns
+  - name: campaigns
     description: >-
-      Operations for adaptive campaign under organisation.
+      Operations for campaign under organisation.
   - name: supervisors
     description: >-
       Operations for supervisor to initiate and/or destroy supervisor role under organisation.
@@ -3448,10 +3448,10 @@ paths:
   '/admin/v1/documents/organisations/{organisation_id}/campaigns':
     post:
       tags:
-        - adaptive campaigns
-      summary: Execute the create operation of campaign (adaptive) under organisation.
+        - campaigns
+      summary: Execute the create operation of campaign (adaptive or team_race) under organisation.
       description: >-
-        This will create adaptive `also called campaign meter` campaign under the given organisation.
+        This will create `adaptive` also called `campaign meter` or `team_race` campaign under the given organisation.
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/engine_name'
@@ -3468,6 +3468,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+          tr_description: TeamRace Campaign has been created successfully.
+          tr_content:
+            tr_application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'
         '400':
           description: Invalid request
           content:
