@@ -6083,7 +6083,7 @@ components:
         items:
           type: integer
     campaign_id:
-      name: campaign_id
+      name: id
       in: path
       required: true
       description: >-
