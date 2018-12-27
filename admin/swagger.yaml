@@ -3463,13 +3463,13 @@ paths:
         - $ref: '#/components/parameters/comment'
         - $ref: '#/components/parameters/filtered_groups'
       responses:
-        'adaptive => 200':
+        '200: adaptive':
           description: Adaptive Campaign has been created successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
-        '200 for team_race':
+        '200: team_race':
           description: TeamRace Campaign has been created successfully.
           content:
             application/json:
