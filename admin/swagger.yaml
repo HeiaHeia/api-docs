@@ -3449,7 +3449,7 @@ paths:
     post:
       tags:
         - campaigns
-      summary: Execute the create operation of  `adaptive` campaign under organisation.
+      summary: Execute the create operation of campaign (adaptive) under organisation.
       description: >-
         This will create adaptive `also called campaign meter` campaign under the given organisation.
       parameters:
