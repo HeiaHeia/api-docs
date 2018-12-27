@@ -6087,7 +6087,7 @@ components:
       in: path
       required: true
       description: >-
-        This should be campaign id of selected item.
+        This should be the campaign id of selected campaign.
       schema:
         type: integer
         example: 1213123
