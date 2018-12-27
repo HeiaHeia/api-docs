@@ -3518,7 +3518,7 @@ paths:
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
+              example: { id: campaign.id, participant: 500, start_date: "2018-12-12", period: 12, level: 1, comment: "campaign has been  updated"}
       responses:
         '200: adaptive':
           description: Adaptive Campaign has been created successfully.
