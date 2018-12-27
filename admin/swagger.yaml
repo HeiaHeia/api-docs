@@ -76,7 +76,7 @@ tags:
       Operations for exporting users to CSV file
   - name: adaptive campaigns
     description: >-
-      Operations for campaign under organisation.
+      Operations for adaptive campaign under organisation.
   - name: supervisors
     description: >-
       Operations for supervisor to initiate and/or destroy supervisor role under organisation.
