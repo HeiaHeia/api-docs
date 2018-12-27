@@ -3451,7 +3451,7 @@ paths:
         - adaptive campaigns
       summary: Execute the create operation of campaign (adaptive) under organisation.
       description: >-
-        This will create adaptive `also called campaign meter` or `team_race` campaign under the given organisation.
+        This will create adaptive `also called campaign meter` campaign under the given organisation.
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/engine_name'
