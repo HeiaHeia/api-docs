@@ -3450,6 +3450,7 @@ paths:
       tags:
         - campaigns
       summary: Execute the create operation of campaign (adaptive or team_race) under organisation.
+      operationId: createCampaign
       description: >-
         This will create `adaptive` also called `campaign meter` or `team_race` campaign under the given organisation.
       parameters:
@@ -3564,7 +3565,8 @@ paths:
     delete:
       tags:
         - campaigns
-      summary: Remove campaign from organsiation
+      summary: Remove campaign from organsiation.
+      operationId: destroyExistingCampaign
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/campaign_id'
