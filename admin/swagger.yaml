@@ -73,8 +73,8 @@ tags:
       Operations for managing importing users from CSV files
   - name: membership exports
     description: >-
-      Operations for managing exporting users to CSV file
-  - name: campaigns
+      Operations for exporting users to CSV file
+  - name: adaptive campaigns
     description: >-
       Operations for campaign under organisation.
   - name: supervisors
@@ -3448,10 +3448,10 @@ paths:
   '/admin/v1/documents/organisations/{organisation_id}/campaigns':
     post:
       tags:
-        - campaigns
+        - adaptive campaigns
       summary: Execute the create operation of campaign (adaptive) under organisation.
       description: >-
-        This will create adaptive `also called campaign meter` campaign under the given organisation.
+        This will create adaptive `also called campaign meter` or `team_race` campaign under the given organisation.
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/engine_name'
@@ -3463,7 +3463,7 @@ paths:
         - $ref: '#/components/parameters/comment'
       responses:
         '200':
-          description: Campaign has been created successfully.
+          description: Adaptive Campaign has been created successfully.
           content:
             application/json:
               schema:
