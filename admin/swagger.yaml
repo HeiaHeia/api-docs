@@ -77,6 +77,9 @@ tags:
   - name: campaigns
     description: >-
       Operations for campaign under organisation.
+  - name: megaphones
+    description: >-
+      Operations for meghaphones under organisation. 
   - name: reports
     description: >-
       Operations for accessing and sharing reports. These API calls
@@ -3772,6 +3775,151 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/megaphones':
+    post:
+      tags:
+        - megaphones
+      summary: Execute the create operation of megaphone under organisation.
+      operationId: createMegaphone
+      description: >-
+        This will create megaphone under the given organisation.
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - name: comment
+          in: query
+          example: "Hello pew!I am the body"
+          required: true
+          description: >-
+            This parameter must be provided and client will integrate the title with body and need to send as comment. Client can also separate the title from comment by adding `!.,# or line_break`.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Megaphone has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/megaphones/{id}':
+    put:
+      tags:
+        - megaphones
+      summary: >-
+        Update an existing megaphone.
+      operationId: updateExistingMegaphones
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/megaphone_id'
+        - name: comment
+          in: query
+          example: "Hello pew!I am the body"
+          required: true
+          description: >-
+            This parameter must be provided and client will integrate the title with body and need to send as comment. Client can also separate the title from comment by adding `!.,# or line_break`.
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Define new value of each field and send the latest value including campaign id and organisation id.
+        required: true
+        content:
+          'application/json':
+            schema:
+              example: { id: megaphone.id, comment: "megaphone has been  updated"}
+      responses:
+        '200':
+          description: Megaphone has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - megaphones
+      summary: Remove megaphone from organsiation.
+      operationId: destroyExistingMegaphones
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/megaphone_id'
+      responses:
+        '204':
+          description: Megaphones  was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Membership import not found. `error` can be any of:
+            `membership_import_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/report_exports':
     post:
       tags:
@@ -5206,7 +5354,10 @@ components:
         - $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
     ListOrganisationTargetTeamRaceResponse:
       allOf:
-        - $ref: '#/components/schemas/OrganisationTargetTeamRaceMetaData'    
+        - $ref: '#/components/schemas/OrganisationTargetTeamRaceMetaData' 
+    ListOrganisationMegaphoneResponse:
+      allOf:
+        - $ref: '#/components/schemas/OrganisationMegaphoneMetaData'
     ErrorResponse:
       type: object
       properties:
@@ -5751,6 +5902,18 @@ components:
           example: [{"index": 1,"group_name": "groupName","value": 100}]
           items:
             type: object
+    OrganisationMegaphoneMetaData:
+      type: object
+      description: >-
+        Defines Organisation megaphone of attributes for megaphone.
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        comment:
+          type: string
+          example: "Pew! I am a comment"
     ReportDataInstanceMetadata:
       type: object
       allOf:
@@ -6099,11 +6262,10 @@ components:
       name: comment
       in: query
       description: >-
-        `common` This parameter must be provided and client will integrate the title with body and need to send as comment. 
-        CLient can also separate the title from comment by adding `!.,#` or line_break.
+        `common` This parameter must be provided and client can assume the campaign title as comment.
       schema:
         type: string
-        example: "Hello pew[title]!I am the body" 
+        example: "Hello pew!I am the body" 
     filtered_groups:
       name: filtered_groups
       in: query
@@ -6123,6 +6285,15 @@ components:
       schema:
         type: integer
         example: 1213123
+    megaphone_id:
+      name: id
+      in: path
+      required: true
+      description: >-
+        This should be the megaphone id of selected megaphone.
+      schema:
+        type: integer
+        example: 1213123    
   securitySchemes:
     admin_api_auth:
       type: oauth2
