@@ -2531,35 +2531,28 @@ module ModelsHelper
 
   def survey_feedback_model
     {
-      :id => Const::SURVEY_FEEDBACK,
-      :properties => {
-        :type => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(per_question subtotal total)
+      id: Const::SURVEY_FEEDBACK,
+      properties: {
+        type: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w(per_question subtotal total)
           }
         },
-        :conclusion => {
-          :type => Const::TEXT,
-          :required => true
+        visible: {
+          type: Const::BOOLEAN,
+          required: true,
+          description: "When False, feedback should be used only for recommending programs"
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => extra_model_icon_description,
-          :required => true
+        conclusion: { type: Const::TEXT, },
+        icon_url: { type: Const::STRING, description: extra_model_icon_description, required: true },
+        non_square_icon_url: {
+          type: Const::STRING,
+          description: "(A possibly) non-square icon that should be used with surveys that have banner image. {height} variable in the URL needs to be replaced with desired height, width is undefined and depends on icon. Accepted height values are 40, 60, 80, 120 and 160."
         },
-        :non_square_icon_url => {
-          :type => Const::STRING,
-          :description => "(A possibly) non-square icon that should be used with surveys that have banner image. {height} variable in the URL needs to be replaced with desired height, width is undefined and depends on icon. Accepted height values are 40, 60, 80, 120 and 160.",
-          :required => false
-        },
-        :program_ids  => {
-          :items => { :$ref => Const::LONG },
-          :type => Const::ARRAY,
-          :required => true
-        },
+        program_ids: { items: { :$ref => Const::LONG }, type: Const::ARRAY, required: true },
         title: { type: Const::STRING },
         summary: { type: Const::TEXT }
       }
