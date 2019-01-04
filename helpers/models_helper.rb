@@ -1258,46 +1258,26 @@ module ModelsHelper
       Const::TRAINING_GOAL,
       Const::MEGAPHONE,
       Const::WELLNESS_ENTRY,
-      Const::PERSONAL_PROGRAM
+      Const::PERSONAL_PROGRAM,
+      Const::WEEKLY_SUMMARY
     ]
   end
 
   def feed_model
     {
-      :id => Const::FEED,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::FEED,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        kind: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: { valueType: Const::LIST, values: feed_types }
         },
-        :kind => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => feed_types
-          }
-        },
-        :entry => {
-          :type => feed_types.join(' | '),
-          :required => true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        }
+        entry: { type: feed_types.join(' | '), required: true },
+        url: { type: Const::STRING, required: true },
+        created_at: { type: Const::DATE_TIME, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true }
       }
     }
   end
@@ -2460,50 +2440,31 @@ module ModelsHelper
 
   def notification_model
     {
-      :id => Const::NOTIFICATION,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :message => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :actors => {
-          :items => {
+      id: Const::NOTIFICATION,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        url: { type: Const::STRING, required: true },
+        message: { type: Const::STRING, required: true },
+        actors: {
+          items: {
             :$ref => Const::COMPACT_USER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :action => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry)
+        action: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary)
           }
         },
-        :object => {
-          :type => Const::NOTIFICATION_OBJECT,
-          :required => true
-        },
-        :unread => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
-        },
-        :conversation => {
-          :type => Const::CONVERSATION,
-          :required => false,
-          :description => "Conversation associated with this notification. Only present if action is 'sent_message'"
+        object: { type: Const::NOTIFICATION_OBJECT, required: true },
+        unread: { type: Const::BOOLEAN, required: true },
+        created_at: { type: Const::DATE_TIME, required: true },
+        conversation: {
+          type: Const::CONVERSATION,
+          description: "Conversation associated with this notification. Only present if action is 'sent_message'"
         }
       }
     }
@@ -2840,7 +2801,8 @@ module ModelsHelper
         levels_title: { type: Const::STRING, required: true },
         levels: { items: { "$ref": Const::POINT_SYSTEM_LEVEL }, type: Const::ARRAY, required: true },
         rules_title: { type: Const::STRING, required: true },
-        rules: { items: { "$ref": Const::POINT_SYSTEM_RULE }, type: Const::ARRAY, required: true }
+        rules: { items: { "$ref": Const::POINT_SYSTEM_RULE }, type: Const::ARRAY, required: true },
+        points_total: { type: Const::INT, required: true },
       }
     }
   end
@@ -2950,6 +2912,11 @@ module ModelsHelper
         title: { type: Const::STRING, required: true },
         start_date: { type: Const::DATE, required: true },
         end_date: { type: Const::DATE, required: true },
+        image_url: {
+          type: Const::STRING,
+          required: true,
+          description: "Example https://example.com/path/to/image?size={resolution}, where {resolution} in (640x344, 750x344, 1125x516, 1242x516)"
+        },
         points_total: { type: Const::INT, required: true },
         points_earned: { type: Const::INT, required: true },
         points_expired: { type: Const::INT, required: true },
