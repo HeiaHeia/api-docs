@@ -3542,6 +3542,51 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}':
+    get:
+      tags:
+        - campaigns
+      summary: >-
+        Show an existing campaign.
+      operationId: showExistingCampaign
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+      responses:
+        '200':
+          description: Campaign were fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     put:
       tags:
         - campaigns
