@@ -3449,6 +3449,49 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/campaigns':
+    get:
+      tags:
+        - campaigns
+      summary: List of campaigns (adaptive or team_race) under organisation.
+      operationId: getCampaign
+      description: >-
+        This will fetch all `adaptive` also called `campaign meter` or `team_race` campaigns under the given organisation.
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/engine_name'
+        - $ref: '#/components/parameters/participant'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/level'
+        - $ref: '#/components/parameters/target_amount'
+        - $ref: '#/components/parameters/comment'
+        - $ref: '#/components/parameters/filtered_groups'
+      responses:
+        '200:':
+          description: Campaigns were successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     post:
       tags:
         - campaigns
@@ -5385,6 +5428,16 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SurveyQuestion'
+    ListOrganisationTargetResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
+    
     ListOrganisationTargetAdaptiveResponse:
       allOf:
         - $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
