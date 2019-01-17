@@ -3693,6 +3693,41 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/megaphones':
+    get:
+      tags:
+        - megaphones
+      summary: Fetch all megaphones under organisation.
+      operationId: getMegaphone
+      description: >-
+        This will fetch all megaphones under the given organisation.
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      responses:
+        '200':
+          description: Megaphones were fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponses'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     post:
       tags:
         - megaphones
@@ -5482,7 +5517,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
-    
+    ListOrganisationMegaphoneResponses:            
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponse'
     ListOrganisationTargetAdaptiveResponse:
       allOf:
         - $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
