@@ -3453,7 +3453,7 @@ paths:
       tags:
         - campaigns
       summary: List of campaigns (adaptive or team_race) under organisation.
-      operationId: getCampaign
+      operationId: getCampaigns
       description: >-
         This will fetch all `adaptive` also called `campaign meter` or `team_race` campaigns under the given organisation.
       parameters:
@@ -3697,7 +3697,7 @@ paths:
       tags:
         - megaphones
       summary: Fetch all megaphones under organisation.
-      operationId: getMegaphone
+      operationId: getMegaphones
       description: >-
         This will fetch all megaphones under the given organisation.
       parameters:
