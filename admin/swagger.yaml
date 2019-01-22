@@ -3449,6 +3449,49 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/campaigns':
+    get:
+      tags:
+        - campaigns
+      summary: List of campaigns (adaptive or team_race) under organisation.
+      operationId: getCampaigns
+      description: >-
+        This will fetch all `adaptive` also called `campaign meter` or `team_race` campaigns under the given organisation.
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/engine_name'
+        - $ref: '#/components/parameters/participant'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/level'
+        - $ref: '#/components/parameters/target_amount'
+        - $ref: '#/components/parameters/comment'
+        - $ref: '#/components/parameters/filtered_groups'
+      responses:
+        '200:':
+          description: Campaigns were successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     post:
       tags:
         - campaigns
@@ -3499,6 +3542,51 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}':
+    get:
+      tags:
+        - campaigns
+      summary: >-
+        Show an existing campaign.
+      operationId: showExistingCampaign
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+      responses:
+        '200':
+          description: Campaign were fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     put:
       tags:
         - campaigns
@@ -3605,6 +3693,41 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/megaphones':
+    get:
+      tags:
+        - megaphones
+      summary: Fetch all megaphones under organisation.
+      operationId: getMegaphones
+      description: >-
+        This will fetch all megaphones under the given organisation.
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      responses:
+        '200':
+          description: Megaphones were fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponses'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     post:
       tags:
         - megaphones
@@ -3649,6 +3772,51 @@ paths:
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/megaphones/{id}':
+    get:
+      tags:
+        - megaphones
+      summary: >-
+        Fetch an existing megaphone.
+      operationId: getExistingMegaphones
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/megaphone_id'
+      responses:
+        '200':
+          description: Megaphone has been fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
     put:
       tags:
         - megaphones
@@ -5385,6 +5553,24 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SurveyQuestion'
+    ListOrganisationTargetResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
+    ListOrganisationMegaphoneResponses:            
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/ListOrganisationMegaphoneResponse'
     ListOrganisationTargetAdaptiveResponse:
       allOf:
         - $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
