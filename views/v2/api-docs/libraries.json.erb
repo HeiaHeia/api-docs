@@ -263,7 +263,23 @@
           "errorResponses":<%= responses(400, 404) %>
         }
       ]
+    },
+    {
+      "path":"/libraries/workouts",
+      "description":"Operations about workouts. More information ",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of available workouts",
+          "notes": "More information about structure can ba found here: https://paper.dropbox.com/doc/Better-Life-API-description--AWHof1lxWZLkWJxRpAf4_UVkAg-zYuIzunnfjOtijGR5BiwX#:uid=038703152342316731380785&h2=Workout-Library",
+          "responseClass":"List[LibraryWorkout]",
+          "nickname":"library_workouts_index",
+          "parameters":[],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
     }
+
   ],
   "models":<%= models(params[:api_version], 'Library', 'LibraryFolder', 'LibraryItem') %>
 }
