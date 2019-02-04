@@ -347,48 +347,21 @@ module ModelsHelper
 
   def sport_model
     {
-      :id => Const::SPORT,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :name => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :planned_icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :sport_params => {
-          :items => {
-            :$ref => Const::SPORT_PARAM
-          },
-          :type => Const::ARRAY
-        },
-        :exclude_stats => {
-          :required => true,
-          :type => Const::BOOLEAN
-        },
-        dummy: {
-          required: true,
-          type: Const::BOOLEAN
-        },
+      id: Const::SPORT,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        key: { type: Const::STRING, required: true },
+        name: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        planned_icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true },
+        sport_params: { items: { :$ref => Const::SPORT_PARAM }, type: Const::ARRAY },
+        exclude_stats: { required: true, type: Const::BOOLEAN },
+        dummy: { required: true, type: Const::BOOLEAN },
         creatable: {
           required: true,
           type: Const::BOOLEAN,
-          :description => "Indicates that user can create this kind of entry. Value is 'false' for Polar, FitBit, ActiveDay (wearable devices)."
+          description: "Indicates that user can create this kind of entry. Value is 'false' for Polar, FitBit, ActiveDay (wearable devices)."
         }
       }
     }
