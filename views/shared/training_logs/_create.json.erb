@@ -84,7 +84,12 @@
       "paramType":"form",
       "dataType":"boolean"
     },
-    <%= param_tags %>
+    <%= param_tags %>,
+    {
+      "name":"workout_collection_id",
+      "paramType":"form",
+      "dataType":"int"
+    }
   ],
   "errorResponses":<%= responses(400, 404) %>
 }

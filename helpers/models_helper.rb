@@ -1076,90 +1076,35 @@ module ModelsHelper
 
   def medal_model
     {
-      :id => Const::MEDAL,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :year => {
-          :type => Const::INT,
-          :required => true
-        },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{width}.png,
+      id: Const::MEDAL,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        year: { type: Const::INT, required: true },
+        user: { type: Const::COMPACT_USER, required: true },
+        url: { type: Const::STRING, required: true },
+        icon_url: {
+          type: Const::STRING,
+          description: "Example https://example.com/path/to/image/{width}.png,
                            {width} - possible width of image(could be 48, 64, 72, 80, 96, 120, 144, 192).
                            Icon can be with dimension WxW or Wx4/3*W. All sizes of icons:
                            48x48, 48x64, 64x64, 64x85, 72x72, 72x96, 80x80, 80x107, 96x96, 96x128, 120x120, 120x160, 144x144, 144x192, 192x192, 192x256",
-          :required => true
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
-        },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :latest_cheers => {
-          :items => {
-            :$ref => Const::CHEER
-          },
-          :type => Const::ARRAY
-        },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
-        },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :latest_comments => {
-          :items => {
-            :$ref => Const::COMMENT
-          },
-          :type => Const::ARRAY
-        },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
-        },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
-        },
-        :organisation => {
-          :type => Const::ORGANISATION
-        },
-        :description => {
-          :type => Const::STRING
-        }
+        title: { type: Const::STRING, required: true },
+        cheers_count: { type: Const::INT, required: true },
+        cheers_url: { type: Const::STRING, required: true },
+        cheerable: { type: Const::BOOLEAN, required: true },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        comments_count: { type: Const::INT, required: true },
+        comments_url: { type: Const::STRING, required: true },
+        commentable: { type: Const::BOOLEAN, required: true },
+        latest_comments: { items: { :$ref => Const::COMMENT }, type: Const::ARRAY },
+        created_at: { type: Const::DATE_TIME, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true },
+        organisation: { type: Const::ORGANISATION },
+        description: { type: Const::STRING },
+        private: { type: Const::BOOLEAN, required: true }
       }
     }
   end
