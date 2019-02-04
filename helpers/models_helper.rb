@@ -333,30 +333,14 @@ module ModelsHelper
 
   def compact_sport_model
     {
-      :id => Const::COMPACT_SPORT,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :name => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :planned_icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        }
+      id: Const::COMPACT_SPORT,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        key: { type: Const::STRING, required: true },
+        name: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        planned_icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true }
       }
     }
   end
