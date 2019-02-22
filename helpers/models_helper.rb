@@ -2583,6 +2583,7 @@ module ModelsHelper
       properties: {
         id: { type: Const::LONG, required: true },
         url: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, required: true },
         type: {
           type: Const::STRING,
           required: true,
@@ -2597,8 +2598,7 @@ module ModelsHelper
           allowableValues: { valueType: Const::LIST, values: %w(open accepted rejected) }
         },
         title: { type: Const::STRING, required: true },
-        description: { type: Const::STRING },
-        extra_note: { type: Const::STRING },
+        description: { type: Const::STRING, required: true },
         actor: { type: Const::COMPACT_USER, required: true },
         target: { type: [Const::COMPACT_USER, Const::GROUP, Const::ORGANISATION].join(' | '), required: true },
         actions: { items: { :$ref => Const::REQUEST_ACTION }, type: Const::ARRAY }
