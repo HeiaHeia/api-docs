@@ -2358,7 +2358,7 @@ module ModelsHelper
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary)
+            values: %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary invited_to_org requested_to_join_team invited_to_team requested_to_become_coach)
           }
         },
         object: { type: Const::NOTIFICATION_OBJECT, required: true },
