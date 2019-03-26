@@ -6193,15 +6193,10 @@ components:
           example: 3205492853
         type:
           type: string
-          format: int64
-          example: 3205492853  
+          example: "Campaign"
         comment:
           type: string
           example: "Pew! I am a comment"
-        period:
-          type: integer
-          format: int64
-          example: 8
         start_date:
           type: string
           format: DateTime
@@ -6213,24 +6208,33 @@ components:
         engine_name:
           type: string
           example: "adaptive"
-        organisation_target_background_id:
-          type: integer
-          format: int64
-          example: 3205492853
-        level:
-          type: integer
-          format: int64
-          example: 1
-        participant:
-          type: integer
-          format: int64
-          example: 420
-        background_url:
-          type: string
-          example: "/domain/system/location/images/1/web.jpg?1545731933"
-        target_amount:
-          type: number
-          example: 320.5
+        wellness_points_distribution:
+          type: array
+          example: [{key: "exercise", amount: 10}, {key: "wellness_entries", amount: 9}]
+          items:
+            type: object
+        active_users:
+          type: object
+          example: {amount: 7}
+        top_wellness_entry:
+          type: array
+          example: [{amount: 5, name: {"en": "title"}}, {amount: 4, name: {"en": "title" }}]
+          items:
+            type: object
+        top_sports:
+          type: array
+          example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url: "icon_url", planned_icon_url: "planned_icon_url" }]
+          items:
+            type: object
+        started_program:
+          type: object
+          example: {amount: 7}
+        total_cheers:
+          type: object
+          example: {amount: 7, average: 0}
+        reached_personal_target:
+          type: object
+          example: {target_amount: 140, amount: 5, average: 157.14}
     CampaignStatisticsTeamRaceMetaData:   
       type: object
       description: >-
