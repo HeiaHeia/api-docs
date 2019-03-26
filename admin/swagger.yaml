@@ -6244,19 +6244,18 @@ components:
     CampaignStatisticsTeamRaceMetaData:   
       type: object
       description: >-
-        Defines Organisation target of common attributes for team race.
+        Defines Organisation target of attributes for team-race-campaign statistics.
       properties:
         id:
           type: integer
           format: int64
           example: 3205492853
+        type:
+          type: string
+          example: "Campaign"
         comment:
           type: string
           example: "Pew! I am a comment"
-        period:
-          type: integer
-          format: int64
-          example: 8
         start_date:
           type: string
           format: DateTime
@@ -6267,28 +6266,48 @@ components:
           example: "2019-01-03"
         engine_name:
           type: string
-          example: "team_race"
-        organisation_target_background_id:
-          type: integer
-          format: int64
-          example: 3205492853
-        level:
-          type: integer
-          format: int64
-          example: 1
-        filtered_groups:
+          example: "adaptive"
+        wellness_points_distribution:
           type: array
-          example: [3205492853, 3205492853]
-          items:
-            type: integer
-        background_url:
-          type: string
-          example: "/domain/system/location/images/1/web.jpg?1545731933"
-        results:
-          type: array
-          example: [{"index": 1,"group_name": "groupName","value": 100}]
+          example: [{key: "exercise", amount: 10}, {key: "wellness_entries", amount: 9}]
           items:
             type: object
+        active_users:
+          type: object
+          example: {amount: 7}
+        top_wellness_entry:
+          type: array
+          example: [{amount: 5, name: {"en": "title"}}, {amount: 4, name: {"en": "title" }}]
+          items:
+            type: object
+        top_sports:
+          type: array
+          example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url: "icon_url", planned_icon_url: "planned_icon_url" }]
+          items:
+            type: object
+        started_program:
+          type: object
+          example: {amount: 7}
+        total_cheers:
+          type: object
+          example: {amount: 7, average: 2}
+        active_teams:
+          type: object
+          example: {amount: 6, average: 263.112}
+        reached_team_target:
+          type: object
+          example: {amount: 5, target_amount: 140}
+        top_teams:
+          type: array
+          example: [{ id: 123, name: "name", average: 300 }]
+          items:
+            type: object
+        total_team_exercise:
+          type: object
+          example: {amount: 5,average: [{ id: 1234, average: 28800, average_in_hh_mm: "8h"}]}
+        total_team_steps:
+          type: object
+          example: {amount: 5, average: [{id: 13414, average: 38095.23 }]}
     OrganisationMegaphoneMetaData:
       type: object
       description: >-
