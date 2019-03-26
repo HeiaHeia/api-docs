@@ -3692,7 +3692,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
-  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}/statistics':
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}/stats':
     get:
       tags:
         - campaigns
