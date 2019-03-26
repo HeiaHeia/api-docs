@@ -2842,7 +2842,7 @@ paths:
         activated and all matching users (excluding those who have
         already taken the survey) will be sent email invitation to
         take the survey.
-      operationId: massStartSurvey
+      operationId: massStartSurveyResend
       parameters:
         - $ref: '#/components/parameters/query_organisation_id'
         - name: scheduled_survey_id
