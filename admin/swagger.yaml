@@ -6235,6 +6235,12 @@ components:
         reached_personal_target:
           type: object
           example: {target_amount: 140, amount: 5, average: 157.14}
+        total_exercise:
+          type: object
+          example: { amount: "< 5", average: 12600.0, insufficient_data: true, insufficient_data_reason: "too_few_data" }
+        total_steps:
+          type: object
+          example: { amount: "< 5", average: 3211.7346938775513, insufficient_data: true, insufficient_data_reason: "too_few_data" }  
     CampaignStatisticsTeamRaceMetaData:   
       type: object
       description: >-
