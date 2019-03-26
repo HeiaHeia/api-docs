@@ -6098,7 +6098,7 @@ components:
           type: integer
           format: int64
           example: 3205492853
-        stats:
+        stats_id:
           type: integer
           format: int64
           example: 3205492853  
