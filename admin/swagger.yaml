@@ -6098,6 +6098,10 @@ components:
           type: integer
           format: int64
           example: 3205492853
+        stats:
+          type: integer
+          format: int64
+          example: 3205492853  
         comment:
           type: string
           example: "Pew! I am a comment"
@@ -6193,21 +6197,7 @@ components:
           example: 3205492853
         type:
           type: string
-          example: "Campaign"
-        comment:
-          type: string
-          example: "Pew! I am a comment"
-        start_date:
-          type: string
-          format: DateTime
-          example: "2018-12-10"
-        end_date:
-          type: string
-          format: DateTime
-          example: "2019-01-03"
-        engine_name:
-          type: string
-          example: "adaptive"
+          example: "CampaignStats"
         wellness_points_distribution:
           type: array
           example: [{key: "exercise", amount: 10}, {key: "wellness_entries", amount: 9}]
@@ -6252,21 +6242,7 @@ components:
           example: 3205492853
         type:
           type: string
-          example: "Campaign"
-        comment:
-          type: string
-          example: "Pew! I am a comment"
-        start_date:
-          type: string
-          format: DateTime
-          example: "2018-12-10"
-        end_date:
-          type: string
-          format: DateTime
-          example: "2019-01-03"
-        engine_name:
-          type: string
-          example: "adaptive"
+          example: "CampaignStats"
         wellness_points_distribution:
           type: array
           example: [{key: "exercise", amount: 10}, {key: "wellness_entries", amount: 9}]
