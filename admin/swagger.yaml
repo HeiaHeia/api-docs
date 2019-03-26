@@ -3692,6 +3692,58 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}/statistics':
+    get:
+      tags:
+        - campaigns
+      summary: >-
+        Show campaign statistics data for requested campaign id
+      operationId: showCampaignStatistics
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+      responses:
+        '200-adaptive':
+          description: Campaign statistics were fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCampaignStatisticsAdaptiveResponse'
+        '200-team_race':
+          description: Campaign statistics were fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCampaignStatisticsTeamRaceResponse'        
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/megaphones':
     get:
       tags:
@@ -5576,7 +5628,13 @@ components:
         - $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
     ListOrganisationTargetTeamRaceResponse:
       allOf:
-        - $ref: '#/components/schemas/OrganisationTargetTeamRaceMetaData' 
+        - $ref: '#/components/schemas/OrganisationTargetTeamRaceMetaData'
+    ListCampaignStatisticsAdaptiveResponse:
+      allOf:
+        - $ref: '#/components/schemas/CampaignStatisticsAdaptiveMetaData'
+    ListCampaignStatisticsTeamRaceResponse:
+      allOf:
+        - $ref: '#/components/schemas/CampaignStatisticsTeamRaceMetaData'    
     ListOrganisationMegaphoneResponse:
       allOf:
         - $ref: '#/components/schemas/OrganisationMegaphoneMetaData'
@@ -6077,6 +6135,103 @@ components:
           type: number
           example: 320.5
     OrganisationTargetTeamRaceMetaData:
+      type: object
+      description: >-
+        Defines Organisation target of common attributes for team race.
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        comment:
+          type: string
+          example: "Pew! I am a comment"
+        period:
+          type: integer
+          format: int64
+          example: 8
+        start_date:
+          type: string
+          format: DateTime
+          example: "2018-12-10"
+        end_date:
+          type: string
+          format: DateTime
+          example: "2019-01-03"
+        engine_name:
+          type: string
+          example: "team_race"
+        organisation_target_background_id:
+          type: integer
+          format: int64
+          example: 3205492853
+        level:
+          type: integer
+          format: int64
+          example: 1
+        filtered_groups:
+          type: array
+          example: [3205492853, 3205492853]
+          items:
+            type: integer
+        background_url:
+          type: string
+          example: "/domain/system/location/images/1/web.jpg?1545731933"
+        results:
+          type: array
+          example: [{"index": 1,"group_name": "groupName","value": 100}]
+          items:
+            type: object
+    CampaignStatisticsAdaptiveMetaData:
+      type: object
+      description: >-
+        Defines Organisation target of attributes for adaptive-campaign statistics.
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        type:
+          type: string
+          format: int64
+          example: 3205492853  
+        comment:
+          type: string
+          example: "Pew! I am a comment"
+        period:
+          type: integer
+          format: int64
+          example: 8
+        start_date:
+          type: string
+          format: DateTime
+          example: "2018-12-10"
+        end_date:
+          type: string
+          format: DateTime
+          example: "2019-01-03"
+        engine_name:
+          type: string
+          example: "adaptive"
+        organisation_target_background_id:
+          type: integer
+          format: int64
+          example: 3205492853
+        level:
+          type: integer
+          format: int64
+          example: 1
+        participant:
+          type: integer
+          format: int64
+          example: 420
+        background_url:
+          type: string
+          example: "/domain/system/location/images/1/web.jpg?1545731933"
+        target_amount:
+          type: number
+          example: 320.5
+    CampaignStatisticsTeamRaceMetaData:   
       type: object
       description: >-
         Defines Organisation target of common attributes for team race.
