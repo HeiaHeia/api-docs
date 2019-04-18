@@ -5309,17 +5309,18 @@ components:
           example: 380314
     OrganisationTopSports:
       allof:
-      type: array
-      description: >-
-        Listed organisation level sports.
-      properties:    
-        top_sports:
-        type: array
-        items:
-          type: object
-        description: >-
-          Listed array of top sports.
-        example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url:   "icon_url", planned_icon_url: "planned_icon_url" }]
+        - $ref:
+        - type: array
+          description: >-
+            Listed organisation level sports.
+          properties:    
+            top_sports:
+            type: array
+            items:
+              type: object
+            description: >-
+              Listed array of top sports.
+            example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url:   "icon_url", planned_icon_url: "planned_icon_url" }]
     OrganisationTag:
       allOf:
         - $ref: '#/components/schemas/CompactOrganisationTag'
