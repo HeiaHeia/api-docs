@@ -5237,6 +5237,9 @@ components:
         steps:
           type: object
           example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000}  
+        total_cheers:
+          type: object
+          example: {cheers_amount: 888.0, user: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000}  
     OrganisationUsageStats:
       type: object
       description: >-
