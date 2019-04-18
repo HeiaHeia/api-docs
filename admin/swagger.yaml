@@ -5231,6 +5231,9 @@ components:
           example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url: "icon_url", planned_icon_url: "planned_icon_url" }]
           items:
             type: object
+        exercise:
+          type: object
+          example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_distance_in_unit: "200 km", total_duration_in_unit: "10h"}
     OrganisationUsageStats:
       type: object
       description: >-
