@@ -5308,7 +5308,8 @@ components:
             affect the counter.
           example: 380314
     OrganisationTopSports:
-      type: object
+      allof:
+      type: array
       description: >-
         Listed organisation level sports.
       properties:    
