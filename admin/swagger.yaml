@@ -5219,6 +5219,8 @@ components:
       properties:
         usage:
           $ref: '#/components/schemas/OrganisationUsageStats'
+        wellbeing_level:
+          $ref: '#/components/schemas/OrganisationWellbeingLevel'
     OrganisationUsageStats:
       type: object
       description: >-
