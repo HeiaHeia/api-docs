@@ -5269,7 +5269,40 @@ components:
             to the organisation are counted, i.e. if existing HeiaHeia user
             joins new organisation the user's old HeiaHeia use does not
             affect the counter.
-          example: 314  
+          example: 314
+    OrganisationWellbeingLevel:
+      type: object
+      description: >-
+        Current wellbeing related statistics.
+      properties:
+        top_sources_of_points:
+          type: array
+          items:
+            type: object
+          description: >-
+            Top sources of points with wellbeing distribution.
+          example: [{key: "exercise", amount: 10}, {key: "wellness_entries", amount: 9}]
+        score_level_breakdown:
+          type: object
+          items: 
+            type: object
+          description: >-
+            Wellbeing Level breakdown based on points.
+          example: {level_5: {title: "wellbeing champion", range: "1000 - 10000 pt", amount: 2}}
+        users_by_second_level:
+          type: object
+          items: 
+            type: object
+          description: >-
+            Wellbeing Level breakdown based on points.
+          example: {amount: 1, users: [{first_name: "first_name", last_name: "last_name"}]}
+        total_points:
+          type: integer
+          format: int64
+          description: >-
+            Total amount of wellbeing points
+            affect the counter.
+          example: 380314
     OrganisationTag:
       allOf:
         - $ref: '#/components/schemas/CompactOrganisationTag'
