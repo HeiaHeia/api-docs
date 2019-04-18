@@ -5239,7 +5239,19 @@ components:
           example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000}  
         total_cheers:
           type: object
-          example: {cheers_amount: 888.0, user: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000}  
+          example: {cheers_amount: 888.0, user: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000} 
+        pv_average_friends:
+          type: integer
+          format: int32
+          example: 848484
+        started_program:
+          type: integer
+          format: int32
+          example: 848484 
+        connected_wearables:
+          type: integer
+          format: int32
+          example: 4   
     OrganisationUsageStats:
       type: object
       description: >-
