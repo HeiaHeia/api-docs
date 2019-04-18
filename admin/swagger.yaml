@@ -5221,8 +5221,16 @@ components:
           $ref: '#/components/schemas/OrganisationUsageStats'
         wellbeing_level:
           $ref: '#/components/schemas/OrganisationWellbeingLevel'
+        top_wellness_entry:
+          type: array
+          example: [{amount: 5, name: {"en": "title"}}, {amount: 4, name: {"en": "title" }}]
+          items:
+            type: object
         top_sports:
-          $ref: '#/components/schemas/OrganisationTopSports'
+          type: array
+          example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url: "icon_url", planned_icon_url: "planned_icon_url" }]
+          items:
+            type: object
     OrganisationUsageStats:
       type: object
       description: >-
@@ -5307,18 +5315,6 @@ components:
             Total amount of wellbeing points
             affect the counter.
           example: 380314
-    OrganisationTopSports:
-      type: array
-      description: >-
-        Listed organisation level sports.
-      properties:    
-        top_sports:
-        type: array
-        items:
-          type: object
-        description: >-
-          Listed array of top sports.
-        example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url:   "icon_url", planned_icon_url: "planned_icon_url" }]
     OrganisationTag:
       allOf:
         - $ref: '#/components/schemas/CompactOrganisationTag'
