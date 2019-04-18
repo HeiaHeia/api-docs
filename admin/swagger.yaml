@@ -5234,6 +5234,9 @@ components:
         exercise:
           type: object
           example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_distance_in_unit: "200 km", total_duration_in_unit: "10h"}
+        steps:
+          type: object
+          example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000}  
     OrganisationUsageStats:
       type: object
       description: >-
