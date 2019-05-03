@@ -232,6 +232,12 @@ module ModelsHelper
         :linked_with_mixpanel => {
           :type => Const::BOOLEAN,
           :required => true
+        },
+        consent_rewards: { type: Const::BOOLEAN, required: true },
+        location_privacy: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: { valueType: Const::LIST, values: Const::LOCATION_PRIVACIES }
         }
       }
     }

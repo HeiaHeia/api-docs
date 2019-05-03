@@ -103,5 +103,5 @@ module Const
   WELLNESS_TYPE = 'WellnessType'.freeze
 
   PRIVACIES = ['all_users', 'friends', 'friends_and_colleagues'].freeze
-
+  LOCATION_PRIVACIES = ['inherit', 'friends', 'nobody'].freeze
 end
