@@ -2088,33 +2088,19 @@ module ModelsHelper
 
   def question_model
     {
-      :id => Const::QUESTION,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
-        },
-        :title => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :description => {
-          :type => Const::TEXT
-        },
-        :category => {
-          :type => Const::TEXT
-        },
-        :options => {
-          :items => {
-            :$ref => Const::QUESTION_OPTION
-          },
-          :type => Const::ARRAY,
-          :required => true
-        },
-        :kind => {
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => [
+      id: Const::QUESTION,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        category: { type: Const::TEXT },
+        options: { type: Const::ARRAY, required: true, items: { :$ref => Const::QUESTION_OPTION } },
+        kind: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: [
               Const::BMI,
               Const::STAR,
               Const::BOOLEAN,
@@ -2123,37 +2109,32 @@ module ModelsHelper
               Const::DROPDOWN
             ]
           },
-          :type => Const::STRING,
-          :required => true
         },
-        :subtype => {
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => ["slider"]
-          },
-          :type => Const::STRING,
-          :required => false
+        subtype: {
+          type: Const::STRING,
+          required: false,
+          allowableValues: { valueType: Const::LIST, values: ["slider"] }
         },
-        :notable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        notable: { type: Const::BOOLEAN, required: true },
+        global_comparison_type: {
+          type: Const::STRING,
+          required: false,
+          allowableValues: { valueType: Const::LIST, values: ["mean"] },
+          description: "The algorithm to apply to answer option's answer percentage to calculate reference number to compare user's result to. Unsupported types must be ignored."
         },
-        :global_comparison_type => {
-          :type => Const::STRING,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => [
-              "mean"
-            ]
-          },
-          :required => false,
-          :description => "The algorithm to apply to answer option's answer percentage to calculate reference number to compare user's result to. Unsupported types must be ignored."
+        show_historical_comparison: {
+          type: Const::BOOLEAN,
+          required: true,
+          description: "Whether or not this question should be included in graph comparing current answer with old answers."
         },
-        :show_historical_comparison => {
-          :type => Const::BOOLEAN,
-          :required => true,
-          :description => "Whether or not this question should be included in graph comparing current answer with old answers."
-        }
+        min_required_options: { type: Const::INT, required: true },
+        max_required_options: { type: Const::INT, required: true },
+        compare_to_previous_result: {
+          type: Const::BOOLEAN,
+          required: true,
+          description: "Compare current answer to previous answer for the same question key. Delta is shown on survey answers summary screen"
+        },
+        key: { type: Const::STRING }
       }
     }
   end
