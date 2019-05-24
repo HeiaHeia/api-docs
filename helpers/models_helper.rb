@@ -1858,6 +1858,7 @@ module ModelsHelper
       properties: {
         id: { type: Const::LONG, required: true },
         title: { type: Const::STRING, required: true },
+        subtitle: { type: Const::STRING },
         description: { type: Const::STRING, required: true },
         icon_url: { type: Const::STRING, required: true, description: common_icon_description },
         url: { type: Const::STRING, required: true }
@@ -1872,6 +1873,7 @@ module ModelsHelper
         id: { type: Const::LONG, required: true },
         title: { type: Const::STRING, required: true },
         description: { type: Const::STRING, required: true },
+        subtitle: { type: Const::STRING },
         icon_url: { type: Const::STRING, required: true, description: common_icon_description },
         url: { type: Const::STRING, required: true },
         entries: { items: { :$ref => Const::PROGRAM_ENTRY }, type: Const::ARRAY },
