@@ -1300,7 +1300,7 @@ module ModelsHelper
 
   def library_item_types
     [
-      Const::PROGRAM,
+      Const::COMPACT_PROGRAM,
       Const::SURVEY,
       Const::VIDEO,
       Const::DOCUMENT,
@@ -1852,31 +1852,49 @@ module ModelsHelper
     }
   end
 
+  def compact_program_model
+    {
+      id: Const::COMPACT_PROGRAM,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true }
+      }
+    }
+  end
+
   def program_model
     {
-      :id => Const::PROGRAM,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::PROGRAM,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        url: { type: Const::STRING, required: true },
+        entries: { items: { :$ref => Const::PROGRAM_ENTRY }, type: Const::ARRAY },
+      }
+    }
+  end
+
+  def program_entry_model
+    {
+      id: Const::PROGRAM_ENTRY,
+      properties: {
+        week: { type: Const::LONG, required: true },
+        day: { type: Const::LONG, required: true },
+        kind: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: [Const::TRAINING_LOG, Const::WELLNESS_ENTRY, Const::PLANNED_SURVEY]
+          },
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :description => {
-          :type => Const::STRING,
-          :required => true
-        },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
-        },
-        :url => {
-          :type => Const::STRING,
-          :required => true
-        }
+        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        name: { type: Const::STRING, required: true },
       }
     }
   end
@@ -1898,7 +1916,7 @@ module ModelsHelper
           :required => true
         },
         :program => {
-          :type => Const::PROGRAM,
+          :type => Const::COMPACT_PROGRAM,
           :required => true
         },
         :url => {
@@ -2856,6 +2874,7 @@ module ModelsHelper
       Const::CHEER_TYPE => [],
       Const::COMMENT => [Const::COMPACT_USER],
       Const::COMPACT_PERSONAL_PROGRAM => [],
+      Const::COMPACT_PROGRAM => [],
       Const::COMPACT_SPORT => [],
       Const::COMPACT_SURVEY => [],
       Const::COMPACT_USER => [],
@@ -2879,13 +2898,14 @@ module ModelsHelper
       Const::NOTIFICATION_OBJECT => [],
       Const::ORGANISATION => [],
       Const::ORGANISATION_SURVEY => [],
-      Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::PROGRAM, Const::CHEER, Const::COMMENT],
+      Const::PERSONAL_PROGRAM => [Const::COMPACT_USER, Const::COMPACT_PROGRAM, Const::CHEER, Const::COMMENT],
       Const::PLACE => [],
       Const::PLANNED_SURVEY => [Const::SURVEY, Const::COMPACT_PERSONAL_PROGRAM, Const::ORGANISATION_SURVEY],
       Const::POINT_SYSTEM => [Const::POINT_SYSTEM_LEVEL, Const::POINT_SYSTEM_RULE],
       Const::POINT_SYSTEM_LEVEL => [],
       Const::POINT_SYSTEM_RULE => [],
-      Const::PROGRAM => [],
+      Const::PROGRAM => [Const::PROGRAM_ENTRY],
+      Const::PROGRAM_ENTRY => [],
       Const::REQUEST => [Const::COMPACT_USER, Const::GROUP, Const::REQUEST_ACTION],
       Const::REQUEST_ACTION => [],
       Const::QUESTION => [Const::QUESTION_OPTION],

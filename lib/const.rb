@@ -37,6 +37,7 @@ module Const
   COMPACT_SPORT = 'CompactSport'.freeze
   COMPACT_SPORT_CATEGORY = 'CompactSportCategory'.freeze
   COMPACT_PERSONAL_PROGRAM = 'CompactPersonalProgram'.freeze
+  COMPACT_PROGRAM = 'CompactProgram'.freeze
   COMPACT_USER = 'CompactUser'.freeze
   COMPACT_SURVEY = 'CompactSurvey'.freeze
   COMPACT_WEEKLY_POINT_SYSTEM_SUMMARY = 'CompactWeeklyPointSystemSummary'.freeze
@@ -69,6 +70,7 @@ module Const
   POINT_SYSTEM_LEVEL = 'PointSystemLevel'.freeze
   POINT_SYSTEM_RULE = 'PointSystemRule'.freeze
   PROGRAM = 'Program'.freeze
+  PROGRAM_ENTRY = 'ProgramEntry'.freeze
   REQUEST = 'Request'.freeze
   REQUEST_ACTION = 'RequestAction'.freeze
   QUESTION = 'Question'.freeze
