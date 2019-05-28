@@ -2064,6 +2064,7 @@ module ModelsHelper
           description: "Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be included in the comparison."
         },
         report_key: { type: Const::STRING },
+        show_answers_summary: { type: Const::BOOLEAN, required: true },
       }
     }
   end
