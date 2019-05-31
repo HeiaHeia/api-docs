@@ -97,14 +97,14 @@
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'personal_programs/{personal_program_id}' } } %>,
     <%= erb :'shared/_cheer.json', { :locals => { :resource => 'personal_programs/{personal_program_id}' } } %>,
     {
-      "path": "/personal_programs/{personal_program_id}/entries",
+      "path": "/personal_programs/{personal_program_id}/items",
       "description": "Operations about personal programs",
       "operations":[
         {
           "httpMethod": "GET",
-          "summary": "Get list of personal program entries",
-          "responseClass": "List[TrainingLog,WellnessEntry,PlannedSurvey,SurveyResult]",
-          "nickname": "entries_index",
+          "summary": "Get list of personal program items",
+          "responseClass": "List[Item]",
+          "nickname": "items_index",
           "parameters":[
             {
               "name": "personal_program_id",
@@ -119,5 +119,5 @@
       ]
     }
   ],
-  "models":<%= models(params[:api_version], 'PersonalProgram', 'Cheer', 'Comment') %>
+  "models":<%= models(params[:api_version], 'PersonalProgram', 'Cheer', 'Comment', 'Item') %>
 }
