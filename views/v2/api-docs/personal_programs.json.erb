@@ -95,7 +95,29 @@
     },
     <%= erb :'shared/_years.json', { :locals => { :resource => '/personal_programs/years' } } %>,
     <%= erb :'shared/_comment.json', { :locals => { :resource => 'personal_programs/{personal_program_id}' } } %>,
-    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'personal_programs/{personal_program_id}' } } %>
+    <%= erb :'shared/_cheer.json', { :locals => { :resource => 'personal_programs/{personal_program_id}' } } %>,
+    {
+      "path": "/personal_programs/{personal_program_id}/entries",
+      "description": "Operations about personal programs",
+      "operations":[
+        {
+          "httpMethod": "GET",
+          "summary": "Get list of personal program entries",
+          "responseClass": "List[TrainingLog,WellnessEntry,PlannedSurvey,SurveyResult]",
+          "nickname": "entries_index",
+          "parameters":[
+            {
+              "name": "personal_program_id",
+              "description": "The id of the personal program.",
+              "paramType": "path",
+              "required": true,
+              "dataType": "long"
+            }
+          ],
+          "errorResponses": <%= responses(404) %>
+        }
+      ]
+    }
   ],
   "models":<%= models(params[:api_version], 'PersonalProgram', 'Cheer', 'Comment') %>
 }
