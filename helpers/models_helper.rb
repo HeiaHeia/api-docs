@@ -2845,7 +2845,6 @@ module ModelsHelper
       properties: {
         id: { type: Const::INT, required: true },
         url: { type: Const::STRING, required: true },
-        user: { type: Const::COMPACT_USER },
         created_at: { type: Const::DATE_TIME, required: true },
         image_url: { type: Const::STRING, required: true, description: extra_model_icon_description },
         title: { type: Const::STRING, required: true },
@@ -2855,6 +2854,7 @@ module ModelsHelper
         editable: { type: Const::BOOLEAN, required: true },
         cheerable: { type: Const::BOOLEAN, required: true },
         commentable: { type: Const::BOOLEAN, required: true },
+        media: { items: { "$ref": Const::MEDIA }, type: Const::ARRAY }
       }
     }
   end
@@ -2921,7 +2921,7 @@ module ModelsHelper
       Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::TAG => [],
       Const::TEAM_MEMBERSHIP => [Const::GROUP],
-      Const::TIP => [],
+      Const::TIP => [Const::MEDIA],
       Const::TOP_SPORT => [Const::MODE_VALUES, Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
