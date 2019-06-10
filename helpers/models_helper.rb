@@ -1167,7 +1167,8 @@ module ModelsHelper
       Const::MEGAPHONE,
       Const::WELLNESS_ENTRY,
       Const::PERSONAL_PROGRAM,
-      Const::WEEKLY_SUMMARY
+      Const::WEEKLY_SUMMARY,
+      Const::TIP
     ]
   end
 
@@ -2366,7 +2367,7 @@ module ModelsHelper
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary invited_to_org requested_to_join_team invited_to_team requested_to_become_coach)
+            values: %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary invited_to_org requested_to_join_team invited_to_team requested_to_become_coach got_tip)
           }
         },
         object: { type: Const::NOTIFICATION_OBJECT, required: true },
@@ -2838,6 +2839,25 @@ module ModelsHelper
     }
   end
 
+  def tip_model
+    {
+      id: Const::TIP,
+      properties: {
+        id: { type: Const::INT, required: true },
+        url: { type: Const::STRING, required: true },
+        user: { type: Const::COMPACT_USER },
+        created_at: { type: Const::DATE_TIME, required: true },
+        image_url: { type: Const::STRING, required: true, description: extra_model_icon_description },
+        title: { type: Const::STRING, required: true },
+        body: { type: Const::TEXT },
+        private: { type: Const::BOOLEAN, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true },
+        cheerable: { type: Const::BOOLEAN, required: true },
+        commentable: { type: Const::BOOLEAN, required: true },
+      }
+    }
+  end
 
   def models(version, *args)
     hash = {}
@@ -2901,6 +2921,7 @@ module ModelsHelper
       Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
       Const::TAG => [],
       Const::TEAM_MEMBERSHIP => [Const::GROUP],
+      Const::TIP => [],
       Const::TOP_SPORT => [Const::MODE_VALUES, Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
       Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,

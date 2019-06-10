@@ -84,6 +84,7 @@ module Const
   SURVEY_RESULT = 'SurveyResult'.freeze
   TAG = 'Tag'.freeze
   TEAM_MEMBERSHIP = 'TeamMembership'.freeze
+  TIP = 'Tip'.freeze
   TEXT_ENTRY = 'TextEntry'.freeze
   TOP_SPORT = 'TopSport'.freeze
   TRAINING_GOAL = 'TrainingGoal'.freeze

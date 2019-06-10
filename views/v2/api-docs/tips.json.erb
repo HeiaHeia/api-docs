@@ -1,0 +1,23 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/tips",
+  "apis":[
+    {
+      "path":"/tips/{id}",
+      "description":"Operations about tips",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find tip by ID",
+          "responseClass":"Tip",
+          "nickname":"tip_show",
+          "parameters":[],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'Tip') %>
+}

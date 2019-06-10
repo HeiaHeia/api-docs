@@ -125,6 +125,10 @@
       "description":"Tags"
     },
     {
+      "path":"/api-docs/tips.{format}",
+      "description":"Tips"
+    },
+    {
       "path":"/api-docs/top_sports.{format}",
       "description":"Top Sports"
     },
