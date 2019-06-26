@@ -1862,6 +1862,8 @@ module ModelsHelper
         subtitle: { type: Const::STRING },
         description: { type: Const::STRING, required: true },
         icon_url: { type: Const::STRING, required: true, description: common_icon_description },
+        svg_icon_url: { type: Const::STRING, required: true },
+        banner_url: { type: Const::STRING },
         url: { type: Const::STRING, required: true }
       }
     }
@@ -1870,15 +1872,9 @@ module ModelsHelper
   def program_model
     {
       id: Const::PROGRAM,
-      properties: {
-        id: { type: Const::LONG, required: true },
-        title: { type: Const::STRING, required: true },
-        description: { type: Const::STRING, required: true },
-        subtitle: { type: Const::STRING },
-        icon_url: { type: Const::STRING, required: true, description: common_icon_description },
-        url: { type: Const::STRING, required: true },
+      properties: compact_program_model[:properties].merge(
         entries: { items: { :$ref => Const::PROGRAM_ENTRY }, type: Const::ARRAY },
-      }
+      )
     }
   end
 
