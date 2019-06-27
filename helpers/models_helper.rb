@@ -1889,7 +1889,7 @@ module ModelsHelper
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: [Const::TRAINING_LOG, Const::WELLNESS_ENTRY, Const::PLANNED_SURVEY]
+            values: [Const::TRAINING_LOG, Const::WELLNESS_ENTRY, Const::PLANNED_SURVEY, Const::TIP]
           },
         },
         icon_url: { type: Const::STRING, required: true, description: common_icon_description },
