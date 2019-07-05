@@ -1,42 +1,41 @@
-# -*- encoding: utf-8 -*-
+# frozen_string_literal: true
 
 require 'set'
 require 'ext/string'
 require 'const'
 
 module ModelsHelper
-
   def comment_model
     {
-      :id => Const::COMMENT,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::COMMENT,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -54,10 +53,10 @@ module ModelsHelper
         friendship_status: {
           type: Const::STRING,
           required: true,
-          description: "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
+          description: '"pending" when you sent the friend request, "requested" when friend request was sent to you',
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(not_friend friend requested pending)
+            values: %w[not_friend friend requested pending]
           }
         },
         friendship_url: { type: Const::STRING, required: true },
@@ -71,23 +70,23 @@ module ModelsHelper
 
   def user_consent_model
     {
-      :id => Const::USER_CONSENT,
-      :properties => {
-        :id => {
-          :type => Const::INT,
-          :required => true
+      id: Const::USER_CONSENT,
+      properties: {
+        id: {
+          type: Const::INT,
+          required: true
         },
-        :consent_type => {
-          :type => Const::STRING,
-          :required => true
+        consent_type: {
+          type: Const::STRING,
+          required: true
         },
-        :scope => {
-          :type => Const::STRING,
-          :required => true
+        scope: {
+          type: Const::STRING,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         }
       }
     }
@@ -95,143 +94,143 @@ module ModelsHelper
 
   def user_model
     {
-      :id => Const::USER,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::USER,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :first_name => {
-          :type => Const::STRING,
-          :required => true
+        first_name: {
+          type: Const::STRING,
+          required: true
         },
-        :last_name => {
-          :type => Const::STRING
+        last_name: {
+          type: Const::STRING
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :avatar_url => {
-          :type => Const::STRING,
-          :description => common_icon_description,
-          :required => true
+        avatar_url: {
+          type: Const::STRING,
+          description: common_icon_description,
+          required: true
         },
-        :locale => {
-          :type => Const::STRING,
-          :required => true
+        locale: {
+          type: Const::STRING,
+          required: true
         },
-        :privacy => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => Const::PRIVACIES
+        privacy: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: Const::PRIVACIES
           }
         },
-        :measurement_units => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(metric imperial)
+        measurement_units: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[metric imperial]
           }
         },
-        :birthday => {
-          :type => Const::DATE
+        birthday: {
+          type: Const::DATE
         },
-        :gender => {
-          :type => Const::STRING,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(male female)
+        gender: {
+          type: Const::STRING,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[male female]
           }
         },
-        :country => {
-          :type => Const::STRING
+        country: {
+          type: Const::STRING
         },
-        :city => {
-          :type => Const::STRING
+        city: {
+          type: Const::STRING
         },
-        :training_for => {
-          :type => Const::STRING
+        training_for: {
+          type: Const::STRING
         },
-        :level => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(rookie bronze silver gold diamond pro)
+        level: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[rookie bronze silver gold diamond pro]
           }
         },
-        :my_sports => {
-          :type => Const::TEXT
+        my_sports: {
+          type: Const::TEXT
         },
-        :records_and_highlights => {
-          :type => Const::TEXT
+        records_and_highlights: {
+          type: Const::TEXT
         },
-        :training_logs_count => {
-          :type => Const::INT,
-          :required => true
+        training_logs_count: {
+          type: Const::INT,
+          required: true
         },
-        :training_logs_url => {
-          :type => Const::STRING,
-          :required => true
+        training_logs_url: {
+          type: Const::STRING,
+          required: true
         },
-        :medals_count => {
-          :type => Const::INT,
-          :required => true
+        medals_count: {
+          type: Const::INT,
+          required: true
         },
-        :medals_url => {
-          :type => Const::STRING,
-          :required => true
+        medals_url: {
+          type: Const::STRING,
+          required: true
         },
-        :friends_count => {
-          :type => Const::INT,
-          :required => true
+        friends_count: {
+          type: Const::INT,
+          required: true
         },
-        :friends_url => {
-          :type => Const::STRING,
-          :required => true
+        friends_url: {
+          type: Const::STRING,
+          required: true
         },
-        :top_sports_url => {
-          :type => Const::STRING,
-          :required => true
+        top_sports_url: {
+          type: Const::STRING,
+          required: true
         },
-        :friendship_status => {
-          :type => Const::STRING,
-          :description => "\"pending\" when you sent the friend request, \"requested\" when friend request was sent to you",
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(not_friend friend requested pending)
+        friendship_status: {
+          type: Const::STRING,
+          description: '"pending" when you sent the friend request, "requested" when friend request was sent to you',
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[not_friend friend requested pending]
           }
 
         },
-        :friendship_url => {
-          :type => Const::STRING,
-          :required => true
+        friendship_url: {
+          type: Const::STRING,
+          required: true
         },
-        :items_url => {
-          :type => Const::STRING,
-          :required => true
+        items_url: {
+          type: Const::STRING,
+          required: true
         },
-        :daily_steps_target => {
-          :type => Const::INT,
-          :required => true
+        daily_steps_target: {
+          type: Const::INT,
+          required: true
         },
-        :sleep_target => {
-          :type => Const::INT,
-          :description => "Daily sleep target in minutes",
-          :required => true
+        sleep_target: {
+          type: Const::INT,
+          description: 'Daily sleep target in minutes',
+          required: true
         },
-        :linked_with_mixpanel => {
-          :type => Const::BOOLEAN,
-          :required => true
+        linked_with_mixpanel: {
+          type: Const::BOOLEAN,
+          required: true
         },
         consent_rewards: { type: Const::BOOLEAN, required: true },
         location_privacy: {
@@ -245,45 +244,45 @@ module ModelsHelper
 
   def sport_param_model
     {
-      :id => Const::SPORT_PARAM,
-      :properties => {
-        :key => {
-          :type => Const::STRING,
-          :required => true,
-          :description => 'score, avg_speed, max_speed, best_lap_time, etc. Depends on the sport.'
+      id: Const::SPORT_PARAM,
+      properties: {
+        key: {
+          type: Const::STRING,
+          required: true,
+          description: 'score, avg_speed, max_speed, best_lap_time, etc. Depends on the sport.'
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true,
-          :description => 'Human readable name. Depends on user locale'
+        name: {
+          type: Const::STRING,
+          required: true,
+          description: 'Human readable name. Depends on user locale'
         },
-        :unit_type => {
-          :type => Const::STRING,
-          :required => true,
-          :description => 'mi, km, ft, m, mph, kmph, sec, f, c, rpm or empty. Depends on user unit system'
+        unit_type: {
+          type: Const::STRING,
+          required: true,
+          description: 'mi, km, ft, m, mph, kmph, sec, f, c, rpm or empty. Depends on user unit system'
         },
-        :unit_name => {
-          :type => Const::STRING,
-          :required => true,
-          :description => 'Human readable format: "mi, km, ft, m, mph, km/h, sec, °F, °C, rpm ''". Depends on user locale and unit system'
+        unit_name: {
+          type: Const::STRING,
+          required: true,
+          description: 'Human readable format: "mi, km, ft, m, mph, km/h, sec, °F, °C, rpm ''". Depends on user locale and unit system'
         },
-        :value_type => {
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => [
+        value_type: {
+          allowableValues: {
+            valueType: Const::LIST,
+            values: [
               Const::INT,
               Const::FLOAT,
               Const::STRING,
               Const::BOOLEAN
             ]
           },
-          :type => Const::STRING,
-          :required => true
+          type: Const::STRING,
+          required: true
         },
-        :distance => {
-          :type => Const::BOOLEAN,
-          :required => true,
-          :description => 'Params distance or not.'
+        distance: {
+          type: Const::BOOLEAN,
+          required: true,
+          description: 'Params distance or not.'
         }
       }
     }
@@ -291,15 +290,15 @@ module ModelsHelper
 
   def sport_param_value_model
     {
-      :id => Const::SPORT_PARAM_VALUE,
-      :properties => {
-        :value => {
-          :type => 'int,float,string,boolean',
-          :required => true
+      id: Const::SPORT_PARAM_VALUE,
+      properties: {
+        value: {
+          type: 'int,float,string,boolean',
+          required: true
         },
-        :sport_param => {
-          :type => Const::SPORT_PARAM,
-          :required => true
+        sport_param: {
+          type: Const::SPORT_PARAM,
+          required: true
         }
       }
     }
@@ -307,31 +306,31 @@ module ModelsHelper
 
   def cheer_model
     {
-      :id => Const::CHEER,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::CHEER,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :cheer_type => {
-          :type => Const::CHEER_TYPE,
-          :required => true
+        cheer_type: {
+          type: Const::CHEER_TYPE,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -375,28 +374,28 @@ module ModelsHelper
 
   def compact_sport_category_model
     {
-      :id => Const::COMPACT_SPORT_CATEGORY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::COMPACT_SPORT_CATEGORY,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
+        name: {
+          type: Const::STRING,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
+        icon_url: {
+          type: Const::STRING,
+          required: true,
+          description: common_icon_description
         },
-        :sports_url => {
-          :type => Const::STRING,
-          :required => true
+        sports_url: {
+          type: Const::STRING,
+          required: true
         }
       }
     }
@@ -404,34 +403,34 @@ module ModelsHelper
 
   def sport_category_model
     {
-      :id => Const::SPORT_CATEGORY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::SPORT_CATEGORY,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
+        name: {
+          type: Const::STRING,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
+        icon_url: {
+          type: Const::STRING,
+          required: true,
+          description: common_icon_description
         },
-        :sports_url => {
-          :type => Const::STRING,
-          :required => true
+        sports_url: {
+          type: Const::STRING,
+          required: true
         },
-        :sports => {
-          :items => {
+        sports: {
+          items: {
             :$ref => Const::SPORT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         }
       }
     }
@@ -439,33 +438,33 @@ module ModelsHelper
 
   def top_sport_model
     {
-      :id => Const::TOP_SPORT,
-      :properties => {
-        :sport => {
-          :type => Const::SPORT,
-          :required => true
+      id: Const::TOP_SPORT,
+      properties: {
+        sport: {
+          type: Const::SPORT,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :count => {
-          :type => Const::INT,
-          :required => true
+        count: {
+          type: Const::INT,
+          required: true
         },
-        :hours => {
-          :type => Const::INT
+        hours: {
+          type: Const::INT
         },
-        :minutes => {
-          :type => Const::INT
+        minutes: {
+          type: Const::INT
         },
-        :distance => {
-          :type => Const::INT,
-          :description => 'In unit that set in the user settings (km or mi)'
+        distance: {
+          type: Const::INT,
+          description: 'In unit that set in the user settings (km or mi)'
         },
-        :mode_values => {
-          :type => Const::MODE_VALUES,
-          :description => 'Mode sport param values for this sport based on recent training log entries'
+        mode_values: {
+          type: Const::MODE_VALUES,
+          description: 'Mode sport param values for this sport based on recent training log entries'
         }
       }
     }
@@ -473,21 +472,21 @@ module ModelsHelper
 
   def cheer_type_model
     {
-      :id => Const::CHEER_TYPE,
-      :properties => {
-        :id => {
-          :type => Const::INT,
-          :required => true
+      id: Const::CHEER_TYPE,
+      properties: {
+        id: {
+          type: Const::INT,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => "Template URL 'https://example.com/path/to/image/{height}.png',
+        icon_url: {
+          type: Const::STRING,
+          description: "Template URL 'https://example.com/path/to/image/{height}.png',
                             where '{height}' value can be from this list ['34', '44', '48', '60', '64', '72', '80', '96', '128', '144', '192']",
-          :required => true
+          required: true
         },
-        :level => {
-          :type => Const::BYTE,
-          :required => true
+        level: {
+          type: Const::BYTE,
+          required: true
         }
       }
     }
@@ -495,19 +494,19 @@ module ModelsHelper
 
   def tag_model
     {
-      :id => Const::TAG,
-      :properties => {
-        :type => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(strain commute own)
+      id: Const::TAG,
+      properties: {
+        type: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[strain commute own]
           }
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
+        name: {
+          type: Const::STRING,
+          required: true
         }
       }
     }
@@ -515,35 +514,35 @@ module ModelsHelper
 
   def place_model
     {
-      :id => Const::PLACE,
-      :properties => {
-        :id => {
-          :type => Const::INT,
-          :required => true
+      id: Const::PLACE,
+      properties: {
+        id: {
+          type: Const::INT,
+          required: true
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
+        name: {
+          type: Const::STRING,
+          required: true
         },
-        :latitude => {
-          :type => Const::DOUBLE,
-          :required => true
+        latitude: {
+          type: Const::DOUBLE,
+          required: true
         },
-        :longitude => {
-          :type => Const::DOUBLE,
-          :required => true
+        longitude: {
+          type: Const::DOUBLE,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -551,157 +550,157 @@ module ModelsHelper
 
   def training_log_model
     {
-      :id => Const::TRAINING_LOG,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::TRAINING_LOG,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :status => {
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(regular planned)
+        status: {
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[regular planned]
           },
-          :type => Const::STRING,
-          :required => true
+          type: Const::STRING,
+          required: true
         },
-        :sport => {
-          :type => Const::COMPACT_SPORT,
-          :required => true
+        sport: {
+          type: Const::COMPACT_SPORT,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :personal_program => {
-          :type => Const::COMPACT_PERSONAL_PROGRAM
+        personal_program: {
+          type: Const::COMPACT_PERSONAL_PROGRAM
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :mood => {
-          :type => Const::BYTE,
-          :required => true,
-          :description => 'A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood'
+        mood: {
+          type: Const::BYTE,
+          required: true,
+          description: 'A value from 0 to 5. Where 0 - no mood set, 1 - worst mood, 5 - best mood'
         },
-        :mood_icon_url => {
-          :type => Const::STRING,
-          :required => true
+        mood_icon_url: {
+          type: Const::STRING,
+          required: true
         },
-        :calories => {
-          :type => Const::INT
+        calories: {
+          type: Const::INT
         },
-        :duration_h => {
-          :type => Const::INT
+        duration_h: {
+          type: Const::INT
         },
-        :duration_m => {
-          :type => Const::INT
+        duration_m: {
+          type: Const::INT
         },
-        :duration_s => {
-          :type => Const::INT
+        duration_s: {
+          type: Const::INT
         },
-        :avg_hr => {
-          :type => Const::INT
+        avg_hr: {
+          type: Const::INT
         },
-        :max_hr => {
-          :type => Const::INT
+        max_hr: {
+          type: Const::INT
         },
-        :sport_param_values => {
-          :items => {
+        sport_param_values: {
+          items: {
             :$ref => Const::SPORT_PARAM_VALUE
           },
-          :type => Const::ARRAY,
-          :description => "Contain all sport parameter values even if they have not been set"
+          type: Const::ARRAY,
+          description: 'Contain all sport parameter values even if they have not been set'
         },
-        :favourite => {
-          :type => Const::BOOLEAN,
-          :required => true
+        favourite: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :exclude_stats => {
-          :type => Const::BOOLEAN,
-          :required => true
+        exclude_stats: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :place => {
-          :type => Const::PLACE
+        place: {
+          type: Const::PLACE
         },
-        :media => {
-          :items => {
+        media: {
+          items: {
             :$ref => Const::MEDIA
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :gpx_url => {
-          :type => Const::STRING
+        gpx_url: {
+          type: Const::STRING
         },
-        :tags => {
-          :items => {
+        tags: {
+          items: {
             :$ref => Const::TAG
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         },
         editable_sport: {
           type: Const::BOOLEAN,
@@ -713,32 +712,32 @@ module ModelsHelper
 
   def video_model
     {
-      :id => Const::VIDEO,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::VIDEO,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :provider => {
-          :type => Const::STRING,
-          :description => "youtube or vimeo",
-          :required => true
+        provider: {
+          type: Const::STRING,
+          description: 'youtube or vimeo',
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::STRING
+        description: {
+          type: Const::STRING
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :video_id => {
-          :type => Const::STRING,
-          :description => "Provider specific identifier of the video",
-          :required => true
+        video_id: {
+          type: Const::STRING,
+          description: 'Provider specific identifier of the video',
+          required: true
         }
       }
     }
@@ -746,102 +745,102 @@ module ModelsHelper
 
   def weight_model
     {
-      :id => Const::WEIGHT,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::WEIGHT,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => extra_model_icon_description,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          description: extra_model_icon_description,
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :value => {
-          :type => Const::FLOAT,
-          :required => true,
-          :description => 'In unit that set in the user settings (kg or lb)'
+        value: {
+          type: Const::FLOAT,
+          required: true,
+          description: 'In unit that set in the user settings (kg or lb)'
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :media => {
-          :items => {
+        media: {
+          items: {
             :$ref => Const::MEDIA
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -849,91 +848,91 @@ module ModelsHelper
 
   def sick_day_model
     {
-      :id => Const::SICK_DAY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::SICK_DAY,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => extra_model_icon_description,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          description: extra_model_icon_description,
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -941,97 +940,97 @@ module ModelsHelper
 
   def free_entry_model
     {
-      :id => Const::FREE_ENTRY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::FREE_ENTRY,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => extra_model_icon_description,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          description: extra_model_icon_description,
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :media => {
-          :items => {
+        media: {
+          items: {
             :$ref => Const::MEDIA
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -1074,82 +1073,82 @@ module ModelsHelper
 
   def training_goal_model
     {
-      :id => Const::TRAINING_GOAL,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::TRAINING_GOAL,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png,
+        icon_url: {
+          type: Const::STRING,
+          description: "Example https://example.com/path/to/image/{size}.png,
                            {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)",
-          :required => true
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -1193,43 +1192,43 @@ module ModelsHelper
 
   def message_model
     {
-      :id => Const::MESSAGE,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::MESSAGE,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :from => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        from: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :to => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        to: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :conversation_url => {
-          :type => Const::STRING,
-          :required => true
+        conversation_url: {
+          type: Const::STRING,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :body => {
-          :type => Const::TEXT,
-          :required => true
+        body: {
+          type: Const::TEXT,
+          required: true
         },
-        :image_url => {
-          :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)"
+        image_url: {
+          type: Const::STRING,
+          description: 'Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)'
         },
-        :unread => {
-          :type => Const::BOOLEAN,
-          :required => true
+        unread: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         }
       }
     }
@@ -1237,37 +1236,37 @@ module ModelsHelper
 
   def conversation_model
     {
-      :id => Const::CONVERSATION,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true,
-          :description => "Identifier of the conversation"
+      id: Const::CONVERSATION,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true,
+          description: 'Identifier of the conversation'
         },
-        :group => {
-          :type => Const::GROUP,
-          :required => false,
-          :description => "The team this conversation belongs to. Only present for team conversations"
+        group: {
+          type: Const::GROUP,
+          required: false,
+          description: 'The team this conversation belongs to. Only present for team conversations'
         },
-        :user_id => {
-          :type => Const::LONG,
-          :required => false
+        user_id: {
+          type: Const::LONG,
+          required: false
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :messages_url => {
-          :type => Const::STRING,
-          :required => true
+        messages_url: {
+          type: Const::STRING,
+          required: true
         },
-        :last_message => {
-          :type => Const::MESSAGE,
-          :required => true
+        last_message: {
+          type: Const::MESSAGE,
+          required: true
         },
-        :unread => {
-          :type => Const::BOOLEAN,
-          :required => true
+        unread: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -1317,17 +1316,17 @@ module ModelsHelper
         id: { type: Const::LONG, required: true },
         url: {
           type: Const::STRING,
-          description: "Full item URL, including folder part",
+          description: 'Full item URL, including folder part',
           required: true
         },
         canonical_url: {
           type: Const::STRING,
-          description: "Item URL without folder part",
+          description: 'Item URL without folder part',
           required: true
         },
         folder_id: {
           type: Const::LONG,
-          description: "Identifier of the folder the item is contained in",
+          description: 'Identifier of the folder the item is contained in',
           required: true
         },
         name: { type: Const::STRING, required: true },
@@ -1337,7 +1336,7 @@ module ModelsHelper
           required: true,
           allowableValues: { valueType: Const::LIST, values: library_item_types }
         },
-        entry: { type: library_item_types.join(" | "), required: true }
+        entry: { type: library_item_types.join(' | '), required: true }
       }
     }
   end
@@ -1355,29 +1354,28 @@ module ModelsHelper
 
   def invite_model
     {
-      :id => Const::INVITE,
-      :properties => {
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+      id: Const::INVITE,
+      properties: {
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :status => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => ['new', 'existing']
+        status: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[new existing]
           }
         },
-        :email => {
-          :type => Const::STRING,
-          :required => true,
-          :description => "Email associated with this invite."
+        email: {
+          type: Const::STRING,
+          required: true,
+          description: 'Email associated with this invite.'
         }
       }
     }
   end
-
 
   def item_types
     [
@@ -1395,27 +1393,27 @@ module ModelsHelper
 
   def item_model
     {
-      :id => Const::ITEM,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::ITEM,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :kind => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => item_types
+        kind: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: item_types
           }
         },
-        :entry => {
-          :type => item_types.join(' | '),
-          :required => true
+        entry: {
+          type: item_types.join(' | '),
+          required: true
         }
       }
     }
@@ -1423,99 +1421,99 @@ module ModelsHelper
 
   def megaphone_model
     {
-      :id => Const::MEGAPHONE,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::MEGAPHONE,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          required: true
         },
-        :organisation_name => {
-          :type => Const::STRING,
-          :required => true
+        organisation_name: {
+          type: Const::STRING,
+          required: true
         },
-        :organisation => {
-          :type => Const::ORGANISATION,
-          :required => true
+        organisation: {
+          type: Const::ORGANISATION,
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :media => {
-          :items => {
+        media: {
+          items: {
             :$ref => Const::MEDIA
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :image_url => {
-          :type => Const::STRING
+        image_url: {
+          type: Const::STRING
         }
       }
     }
@@ -1523,46 +1521,46 @@ module ModelsHelper
 
   def daily_statistic_model
     {
-      :id => Const::DAILY_STATISTIC,
-      :properties => {
-        :date => {
-          :type => Const::STRING,
-          :required => true,
-          :description => "Date of the daily statistic, e.g. \"2015-09-18\""
+      id: Const::DAILY_STATISTIC,
+      properties: {
+        date: {
+          type: Const::STRING,
+          required: true,
+          description: 'Date of the daily statistic, e.g. "2015-09-18"'
         },
-        :distance => {
-          :type => Const::FLOAT,
-          :description => "Distance covered in kilometers or miles (depending on user settings)"
+        distance: {
+          type: Const::FLOAT,
+          description: 'Distance covered in kilometers or miles (depending on user settings)'
         },
-        :exercise_count => {
-          :type => Const::INT
+        exercise_count: {
+          type: Const::INT
         },
-        :exercise_duration => {
-          :type => Const::INT,
-          :description => "Combined exercise duration in minutes"
+        exercise_duration: {
+          type: Const::INT,
+          description: 'Combined exercise duration in minutes'
         },
-        :floors => {
-          :type => Const::INT
+        floors: {
+          type: Const::INT
         },
-        :sick_day => {
-          :type => Const::BOOLEAN
+        sick_day: {
+          type: Const::BOOLEAN
         },
-        :sleep => {
-          :type => Const::INT,
-          :description => "Sleep in minutes"
+        sleep: {
+          type: Const::INT,
+          description: 'Sleep in minutes'
         },
-        :steps => {
-          :type => Const::INT
+        steps: {
+          type: Const::INT
         },
-        :weight => {
-          :type => Const::FLOAT,
-          :description => "Weight in kilograms or pounds (depending on user settings)"
+        weight: {
+          type: Const::FLOAT,
+          description: 'Weight in kilograms or pounds (depending on user settings)'
         },
-        :wellness_entry_count => {
-          :type => Const::INT
+        wellness_entry_count: {
+          type: Const::INT
         },
-        :resting_heart_rate => {
-          :type => Const::INT
+        resting_heart_rate: {
+          type: Const::INT
         }
       }
     }
@@ -1570,16 +1568,16 @@ module ModelsHelper
 
   def monthly_statistic_model
     {
-      :id => Const::MONTHLY_STATISTIC,
-      :properties => {
-        :month => {
-          :type => Const::STRING,
-          :required => true,
-          :description => "Month of the monthly statistic, e.g. \"2015-10\""
+      id: Const::MONTHLY_STATISTIC,
+      properties: {
+        month: {
+          type: Const::STRING,
+          required: true,
+          description: 'Month of the monthly statistic, e.g. "2015-10"'
         },
-        :weight => {
-          :type => Const::FLOAT,
-          :description => "Weight in kilograms or pounds (depending on user settings)"
+        weight: {
+          type: Const::FLOAT,
+          description: 'Weight in kilograms or pounds (depending on user settings)'
         }
       }
     }
@@ -1587,25 +1585,25 @@ module ModelsHelper
 
   def weekly_target_model
     {
-      :id => Const::WEEKLY_TARGET,
-      :properties => {
-        :week => {
-          :type => Const::STRING,
-          :required => true,
-          :description => "Year and week of the target, e.g. \"2015-38\""
+      id: Const::WEEKLY_TARGET,
+      properties: {
+        week: {
+          type: Const::STRING,
+          required: true,
+          description: 'Year and week of the target, e.g. "2015-38"'
         },
-        :target_amount => {
-          :type => Const::FLOAT,
+        target_amount: {
+          type: Const::FLOAT
         },
-        :real_amount => {
-          :type => Const::FLOAT
+        real_amount: {
+          type: Const::FLOAT
         },
-        :unit => {
-          :type => Const::STRING,
-          :description => "Type of the weekly target metric",
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(hours exercises distance steps wellness_entries)
+        unit: {
+          type: Const::STRING,
+          description: 'Type of the weekly target metric',
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[hours exercises distance steps wellness_entries]
           }
         }
       }
@@ -1614,47 +1612,47 @@ module ModelsHelper
 
   def wellness_type_model
     {
-      :id => Const::WELLNESS_TYPE,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::WELLNESS_TYPE,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::STRING,
-          :required => true
+        description: {
+          type: Const::STRING,
+          required: true
         },
-        :is_tip => {
-          :type => Const::BOOLEAN,
-          :required => true
+        is_tip: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :notesable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        notesable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :params => {
-          :items => {
+        params: {
+          items: {
             :$ref => Const::WELLNESS_PARAM
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
+        icon_url: {
+          type: Const::STRING,
+          required: true,
+          description: common_icon_description
         },
-        :planned_icon_url => {
-          :type => Const::STRING,
-          :required => true,
-          :description => common_icon_description
+        planned_icon_url: {
+          type: Const::STRING,
+          required: true,
+          description: common_icon_description
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         }
       }
     }
@@ -1662,123 +1660,123 @@ module ModelsHelper
 
   def wellness_entry_model
     {
-      :id => Const::WELLNESS_ENTRY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::WELLNESS_ENTRY,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :personal_program => {
-          :type => Const::COMPACT_PERSONAL_PROGRAM
+        personal_program: {
+          type: Const::COMPACT_PERSONAL_PROGRAM
         },
-        :status => {
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(regular planned)
+        status: {
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[regular planned]
           },
-          :type => Const::STRING,
-          :required => true
+          type: Const::STRING,
+          required: true
         },
-        :wellness_type => {
-          :type => Const::WELLNESS_TYPE,
-          :required => true
+        wellness_type: {
+          type: Const::WELLNESS_TYPE,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => common_icon_description,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          description: common_icon_description,
+          required: true
         },
-        :notes => {
-          :type => Const::TEXT,
-          :required => true
+        notes: {
+          type: Const::TEXT,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :param_values => {
-          :items => {
+        param_values: {
+          items: {
             :$ref => Const::WELLNESS_PARAM_VALUE
           },
-          :type => Const::ARRAY,
-          :description => "Contain parameter values"
+          type: Const::ARRAY,
+          description: 'Contain parameter values'
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :exclude_stats => {
-          :type => Const::BOOLEAN,
-          :required => true
+        exclude_stats: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :media => {
-          :items => {
+        media: {
+          items: {
             :$ref => Const::MEDIA
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -1786,20 +1784,20 @@ module ModelsHelper
 
   def wellness_param_model
     {
-      :id => Const::WELLNESS_PARAM,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::WELLNESS_PARAM,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
+        name: {
+          type: Const::STRING,
+          required: true
         },
-        :value_type => {
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => [
+        value_type: {
+          allowableValues: {
+            valueType: Const::LIST,
+            values: [
               Const::INT,
               Const::FLOAT,
               Const::BOOLEAN,
@@ -1807,15 +1805,15 @@ module ModelsHelper
               Const::RADIO
             ]
           },
-          :type => Const::STRING,
-          :required => true
+          type: Const::STRING,
+          required: true
         },
-        :options => {
-          :items => {
+        options: {
+          items: {
             :$ref => Const::WELLNESS_PARAM_OPTION
           },
-          :type => Const::ARRAY,
-          :description => "Available when value type is radio or checkbox"
+          type: Const::ARRAY,
+          description: 'Available when value type is radio or checkbox'
         }
       }
     }
@@ -1823,15 +1821,15 @@ module ModelsHelper
 
   def wellness_param_option_model
     {
-      :id => Const::WELLNESS_PARAM_OPTION,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::WELLNESS_PARAM_OPTION,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :name => {
-          :type => Const::STRING,
-          :required => true
+        name: {
+          type: Const::STRING,
+          required: true
         }
       }
     }
@@ -1839,15 +1837,15 @@ module ModelsHelper
 
   def wellness_param_value_model
     {
-      :id => Const::WELLNESS_PARAM_VALUE,
-      :properties => {
-        :value => {
-          :type => 'int,float,boolean,option_id,array[option_id]',
-          :required => true
+      id: Const::WELLNESS_PARAM_VALUE,
+      properties: {
+        value: {
+          type: 'int,float,boolean,option_id,array[option_id]',
+          required: true
         },
-        :param => {
-          :type => Const::WELLNESS_PARAM,
-          :required => true
+        param: {
+          type: Const::WELLNESS_PARAM,
+          required: true
         }
       }
     }
@@ -1873,7 +1871,7 @@ module ModelsHelper
     {
       id: Const::PROGRAM,
       properties: compact_program_model[:properties].merge(
-        entries: { items: { :$ref => Const::PROGRAM_ENTRY }, type: Const::ARRAY },
+        entries: { items: { :$ref => Const::PROGRAM_ENTRY }, type: Const::ARRAY }
       )
     }
   end
@@ -1890,100 +1888,100 @@ module ModelsHelper
           allowableValues: {
             valueType: Const::LIST,
             values: [Const::TRAINING_LOG, Const::WELLNESS_ENTRY, Const::PLANNED_SURVEY, Const::TIP]
-          },
+          }
         },
         icon_url: { type: Const::STRING, required: true, description: common_icon_description },
-        name: { type: Const::STRING, required: true },
+        name: { type: Const::STRING, required: true }
       }
     }
   end
 
   def personal_program_model
     {
-      :id => Const::PERSONAL_PROGRAM,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::PERSONAL_PROGRAM,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :program => {
-          :type => Const::COMPACT_PROGRAM,
-          :required => true
+        program: {
+          type: Const::COMPACT_PROGRAM,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :start_date => {
-          :type => Const::DATE,
-          :required => true
+        start_date: {
+          type: Const::DATE,
+          required: true
         },
-        :end_date => {
-          :type => Const::DATE,
-          :required => true
+        end_date: {
+          type: Const::DATE,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -1991,42 +1989,42 @@ module ModelsHelper
 
   def compact_personal_program_model
     {
-      :id => Const::COMPACT_PERSONAL_PROGRAM,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::COMPACT_PERSONAL_PROGRAM,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :start_date => {
-          :type => Const::DATE,
-          :required => true
+        start_date: {
+          type: Const::DATE,
+          required: true
         },
-        :end_date => {
-          :type => Const::DATE,
-          :required => true
+        end_date: {
+          type: Const::DATE,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -2040,7 +2038,7 @@ module ModelsHelper
         banner_image_url: {
           type: Const::STRING,
           required: false,
-          description: "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
+          description: 'Banner image to use with the survey, if any. There is only single size that the client must scale appropriately.'
         },
         title: { type: Const::STRING, required: true },
         description: { type: Const::TEXT },
@@ -2051,9 +2049,9 @@ module ModelsHelper
         questions: { items: { :$ref => Const::QUESTION }, type: Const::ARRAY, required: true },
         graph_type: {
           type: Const::STRING,
-          allowableValues: { valueType: Const::LIST, values: ["bar"] },
+          allowableValues: { valueType: Const::LIST, values: ['bar'] },
           required: false,
-          description: "Type of historical comparison to show for this survey. Unsupported graph types must be ignored."
+          description: 'Type of historical comparison to show for this survey. Unsupported graph types must be ignored.'
         },
         graph_options: {
           type: Const::INT,
@@ -2061,7 +2059,7 @@ module ModelsHelper
           description: "Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be included in the comparison."
         },
         report_key: { type: Const::STRING },
-        show_answers_summary: { type: Const::BOOLEAN, required: true },
+        show_answers_summary: { type: Const::BOOLEAN, required: true }
       }
     }
   end
@@ -2074,7 +2072,7 @@ module ModelsHelper
         banner_image_url: {
           type: Const::STRING,
           required: false,
-          description: "Banner image to use with the survey, if any. There is only single size that the client must scale appropriately."
+          description: 'Banner image to use with the survey, if any. There is only single size that the client must scale appropriately.'
         },
         title: { type: Const::STRING, required: true },
         description: { type: Const::TEXT },
@@ -2108,31 +2106,31 @@ module ModelsHelper
               Const::RADIO,
               Const::DROPDOWN
             ]
-          },
+          }
         },
         subtype: {
           type: Const::STRING,
           required: false,
-          allowableValues: { valueType: Const::LIST, values: ["slider"] }
+          allowableValues: { valueType: Const::LIST, values: ['slider'] }
         },
         notable: { type: Const::BOOLEAN, required: true },
         global_comparison_type: {
           type: Const::STRING,
           required: false,
-          allowableValues: { valueType: Const::LIST, values: ["mean"] },
+          allowableValues: { valueType: Const::LIST, values: ['mean'] },
           description: "The algorithm to apply to answer option's answer percentage to calculate reference number to compare user's result to. Unsupported types must be ignored."
         },
         show_historical_comparison: {
           type: Const::BOOLEAN,
           required: true,
-          description: "Whether or not this question should be included in graph comparing current answer with old answers."
+          description: 'Whether or not this question should be included in graph comparing current answer with old answers.'
         },
         min_required_options: { type: Const::INT, required: true },
         max_required_options: { type: Const::INT, required: true },
         compare_to_previous_result: {
           type: Const::BOOLEAN,
           required: true,
-          description: "Compare current answer to previous answer for the same question key. Delta is shown on survey answers summary screen"
+          description: 'Compare current answer to previous answer for the same question key. Delta is shown on survey answers summary screen'
         },
         key: { type: Const::STRING }
       }
@@ -2141,29 +2139,29 @@ module ModelsHelper
 
   def question_option_model
     {
-      :id => Const::QUESTION_OPTION,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::QUESTION_OPTION,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :conclusion => {
-          :type => Const::STRING,
-          :required => true
+        conclusion: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => extra_model_icon_description,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          description: extra_model_icon_description,
+          required: true
         },
-        :answer_percentage => {
-          :type => Const::FLOAT,
-          :required => true,
-          :description => "The percentage (0.0-100.0) of answers where this particular option was chosen."
+        answer_percentage: {
+          type: Const::FLOAT,
+          required: true,
+          description: 'The percentage (0.0-100.0) of answers where this particular option was chosen.'
         }
       }
     }
@@ -2171,118 +2169,118 @@ module ModelsHelper
 
   def survey_result_model
     {
-      :id => Const::SURVEY_RESULT,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::SURVEY_RESULT,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :complete => {
-          :type => Const::BOOLEAN,
-          :required => true
+        complete: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :user => {
-          :type => Const::COMPACT_USER,
-          :required => true
+        user: {
+          type: Const::COMPACT_USER,
+          required: true
         },
-        :survey => {
-          :type => Const::COMPACT_SURVEY,
-          :required => true
+        survey: {
+          type: Const::COMPACT_SURVEY,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :icon_url => {
-          :type => Const::STRING,
-          :description => extra_model_icon_description,
-          :required => true
+        icon_url: {
+          type: Const::STRING,
+          description: extra_model_icon_description,
+          required: true
         },
-        :title => {
-          :type => Const::STRING,
-          :required => true
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :description => {
-          :type => Const::TEXT
+        description: {
+          type: Const::TEXT
         },
-        :answers => {
-          :items => {
+        answers: {
+          items: {
             :$ref => Const::ANSWER
           },
-          :type => Const::ARRAY,
-          :required => true
+          type: Const::ARRAY,
+          required: true
         },
-        :feedbacks => {
-          :items => {
+        feedbacks: {
+          items: {
             :$ref => Const::SURVEY_FEEDBACK
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :user_score => {
-          :type => Const::INT,
-          :required => true,
-          :description => "Stable score the user got from the survey (bigger number is better)."
+        user_score: {
+          type: Const::INT,
+          required: true,
+          description: 'Stable score the user got from the survey (bigger number is better).'
         },
-        :maximum_score => {
-          :type => Const::INT,
-          :required => true,
-          :description => "The maximum score possible to obtain for this survey."
+        maximum_score: {
+          type: Const::INT,
+          required: true,
+          description: 'The maximum score possible to obtain for this survey.'
         },
-        :private => {
-          :type => Const::BOOLEAN,
-          :required => true
+        private: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :cheers_count => {
-          :type => Const::INT,
-          :required => true
+        cheers_count: {
+          type: Const::INT,
+          required: true
         },
-        :cheers_url => {
-          :type => Const::STRING,
-          :required => true
+        cheers_url: {
+          type: Const::STRING,
+          required: true
         },
-        :cheerable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        cheerable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_cheers => {
-          :items => {
+        latest_cheers: {
+          items: {
             :$ref => Const::CHEER
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :comments_count => {
-          :type => Const::INT,
-          :required => true
+        comments_count: {
+          type: Const::INT,
+          required: true
         },
-        :comments_url => {
-          :type => Const::STRING,
-          :required => true
+        comments_url: {
+          type: Const::STRING,
+          required: true
         },
-        :commentable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        commentable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :latest_comments => {
-          :items => {
+        latest_comments: {
+          items: {
             :$ref => Const::COMMENT
           },
-          :type => Const::ARRAY
+          type: Const::ARRAY
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         },
-        :removable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        removable: {
+          type: Const::BOOLEAN,
+          required: true
         },
-        :editable => {
-          :type => Const::BOOLEAN,
-          :required => true
+        editable: {
+          type: Const::BOOLEAN,
+          required: true
         }
       }
     }
@@ -2290,21 +2288,21 @@ module ModelsHelper
 
   def answer_model
     {
-      :id => Const::ANSWER,
-      :properties => {
-        :title => {
-          :type => Const::STRING,
-          :required => true
+      id: Const::ANSWER,
+      properties: {
+        title: {
+          type: Const::STRING,
+          required: true
         },
-        :options => {
-          :items => {
+        options: {
+          items: {
             :$ref => Const::QUESTION_OPTION
           },
-          :type => Const::ARRAY,
-          :required => true
+          type: Const::ARRAY,
+          required: true
         },
-        :note => {
-          :type => Const::TEXT
+        note: {
+          type: Const::TEXT
         }
       }
     }
@@ -2312,26 +2310,26 @@ module ModelsHelper
 
   def planned_survey_model
     {
-      :id => Const::PLANNED_SURVEY,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::PLANNED_SURVEY,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :date => {
-          :type => Const::DATE,
-          :required => true
+        date: {
+          type: Const::DATE,
+          required: true
         },
-        :survey => {
-          :type => Const::SURVEY,
-          :required => true
+        survey: {
+          type: Const::SURVEY,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :personal_program => {
-          :type => Const::COMPACT_PERSONAL_PROGRAM
+        personal_program: {
+          type: Const::COMPACT_PERSONAL_PROGRAM
         },
         sticky_days: { type: Const::INT, required: true },
         reminder_title: { type: Const::STRING },
@@ -2363,7 +2361,7 @@ module ModelsHelper
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary invited_to_org requested_to_join_team invited_to_team requested_to_become_coach got_tip)
+            values: %w[commented_on created_megaphone program_reminder sent_message requested_friendship cheered_for popular_entry got_weekly_summary invited_to_org requested_to_join_team invited_to_team requested_to_become_coach got_tip]
           }
         },
         object: { type: Const::NOTIFICATION_OBJECT, required: true },
@@ -2379,19 +2377,19 @@ module ModelsHelper
 
   def notification_object_model
     {
-      :id => Const::NOTIFICATION_OBJECT,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::NOTIFICATION_OBJECT,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :kind => {
-          :type => Const::STRING,
-          :required => true
+        kind: {
+          type: Const::STRING,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         }
       }
     }
@@ -2406,19 +2404,19 @@ module ModelsHelper
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(per_question subtotal total)
+            values: %w[per_question subtotal total]
           }
         },
         visible: {
           type: Const::BOOLEAN,
           required: true,
-          description: "When False, feedback should be used only for recommending programs"
+          description: 'When False, feedback should be used only for recommending programs'
         },
-        conclusion: { type: Const::TEXT, },
+        conclusion: { type: Const::TEXT },
         icon_url: { type: Const::STRING, description: extra_model_icon_description, required: true },
         non_square_icon_url: {
           type: Const::STRING,
-          description: "(A possibly) non-square icon that should be used with surveys that have banner image. {height} variable in the URL needs to be replaced with desired height, width is undefined and depends on icon. Accepted height values are 40, 60, 80, 120 and 160."
+          description: '(A possibly) non-square icon that should be used with surveys that have banner image. {height} variable in the URL needs to be replaced with desired height, width is undefined and depends on icon. Accepted height values are 40, 60, 80, 120 and 160.'
         },
         program_ids: { items: { :$ref => Const::LONG }, type: Const::ARRAY, required: true },
         title: { type: Const::STRING },
@@ -2429,16 +2427,16 @@ module ModelsHelper
 
   def mode_values_model
     {
-      :id => Const::MODE_VALUES,
-      :properties => {
-        :duration => {
-          :type => Const::STRING
+      id: Const::MODE_VALUES,
+      properties: {
+        duration: {
+          type: Const::STRING
         },
-        :distance => {
-          :type => Const::STRING
+        distance: {
+          type: Const::STRING
         },
-        :steps => {
-          :type => Const::STRING
+        steps: {
+          type: Const::STRING
         }
       }
     }
@@ -2446,41 +2444,41 @@ module ModelsHelper
 
   def media_model
     {
-      :id => Const::MEDIA,
-      :properties => {
-        :id => {
-          :type => Const::LONG,
-          :required => true
+      id: Const::MEDIA,
+      properties: {
+        id: {
+          type: Const::LONG,
+          required: true
         },
-        :url => {
-          :type => Const::STRING,
-          :required => true
+        url: {
+          type: Const::STRING,
+          required: true
         },
-        :type => {
-          :type => Const::STRING,
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(image)
+        type: {
+          type: Const::STRING,
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[image]
           }
         },
-        :image_url => {
-          :type => Const::STRING,
-          :description => "Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)",
-          :required => true
+        image_url: {
+          type: Const::STRING,
+          description: 'Example https://example.com/path/to/image/{size}.png, {size} - possible size of image(could be 192, 480, 1080)',
+          required: true
         },
-        :content_url => {
-          :type => Const::STRING,
-          :description => "URL on original file",
-          :required => true
+        content_url: {
+          type: Const::STRING,
+          description: 'URL on original file',
+          required: true
         },
-        :notes => {
-          :type => Const::STRING,
-          :required => true
+        notes: {
+          type: Const::STRING,
+          required: true
         },
-        :created_at => {
-          :type => Const::DATE_TIME,
-          :required => true
+        created_at: {
+          type: Const::DATE_TIME,
+          required: true
         }
       }
     }
@@ -2491,7 +2489,7 @@ module ModelsHelper
       id: Const::ORGANISATION,
       properties: {
         id: { type: Const::LONG, required: true },
-        :url => { :type => Const::STRING, :required => true },
+        url: { type: Const::STRING, required: true },
         name: { type: Const::STRING, required: true },
         creatable_megaphones: { type: Const::BOOLEAN, required: true }
       }
@@ -2504,10 +2502,10 @@ module ModelsHelper
       properties: {
         access_type: {
           type: Const::STRING,
-          description: "Defines whether the team can be joined by anyone, membership needs to be requested, or the team is invite only",
+          description: 'Defines whether the team can be joined by anyone, membership needs to be requested, or the team is invite only',
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(public requested private)
+            values: %w[public requested private]
           },
           required: true
         },
@@ -2526,12 +2524,12 @@ module ModelsHelper
         },
         managed: {
           type: Const::BOOLEAN,
-          description: "True for teams whose memberships are managed by administrators, false for teams that can be freely joined and left by users themselves",
+          description: 'True for teams whose memberships are managed by administrators, false for teams that can be freely joined and left by users themselves',
           required: true
         },
         member_count: {
           type: Const::INT,
-          description: "Number of accepted members in the group",
+          description: 'Number of accepted members in the group',
           required: true
         },
         name: {
@@ -2540,12 +2538,12 @@ module ModelsHelper
         },
         official: {
           type: Const::BOOLEAN,
-          description: "True for teams greated by organisation administrator, false for user created teams",
+          description: 'True for teams greated by organisation administrator, false for user created teams',
           required: true
         },
-        :organisation => {
-          :type => Const::ORGANISATION,
-          :required => true
+        organisation: {
+          type: Const::ORGANISATION,
+          required: true
         }
       }
     }
@@ -2561,21 +2559,21 @@ module ModelsHelper
         },
         status: {
           type: Const::STRING,
-          description: "Indicates whether the team membership has been accepted or not",
+          description: 'Indicates whether the team membership has been accepted or not',
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(accepted pending)
+            values: %w[accepted pending]
           }
         },
         team_id: {
           type: Const::LONG,
-          description: "Identifier of the team this membership is associated with",
+          description: 'Identifier of the team this membership is associated with',
           required: true
         },
         team: {
           type: Const::GROUP,
-          description: "Details of the team this membership is associated with",
+          description: 'Details of the team this membership is associated with',
           required: true
         }
       }
@@ -2594,13 +2592,13 @@ module ModelsHelper
           required: true,
           allowableValues: {
             valueType: Const::LIST,
-            values: %w(group_invite group_join friendship coach_request, org_invite)
+            values: %w[group_invite group_join friendship coach_request org_invite]
           }
         },
         status: {
           type: Const::STRING,
           required: true,
-          allowableValues: { valueType: Const::LIST, values: %w(open accepted rejected) }
+          allowableValues: { valueType: Const::LIST, values: %w[open accepted rejected] }
         },
         title: { type: Const::STRING, required: true },
         description: { type: Const::STRING, required: true },
@@ -2620,7 +2618,7 @@ module ModelsHelper
         type: {
           type: Const::STRING,
           required: true,
-          allowableValues: { valueType: Const::LIST, values: %w(accept reject) }
+          allowableValues: { valueType: Const::LIST, values: %w[accept reject] }
         }
       }
     }
@@ -2628,62 +2626,62 @@ module ModelsHelper
 
   def wearable_model
     {
-      :id => Const::WEARABLE,
-      :properties => {
-        :confirm_url => {
-          :type => Const::STRING,
-          :description => "URL where the user should be redirected after requesting connection. Only applicable when connection_mechanism is 'email'."
+      id: Const::WEARABLE,
+      properties: {
+        confirm_url: {
+          type: Const::STRING,
+          description: "URL where the user should be redirected after requesting connection. Only applicable when connection_mechanism is 'email'."
         },
-        :connection_mechanism => {
-          :type => Const::STRING,
-          :description => "This value is 'oauth' for most services, indicating regular OAuth flow. For Polar the value is 'email'.",
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(oauth email)
+        connection_mechanism: {
+          type: Const::STRING,
+          description: "This value is 'oauth' for most services, indicating regular OAuth flow. For Polar the value is 'email'.",
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[oauth email]
           }
         },
-        :disconnectable => {
-          :type => Const::BOOLEAN,
-          :description => "Tells whether or not the service can be disconnected via API. If false user needs to disconnect from the wearable provider side.",
-          :required => true
+        disconnectable: {
+          type: Const::BOOLEAN,
+          description: 'Tells whether or not the service can be disconnected via API. If false user needs to disconnect from the wearable provider side.',
+          required: true
         },
-        :display_name => {
-          :type => Const::STRING,
-          :description => "Display name of the service",
-          :required => true
+        display_name: {
+          type: Const::STRING,
+          description: 'Display name of the service',
+          required: true
         },
-        :email => {
-          :type => Const::STRING,
-          :description => "Email associated with this service, if any. Only applicable when connection_mechanism is 'email'."
+        email: {
+          type: Const::STRING,
+          description: "Email associated with this service, if any. Only applicable when connection_mechanism is 'email'."
         },
-        :logo_url => {
-          :type => Const::STRING,
-          :description => "URL for service logo (png). No size patterns are supported and the logo size is always 160x160 pixels.",
-          :required => true
+        logo_url: {
+          type: Const::STRING,
+          description: 'URL for service logo (png). No size patterns are supported and the logo size is always 160x160 pixels.',
+          required: true
         },
-        :oauth_redirect_url_pattern => {
-          :type => Const::STRING,
-          :description => "Regular expression defining the URL where browser will be redirected at the end of the OAuth flow."
+        oauth_redirect_url_pattern: {
+          type: Const::STRING,
+          description: 'Regular expression defining the URL where browser will be redirected at the end of the OAuth flow.'
         },
-        :oauth_url => {
-          :type => Const::STRING,
-          :description => "URL where user should be taken to start the OAuth flow. Only returned when explicitly requested."
+        oauth_url: {
+          type: Const::STRING,
+          description: 'URL where user should be taken to start the OAuth flow. Only returned when explicitly requested.'
         },
-        :provider => {
-          :type => Const::STRING,
-          :description => "Name of the wearable service provider.",
-          :required => true
+        provider: {
+          type: Const::STRING,
+          description: 'Name of the wearable service provider.',
+          required: true
         },
-        :status => {
-          :type => Const::STRING,
-          :description => "Current connection status for this service.",
-          :required => true,
-          :allowableValues => {
-            :valueType => Const::LIST,
-            :values => %w(disconnected requested connected)
+        status: {
+          type: Const::STRING,
+          description: 'Current connection status for this service.',
+          required: true,
+          allowableValues: {
+            valueType: Const::LIST,
+            values: %w[disconnected requested connected]
           }
-        },
+        }
       }
     }
   end
@@ -2698,18 +2696,18 @@ module ModelsHelper
         image_url: {
           type: Const::STRING,
           required: true,
-          description: "Example https://example.com/path/to/image?size={resolution}, where {resolution} in (640x344, 750x344, 1125x516, 1242x516)"
+          description: 'Example https://example.com/path/to/image?size={resolution}, where {resolution} in (640x344, 750x344, 1125x516, 1242x516)'
         },
         rules_image_url: {
           type: Const::STRING,
           required: true,
-          description: "Example https://example.com/path/to/image?width={width}, where {width} in (640, 750, 1125, 1242)"
+          description: 'Example https://example.com/path/to/image?width={width}, where {width} in (640, 750, 1125, 1242)'
         },
         levels_title: { type: Const::STRING, required: true },
         levels: { items: { "$ref": Const::POINT_SYSTEM_LEVEL }, type: Const::ARRAY, required: true },
         rules_title: { type: Const::STRING, required: true },
         rules: { items: { "$ref": Const::POINT_SYSTEM_RULE }, type: Const::ARRAY, required: true },
-        points_total: { type: Const::INT, required: true },
+        points_total: { type: Const::INT, required: true }
       }
     }
   end
@@ -2764,7 +2762,7 @@ module ModelsHelper
         commentable: { type: Const::BOOLEAN, required: true },
         highlight: { type: Const::STRING },
         breakdown: { items: { "$ref": Const::WEEKLY_SUMMARY_BREAKDOWN }, type: Const::ARRAY, required: true },
-        point_systems: { items: { "$ref": Const::WEEKLY_POINT_SYSTEM_SUMMARY }, type: Const::ARRAY },
+        point_systems: { items: { "$ref": Const::WEEKLY_POINT_SYSTEM_SUMMARY }, type: Const::ARRAY }
       }
     }
   end
@@ -2809,7 +2807,6 @@ module ModelsHelper
     }
   end
 
-
   def weekly_point_system_summary_model
     {
       id: Const::WEEKLY_POINT_SYSTEM_SUMMARY,
@@ -2822,7 +2819,7 @@ module ModelsHelper
         image_url: {
           type: Const::STRING,
           required: true,
-          description: "Example https://example.com/path/to/image?size={resolution}, where {resolution} in (640x344, 750x344, 1125x516, 1242x516)"
+          description: 'Example https://example.com/path/to/image?size={resolution}, where {resolution} in (640x344, 750x344, 1125x516, 1242x516)'
         },
         points_total: { type: Const::INT, required: true },
         points_earned: { type: Const::INT, required: true },
@@ -2830,7 +2827,7 @@ module ModelsHelper
         points_balance: { type: Const::STRING, required: true },
         points_history: { items: { "$ref": Const::COMPACT_WEEKLY_POINT_SYSTEM_SUMMARY }, type: Const::ARRAY },
         points_breakdown: { items: { "$ref": Const::WEEKLY_POINT_SYSTEM_SUMMARY_BREAKDOWN }, type: Const::ARRAY,
-                            required: true},
+                            required: true }
       }
     }
   end
@@ -2858,11 +2855,11 @@ module ModelsHelper
   def models(version, *args)
     hash = {}
     model_names(args).each do |model|
-      if respond_to?("v#{version}_#{model.underscore}_model")
-        hash[model] = send("v#{version}_#{model.underscore}_model")
-      else
-        hash[model] = send("#{model.underscore}_model")
-      end
+      hash[model] = if respond_to?("v#{version}_#{model.underscore}_model")
+                      send("v#{version}_#{model.underscore}_model")
+                    else
+                      send("#{model.underscore}_model")
+                    end
     end
     hash.to_json
   end
@@ -2920,8 +2917,8 @@ module ModelsHelper
       Const::TIP => [Const::MEDIA],
       Const::TOP_SPORT => [Const::MODE_VALUES, Const::SPORT],
       Const::TRAINING_GOAL => [Const::COMPACT_USER],
-      Const::TRAINING_LOG => [ Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
-                               Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
+      Const::TRAINING_LOG => [Const::COMPACT_SPORT, Const::COMPACT_USER, Const::PLACE, Const::SPORT_PARAM_VALUE,
+                              Const::TAG, Const::CHEER, Const::COMMENT, Const::MEDIA, Const::COMPACT_PERSONAL_PROGRAM],
       Const::USER => [],
       Const::USER_CONSENT => [],
       Const::VIDEO => [],
@@ -2961,5 +2958,4 @@ module ModelsHelper
     "Example https://example.com/path/to/image/{size}.png,
      {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)"
   end
-
 end
