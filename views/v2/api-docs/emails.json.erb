@@ -1,0 +1,29 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/email",
+  "apis":[
+    {
+      "path":"/email/verify",
+      "description":"Operations about verify emails",
+      "operations":[
+        {
+          "httpMethod":"PUT",
+          "summary":"Verify email",
+          "responseClass":null,
+          "nickname":"emails_verify",
+          "parameters":[
+            {
+              "name":"email",
+              "paramType":"form",
+              "dataType":"string"
+            }
+          ],
+          "errorResponses":<%= responses(400, 404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version]) %>
+}
