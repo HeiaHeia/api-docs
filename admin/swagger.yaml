@@ -80,9 +80,6 @@ tags:
   - name: megaphones
     description: >-
       Operations for meghaphones under organisation. 
-  - name: supervisors
-    description: >-
-      Operations for supervisor to initiate and/or destroy supervisor role under organisation.
   - name: reports
     description: >-
       Operations for accessing and sharing reports. These API calls
@@ -91,9 +88,6 @@ tags:
   - name: survey report exports
     description: >-
       Operations for managing exporting survey reports to excel file
-  - name: automatic report shares
-    description: >-
-      report can be share to supervisor more automatically through mail.
   - name: energy levels
     description: >-
       Access to Parempi Vire "Test your energy levels" survey results.
@@ -2998,6 +2992,183 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/add_supervisor':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Add user(s) supervisor role to a team.
+      description: >-
+        Finds all users matching given filter conditions and makes
+        them supervisors of given team. Users who are already are supervisors
+        of the team are unaffected.
+      operationId: massAddSupervisor
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: team_id
+          in: query
+          example: 45328951
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/remove_supervisor':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Remove user(s) supervisor role to a team.
+      description: >-
+        Finds all users matching given filter conditions and makes
+        removes supervisor role for given team. Users who are not supervisors
+        of the team are unaffected.
+      operationId: massRemoveSupervisor
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: team_id
+          in: query
+          example: 45328951
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `team_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/send_automatic_report':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Sends survey report to selected supervisors
+      description: >-
+        Finds all users matching given filter conditions and sends
+        supervisor report for them. Users will get selected report
+        for all the teams they are supervisor in. If subteams parameter
+        is sent, the report will also contain subteams of the supervisors
+        teams.
+      operationId: massSendAutomaticReport
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: scheduled_survey_id
+          in: query
+          example: 48373
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: user_ids
+          in: query
+          description: >-
+            Explicit identifiers of the users (==userID) being accessed.
+          schema:
+            type: array
+            example: 30842110,30842138
+            items:
+              type: integer
+              format: int64
+        - name: sub_teams
+          in: query
+          description: >-
+            If reports should include subteams
+          schema:
+            type: boolean
+            example: true
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`,
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/membership_imports':
     get:
       tags:
@@ -3969,215 +4140,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
-  '/admin/v1/documents/organisations/{organisation_id}/supervisors':
-    get:
-      tags:
-        - supervisors
-      summary: List all user supervisors for given organisation
-      operationId: listSupervisors
-      parameters:
-        - $ref: '#/components/parameters/organisation_id'
-        - $ref: '#/components/parameters/total_required'
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/per_page'
-        - $ref: '#/components/parameters/filter_search'
-      security:
-        - admin_api_auth:
-            - admin_api
-            - read_only_admin_api
-      responses:
-        '200':
-          description: Supervisors were successfully fetched
-          content:
-            application/json:
-              schema:
-                type: object
-                example: { "total": 1, "items": {"id": 12323323, "first_name": "john", "last_name": "Doe", "avatar_url": nil, "language": "fi"}, "team": {"id": 111, "name": "T Name"} } 
-        '400':
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          $ref: '#/components/responses/MissingAuthorization'
-        '403':
-          description: >-
-            Not authorized to perform this API operation or
-            organisation not found. `error` can be any of:
-            `no_org_access`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '503':
-          $ref: '#/components/responses/ServerNotAvailable'
-    post:
-      tags:
-        - supervisors
-      summary: Create supervisor role to user for one or multiple team.
-      description: >-
-        This will create supervisor for teams under given organisation.
-      operationId: supervisors
-      parameters:
-        - $ref: '#/components/parameters/organisation_id'
-        - $ref: '#/components/parameters/user_ids'
-        - $ref: '#/components/parameters/team_ids'
-        - name: state
-          in: query
-          description: >-
-            Only return the hash of created supervisor and team ids.
-          schema:
-            type: string
-            enum: ["pending", "ongoing", "completed"]
-      responses:
-        '200':
-          description: Supervisor creared successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListOrganisationMembershipImportsResponse'
-        '400':
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          $ref: '#/components/responses/MissingAuthorization'
-        '403':
-          description: >-
-            Not authorized to perform this API operation or
-            organisation not found. `error` can be any of:
-            `no_org_access`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '503':
-          $ref: '#/components/responses/ServerNotAvailable'  
-  '/admin/v1/documents/organisations/{organisation_id}/supervisors/{supervisor_id}':
-    delete:
-      tags:
-        - supervisors
-      summary: Remove supervisor role
-      operationId: deleteSupervisorRole
-      parameters:
-        - $ref: '#/components/parameters/organisation_id'
-        - $ref: '#/components/parameters/supervisor_role_id'
-      responses:
-        '204':
-          description: Supervisor was successfully removed
-        '400':
-          description: >-
-            Request was invalid. `error` can be any of:
-            `invalid_param`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          $ref: '#/components/responses/MissingAuthorization'
-        '403':
-          description: >-
-            Not authorized to perform this API operation. `error` can
-            be any of: `no_org_access`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404':
-          description: >-
-            Supervisor role not found. `error` can be any of:
-            `supervisor_role_not_found`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '503':
-          $ref: '#/components/responses/ServerNotAvailable'      
-  '/admin/v1/documents/organisations/{organisation_id}/dynamic_report_shares':
-    post:
-      tags:
-        - automatic report shares
-      summary: Create survey report for selected teams and tags and send the report through email to supervisor.
-      description: >-
-        This will send specific report team/tag/subteams report to selected supervisors.
-      operationId: automaticReportShare
-      parameters:
-        - $ref: '#/components/parameters/organisation_id'
-        - name: report_id
-          in: query
-          required: true
-          description: >-
-            should include report_id as params to find the original company report
-          schema:
-            type: string
-        - name: filter
-          in: query
-          required: true
-          description: >-
-            should include filter as params to create shared report for individual supervisor. filter will be an object and it will contain multiple hash for multiple users. each hash should include team_ids, tag_ids and as optional ui_state. The example of body will be inside of filter object. 
-          schema:
-            type: object
-            example: { "user_id": { "team_ids": ["id1", "id2"], tag_ids: ["id1"], "ui_state": {"bar": "baz"}} }  
-        - name: subteams
-          in: query
-          description: >-
-            By deault it will be true. True for getting all the subteams under one selected teams.
-          schema:
-            type: boolean
-        - name: user_id
-          in: query
-          description: >-
-            user.id will act as the key of each hash and each hash will contain team_ids, tag_ids and ui_state
-          schema:
-            type: string
-        - name: team_ids
-          in: query
-          description: >- 
-            Team ids should be inside of an array as item may act as string or integer. 
-          schema: 
-            type: array
-            items:
-              type: string
-        - name: tag_ids
-          in: query
-          description: >-
-            Tag ids should be inside of an array as item may act as string or integer.
-          schema:
-            type: array
-            items: 
-              type: string
-      responses:
-        '204':
-          description: Report shares were successfully done. Supervisor will receive report thrpugh mailer and wil render nothing.
-          content:
-            application/json:
-              schema:
-                type: object
-                example: {}
-        '400':
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          $ref: '#/components/responses/MissingAuthorization'
-        '403':
-          description: >-
-            Not authorized to perform this API operation or
-            organisation not found. `error` can be any of:
-            `no_org_access`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '503':
-          $ref: '#/components/responses/ServerNotAvailable' 
-          
-          
   '/admin/v1/documents/organisations/{organisation_id}/report_exports':
     post:
       tags:
@@ -4672,6 +4634,8 @@ components:
             - stop_survey
             - resend_invitation
             - resend_survey_invitation
+            - add_supervisor
+            - remove_supervisor
         total:
           type: integer
           format: int32
