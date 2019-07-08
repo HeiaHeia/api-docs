@@ -1862,7 +1862,9 @@ module ModelsHelper
         icon_url: { type: Const::STRING, required: true, description: common_icon_description },
         svg_icon_url: { type: Const::STRING, required: true },
         banner_url: { type: Const::STRING },
-        url: { type: Const::STRING, required: true }
+        url: { type: Const::STRING, required: true },
+        super_program: { type: Const::BOOLEAN, required: true },
+        start_only_once: { type: Const::BOOLEAN, required: true },
       }
     }
   end
