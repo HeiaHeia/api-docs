@@ -46,7 +46,12 @@
           "nickname":"personal_programs_create",
           "parameters":[
             <%= param_survey_id %>,
-            <%= param_program_id %>
+            <%= param_program_id %>,
+            {
+              "name":"parent_personal_program_id",
+              "paramType":"form",
+              "dataType":"long"
+            }
           ],
           "errorResponses":<%= responses(400, 404) %>
         }

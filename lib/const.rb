@@ -23,6 +23,7 @@ module Const
 
   ARRAY = 'Array'.freeze
   LIST = 'LIST'.freeze
+  HASH = 'Hash'.freeze
 
   BMI = 'bmi'.freeze
   CHECKBOX = 'checkbox'.freeze

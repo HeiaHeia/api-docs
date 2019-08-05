@@ -1902,89 +1902,28 @@ module ModelsHelper
     {
       id: Const::PERSONAL_PROGRAM,
       properties: {
-        id: {
-          type: Const::LONG,
-          required: true
-        },
-        date: {
-          type: Const::DATE,
-          required: true
-        },
-        user: {
-          type: Const::COMPACT_USER,
-          required: true
-        },
-        program: {
-          type: Const::COMPACT_PROGRAM,
-          required: true
-        },
-        url: {
-          type: Const::STRING,
-          required: true
-        },
-        title: {
-          type: Const::STRING,
-          required: true
-        },
-        description: {
-          type: Const::TEXT
-        },
-        start_date: {
-          type: Const::DATE,
-          required: true
-        },
-        end_date: {
-          type: Const::DATE,
-          required: true
-        },
-        cheers_count: {
-          type: Const::INT,
-          required: true
-        },
-        cheers_url: {
-          type: Const::STRING,
-          required: true
-        },
-        cheerable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
-        comments_count: {
-          type: Const::INT,
-          required: true
-        },
-        comments_url: {
-          type: Const::STRING,
-          required: true
-        },
-        commentable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        latest_comments: {
-          items: {
-            :$ref => Const::COMMENT
-          },
-          type: Const::ARRAY
-        },
-        created_at: {
-          type: Const::DATE_TIME,
-          required: true
-        },
-        removable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        editable: {
-          type: Const::BOOLEAN,
-          required: true
-        }
+        id: { type: Const::LONG, required: true },
+        date: { type: Const::DATE, required: true },
+        user: { type: Const::COMPACT_USER, required: true },
+        program: { type: Const::COMPACT_PROGRAM, required: true },
+        url: { type: Const::STRING, required: true },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        start_date: { type: Const::DATE, required: true },
+        end_date: { type: Const::DATE, required: true },
+        cheers_count: { type: Const::INT, required: true },
+        cheers_url: { type: Const::STRING, required: true },
+        cheerable: { type: Const::BOOLEAN, required: true },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        comments_count: { type: Const::INT, required: true },
+        comments_url: { type: Const::STRING, required: true },
+        commentable: { type: Const::BOOLEAN, required: true },
+        latest_comments: { items: { :$ref => Const::COMMENT }, type: Const::ARRAY },
+        created_at: { type: Const::DATE_TIME, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true },
+        parent_personal_program_id: { type: Const::LONG },
+        linked_personal_programs: { type: "Array[#{Const::PERSONAL_PROGRAM}]" }
       }
     }
   end
@@ -2164,7 +2103,8 @@ module ModelsHelper
           type: Const::FLOAT,
           required: true,
           description: 'The percentage (0.0-100.0) of answers where this particular option was chosen.'
-        }
+        },
+        points: { type: Const::LONG, required: true, description: "Used to compare questions with previous result" }
       }
     }
   end
@@ -2173,55 +2113,17 @@ module ModelsHelper
     {
       id: Const::SURVEY_RESULT,
       properties: {
-        id: {
-          type: Const::LONG,
-          required: true
-        },
-        complete: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        date: {
-          type: Const::DATE,
-          required: true
-        },
-        user: {
-          type: Const::COMPACT_USER,
-          required: true
-        },
-        survey: {
-          type: Const::COMPACT_SURVEY,
-          required: true
-        },
-        url: {
-          type: Const::STRING,
-          required: true
-        },
-        icon_url: {
-          type: Const::STRING,
-          description: extra_model_icon_description,
-          required: true
-        },
-        title: {
-          type: Const::STRING,
-          required: true
-        },
-        description: {
-          type: Const::TEXT
-        },
-        answers: {
-          items: {
-            :$ref => Const::ANSWER
-          },
-          type: Const::ARRAY,
-          required: true
-        },
-        feedbacks: {
-          items: {
-            :$ref => Const::SURVEY_FEEDBACK
-          },
-          type: Const::ARRAY
-        },
+        id: { type: Const::LONG, required: true },
+        complete: { type: Const::BOOLEAN, required: true },
+        date: { type: Const::DATE, required: true },
+        user: { type: Const::COMPACT_USER, required: true },
+        survey: { type: Const::COMPACT_SURVEY, required: true },
+        url: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, description: extra_model_icon_description, required: true },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        answers: { items: { :$ref => Const::ANSWER }, type: Const::ARRAY, required: true },
+        feedbacks: { items: { :$ref => Const::SURVEY_FEEDBACK }, type: Const::ARRAY },
         user_score: {
           type: Const::INT,
           required: true,
@@ -2232,57 +2134,22 @@ module ModelsHelper
           required: true,
           description: 'The maximum score possible to obtain for this survey.'
         },
-        private: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        cheers_count: {
-          type: Const::INT,
-          required: true
-        },
-        cheers_url: {
-          type: Const::STRING,
-          required: true
-        },
-        cheerable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
-        comments_count: {
-          type: Const::INT,
-          required: true
-        },
-        comments_url: {
-          type: Const::STRING,
-          required: true
-        },
-        commentable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        latest_comments: {
-          items: {
-            :$ref => Const::COMMENT
-          },
-          type: Const::ARRAY
-        },
-        created_at: {
-          type: Const::DATE_TIME,
-          required: true
-        },
-        removable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        editable: {
-          type: Const::BOOLEAN,
-          required: true
+        private: { type: Const::BOOLEAN, required: true },
+        cheers_count: { type: Const::INT, required: true },
+        cheers_url: { type: Const::STRING, required: true },
+        cheerable: { type: Const::BOOLEAN, required: true },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        comments_count: { type: Const::INT, required: true },
+        comments_url: { type: Const::STRING, required: true },
+        commentable: { type: Const::BOOLEAN, required: true },
+        latest_comments: { items: { :$ref => Const::COMMENT }, type: Const::ARRAY },
+        created_at: { type: Const::DATE_TIME, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true },
+        personal_program: { type: Const::COMPACT_PERSONAL_PROGRAM },
+        previous_results: {
+          type: Const::HASH,
+          description: "Per question results fron previous results in format: QUESTION_KEY(string) => POINTS(int)"
         }
       }
     }
@@ -2292,20 +2159,10 @@ module ModelsHelper
     {
       id: Const::ANSWER,
       properties: {
-        title: {
-          type: Const::STRING,
-          required: true
-        },
-        options: {
-          items: {
-            :$ref => Const::QUESTION_OPTION
-          },
-          type: Const::ARRAY,
-          required: true
-        },
-        note: {
-          type: Const::TEXT
-        }
+        title: { type: Const::STRING, required: true },
+        options: { items: { :$ref => Const::QUESTION_OPTION }, type: Const::ARRAY, required: true },
+        note: { type: Const::TEXT },
+        question_key: { type: Const::STRING }
       }
     }
   end
@@ -2913,7 +2770,7 @@ module ModelsHelper
       Const::SPORT_PARAM => [],
       Const::SPORT_PARAM_VALUE => [Const::SPORT_PARAM],
       Const::SURVEY => [Const::QUESTION],
-      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT],
+      Const::SURVEY_RESULT => [Const::ANSWER, Const::COMPACT_SURVEY, Const::SURVEY_FEEDBACK, Const::COMPACT_USER, Const::CHEER, Const::COMMENT, Const::COMPACT_PERSONAL_PROGRAM],
       Const::TAG => [],
       Const::TEAM_MEMBERSHIP => [Const::GROUP],
       Const::TIP => [Const::MEDIA],
