@@ -1898,6 +1898,21 @@ module ModelsHelper
     }
   end
 
+  def program_folder_model
+    {
+      id: Const::PROGRAM_FOLDER,
+      properties: {
+        id: { type: Const::LONG, required: true },
+        title: { type: Const::STRING, required: true },
+        icon_url: { type: Const::STRING, required: true, description: "SVG icon" },
+        url: { type: Const::STRING, required: true },
+        programs: { items: { :$ref => Const::PROGRAM }, type: Const::ARRAY },
+        started_personal_programs: { items: { :$ref => Const::PERSONAL_PROGRAM }, type: Const::ARRAY }
+      }
+    }
+  end
+
+
   def personal_program_model
     {
       id: Const::PERSONAL_PROGRAM,
@@ -2762,6 +2777,7 @@ module ModelsHelper
       Const::POINT_SYSTEM_RULE => [],
       Const::PROGRAM => [Const::PROGRAM_ENTRY],
       Const::PROGRAM_ENTRY => [],
+      Const::PROGRAM_FOLDER => [Const::PROGRAM, Const::PERSONAL_PROGRAM],
       Const::REQUEST => [Const::COMPACT_USER, Const::GROUP, Const::REQUEST_ACTION],
       Const::REQUEST_ACTION => [],
       Const::QUESTION => [Const::QUESTION_OPTION],

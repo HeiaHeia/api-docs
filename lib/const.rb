@@ -72,6 +72,7 @@ module Const
   POINT_SYSTEM_RULE = 'PointSystemRule'.freeze
   PROGRAM = 'Program'.freeze
   PROGRAM_ENTRY = 'ProgramEntry'.freeze
+  PROGRAM_FOLDER = 'ProgramFolder'.freeze
   REQUEST = 'Request'.freeze
   REQUEST_ACTION = 'RequestAction'.freeze
   QUESTION = 'Question'.freeze

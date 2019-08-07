@@ -1,0 +1,47 @@
+{
+  "apiVersion":"2",
+  "swaggerVersion":"1.2",
+  "basePath":"<%= Const::BASE_URL %>/v2",
+  "resourcePath":"/program_folders",
+  "apis":[
+    {
+      "path":"/program_folders",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"List of available program folders",
+          "responseClass":"List[ProgramFolder]",
+          "nickname":"index",
+          "parameters":[
+            <%= param_page %>,
+            <%= param_per_page %>
+          ],
+          "errorResponses":<%= responses(400) %>
+        }
+      ]
+    },
+    {
+      "path":"/program_folders/{id}",
+      "description":"Operations about program folders",
+      "operations":[
+        {
+          "httpMethod":"GET",
+          "summary":"Find program folders by ID",
+          "responseClass":"ProgramFolder",
+          "nickname":"show",
+          "parameters":[
+            {
+              "name":"id",
+              "description":"The id of the program folder",
+              "paramType":"path",
+              "required":true,
+              "dataType":"long"
+            }
+          ],
+          "errorResponses":<%= responses(404) %>
+        }
+      ]
+    }
+  ],
+  "models":<%= models(params[:api_version], 'ProgramFolder') %>
+}

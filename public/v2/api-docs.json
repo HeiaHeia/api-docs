@@ -88,6 +88,10 @@
       "description":"Programs"
     },
     {
+      "path":"/api-docs/program_folders.{format}",
+      "description":"Program folders"
+    },
+    {
       "path":"/api-docs/point_systems.{format}",
       "description":"Point systems"
     },
