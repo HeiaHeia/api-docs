@@ -2177,7 +2177,8 @@ module ModelsHelper
         title: { type: Const::STRING, required: true },
         options: { items: { :$ref => Const::QUESTION_OPTION }, type: Const::ARRAY, required: true },
         note: { type: Const::TEXT },
-        question_key: { type: Const::STRING }
+        question_key: { type: Const::STRING },
+        question_id: { type: Const::LONG, required: true  },
       }
     }
   end
