@@ -1916,16 +1916,9 @@ module ModelsHelper
   def personal_program_model
     {
       id: Const::PERSONAL_PROGRAM,
-      properties: {
-        id: { type: Const::LONG, required: true },
-        date: { type: Const::DATE, required: true },
+      properties: compact_personal_program_model[:properties].merge(
         user: { type: Const::COMPACT_USER, required: true },
         program: { type: Const::COMPACT_PROGRAM, required: true },
-        url: { type: Const::STRING, required: true },
-        title: { type: Const::STRING, required: true },
-        description: { type: Const::TEXT },
-        start_date: { type: Const::DATE, required: true },
-        end_date: { type: Const::DATE, required: true },
         cheers_count: { type: Const::INT, required: true },
         cheers_url: { type: Const::STRING, required: true },
         cheerable: { type: Const::BOOLEAN, required: true },
@@ -1935,11 +1928,8 @@ module ModelsHelper
         commentable: { type: Const::BOOLEAN, required: true },
         latest_comments: { items: { :$ref => Const::COMMENT }, type: Const::ARRAY },
         created_at: { type: Const::DATE_TIME, required: true },
-        removable: { type: Const::BOOLEAN, required: true },
-        editable: { type: Const::BOOLEAN, required: true },
-        parent_personal_program_id: { type: Const::LONG },
         linked_personal_programs: { type: "Array[#{Const::PERSONAL_PROGRAM}]" }
-      }
+      )
     }
   end
 
@@ -1947,41 +1937,18 @@ module ModelsHelper
     {
       id: Const::COMPACT_PERSONAL_PROGRAM,
       properties: {
-        id: {
-          type: Const::LONG,
-          required: true
-        },
-        date: {
-          type: Const::DATE,
-          required: true
-        },
-        url: {
-          type: Const::STRING,
-          required: true
-        },
-        title: {
-          type: Const::STRING,
-          required: true
-        },
-        description: {
-          type: Const::TEXT
-        },
-        start_date: {
-          type: Const::DATE,
-          required: true
-        },
-        end_date: {
-          type: Const::DATE,
-          required: true
-        },
-        removable: {
-          type: Const::BOOLEAN,
-          required: true
-        },
-        editable: {
-          type: Const::BOOLEAN,
-          required: true
-        }
+        id: { type: Const::LONG, required: true },
+        date: { type: Const::DATE, required: true },
+        url: { type: Const::STRING, required: true },
+        title: { type: Const::STRING, required: true },
+        description: { type: Const::TEXT },
+        start_date: { type: Const::DATE, required: true },
+        end_date: { type: Const::DATE, required: true },
+        removable: { type: Const::BOOLEAN, required: true },
+        editable: { type: Const::BOOLEAN, required: true },
+        parent_personal_program_id: { type: Const::LONG },
+        items_count: { type: Const::INT, required: true },
+        items_done: { type: Const::INT, required: true }
       }
     }
   end
