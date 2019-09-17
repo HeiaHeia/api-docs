@@ -648,12 +648,8 @@ module ModelsHelper
           type: Const::BOOLEAN,
           required: true
         },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: {
           type: Const::INT,
           required: true
@@ -800,12 +796,8 @@ module ModelsHelper
           type: Const::BOOLEAN,
           required: true
         },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: {
           type: Const::INT,
           required: true
@@ -898,12 +890,8 @@ module ModelsHelper
           type: Const::BOOLEAN,
           required: true
         },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: {
           type: Const::INT,
           required: true
@@ -990,12 +978,8 @@ module ModelsHelper
           type: Const::BOOLEAN,
           required: true
         },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: {
           type: Const::INT,
           required: true
@@ -1057,6 +1041,7 @@ module ModelsHelper
         cheers_url: { type: Const::STRING, required: true },
         cheerable: { type: Const::BOOLEAN, required: true },
         latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: { type: Const::INT, required: true },
         comments_url: { type: Const::STRING, required: true },
         commentable: { type: Const::BOOLEAN, required: true },
@@ -1470,12 +1455,8 @@ module ModelsHelper
           type: Const::BOOLEAN,
           required: true
         },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: {
           type: Const::INT,
           required: true
@@ -1736,12 +1717,8 @@ module ModelsHelper
           type: Const::BOOLEAN,
           required: true
         },
-        latest_cheers: {
-          items: {
-            :$ref => Const::CHEER
-          },
-          type: Const::ARRAY
-        },
+        latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: {
           type: Const::INT,
           required: true
@@ -1923,6 +1900,7 @@ module ModelsHelper
         cheers_url: { type: Const::STRING, required: true },
         cheerable: { type: Const::BOOLEAN, required: true },
         latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: { type: Const::INT, required: true },
         comments_url: { type: Const::STRING, required: true },
         commentable: { type: Const::BOOLEAN, required: true },
@@ -2123,6 +2101,7 @@ module ModelsHelper
         cheers_url: { type: Const::STRING, required: true },
         cheerable: { type: Const::BOOLEAN, required: true },
         latest_cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
+        cheers: { items: { :$ref => Const::CHEER }, type: Const::ARRAY },
         comments_count: { type: Const::INT, required: true },
         comments_url: { type: Const::STRING, required: true },
         commentable: { type: Const::BOOLEAN, required: true },
