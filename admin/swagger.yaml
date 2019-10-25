@@ -1495,6 +1495,14 @@ paths:
           schema:
             type: string
             format: date
+        - name: business_id
+          in: query
+          required: false
+          description: >-
+            Filter report for specific business-id in this organisation (OrganisationCompanyTag)
+          schema:
+            type: string
+            example: 123123-1
       security:
         - admin_api_auth:
             - admin_api
@@ -1533,12 +1541,20 @@ paths:
       summary: >-
         Get current organisation statistics.
       description: >-
-        Retruns current live statistics for the organisation. The caller
+        Returns current live statistics for the organisation. The caller
         is responsible for storing values if showing trends, past values
         or values within a date range is required.
       operationId: getStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
+        - name: business_id
+          in: query
+          required: false
+          description: >-
+            Filter report for specific business-id in this organisation (OrganisationCompanyTag)
+          schema:
+            type: string
+            example: "123123-1"
       security:
         - admin_api_auth:
             - admin_api
