@@ -10,8 +10,7 @@ info:
   description: |
     This document describes how to use the HeiaHeia Admin API.
     
-    If you are only interested in fetching Luotaamo reports data, please see the simplified version here:
-    https://heiaheia.github.io/luotaamo-reports-api-docs/#introduction-to-luotaamo-api
+    If you are only interested in fetching Luotaamo reports data, please see the simplified version [here](https://heiaheia.github.io/luotaamo-reports-api-docs/#introduction-to-luotaamo-api).
 
     Authentication
     ==============
@@ -1462,7 +1461,7 @@ paths:
       summary: >-
         Get Parempi Vire "Test your energy levels" survey results.
       description: |
-        Retruns survey results based on current database state.
+        Returns survey results based on current database state.
         
         This API should be used to obtain data right after desired date
         range has become available and the results stored offline.
@@ -1596,7 +1595,7 @@ paths:
       summary: >-
         Get current organisation statistics.
       description: >-
-        Retruns current live statistics for the organisation. These data are coming from the last report of omavire and the distributed wellness data are coming based on the last 14 weeks time frame.
+        Returns current live statistics for the organisation. These data are coming from the last report of omavire and the distributed wellness data are coming based on the last 14 weeks time frame.
       operationId: getOmaVireStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
@@ -1638,7 +1637,7 @@ paths:
       summary: >-
         Get current organisation statistics.
       description: >-
-        Retruns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
+        Returns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
       operationId: getYearlyStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
@@ -1681,7 +1680,7 @@ paths:
       summary: >-
         Get current organisation statistics based on gorup id.
       description: >-
-        Retruns current live statistics for the organisation. These data are coming from the last report of omavire and the distributed wellness data are coming based on the last 14 weeks time frame.
+        Returns current live statistics for the organisation. These data are coming from the last report of omavire and the distributed wellness data are coming based on the last 14 weeks time frame.
       operationId: getGroupOmaVireStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
@@ -1724,7 +1723,7 @@ paths:
       summary: >-
         Get current organisation statistics based on year selection under a selected group.
       description: >-
-        Retruns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
+        Returns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
       operationId: getGroupYearlyStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
@@ -1767,7 +1766,7 @@ paths:
       summary: >-
         Get user list in excel those who have already gave the consent and reached atleast second level of wellbeing breakdown.
       description: >-
-        Retruns excel file containing user's first name, last name, score and consent declarations.
+        Returns excel file containing user's first name, last name, score and consent declarations.
       operationId: getExportUserList
       parameters:
         - $ref: '#/components/parameters/organisation_id'
