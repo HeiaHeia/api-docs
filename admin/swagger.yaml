@@ -10,6 +10,9 @@ info:
   description: |
     This document describes how to use the HeiaHeia Admin API.
     
+    If you are only interested in fetching Luotaamo reports data, please see the simplified version here:
+    https://heiaheia.github.io/luotaamo-reports-api-docs/#introduction-to-luotaamo-api
+
     Authentication
     ==============
     
@@ -5765,6 +5768,16 @@ components:
             accessed. Once this is `true` the report can no longer be
             re-generated via the API.
           example: true
+        sub_report:
+          type: boolean
+          description: >-
+            Whether or not the report data is filtered with business id (OrganisationCompanyTag)
+          example: true
+        sub_report_business_id:
+          type: string
+          description: >-
+            Business id (OrganisationCompanyTag) for which this instance is a report for.
+          example: "123123-1"
         first_viewed_at:
           type: string
           format: dateTime
