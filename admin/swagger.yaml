@@ -1549,7 +1549,217 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrganisationStats'
+                $ref: '#/components/schemas/OrganisationUsageStats'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/stats/omavire_stats':
+    get:
+      tags:
+        - statistics
+      summary: >-
+        Get current organisation statistics.
+      description: >-
+        Retruns current live statistics for the organisation. These data are coming from the last report of omavire and the distributed wellness data are coming based on the last 14 weeks time frame.
+      operationId: getOmaVireStatistics
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Statistics successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationOmaVireStats'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable' 
+  '/admin/v1/documents/organisations/{organisation_id}/stats/yearly_stats':
+    get:
+      tags:
+        - statistics
+      summary: >-
+        Get current organisation statistics.
+      description: >-
+        Retruns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
+      operationId: getYearlyStatistics
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/year'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Statistics successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationYearlyStats'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'  
+  '/admin/v1/documents/organisations/{organisation_id}/stats/group_omavire_stats':
+    get:
+      tags:
+        - statistics
+      summary: >-
+        Get current organisation statistics based on gorup id.
+      description: >-
+        Retruns current live statistics for the organisation. These data are coming from the last report of omavire and the distributed wellness data are coming based on the last 14 weeks time frame.
+      operationId: getGroupOmaVireStatistics
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/group_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Statistics successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationOmaVireStats'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable' 
+  '/admin/v1/documents/organisations/{organisation_id}/stats/group_yearly_stats':
+    get:
+      tags:
+        - statistics
+      summary: >-
+        Get current organisation statistics based on year selection under a selected group.
+      description: >-
+        Retruns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
+      operationId: getGroupYearlyStatistics
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/group_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Statistics successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationYearlyStats'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/stats/export_user_list':
+    get:
+      tags:
+        - statistics
+      summary: >-
+        Get user list in excel those who have already gave the consent and reached atleast second level of wellbeing breakdown.
+      description: >-
+        Retruns excel file containing user's first name, last name, score and consent declarations.
+      operationId: getExportUserList
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/group_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Excel exported successfully
         '400':
           description: >-
             Request was invalid. `error` can be any of:
@@ -1620,6 +1830,7 @@ paths:
       operationId: addTag
       parameters:
         - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/include_in_team_tag_breakdown'
       requestBody:
         description: >-
           Defines attributes of the tag to add.
@@ -1712,6 +1923,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/organisation_tag_id'
+        - $ref: '#/components/parameters/include_in_team_tag_breakdown'
       requestBody:
         description: >-
           Defines new attributes for the tag.
@@ -1885,6 +2097,7 @@ paths:
       operationId: addTeam
       parameters:
         - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/include_in_team_tag_breakdown'
       requestBody:
         description: >-
           Defines attributes of the team to add. Note that for
@@ -1979,6 +2192,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/organisation_team_id'
+        - $ref: '#/components/parameters/include_in_team_tag_breakdown'
       requestBody:
         description: >-
           Defines new attributes for the team. Note that only the
@@ -3638,8 +3852,8 @@ paths:
         - $ref: '#/components/parameters/comment'
         - $ref: '#/components/parameters/filtered_groups'
       responses:
-        '200:':
-          description: Campaigns were successfully.
+        '200':
+          description: Campaigns were fetched successfully.
           content:
             application/json:
               schema:
@@ -3681,18 +3895,14 @@ paths:
         - $ref: '#/components/parameters/comment'
         - $ref: '#/components/parameters/filtered_groups'
       responses:
-        '200: adaptive':
-          description: Adaptive Campaign has been created successfully.
+        '200':
+          description: Adaptive/Team race Campaign has been created successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
-        '200: team_race':
-          description: TeamRace Campaign has been created successfully.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'        
+                oneOf:
+                  - $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+                  - $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'
         '400':
           description: Invalid request
           content:
@@ -3783,18 +3993,14 @@ paths:
             schema:
               example: { id: campaign.id, participant: 500, start_date: "2018-12-12", period: 12, level: 1, comment: "campaign has been  updated"}
       responses:
-        '200: adaptive':
-          description: Adaptive Campaign has been created successfully.
+        '200':
+          description: Campaign has been created successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
-        '200: team_race':
-          description: TeamRace Campaign has been created successfully.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'
+                oneOf:
+                  - $ref: '#/components/schemas/ListOrganisationTargetAdaptiveResponse'
+                  - $ref: '#/components/schemas/ListOrganisationTargetTeamRaceResponse'
         '400':
           description: >-
             Request was invalid. `error` can be any of:
@@ -3874,18 +4080,140 @@ paths:
         - $ref: '#/components/parameters/organisation_id'
         - $ref: '#/components/parameters/campaign_id'
       responses:
-        '200-adaptive':
+        '200':
           description: Campaign statistics were fetched successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListCampaignStatisticsAdaptiveResponse'
-        '200-team_race':
-          description: Campaign statistics were fetched successfully.
+                oneOf:
+                  - $ref: '#/components/schemas/ListCampaignStatisticsAdaptiveResponse'
+                  - $ref: '#/components/schemas/ListCampaignStatisticsTeamRaceResponse'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListCampaignStatisticsTeamRaceResponse'        
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}/members_by_steps':
+    get:
+      tags:
+        - campaigns
+      summary: >-
+        export member list by steps from campaign statistics data for requested campaign id and it will caontain only first name and last name of each member. For team race, it will response memberlist alongside of team names.
+      operationId: exportStepsMemberListToExcel
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+      responses:
+        '200':
+          description: Member list were fetched successfully.
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}/members_by_exercise':
+    get:
+      tags:
+        - campaigns
+      summary: >-
+        export member list by exercise from campaign statistics data for requested campaign id and it will caontain only first name and last name of each member. For team race, it will response memberlist alongside of team names.
+      operationId: exportExerciseMemberListToExcel
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+      responses:
+        '200':
+          description: Member list were fetched successfully.
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or 
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Scheduled survey not found. `error` can be any of:
+            `scheduled_survey_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/campaigns/{id}/members_by_personal_target':
+    get:
+      tags:
+        - campaigns
+      summary: >-
+        export member list by personal target from campaign statistics data for requested campaign id and it will caontain only first name and last name of each member. For team race, it will response memberlist alongside of team names.
+      operationId: exportPersonalTargetMemberListToExcel
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/campaign_id'
+      responses:
+        '200':
+          description: Member list were fetched successfully.
         '400':
           description: >-
             Request was invalid. `error` can be any of:
@@ -5176,46 +5504,6 @@ components:
             Number of items in the response. The API currently always
             returns all results so this field is redundant and only
             returned for the sake of consistency.
-    OrganisationStats:
-      type: object
-      description: >-
-        Current statistics for an organisation.
-      properties:
-        usage:
-          $ref: '#/components/schemas/OrganisationUsageStats'
-        wellbeing_level:
-          $ref: '#/components/schemas/OrganisationWellbeingLevel'
-        top_wellness_entry:
-          type: array
-          example: [{amount: 5, name: {"en": "title"}}, {amount: 4, name: {"en": "title" }}]
-          items:
-            type: object
-        top_sports:
-          type: array
-          example: [{name: { "en": "name" }, amount: 5, duration: 144000, duration_in_unit: "40h", distance_in_unit: "0 km", distance: 0, icon_url: "icon_url", planned_icon_url: "planned_icon_url" }]
-          items:
-            type: object
-        exercise:
-          type: object
-          example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_distance_in_unit: "200 km", total_duration_in_unit: "10h"}
-        steps:
-          type: object
-          example: {average: 888.0, amount_of_users: 1, users: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000}  
-        total_cheers:
-          type: object
-          example: {cheers_amount: 888.0, user: [{first_name: "first_name", last_name: "last_name"}], total_steps: 100000} 
-        pv_average_friends:
-          type: integer
-          format: int32
-          example: 848484
-        started_program:
-          type: integer
-          format: int32
-          example: 848484 
-        connected_wearables:
-          type: integer
-          format: int32
-          example: 4   
     OrganisationUsageStats:
       type: object
       description: >-
@@ -5267,6 +5555,48 @@ components:
             joins new organisation the user's old HeiaHeia use does not
             affect the counter.
           example: 314
+    OrganisationOmaVireStats:
+      type: object
+      description: >-
+        The data should fetch from last oma vire report.It includes average vire results and average results based on oma vire survey categories.
+      properties:
+        average_vire:
+          type: object
+          items:
+            type: object
+          description: >-
+            This attribute includes last seven(7) results from the latest report. It should include avg_motivation and survey_created_date.
+          example:
+                    { "0": [{ "avg_motivation": 53, "survey_created_date": "01-12-2018" }],
+                      "1": [{ "avg_motivation": 51, "survey_created_date": "08-08-2018" }],
+                      "2": [{ "avg_motivation": 48, "survey_created_date": "06-06-2018" }]
+                    }
+        distributed_average_vire:
+          type: object
+          items: 
+            type: object
+          description: >-
+            This attribute also includes last seven(7) results from the latest report. It should include the distributed results.
+          example: 
+                  {
+                    "Attitude": [4.1, 4.4, 3.9], "Energy": [3.8, 3.7, 3.3], "Exercise": [3.4, 3.0, 2.3],
+                    "Goals": [3.9, 3.6, 3.0], "Nutrition": [4.1, 3.7, 4.6], "Sleep": [3.7, 3.5, 3.7],
+                    "Social life": [3.2, 3.4, 3.0]
+                  }
+        wellbeing_level:
+          $ref: '#/components/schemas/OrganisationWellbeingLevel' 
+    OrganisationYearlyStats:
+      type: object
+      description: >-
+        The data should fetch based on current year by default. Can be able to fetch data based omn selected year from client.
+      properties:
+        average_vire:
+          type: object
+          items:
+            type: object
+          description: >-
+            This attribute selected yealry data.
+          example: { "total_wellbeing_scores": 49, "total_distance": { "total_distance": 200000, "total_distance_in_unit": "200 km" }, "total_duration": { "total_duration": 280800, "total_duration_in_unit": "78h" }, "total_steps": 520000 }
     OrganisationWellbeingLevel:
       type: object
       description: >-
@@ -5278,21 +5608,21 @@ components:
             type: object
           description: >-
             Top sources of points with wellbeing distribution.
-          example: [{key: "exercise", amount: 10}, {key: "wellness_entries", amount: 9}]
+          example: [{"key": "exercise", "amount": 10}, {"key": "wellness_entries", "amount": 9}]
         score_level_breakdown:
           type: object
           items: 
             type: object
           description: >-
             Wellbeing Level breakdown based on points.
-          example: {level_5: {title: "wellbeing champion", range: "1000 - 10000 pt", amount: 2}}
+          example: {"level_5": {"title": "wellbeing champion", "range": "1000 - 10000 pt", "amount": 2}}
         users_by_second_level:
           type: object
           items: 
             type: object
           description: >-
             Wellbeing Level breakdown based on points.
-          example: {amount: 1, users: [{first_name: "first_name", last_name: "last_name"}]}
+          example: {"amount": 1, "users": [{"first_name": "first_name", "last_name": "last_name"}]}
         total_points:
           type: integer
           format: int64
@@ -6408,6 +6738,24 @@ components:
       schema:
         type: integer
         format: int32
+    year:
+      name: year
+      in: path
+      required: true
+      description: Year should a string or integer for example 2019 or "2019"
+      schema:
+        type: integer
+        format: int32 
+        example: 2019 
+    group_id:
+        name: group_id
+        in: path
+        required: true
+        description: group_id should a string or integer for example 122221 or "2222121"
+        schema:
+          type: integer
+          format: int32 
+          example: 123123    
     query_organisation_id:
       name: organisation_id
       in: query
@@ -6487,6 +6835,18 @@ components:
       schema:
         type: boolean
         default: false
+    include_in_team_tag_breakdown:
+      name: include_in_team_tag_breakdown
+      in: query
+      description: >-
+        Defines whether or not this tag should be included in tag
+        the report data breakdown for teams that also have breakdown
+        enabled and have members with this tag. The value may be
+        `null` to indicate that it has not yet been decided whether
+        this tag should be included in breakdown or not.
+      schema:
+        type: boolean
+        default: false    
     page:
       name: page
       in: query
