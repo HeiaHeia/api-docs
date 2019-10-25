@@ -4834,6 +4834,18 @@ components:
           description: >-
             One of three values to indicate small (20), medium (50)
             or large (10000) organisation
+        multi_business_id:
+          type: boolean
+          example: true
+          description: >-
+            If this flag is set to true, the organisation has multiple business id feature enabled. The business ids are defined in multi_business_ids property (OrganisationCompanyTags)
+        multi_business_ids:
+          type: array
+          items:
+            type: string
+            example: "123123-1"
+          description: >-
+            Contains all business ids inside this organisation (OrganisationCompanyTags)
         su_access:
           type: boolean
           example: false
