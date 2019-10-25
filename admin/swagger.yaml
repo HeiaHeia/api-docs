@@ -5703,6 +5703,27 @@ components:
                 should be included in breakdown or not.
             parent:
               $ref: '#/components/schemas/CompactOrganisationTeam'
+    OrganisationCompanyTag:
+      description: >-
+        Used to describe company hierarchy in organisation (business ids). In order to set these, the organisation must have the feature flag for multiple business ids enabled. These can have parents, but that functionality is not used for anything at the moment.
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        name:
+          type: string
+          example: "123123-1"
+          description: >-
+            Single business id.
+        description:
+          type: string
+          example: "Company Name"
+          description: >-
+            Optional description of the business id, eg. company name. Used in the UI to make it easier to see which company this business id links to.
+        parent:
+          $ref: '#/components/schemas/OrganisationCompanyTag'
     OrganisationSurveyReport:
       description: >-
         Organisation report metadata. Actual report data is accessible via
