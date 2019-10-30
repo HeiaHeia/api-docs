@@ -206,6 +206,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/compact'
       security:
@@ -2664,6 +2665,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -2711,6 +2713,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -2758,6 +2761,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -2811,6 +2815,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -2864,6 +2869,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -2917,6 +2923,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -2970,6 +2977,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -3025,6 +3033,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -3081,6 +3090,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -3138,6 +3148,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -3193,6 +3204,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -3247,6 +3259,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -3300,6 +3313,7 @@ paths:
         - $ref: '#/components/parameters/filter_membership_ids'
         - $ref: '#/components/parameters/filter_team_ids'
         - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
         - $ref: '#/components/parameters/filter_search'
         - $ref: '#/components/parameters/filter_no_filters'
       responses:
@@ -7004,7 +7018,7 @@ components:
       in: query
       description: >-
         Identifiers of the tags whose members are being accessed.
-        This is additive between tags and teams.
+        This is additive between teams, tags and company tags.
       schema:
         type: array
         example: 61056,61068
@@ -7016,7 +7030,19 @@ components:
       in: query
       description: >-
         Identifiers of the teams whose members are being accessed.
-        This is additive between teams and tags.
+        This is additive between teams, tags and company tags.
+      schema:
+        type: array
+        example: 52045263,52045266
+        items:
+          type: integer
+          format: int64
+    filter_company_tag_ids:
+      name: company_tag_ids
+      in: query
+      description: >-
+        Identifiers of the company tags (=business ids) whose members are being accessed.
+        This is additive between teams, tags and company tags.
       schema:
         type: array
         example: 52045263,52045266
