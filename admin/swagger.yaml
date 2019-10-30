@@ -2066,6 +2066,273 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/company_tags':
+    get:
+      tags:
+        - company_tags
+      summary: List all company tags for given organisation
+      operationId: listCompanyTags
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/total_required'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/compact'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Company tags were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationCompanyTagsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    post:
+      tags:
+        - company_tags
+      summary: >-
+        Add a new company tag to an organisation.
+      operationId: addCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/include_in_team_tag_breakdown'
+      requestBody:
+        description: >-
+          Defines attributes of the company tag to add.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationCompanyTag'
+      responses:
+        '200':
+          description: Company Tag was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationCompanyTag'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `company_tag_already_exists`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/company_tags/{company_tag_id}':
+    get:
+      tags:
+        - company_tags
+      summary: Return details for a specific company tag
+      operationId: showCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/company_tag_id'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Company tag was successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationCompanyTag'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Tag not found. `error` can be any of: `company_tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    put:
+      tags:
+        - company_tags
+      summary: >-
+        Update an existing company tag.
+      operationId: updateCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/company_tag_id'
+        - $ref: '#/components/parameters/include_in_team_tag_breakdown'
+      requestBody:
+        description: >-
+          Defines new attributes for the company tag.
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/OrganisationCompanyTag'
+      responses:
+        '200':
+          description: Company Tag was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationCompanyTag'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Company tag not found. `error` can be any of: `company_tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+    delete:
+      tags:
+        - company_tags
+      summary: Remove a company tag from the system
+      operationId: deleteCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/company_tag_id'
+      responses:
+        '204':
+          description: Company tag was successfully removed
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation. `error` can
+            be any of: `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Company tag not found. `error` can be any of: `company_tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/documents/organisations/{organisation_id}/company_tags/search':
+    get:
+      tags:
+        - company_tags
+      summary: Search company tags
+      operationId: searchCompanyTags
+      parameters:
+        - $ref: '#/components/parameters/organisation_id'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
+      security:
+        - admin_api_auth:
+            - admin_api
+            - read_only_admin_api
+      responses:
+        '200':
+          description: Company Tags were successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrganisationCompanyTagsResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/teams':
     get:
       tags:
@@ -5068,6 +5335,27 @@ components:
         name:
           type: string
           example: Accounting
+    CompactOrganisationCompanyTag:
+      type: object
+      description: >-
+        Compact representation of a company tag within an organisation.
+        Compact organisation company tags are used in API calls that do not directly
+        manage the company tags themselves to make the responses smaller.
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3205492853
+        name:
+          type: string
+          example: "123123-1"
+          description: >-
+            Single business id.
+        description:
+          type: string
+          example: "Company Name"
+          description: >-
+            Optional description of the business id, eg. company name. Used in the UI to make it easier to see which company this business id links to.
     CompactSurvey:
       type: object
       description: >-
@@ -5840,24 +6128,17 @@ components:
     OrganisationCompanyTag:
       description: >-
         Used to describe company hierarchy in organisation (business ids). In order to set these, the organisation must have the feature flag for multiple business ids enabled. These can have parents, but that functionality is not used for anything at the moment.
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 3205492853
-        name:
-          type: string
-          example: "123123-1"
-          description: >-
-            Single business id.
-        description:
-          type: string
-          example: "Company Name"
-          description: >-
-            Optional description of the business id, eg. company name. Used in the UI to make it easier to see which company this business id links to.
-        parent:
-          $ref: '#/components/schemas/OrganisationCompanyTag'
+      allOf:
+        - $ref: '#/components/schemas/CompactOrganisationTeam'
+        - type: object
+          properties:
+            description:
+              type: string
+              example: "Company Name"
+              description: >-
+                Optional description of the business id, eg. company name. Used in the UI to make it easier to see which company this business id links to.
+            parent:
+              $ref: '#/components/schemas/CompactOrganisationCompanyTag'
     OrganisationSurveyReport:
       description: >-
         Organisation report metadata. Actual report data is accessible via
@@ -6088,6 +6369,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/OrganisationTag'
+    ListOrganisationCompanyTagsResponse:
+      allOf:
+        - $ref: '#/components/schemas/ListResponse'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganisationCompanyTag'
     ListOrganisationTeamsResponse:
       allOf:
         - $ref: '#/components/schemas/ListResponse'
@@ -6975,6 +7265,14 @@ components:
       schema:
         type: integer
         format: int64
+    company_tag_id:
+      name: company_tag_id
+      in: path
+      required: true
+      description: Identifier of the tag being accessed
+      schema:
+        type: integer
+        format: int32
     scheduled_survey_id:
       name: survey_id
       in: path
