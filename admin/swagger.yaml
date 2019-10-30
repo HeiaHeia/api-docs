@@ -9,24 +9,24 @@ servers:
 info:
   description: |
     This document describes how to use the HeiaHeia Admin API.
-    
+
     If you are only interested in fetching Luotaamo reports data, please see the simplified version [here](https://heiaheia.github.io/luotaamo-reports-api-docs/#introduction-to-luotaamo-api).
 
     Authentication
     ==============
-    
+
     For basic resource owner flow one needs to start by making a call to the
     `/oauth/token` resource:
-    
+
     `POST /oauth/token?username=foo@example.com&password=bar&client_id=id&client_secret=secret`
-    
+
     The server responds with a JSON object containing, among other things,
     the access token:
-    
+
     `{"access_token": "secret_token"}`
-    
-    Also response contains header `Content-Language` with user's language. 
-    
+
+    Also response contains header `Content-Language` with user's language.
+
     For any subsequent calls the access token must be passed either as a
     query parameter (`access_token=secret_token`) or as a header
     (`Authorization: Bearer secret_token`).
@@ -43,7 +43,7 @@ tags:
     description: Operations for managing organisations
   - name: memberships
     description: >-
-      Operations for managing user accounts / user memberships in 
+      Operations for managing user accounts / user memberships in
       organisation
   - name: scheduled surveys
     description: Operations for managing scheduled surveys
@@ -81,7 +81,7 @@ tags:
       Operations for campaign under organisation.
   - name: megaphones
     description: >-
-      Operations for meghaphones under organisation. 
+      Operations for meghaphones under organisation.
   - name: reports
     description: >-
       Operations for accessing and sharing reports. These API calls
@@ -174,7 +174,7 @@ paths:
                 $ref: '#/components/schemas/Organisation'
         '400':
           description: >-
-            Request was invalid. `error` can be any of: 
+            Request was invalid. `error` can be any of:
             `invalid_param`'
           content:
             application/json:
@@ -279,7 +279,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -374,7 +374,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -517,7 +517,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -613,7 +613,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -810,7 +810,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -960,7 +960,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -1182,7 +1182,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -1387,7 +1387,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -1463,7 +1463,7 @@ paths:
         Get Parempi Vire "Test your energy levels" survey results.
       description: |
         Returns survey results based on current database state.
-        
+
         This API should be used to obtain data right after desired date
         range has become available and the results stored offline.
         While the API allows getting results from any point in history,
@@ -1473,7 +1473,7 @@ paths:
         from the system and the results are generated based on the
         current system state, not the state that existed at the end
         of the given date range.
-        
+
         The participant count in the generated data is the number of
         answers plus the number of planned (unanswered) surveys within
         the date range. If the range is longer than the period at which
@@ -1630,7 +1630,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable' 
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/stats/yearly_stats':
     get:
       tags:
@@ -1638,7 +1638,7 @@ paths:
       summary: >-
         Get current organisation statistics.
       description: >-
-        Returns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
+        Returns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data.
       operationId: getYearlyStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
@@ -1673,7 +1673,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable'  
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/stats/group_omavire_stats':
     get:
       tags:
@@ -1716,7 +1716,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable' 
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/stats/group_yearly_stats':
     get:
       tags:
@@ -1724,7 +1724,7 @@ paths:
       summary: >-
         Get current organisation statistics based on year selection under a selected group.
       description: >-
-        Returns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data. 
+        Returns current live statistics for the organisation. By default, the data should be based on current year but next, it would be possible to return selected yealry data.
       operationId: getGroupYearlyStatistics
       parameters:
         - $ref: '#/components/parameters/organisation_id'
@@ -1877,7 +1877,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -1970,7 +1970,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2024,7 +2024,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
-  '/admin/v1/documents/organisations/{organisation_id}/tags/search':          
+  '/admin/v1/documents/organisations/{organisation_id}/tags/search':
     get:
       tags:
         - tags
@@ -2065,7 +2065,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable'     
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/teams':
     get:
       tags:
@@ -2146,7 +2146,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2242,7 +2242,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2314,7 +2314,7 @@ paths:
           'image/png':
             schema:
               type: string
-              format: binary        
+              format: binary
           'image/jpeg':
             schema:
               type: string
@@ -2395,7 +2395,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
           $ref: '#/components/responses/ServerNotAvailable'
-  '/admin/v1/documents/organisations/{organisation_id}/teams/search':          
+  '/admin/v1/documents/organisations/{organisation_id}/teams/search':
     get:
       tags:
         - teams
@@ -2436,7 +2436,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable' 
+          $ref: '#/components/responses/ServerNotAvailable'
   '/admin/v1/documents/organisations/{organisation_id}/updates':
     get:
       tags:
@@ -2579,7 +2579,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2687,7 +2687,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2735,7 +2735,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2783,7 +2783,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2837,7 +2837,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2891,7 +2891,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2945,7 +2945,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -2999,7 +2999,109 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
+  '/admin/v1/control/actions/memberships/add_company_tag':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Add company tag for user(s).
+      description: >-
+        Finds all users matching given filter conditions and adds
+        given company tag (business id) for them.
+        Users who already have the company tag are unaffected.
+      operationId: massAddCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: company_tag_id
+          in: query
+          example: 520211
+          description: Note that this is not the business id, but the ID for the company tag
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/remove_company_tag':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Remove company tag from user(s).
+      description: >-
+        Finds all users matching given filter conditions and removes
+        given company tag (business id) from them.
+        Users who don't currently have the tag are unaffected.
+      operationId: massRemoveCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: company_tag_id
+          in: query
+          example: 520211
+          required: true
+          description: Note that this is not the business id, but the ID for the company tag
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3056,7 +3158,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3113,7 +3215,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3171,7 +3273,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3227,7 +3329,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3281,7 +3383,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3335,7 +3437,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3406,7 +3508,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3553,7 +3655,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3644,7 +3746,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -3983,7 +4085,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4045,7 +4147,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4132,7 +4234,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4174,7 +4276,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4216,7 +4318,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4258,7 +4360,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4383,7 +4485,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4444,7 +4546,7 @@ paths:
           $ref: '#/components/responses/MissingAuthorization'
         '403':
           description: >-
-            Not authorized to perform this API operation or 
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
@@ -4520,14 +4622,14 @@ paths:
         - name: locale
           in: query
           description: >-
-            Only return excel file of one survey report in english by default. You can use locale = "fi" for example to get report in Finnish. 
+            Only return excel file of one survey report in english by default. You can use locale = "fi" for example to get report in Finnish.
           schema:
             type: string
         - name: team_ids
           in: query
-          description: >- 
+          description: >-
             Return excel file of one survey report only for required teams and tags
-          schema: 
+          schema:
             type: array
             items:
               type: string
@@ -4537,7 +4639,7 @@ paths:
             Return excel file of one survey report only for required teams and tags
           schema:
             type: array
-            items: 
+            items:
               type: string
       responses:
         '200':
@@ -4564,7 +4666,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '503':
-          $ref: '#/components/responses/ServerNotAvailable'  
+          $ref: '#/components/responses/ServerNotAvailable'
   '/reports/v1/documents/reports/{id}':
     get:
       tags:
@@ -4625,7 +4727,7 @@ paths:
         required: true
         description: >-
           For `teams`, `tags` and `filter_tags` only the `id`
-          property of the objects is required/processed. To regenerate,`force` need to be added with body as an extra param to be `true`.  
+          property of the objects is required/processed. To regenerate,`force` need to be added with body as an extra param to be `true`.
         content:
           application/json:
             schema:
@@ -5617,18 +5719,18 @@ components:
                     }
         distributed_average_vire:
           type: object
-          items: 
+          items:
             type: object
           description: >-
             This attribute also includes last seven(7) results from the latest report. It should include the distributed results.
-          example: 
+          example:
                   {
                     "Attitude": [4.1, 4.4, 3.9], "Energy": [3.8, 3.7, 3.3], "Exercise": [3.4, 3.0, 2.3],
                     "Goals": [3.9, 3.6, 3.0], "Nutrition": [4.1, 3.7, 4.6], "Sleep": [3.7, 3.5, 3.7],
                     "Social life": [3.2, 3.4, 3.0]
                   }
         wellbeing_level:
-          $ref: '#/components/schemas/OrganisationWellbeingLevel' 
+          $ref: '#/components/schemas/OrganisationWellbeingLevel'
     OrganisationYearlyStats:
       type: object
       description: >-
@@ -5655,14 +5757,14 @@ components:
           example: [{"key": "exercise", "amount": 10}, {"key": "wellness_entries", "amount": 9}]
         score_level_breakdown:
           type: object
-          items: 
+          items:
             type: object
           description: >-
             Wellbeing Level breakdown based on points.
           example: {"level_5": {"title": "wellbeing champion", "range": "1000 - 10000 pt", "amount": 2}}
         users_by_second_level:
           type: object
-          items: 
+          items:
             type: object
           description: >-
             Wellbeing Level breakdown based on points.
@@ -6049,7 +6151,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/OrganisationTargetAdaptiveMetaData'
-    ListOrganisationMegaphoneResponses:            
+    ListOrganisationMegaphoneResponses:
       allOf:
         - $ref: '#/components/schemas/ListResponse'
         - type: object
@@ -6069,7 +6171,7 @@ components:
         - $ref: '#/components/schemas/CampaignStatisticsAdaptiveMetaData'
     ListCampaignStatisticsTeamRaceResponse:
       allOf:
-        - $ref: '#/components/schemas/CampaignStatisticsTeamRaceMetaData'    
+        - $ref: '#/components/schemas/CampaignStatisticsTeamRaceMetaData'
     ListOrganisationMegaphoneResponse:
       allOf:
         - $ref: '#/components/schemas/OrganisationMegaphoneMetaData'
@@ -6536,7 +6638,7 @@ components:
         stats_id:
           type: integer
           format: int64
-          example: 3205492853  
+          example: 3205492853
         comment:
           type: string
           example: "Pew! I am a comment"
@@ -6665,8 +6767,8 @@ components:
           example: { amount: "< 5", average: 12600.0, insufficient_data: true, insufficient_data_reason: "too_few_data" }
         total_steps:
           type: object
-          example: { amount: "< 5", average: 3211.7346938775513, insufficient_data: true, insufficient_data_reason: "too_few_data" }  
-    CampaignStatisticsTeamRaceMetaData:   
+          example: { amount: "< 5", average: 3211.7346938775513, insufficient_data: true, insufficient_data_reason: "too_few_data" }
+    CampaignStatisticsTeamRaceMetaData:
       type: object
       description: >-
         Defines Organisation target of attributes for team-race-campaign statistics.
@@ -6790,7 +6892,7 @@ components:
         user_id:
           type: integer
           format: int64
-          example: 3205492853 
+          example: 3205492853
         group_id:
           type: integer
           format: int64
@@ -6820,8 +6922,8 @@ components:
       description: Year should a string or integer for example 2019 or "2019"
       schema:
         type: integer
-        format: int32 
-        example: 2019 
+        format: int32
+        example: 2019
     group_id:
         name: group_id
         in: path
@@ -6829,8 +6931,8 @@ components:
         description: group_id should a string or integer for example 122221 or "2222121"
         schema:
           type: integer
-          format: int32 
-          example: 123123    
+          format: int32
+          example: 123123
     query_organisation_id:
       name: organisation_id
       in: query
@@ -6921,7 +7023,7 @@ components:
         this tag should be included in breakdown or not.
       schema:
         type: boolean
-        default: false    
+        default: false
     page:
       name: page
       in: query
@@ -6953,7 +7055,7 @@ components:
         example: 61056,61068
         items:
           type: integer
-          format: int64 
+          format: int64
     team_ids:
       name: team_ids
       in: path
@@ -6965,7 +7067,7 @@ components:
         example: 61056,61068
         items:
           type: integer
-          format: int64 
+          format: int64
     per_page:
       name: per_page
       in: query
@@ -7075,7 +7177,7 @@ components:
       in: query
       description: >-
         `adaptive only` This parameter must be provided and set to any integer value.
-        This is intended to create campaign for those participant 
+        This is intended to create campaign for those participant
       schema:
         type: integer
         example: 400
@@ -7083,7 +7185,7 @@ components:
       name: start_date
       in: query
       description: >-
-        `common` This parameter must be provided and set to date in DateTime format. 
+        `common` This parameter must be provided and set to date in DateTime format.
         If the date doesn't belongs to Monday, it will autonatically select the date of nearest Monday.
         The response will be based on the modified date.
       schema:
@@ -7094,8 +7196,8 @@ components:
       name: period
       in: query
       description: >-
-        `common` This parameter must be provided and set to `8`, `10` or `12` in integer as 
-        represent in weeks for example 8 weeks, 10 weeks or 12 weeks. 
+        `common` This parameter must be provided and set to `8`, `10` or `12` in integer as
+        represent in weeks for example 8 weeks, 10 weeks or 12 weeks.
       schema:
         type: integer
         example: 8
@@ -7103,20 +7205,20 @@ components:
       name: level
       in: query
       description: >-
-        `common` This parameter must be provided and set to `0` or `1` in integer as 
-        0 belongs to `easy` and 1 belongs to `challengigng`. 
+        `common` This parameter must be provided and set to `0` or `1` in integer as
+        0 belongs to `easy` and 1 belongs to `challengigng`.
       schema:
         type: integer
-        example: 0 
+        example: 0
     target_amount:
       name: target_amount
       in: query
       description: >-
-        `adaptive only` This parameter must be provided and client will calculate the amount based on 
-        campaign types, period and participant following predefined algorithm. 
+        `adaptive only` This parameter must be provided and client will calculate the amount based on
+        campaign types, period and participant following predefined algorithm.
       schema:
         type: integer
-        example: 300 
+        example: 300
     comment:
       name: comment
       in: query
@@ -7124,7 +7226,7 @@ components:
         `common` This parameter must be provided and client can assume the campaign title as comment.
       schema:
         type: string
-        example: "Hello pew!I am the body" 
+        example: "Hello pew!I am the body"
     filtered_groups:
       name: filtered_groups
       in: query
@@ -7152,7 +7254,7 @@ components:
         This should be the megaphone id of selected megaphone.
       schema:
         type: integer
-        example: 1213123    
+        example: 1213123
   securitySchemes:
     admin_api_auth:
       type: oauth2
