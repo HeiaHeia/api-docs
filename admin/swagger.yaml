@@ -3000,6 +3000,108 @@ paths:
         '403':
           description: >-
             Not authorized to perform this API operation or 
+  '/admin/v1/control/actions/memberships/add_company_tag':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Add company tag for user(s).
+      description: >-
+        Finds all users matching given filter conditions and adds
+        given company tag (business id) for them.
+        Users who already have the company tag are unaffected.
+      operationId: massAddCompanyTag
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: company_tag_id
+          in: query
+          example: 520211
+          description: Note that this is not the business id, but the ID for the company tag
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`, `tag_not_found`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
+            organisation not found. `error` can be any of:
+            `no_org_access`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          $ref: '#/components/responses/ServerNotAvailable'
+  '/admin/v1/control/actions/memberships/remove_company_tag':
+    post:
+      tags:
+        - membership mass actions
+      summary: >-
+        Remove company tag from user(s).
+      description: >-
+        Finds all users matching given filter conditions and removes
+        given company tag (business id) from them.
+        Users who don't currently have the tag are unaffected.
+      operationId: massRemoveTag
+      parameters:
+        - $ref: '#/components/parameters/query_organisation_id'
+        - name: company_tag_id
+          in: query
+          example: 520211
+          required: true
+          description: Note that this is not the business id, but the ID for the company tag
+          schema:
+            type: integer
+            format: int32
+        - $ref: '#/components/parameters/filter_membership_ids'
+        - $ref: '#/components/parameters/filter_team_ids'
+        - $ref: '#/components/parameters/filter_tag_ids'
+        - $ref: '#/components/parameters/filter_company_tag_ids'
+        - $ref: '#/components/parameters/filter_search'
+        - $ref: '#/components/parameters/filter_no_filters'
+      responses:
+        '200':
+          description: Action was successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassAction'
+        '400':
+          description: >-
+            Request was invalid. `error` can be any of:
+            `invalid_param`, `missing_param`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/MissingAuthorization'
+        '403':
+          description: >-
+            Not authorized to perform this API operation or
             organisation not found. `error` can be any of:
             `no_org_access`
           content:
