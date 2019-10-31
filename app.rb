@@ -22,6 +22,7 @@ class App < Sinatra::Base
 
   configure :production do
     disable :dump_errors
+    enable :cross_origin
   end
 
   not_found do
