@@ -1,20 +1,12 @@
-api-docs
---------
+## api-docs
 
+---
 
-```
-$ git clone https://github.com/HeiaHeia/api-docs.git
-$ cd api-docs
-# install ruby (apt-get/yum install ruby)
-$ gem install bundler
-$ bundle install
-$ ruby app.rb
-```
+### New docs:
 
-Visit http://localhost:4567/ in browser.
+We are using static yaml files for documentation. Admin API is under `admin` folder and the V2 API in the index.
 
-URL:
-
-http://developers.heiaheia.com
+### Old docs:
 
 https://hh-api-docs.herokuapp.com
+See this repo history on how this is generated.

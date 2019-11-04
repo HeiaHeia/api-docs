@@ -1,9 +1,0 @@
-The 'TextEntry' special kind of entry that can not be cheered and commented.
-This kind of entry contain atttributes 'actor', 'description' and 'dictionary'.
-The 'actor' field is a 'CompactUser' object identifying the user who performed
-the action that resulted in the creation of this text entry.
-The 'description' attribute has special format contain embedded entries:
-<pre>{{User:3}}'s training goal ({{TrainingGoal:1}})</pre>
-<br>
-The information about embedded entries stored in 'dictionary' atrribute in format 'dictionary['kind:id']':
-<pre>{ \n \"dictionary\": {\n    \"User:3\": { \n      \"kind\": \"User\",\n      \"name\": \"Bender Bending Rodríguez\",\n      \"url\": \"https://api.heiaheia.com/v2/users/3\" \n    },\n    \"TrainingGoal:1\": {\n      \"kind\": \"TrainingGoal\",\n      \"name\": \"I’m gonna go build my own theme park, with blackjack and hookers!\",\n      \"url\": \"https://api.heiaheia.com/v2/training_goals/1\" \n    }\n  }\n}</pre>
