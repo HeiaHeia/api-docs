@@ -2,6 +2,12 @@ openapi: 3.0.1
 info:
   title: api.heiaheia.com
   version: '2'
+  description: |
+    This document describes how to use the HeiaHeia API.
+    - [Authorization](https://github.com/HeiaHeia/api-docs/blob/master/authorization.md)
+    - [Authentication](https://github.com/HeiaHeia/api-docs/blob/master/authentication.md)
+    - [Error Codes & Responses](https://github.com/HeiaHeia/api-docs/blob/master/errors-responses.md)
+    - [Date & DateTime format](https://github.com/HeiaHeia/api-docs/blob/master/date-format.md)
 servers:
   - url: 'https://api.heiaheia.com/v2'
 tags:
@@ -10000,7 +10006,7 @@ components:
         and 'dictionary'. The 'actor' field is a 'CompactUser' object
         identifying the user who performed the action that resulted in the
         creation of this text entry. The 'description' attribute has special
-        format contain embedded entries: 
+        format contain embedded entries:
       properties:
         id:
           type: integer
@@ -10008,17 +10014,17 @@ components:
         dictionary:
           type: object
           example: |
-            { 
+            {
               "dictionary": {
-                  "User:3": { 
+                  "User:3": {
                     "kind": "User",
                     "name": "Bender Bending Rodríguez",
-                    "url": "https://api.heiaheia.com/v2/users/3" 
+                    "url": "https://api.heiaheia.com/v2/users/3"
                   },
                   "TrainingGoal:1": {
                     "kind": "TrainingGoal",
                     "name": "I’m gonna go build my own theme park, with blackjack and hookers!",
-                    "url": "https://api.heiaheia.com/v2/training_goals/1" 
+                    "url": "https://api.heiaheia.com/v2/training_goals/1"
                   }
                 }
             }
