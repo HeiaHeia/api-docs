@@ -5603,10 +5603,7 @@ components:
         editable:
           type: boolean
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         latest_cheers:
@@ -5824,9 +5821,9 @@ components:
         icon_url:
           description: |-
             Example https://example.com/path/to/image/{width}.png,
-                                       {width} - possible width of image(could be 48, 64, 72, 80, 96, 120, 144, 192).
-                                       Icon can be with dimension WxW or Wx4/3*W. All sizes of icons:
-                                       48x48, 48x64, 64x64, 64x85, 72x72, 72x96, 80x80, 80x107, 96x96, 96x128, 120x120, 120x160, 144x144, 144x192, 192x192, 192x256
+             {width} - possible width of image(could be 48, 64, 72, 80, 96, 120, 144, 192).
+             Icon can be with dimension WxW or Wx4/3*W. All sizes of icons:
+             48x48, 48x64, 64x64, 64x85, 72x72, 72x96, 80x80, 80x107, 96x96, 96x128, 120x120, 120x160, 144x144, 144x192, 192x192, 192x256
           type: string
         id:
           type: integer
@@ -6448,10 +6445,7 @@ components:
         conclusion:
           type: string
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         points:
@@ -6544,10 +6538,7 @@ components:
         editable:
           type: boolean
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         latest_cheers:
@@ -6748,10 +6739,7 @@ components:
         conclusion:
           type: string
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         non_square_icon_url:
           description: >-
             (A possibly) non-square icon that should be used with surveys that
@@ -6816,10 +6804,7 @@ components:
             $ref: '#/components/schemas/SurveyFeedback'
           type: array
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         latest_cheers:
@@ -6964,10 +6949,7 @@ components:
         id:
           type: integer
         image_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         media:
           items:
             $ref: '#/components/schemas/Media'
@@ -7037,10 +7019,7 @@ components:
         editable:
           type: boolean
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                                       {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         latest_comments:
@@ -7550,10 +7529,7 @@ components:
         editable:
           type: boolean
         icon_url:
-          description: |-
-            Example https://example.com/path/to/image/{size}.png,
-                 {size} - possible size of image(could be 48x48, 64x64, 72x72, 80x80, 96x96, 120x120, 144x144, 192x192)
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         latest_cheers:
