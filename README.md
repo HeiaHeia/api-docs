@@ -1,20 +1,17 @@
-api-docs
---------
+## api-docs
 
+### Docs:
 
-```
-$ git clone https://github.com/HeiaHeia/api-docs.git
-$ cd api-docs
-# install ruby (apt-get/yum install ruby)
-$ gem install bundler
-$ bundle install
-$ ruby app.rb
-```
+We are using static yaml files for documentation with OpenAPI specification. Admin API is under `admin` folder and the V2 API in the index.
 
-Visit http://localhost:4567/ in browser.
+- [V2 HH API docs](https://heiaheia.github.io/api-docs/)
 
-URL:
+- [HH Admin API docs](https://heiaheia.github.io/api-docs/admin)
 
-http://developers.heiaheia.com
+---
 
-https://hh-api-docs.herokuapp.com
+### Old docs:
+
+[Old docs at Heroku](https://hh-api-docs.herokuapp.com)
+
+See this repo's history on how this is generated.
