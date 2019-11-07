@@ -86,13 +86,11 @@ paths:
               properties:
                 user_id:
                   description: >-
-                    The user for whom to create or fetch a conversation. Either
-                    this or group_id must be provided
+                    The user for whom to create or fetch a conversation. Either this or group_id must be provided
                   type: integer
                 group_id:
                   description: >-
-                    The group for which to create or fetch a conversation.
-                    Either this or user_id must be provided
+                    The group for which to create or fetch a conversation. Either this or user_id must be provided
                   type: integer
   /conversations/unread:
     get:
@@ -5200,6 +5198,13 @@ components:
               - date
               - sport_id
               - status
+  properties:
+    iconProperty:
+      description: |-
+        Template URL 'https://example.com/path/to/image/{size}.png',
+        where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192'].
+        Avatars also have sizes '60x60', '160x160' and '320x320'
+      type: string
   schemas:
     Answer:
       properties:
@@ -5328,10 +5333,7 @@ components:
         description:
           type: string
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         start_only_once:
@@ -5358,10 +5360,7 @@ components:
     CompactSport:
       properties:
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         key:
@@ -5369,10 +5368,7 @@ components:
         name:
           type: string
         planned_icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         url:
           type: string
       required:
@@ -5385,10 +5381,7 @@ components:
     CompactSportCategory:
       properties:
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         name:
@@ -5413,17 +5406,11 @@ components:
         description:
           type: string
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         planned_icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         recurring:
           type: boolean
         title:
@@ -5440,10 +5427,7 @@ components:
     CompactUser:
       properties:
         avatar_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         city:
           type: string
         country:
@@ -5553,10 +5537,6 @@ components:
           type: integer
       required:
         - date
-    Document:
-      required:
-        - id
-      type: object
     Feed:
       properties:
         created_at:
@@ -5675,14 +5655,10 @@ components:
       properties:
         access_type:
           description: >-
-            Defines whether the team can be joined by anyone, membership needs
-            to be requested, or the team is invite only
+            Defines whether the team can be joined by anyone, membership needs to be requested, or the team is invite only
           type: string
         avatar_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         description:
           type: string
         id:
@@ -5798,7 +5774,6 @@ components:
             - $ref: '#/components/schemas/CompactProgram'
             - $ref: '#/components/schemas/Survey'
             - $ref: '#/components/schemas/Video'
-            - $ref: '#/components/schemas/Document'
             - $ref: '#/components/schemas/TrainingLog'
             - $ref: '#/components/schemas/WellnessEntry'
         folder_id:
@@ -6344,10 +6319,7 @@ components:
             $ref: '#/components/schemas/ProgramEntry'
           type: array
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         start_only_once:
@@ -6376,10 +6348,7 @@ components:
         day:
           type: integer
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         kind:
           type: string
         name:
@@ -6631,10 +6600,7 @@ components:
         exclude_stats:
           type: boolean
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         key:
@@ -6642,10 +6608,7 @@ components:
         name:
           type: string
         planned_icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         sport_params:
           items:
             $ref: '#/components/schemas/SportParam'
@@ -6665,10 +6628,7 @@ components:
     SportCategory:
       properties:
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         name:
@@ -6743,20 +6703,15 @@ components:
           type: string
         graph_options:
           description: >-
-            Graph type specific options. For graph type 'bar' this value
-            indicates how many past surveys should be included in the
-            comparison.
+            Graph type specific options. For graph type 'bar' this value indicates how many past surveys should be
+            included in the comparison.
           type: integer
         graph_type:
           description: >-
-            Type of historical comparison to show for this survey. Unsupported
-            graph types must be ignored.
+            Type of historical comparison to show for this survey. Unsupported graph types must be ignored.
           type: string
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         max_required_programs:
@@ -6764,10 +6719,7 @@ components:
         min_required_programs:
           type: integer
         planned_icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         questions:
           items:
             $ref: '#/components/schemas/Question'
@@ -7244,10 +7196,7 @@ components:
     User:
       properties:
         avatar_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         birthday:
           format: date
           type: string
@@ -7358,9 +7307,28 @@ components:
         - id
         - scope
     Video:
+      properties:
+        description:
+          type: string
+        id:
+          type: integer
+        provider:
+          type: string
+          enum:
+            - vimeo
+            - youtube
+        title:
+          type: string
+        url:
+          type: string
+        video_id:
+          type: string
       required:
         - id
-      type: object
+        - provider
+        - title
+        - url
+        - video_id
     Wearable:
       properties:
         confirm_url:
@@ -7383,8 +7351,7 @@ components:
           type: string
         email:
           description: >-
-            Email associated with this service, if any. Only applicable when
-            connection_mechanism is 'email'.
+            Email associated with this service, if any. Only applicable when connection_mechanism is 'email'.
           type: string
         logo_url:
           description: >-
@@ -7667,10 +7634,7 @@ components:
         exclude_stats:
           type: boolean
         icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         latest_cheers:
@@ -7772,12 +7736,7 @@ components:
         description:
           type: string
         icon_url:
-          description: >-
-            Template URL 'https://example.com/path/to/image/{size}.png', where
-            '{size}' value can be from this list ['30x30', '34x34', '48x48',
-            '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192'].
-            Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         id:
           type: integer
         is_tip:
@@ -7789,10 +7748,7 @@ components:
             $ref: '#/components/schemas/WellnessParam'
           type: array
         planned_icon_url:
-          description: |-
-            Template URL 'https://example.com/path/to/image/{size}.png',
-                 where '{size}' value can be from this list ['30x30', '34x34', '48x48', '64x64, '72x72', '80x80', '96x96', '120x120', '144x144', '192x192']. Avatars also have sizes '60x60', '160x160' and '320x320'
-          type: string
+          $ref: '#/components/properties/iconProperty'
         title:
           type: string
         url:
