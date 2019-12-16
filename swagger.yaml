@@ -6375,6 +6375,8 @@ components:
           type: array
         title:
           type: string
+        description:
+          type: string
         url:
           type: string
       required:
