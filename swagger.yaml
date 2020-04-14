@@ -6078,11 +6078,15 @@ components:
           type: string
         url:
           type: string
+        kind:
+          type: string
+          enum: [company, school, club, generic_community]
       required:
         - creatable_megaphones
         - id
         - name
         - url
+        - kind
     OrganisationSurvey:
       properties:
         ends_on:
