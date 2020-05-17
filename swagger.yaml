@@ -16,6 +16,24 @@ servers:
   - url: 'http://api.hh.test'
     description: "Development"
 paths:
+  /banners:
+    get:
+      operationId: banners_index
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                items:
+                  $ref: '#/components/schemas/Banner'
+                type: array
+      summary: List of Banners 
+      tags:
+        - banners
   /cheer_types:
     get:
       description: Cheers refilled on Monday.
@@ -5224,6 +5242,27 @@ components:
         - options
         - question_id
         - title
+    Banner:
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        image_url:
+          description: >-
+            Example https://example.com/path/to/image/{resolution}.jpg, where
+            {resolution} in (640x344, 750x344, 1125x516, 1242x516)
+          type: string
+        created_at:
+          format: date-time
+          type: string
+      required:
+        - id
+        - image_url
     Cheer:
       properties:
         cheer_type:
