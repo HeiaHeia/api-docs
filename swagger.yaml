@@ -7396,6 +7396,10 @@ components:
         status:
           description: Current connection status for this service.
           type: string
+        last_sync_time:
+          description: Last sync time with this service.
+          format: date-time
+          type: string
       required:
         - connection_mechanism
         - disconnectable
