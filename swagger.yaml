@@ -5387,6 +5387,9 @@ components:
           type: string
         url:
           type: string
+        start_type:
+          type: string
+          enum: [beginning_of_week, shift_past_entries, any_day_of_week]
       required:
         - description
         - icon_url
@@ -5396,6 +5399,7 @@ components:
         - svg_icon_url
         - title
         - url
+        - start_type
     CompactSport:
       properties:
         icon_url:
