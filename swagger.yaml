@@ -6367,6 +6367,9 @@ components:
           type: integer
         start_only_once:
           type: boolean
+        start_type:
+          type: string
+          enum: [beginning_of_week, shift_past_entries, any_day_of_week]  
         subtitle:
           type: string
         super_program:
