@@ -6369,7 +6369,7 @@ components:
           type: boolean
         start_type:
           type: string
-          enum: [beginning_of_week, shift_past_entries, any_day_of_week]  
+          enum: [beginning_of_week, shift_past_entries, any_day_of_week, dateless]
         subtitle:
           type: string
         super_program:
