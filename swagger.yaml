@@ -5377,6 +5377,8 @@ components:
           type: integer
         start_only_once:
           type: boolean
+        show_programs:
+          type: boolean
         start_type:
           type: string
           enum: [beginning_of_week, shift_past_entries, any_day_of_week]
@@ -5395,6 +5397,7 @@ components:
         - icon_url
         - id
         - start_only_once
+        - show_programs
         - super_program
         - svg_icon_url
         - title
