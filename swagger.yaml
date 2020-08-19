@@ -6454,6 +6454,14 @@ components:
           type: string
         kind:
           type: string
+          enum:
+            - bmi
+            - boolean
+            - checkbox
+            - dropdown
+            - freetext
+            - radio
+            - star
         max_required_options:
           type: integer
         min_required_options:
