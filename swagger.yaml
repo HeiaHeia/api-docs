@@ -5114,9 +5114,12 @@ components:
               program_id:
                 type: integer
               start_date:
-                description: Only monday
+                description: Depends on the start type of program
                 type: string
                 format: date
+              parent_personal_program_id:
+                type: integer
+                description: ID of the parent personal program or ID of the super personal program
             required:
               - program_id
               - start_date
