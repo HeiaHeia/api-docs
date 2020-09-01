@@ -976,6 +976,30 @@ paths:
       summary: Find library item by ID
       tags:
         - libraries
+  '/libraries/search':
+    get:
+      description: Search for content within a content library
+      operationId: libraries_items_search
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                items:
+                  $ref: '#/components/schemas/LibraryItem'
+                type: array
+      summary: Search for content within content libraries available to the current user
+      tags:
+        - libraries
   /me:
     delete:
       operationId: me_destroy
