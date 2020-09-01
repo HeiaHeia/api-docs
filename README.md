@@ -4,9 +4,9 @@
 
 We are using static yaml files for documentation with OpenAPI specification. Admin API is under `admin` folder and the V2 API in the index.
 
-- [V2 HH API docs](https://heiaheia.github.io/api-docs/)
+- [V2 HH API docs](https://heiaheia.github.io/hh-api-docs/)
 
-- [HH Admin API docs](https://heiaheia.github.io/api-docs/admin)
+- [HH Admin API docs](https://heiaheia.github.io/hh-api-docs/admin)
 
 ---
 
