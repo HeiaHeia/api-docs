@@ -5803,6 +5803,10 @@ components:
           type: string
         url:
           type: string
+        root_folders_ids:
+          type: array
+        background_image_url:
+          type: string
       required:
         - id
         - name
@@ -5815,6 +5819,8 @@ components:
           type: integer
         name:
           type: string
+        description:
+          type: string
         program_count:
           type: integer
         survey_count:
@@ -5823,6 +5829,12 @@ components:
           type: string
         video_count:
           type: integer
+        parent_folder_id:
+          type: integer
+        subfolders_ids:
+          type: array
+        background_image_url:
+          type: string
       required:
         - exercise_count
         - id
