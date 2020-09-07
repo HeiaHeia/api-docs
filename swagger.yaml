@@ -6458,6 +6458,8 @@ components:
         icon_url:
           description: SVG icon
           type: string
+        banner_url:
+          type: string
         id:
           type: integer
         programs:
@@ -6474,6 +6476,7 @@ components:
           type: string
       required:
         - icon_url
+        - banner_url
         - id
         - title
         - url
