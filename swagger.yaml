@@ -5804,6 +5804,8 @@ components:
         url:
           type: string
         root_folders_ids:
+          items:
+            type: integer
           type: array
         background_image_url:
           type: string
@@ -5832,6 +5834,8 @@ components:
         parent_folder_id:
           type: integer
         subfolders_ids:
+          items:
+            type: integer
           type: array
         background_image_url:
           type: string
