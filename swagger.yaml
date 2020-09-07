@@ -5801,6 +5801,8 @@ components:
           type: integer
         name:
           type: string
+        description:
+          type: string
         url:
           type: string
         root_folders_ids:
