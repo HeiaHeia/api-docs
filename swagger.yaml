@@ -5829,6 +5829,8 @@ components:
           type: integer
         survey_count:
           type: integer
+        workout_packages_count:
+          type: integer
         url:
           type: string
         video_count:
