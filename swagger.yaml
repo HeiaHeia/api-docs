@@ -6241,6 +6241,10 @@ components:
         kind:
           type: string
           enum: [company, school, club, generic_community]
+        team_selection_required:
+          type: boolean
+        enabled_pymk_widget:
+          type: boolean
       required:
         - creatable_megaphones
         - id
