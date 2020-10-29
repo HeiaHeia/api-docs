@@ -1719,6 +1719,72 @@ paths:
       summary: List all teams belonging to given organisation
       tags:
         - organisations
+  '/organisations/{organisation_id}/paths':
+    get:
+      operationId: organisation_paths_index
+      parameters:
+        - name: organisation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/OrganisationPathsSection'
+      summary: List of content paths to the organisation
+      tags:
+        - organisation_paths
+  '/organisations/{organisation_id}/paths/{id}':
+    get:
+      operationId: organisation_paths_show
+      parameters:
+        - name: organisation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/OrganisationPath'
+      summary: Get the organisation path
+      tags:
+        - organisation_paths
+    put:
+      operationId: organisation_paths_show
+      parameters:
+        - name: organisation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/OrganisationPath'
+      summary: Assign the organisation path for current user
+      tags:
+        - organisation_paths
   /personal_programs:
     get:
       operationId: personal_programs_index
@@ -5044,6 +5110,8 @@ tags:
     name: notifications
   - description: Organisations
     name: organisations
+  - description: OrganisationPaths
+    name: organisation_paths
   - description: Personal programs
     name: personal_programs
   - description: Places
@@ -6192,6 +6260,38 @@ components:
       required:
         - ends_on
         - started_at
+    OrganisationPath:
+      properties:
+        id:
+          type: integer
+        organisation_id:
+          type: integer
+        title:
+          type: string
+        selected:
+          type: boolean
+          description: True if current user selects this organization path.
+        mandatory_survey:
+          $ref: '#/components/schemas/CompactSurvey'
+        mandatory_program:
+          $ref: '#/components/schemas/CompactProgram'
+      required:
+        - id
+        - organisation_id
+        - title
+        - selected
+    OrganisationPathsSection:
+      properties:
+        background_image_url:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        entries:
+          items:
+            $ref: '#/components/schemas/OrganisationPath'
+          type: array
     PersonalProgram:
       properties:
         cheerable:
