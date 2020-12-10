@@ -1715,8 +1715,59 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/Group'
+                items:
+                  $ref: '#/components/schemas/Group'
+                type: array
       summary: List all teams belonging to given organisation
+      tags:
+        - organisations
+  '/organisations/{organisation_id}/teams/{id}':
+    get:
+      operationId: organisations_team_show
+      parameters:
+        - description: The ID of the organisation.
+          in: path
+          name: organisation_id
+          required: true
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Group'
+      summary: Find team belonging to a given organization
+      tags:
+        - organisations
+  '/organisations/{organisation_id}/teams/{team_id}/members':
+    get:
+      operationId: organisations_team_members_show
+      parameters:
+        - description: The ID of the organisation.
+          in: path
+          name: organisation_id
+          required: true
+          schema:
+            type: integer
+        - description: Organization team ID.
+          in: path
+          name: team_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                items:
+                  $ref: '#/components/schemas/MemberCompact'
+                type: array
+      summary: List of team members belonging to this organization
       tags:
         - organisations
   '/organisations/{organisation_id}/paths':
@@ -1763,7 +1814,7 @@ paths:
       tags:
         - organisation_paths
     put:
-      operationId: organisation_paths_show
+      operationId: organisation_paths_update
       parameters:
         - name: organisation_id
           in: path
@@ -6130,6 +6181,17 @@ components:
         - title
         - url
         - user
+    MemberCompact:
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+      required:
+        - id
+        - first_name
     Message:
       properties:
         body:
