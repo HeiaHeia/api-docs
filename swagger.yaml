@@ -7094,6 +7094,9 @@ components:
         maximum_score:
           description: The maximum score possible to obtain for this survey.
           type: integer
+        total_score:
+          description: Shows the sum of points got by the user
+          type: integer
         personal_program:
           $ref: '#/components/schemas/CompactPersonalProgram'
         previous_results:
