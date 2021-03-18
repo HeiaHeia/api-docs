@@ -4590,6 +4590,32 @@ paths:
       summary: Find summary by ID
       tags:
         - weekly_point_system_summaries
+  /weekly_exercises:
+    get:
+      operationId: weekly_exercises_show
+      parameters:
+        - description: Year for query
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+        - description: Week for query
+          in: path
+          name: week
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                  $ref: '#/components/schemas/WeeklyExercise'
+      summary: Show weekly exercises for current user
+      tags:
+         - weekly_exercises
   /weekly_summaries:
     get:
       operationId: weekly_summaries_index
@@ -7643,6 +7669,21 @@ components:
         - logo_url
         - provider
         - status
+    WeeklyExercise:
+      properties:
+        endurance_duration:
+          type: integer
+        strength_duration:
+          type: integer
+        total_exercises:
+          type: integer
+        total_duration:
+          type: integer
+      required:
+        - endurance_duration
+        - strength_duration
+        - total_duration
+        - total_exercises
     WeeklyPointSystemSummary:
       properties:
         end_date:
