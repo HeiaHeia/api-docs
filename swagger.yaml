@@ -7673,17 +7673,19 @@ components:
       properties:
         endurance_duration:
           type: integer
-        strength_duration:
+        mobility_count:
           type: integer
-        total_exercises:
+        recommended_endurance_duration:
           type: integer
-        total_duration:
+          default: 150
+        recommended_mobility_count:
           type: integer
+          default: 2
       required:
         - endurance_duration
-        - strength_duration
-        - total_duration
-        - total_exercises
+        - mobility_count
+        - recommended_endurance_duration
+        - recommended_mobility_count
     WeeklyPointSystemSummary:
       properties:
         end_date:
