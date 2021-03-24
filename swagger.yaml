@@ -3368,6 +3368,13 @@ paths:
   /training_logs/years:
     get:
       operationId: training_logs_years_index
+      parameters:
+        - description: Sport Id values that need to be considered for filter
+          in: query
+          name: sport_id
+          required: false
+          schema:
+            type: integer
       responses:
         '200':
           description: No response was specified
