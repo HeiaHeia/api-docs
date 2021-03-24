@@ -3323,7 +3323,7 @@ paths:
         - description: Status values that need to be considered for filter
           in: query
           name: status
-          required: true
+          required: false
           schema:
             type: string
             default: regular
@@ -3333,6 +3333,11 @@ paths:
           schema:
             type: string
             format: date
+        - description: Only return entries on given sport_id
+          in: query
+          name: sport_id
+          schema:
+            type: integer
         - $ref: '#/components/parameters/yearParam'
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/perPageParam'
