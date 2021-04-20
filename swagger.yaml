@@ -7844,7 +7844,7 @@ components:
           description: 'Total exercise hours for the week (not related to the target itself)'
           format: float
           type: number        
-        exercise_distance_km:
+        exercise_distance:
           description: 'Total exercise distance for the week (not related to the target itself)'
           format: float
           type: number
