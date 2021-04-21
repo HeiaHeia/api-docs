@@ -8,6 +8,7 @@ info:
     - [Authentication](https://github.com/HeiaHeia/api-docs/blob/master/authentication.md)
     - [Error Codes & Responses](https://github.com/HeiaHeia/api-docs/blob/master/errors-responses.md)
     - [Date & DateTime format](https://github.com/HeiaHeia/api-docs/blob/master/date-format.md)
+basePath: /v2
 servers:
   - url: 'https://api.heiaheia.com'
     description: "Production"
