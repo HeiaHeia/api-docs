@@ -10,11 +10,11 @@ info:
     - [Date & DateTime format](https://github.com/HeiaHeia/api-docs/blob/master/date-format.md)
 basePath: /v2
 servers:
-  - url: 'https://api.heiaheia.com'
-    description: "Production"
-  - url: 'https://api.h2hstage.com'
+  - url: 'https://api.h2hstage.com/v2'
     description: "Staging"
-  - url: 'http://api.hh.test'
+  - url: 'https://api.heiaheia.com/v2'
+    description: "Production"
+  - url: 'http://api.hh.test/v2'
     description: "Development"
 paths:
   /banners:
