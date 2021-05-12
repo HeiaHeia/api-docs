@@ -32,7 +32,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Banner'
                 type: array
-      summary: List of Banners 
+      summary: List of Banners
       tags:
         - banners
   /cheer_types:
@@ -7704,6 +7704,10 @@ components:
         - status
     WeeklyExercise:
       properties:
+        year:
+          type: integer
+        week:
+          type: integer
         endurance_duration:
           type: integer
         strength_and_mobility_count:
@@ -7856,15 +7860,15 @@ components:
           type: string
         week:
           description: 'Year and week of the target, e.g. "2015-38"'
-          type: string        
+          type: string
         exercise_count:
           description: 'Total exercise count for the week (not related to the target itself)'
           format: integer
-          type: number        
+          type: number
         exercise_duration_hours:
           description: 'Total exercise hours for the week (not related to the target itself)'
           format: float
-          type: number        
+          type: number
         exercise_distance:
           description: 'Total exercise distance for the week (not related to the target itself)'
           format: float
