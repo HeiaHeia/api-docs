@@ -4629,6 +4629,28 @@ paths:
       summary: Show weekly exercises for current user
       tags:
          - weekly_exercises
+  /weekly_exercises/{year}:
+    get:
+      operationId: weekly_exercises_year
+      parameters:
+        - description: Year for query
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            'application/json':
+              schema:
+                items:
+                  $ref: '#/components/schemas/WeeklyExercise'
+                type: array
+      summary: Show weekly exercises for current user for specific year
+      tags:
+         - weekly_exercises
   /weekly_summaries:
     get:
       operationId: weekly_summaries_index
