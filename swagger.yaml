@@ -6713,8 +6713,6 @@ components:
         - url
     Question:
       properties:
-        category:
-          type: string
         compare_to_previous_result:
           description: >-
             Compare current answer to previous answer for the same question key.
